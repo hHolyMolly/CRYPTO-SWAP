@@ -28932,18 +28932,23 @@ exports["default"] = Ratings;
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var classnames_1 = __importDefault(__webpack_require__(6942));
 var react_router_dom_1 = __webpack_require__(2648);
-var paths_1 = __importDefault(__webpack_require__(3184));
 function Template(_a) {
     var children = _a.children, className = _a.className;
     var pathname = (0, react_router_dom_1.useLocation)().pathname;
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('page-content', pathname === paths_1.default.Home && 'page-home', className), children: (0, jsx_runtime_1.jsx)("div", { className: "p-0 _container w-full flex flex-col flex-auto items-center relative z-[8]", children: children }) }));
+    return (
+    // <div
+    //   className={classNames(
+    //     'page-content',
+    //     pathname === paths.Home && 'page-home',
+    //     className
+    //   )}
+    // >
+    //   <div className="p-0 _container w-full flex flex-col flex-auto items-center relative z-[8]">{children}</div>
+    // </div>
+    (0, jsx_runtime_1.jsx)("div", { children: "asdasd" }));
 }
 exports["default"] = Template;
 
