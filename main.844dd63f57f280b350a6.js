@@ -28299,16 +28299,40 @@ exports["default"] = react_1.default.memo(Container);
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var index_1 = __webpack_require__(2482);
+var react_1 = __importDefault(__webpack_require__(6540));
 var Energy = function () {
     var user = (0, index_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var percent = 90;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: __webpack_require__(7265), width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsxs)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-[#5B4B23] [@media(min-height:500px)]:text-white\r\n          ", children: [user === null || user === void 0 ? void 0 : user.burgerEnergy, "/1000"] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percent, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
+    var _a = react_1.default.useState(null), noFullEnergy = _a[0], setNoFullEnergy = _a[1];
+    var _b = react_1.default.useState(null), burgerEnergy = _b[0], setBurgerEnergy = _b[1];
+    var maxEnergy = 1000 * (user === null || user === void 0 ? void 0 : user.burgerLevel);
+    var percentEnergy = ((user === null || user === void 0 ? void 0 : user.burgerEnergy) / maxEnergy) * 100;
+    react_1.default.useEffect(function () {
+        if (noFullEnergy && burgerEnergy !== (user === null || user === void 0 ? void 0 : user.burgerEnergy)) {
+            setTimeout(function () {
+                // setBurgerEnergy(burgerEnergy + 1);
+                console.log(burgerEnergy + 1);
+            }, 1000);
+        }
+    }, [burgerEnergy, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
+    react_1.default.useEffect(function () {
+        setBurgerEnergy(user === null || user === void 0 ? void 0 : user.burgerEnergy);
+        if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) === maxEnergy) {
+            setNoFullEnergy(false);
+        }
+        else {
+            setNoFullEnergy(true);
+        }
+    }, [user === null || user === void 0 ? void 0 : user.burgerEnergy]);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: __webpack_require__(7265), width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsxs)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-[#5B4B23] [@media(min-height:500px)]:text-white\r\n          ", children: [burgerEnergy, "/", maxEnergy] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percentEnergy, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
 };
 exports["default"] = Energy;
 
@@ -28565,7 +28589,7 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Boost() {
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] h-[900px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
 }
 exports["default"] = Boost;
 
@@ -28920,7 +28944,7 @@ function Ratings() {
     react_2.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.totalUsers })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: "700" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
 }
 exports["default"] = Ratings;
 
