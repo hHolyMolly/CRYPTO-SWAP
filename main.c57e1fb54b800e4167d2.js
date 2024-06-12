@@ -28565,7 +28565,7 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Boost() {
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] h-[900px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
 }
 exports["default"] = Boost;
 
