@@ -28093,6 +28093,8 @@ var store_1 = __webpack_require__(2482);
 var API_1 = __webpack_require__(9309);
 function App() {
     var dispatch = (0, store_1.useAppDispatch)();
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_1.default.useState(''), tgID = _b[0], setTgID = _b[1];
     var search = (0, react_router_dom_1.useLocation)().search;
     var telegramUserId = query_string_1.default.parse(search).telegramUserId;
     function getUser() {
@@ -28106,6 +28108,7 @@ function App() {
                     case 1:
                         data = (_a.sent()).data;
                         console.log(data);
+                        setResponse(data);
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
@@ -28118,12 +28121,13 @@ function App() {
     }
     react_1.default.useEffect(function () {
         if (telegramUserId) {
-            getUser;
+            getUser();
+            setTgID(telegramUserId);
         }
         else {
         }
     }, []);
-    return (0, jsx_runtime_1.jsx)(Router_1.default, {});
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Router_1.default, {}), (0, jsx_runtime_1.jsx)("code", { children: JSON.stringify(response) }), (0, jsx_runtime_1.jsx)("br", {}), (0, jsx_runtime_1.jsx)("br", {}), (0, jsx_runtime_1.jsx)("br", {}), "tgID: ", tgID] }));
 }
 exports["default"] = App;
 
