@@ -28572,21 +28572,6 @@ exports["default"] = Faq;
 
 /***/ }),
 
-/***/ 7997:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var FriendItem = function (_a) {
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n\t\t\t\tw-[38px] [@media(min-height:570px)]:w-[42px]\r\n\t\t\t\th-[38px] [@media(min-height:570px)]:h-[42px]\r\n\t\t\t", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: "yumenoami" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-yellow-300", children: "+10 000" }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
-};
-exports["default"] = FriendItem;
-
-
-/***/ }),
-
 /***/ 9715:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -28599,9 +28584,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
-var FriendItem_1 = __importDefault(__webpack_require__(7997));
 function Friends() {
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: "10000" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: "9,999,999" })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] flex flex-col", children: [(0, jsx_runtime_1.jsx)(FriendItem_1.default, {}), (0, jsx_runtime_1.jsx)(FriendItem_1.default, {})] })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)("button", { type: "button", children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] })] }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Friends" }) }));
 }
 exports["default"] = Friends;
 
@@ -28714,7 +28698,7 @@ function Home() {
         });
     }); };
     (0, react_use_1.useInterval)(function () { return setToggleClicker(false); }, toggleClicker ? durationClicker : null);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UserBar_1.default, {}), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(Balance_1.default, {}), (0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleClicker ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleClicker ? 'block' : 'none' }, src: __webpack_require__(1373), alt: "Crabs" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UserBar_1.default, {}), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(Balance_1.default, {})] }));
 }
 exports["default"] = Home;
 
@@ -29000,22 +28984,6 @@ module.exports = __webpack_require__.p + "img/0b4864cf756e112faa05.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/08bbce0e5ffd528c406d.png";
-
-/***/ }),
-
-/***/ 1190:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/d82bfa15567c455f87a2.gif";
-
-/***/ }),
-
-/***/ 1373:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/5117baf4454e37de8d15.gif";
 
 /***/ }),
 
