@@ -28423,7 +28423,7 @@ var Router = function () {
         var path = _a.path, title = _a.title, element = _a.element;
         return (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: path, element: element }, title);
     });
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: transitions(function (props, item) { return ((0, jsx_runtime_1.jsx)(react_spring_1.animated.div, { className: "router-animate", style: props, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { location: item, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }) })); }) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }) }));
 };
 exports["default"] = Router;
 
