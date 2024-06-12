@@ -28837,11 +28837,27 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
+var API_1 = __webpack_require__(9309);
 function Ratings() {
     function loadTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
+            var data, err_1;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, API_1.API.get('/users/top')];
+                    case 1:
+                        data = (_a.sent()).data;
+                        console.log(data);
+                        window.alert(JSON.stringify(data));
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_1 = _a.sent();
+                        console.log(err_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
             });
         });
     }
