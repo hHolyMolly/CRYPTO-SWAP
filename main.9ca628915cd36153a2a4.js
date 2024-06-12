@@ -28044,42 +28044,6 @@ exports.c = {
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -28090,44 +28054,31 @@ var Router_1 = __importDefault(__webpack_require__(3748));
 var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
 var store_1 = __webpack_require__(2482);
-var API_1 = __webpack_require__(9309);
+var auth_1 = __webpack_require__(1692);
 function App() {
     var dispatch = (0, store_1.useAppDispatch)();
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_1.default.useState(''), tgID = _b[0], setTgID = _b[1];
-    var search = (0, react_router_dom_1.useLocation)().search;
-    var telegramUserId = query_string_1.default.parse(search).telegramUserId;
-    function getUser() {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, API_1.API.get('/user/' + telegramUserId)];
-                    case 1:
-                        data = (_a.sent()).data;
-                        console.log(data);
-                        setResponse(data);
-                        return [3 /*break*/, 3];
-                    case 2:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    }
+    var user = (0, store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    var location = (0, react_router_dom_1.useLocation)();
+    var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
     react_1.default.useEffect(function () {
         if (telegramUserId) {
-            getUser();
-            setTgID(telegramUserId);
+            dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }
         else {
         }
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Router_1.default, {}), (0, jsx_runtime_1.jsx)("code", { children: JSON.stringify(response) }), (0, jsx_runtime_1.jsx)("br", {}), (0, jsx_runtime_1.jsx)("br", {}), (0, jsx_runtime_1.jsx)("br", {}), "tgID: ", tgID] }));
+    // Вшиваем параметр telegramUserId в URL
+    react_1.default.useEffect(function () {
+        if (user === null || user === void 0 ? void 0 : user.tgId) {
+            var url = new URL(window.location.href);
+            url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
+            window.history.replaceState({}, '', url.toString());
+        }
+    }, [location.pathname]);
+    return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
 
@@ -28238,8 +28189,9 @@ exports["default"] = Title;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var UserBar = function () {
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)', border: '1px solid #918b55' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: "yumenoami" }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsx)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: "#Top1" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: "9,999,999" }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+var UserBar = function (_a) {
+    var balance = _a.balance, nickName = _a.nickName, position = _a.position;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)', border: '1px solid #918b55' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: balance }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
 };
 exports["default"] = UserBar;
 
@@ -28349,9 +28301,14 @@ exports["default"] = react_1.default.memo(Container);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var index_1 = __webpack_require__(2482);
 var Energy = function () {
+    var user = (0, index_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
     var percent = 90;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: __webpack_require__(7265), width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsx)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-[#5B4B23] [@media(min-height:500px)]:text-white\r\n          ", children: "800/1000" })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percent, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: __webpack_require__(7265), width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsxs)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-[#5B4B23] [@media(min-height:500px)]:text-white\r\n          ", children: [user === null || user === void 0 ? void 0 : user.burgerEnergy, "/1000"] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percent, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
 };
 exports["default"] = Energy;
 
@@ -28486,7 +28443,7 @@ var Router = function () {
         var path = _a.path, title = _a.title, element = _a.element;
         return (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: path, element: element }, title);
     });
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: transitions(function (props, item) { return ((0, jsx_runtime_1.jsx)(react_spring_1.animated.div, { className: "router-animate", style: props, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }) })); }) }));
 };
 exports["default"] = Router;
 
@@ -28662,8 +28619,13 @@ exports["default"] = Friends;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var _store_1 = __webpack_require__(2482);
 var Balance = function () {
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: "10999" }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: user === null || user === void 0 ? void 0 : user.balance }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
 };
 exports["default"] = Balance;
 
@@ -28678,15 +28640,15 @@ exports["default"] = Balance;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var _store_1 = __webpack_require__(2482);
-var user_1 = __webpack_require__(9753);
+var auth_1 = __webpack_require__(1692);
 var Volume = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var is_volume = (0, _store_1.useAppSelector)(function (_a) {
-        var user = _a.user;
-        return user;
+        var auth = _a.auth;
+        return auth;
     }).is_volume;
     var onClickVolume = function () {
-        dispatch((0, user_1.setVolume)(!is_volume));
+        dispatch((0, auth_1.setVolume)(!is_volume));
     };
     return ((0, jsx_runtime_1.jsxs)("button", { className: "volume-button", onClick: onClickVolume, type: "button", children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7774), style: { display: is_volume ? 'block' : 'none' }, width: 26, height: 24, alt: "Volume" }), (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7151), style: { display: is_volume ? 'none' : 'block' }, width: 21, height: 24, alt: "Volume" })] }));
 };
@@ -28744,12 +28706,17 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var react_use_1 = __webpack_require__(2380);
 __webpack_require__(2843);
+var _store_1 = __webpack_require__(2482);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UserBar_1 = __importDefault(__webpack_require__(9828));
 var Volume_1 = __importDefault(__webpack_require__(7956));
 var Balance_1 = __importDefault(__webpack_require__(7728));
 function Home() {
     var _this = this;
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
     var _a = react_1.default.useState(false), toggleClicker = _a[0], setToggleClicker = _a[1];
     var durationClicker = 600;
     var clicker = function () { return __awaiter(_this, void 0, void 0, function () {
@@ -28761,7 +28728,7 @@ function Home() {
         });
     }); };
     (0, react_use_1.useInterval)(function () { return setToggleClicker(false); }, toggleClicker ? durationClicker : null);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UserBar_1.default, {}), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(Balance_1.default, {})] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UserBar_1.default, { balance: user === null || user === void 0 ? void 0 : user.balance, nickName: user === null || user === void 0 ? void 0 : user.nickName, position: user === null || user === void 0 ? void 0 : user.position }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(Balance_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "w-[100px] h-[100px] bg-red-500", onClick: clicker, children: "\u041A\u043B\u0438\u043A" })] }));
 }
 exports["default"] = Home;
 
@@ -28793,6 +28760,17 @@ exports["default"] = Quests;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -28833,14 +28811,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
+var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
-var API_1 = __webpack_require__(9309);
 function Ratings() {
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    function loadTopUsers() {
+    var _a;
+    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
+    function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
             return __generator(this, function (_a) {
@@ -28850,8 +28830,7 @@ function Ratings() {
                         return [4 /*yield*/, API_1.API.get('/users/top')];
                     case 1:
                         data = (_a.sent()).data;
-                        console.log(data);
-                        setResponse(JSON.stringify(data));
+                        setResponse(data);
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
@@ -28862,10 +28841,10 @@ function Ratings() {
             });
         });
     }
-    react_1.default.useEffect(function () {
-        loadTopUsers();
+    react_2.default.useEffect(function () {
+        getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: "10000" })] }), response && response, (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: "700" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] flex flex-col", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, {}), (0, jsx_runtime_1.jsx)(UI_1.UserBar, {}), (0, jsx_runtime_1.jsx)(UI_1.UserBar, {})] })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.totalUsers })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: "700" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
 }
 exports["default"] = Ratings;
 
@@ -28952,10 +28931,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.useAppSelector = exports.useAppDispatch = exports.store = void 0;
 var react_redux_1 = __webpack_require__(134);
 var toolkit_1 = __webpack_require__(5679);
-var user_1 = __importDefault(__webpack_require__(9753));
+var auth_1 = __importDefault(__webpack_require__(1692));
 exports.store = (0, toolkit_1.configureStore)({
     reducer: {
-        user: user_1.default,
+        auth: auth_1.default,
     },
 });
 exports.useAppDispatch = react_redux_1.useDispatch;
@@ -28964,21 +28943,93 @@ exports.useAppSelector = react_redux_1.useSelector;
 
 /***/ }),
 
-/***/ 9753:
+/***/ 1692:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setVolume = void 0;
+exports.setVolume = exports.fetchGetUser = void 0;
 var toolkit_1 = __webpack_require__(5679);
+var API_1 = __webpack_require__(9309);
+exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
+    var dataUser, dataPosition, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                if (!telegramUserId)
+                    return [2 /*return*/];
+                return [4 /*yield*/, API_1.API.get('/user/' + telegramUserId)];
+            case 1:
+                dataUser = (_a.sent()).data;
+                return [4 /*yield*/, API_1.API.get('/position/' + telegramUserId)];
+            case 2:
+                dataPosition = (_a.sent()).data;
+                return [2 /*return*/, __assign(__assign({}, dataUser), dataPosition)];
+            case 3:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 var volumeLocal = JSON.parse(window.localStorage.getItem('volume'));
 var initialState = {
-    telegramUserID: null,
+    user: null,
     is_volume: volumeLocal !== null ? volumeLocal : true,
 };
-var userSlice = (0, toolkit_1.createSlice)({
-    name: 'user',
+var authSlice = (0, toolkit_1.createSlice)({
+    name: 'auth',
     initialState: initialState,
     reducers: {
         setVolume: function (state, _a) {
@@ -28987,9 +29038,18 @@ var userSlice = (0, toolkit_1.createSlice)({
             window.localStorage.setItem('volume', String(payload));
         },
     },
+    extraReducers: (_a = {},
+        // Получаем пользователя
+        _a[exports.fetchGetUser.pending] = function (state) { },
+        _a[exports.fetchGetUser.fulfilled] = function (state, _a) {
+            var payload = _a.payload;
+            state.user = __assign({}, payload);
+        },
+        _a[exports.fetchGetUser.rejected] = function (state) { },
+        _a),
 });
-exports.setVolume = userSlice.actions.setVolume;
-exports["default"] = userSlice.reducer;
+exports.setVolume = authSlice.actions.setVolume;
+exports["default"] = authSlice.reducer;
 
 
 /***/ }),
