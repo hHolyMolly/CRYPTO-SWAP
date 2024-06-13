@@ -23391,7 +23391,12 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
-var sounds = [__webpack_require__(1164), __webpack_require__(2670), __webpack_require__(4725), __webpack_require__(5412)];
+var sounds = [
+    new Audio(__webpack_require__(1164)),
+    new Audio(__webpack_require__(2670)),
+    new Audio(__webpack_require__(4725)),
+    new Audio(__webpack_require__(5412)),
+];
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var _a = (0, _store_1.useAppSelector)(function (_a) {
@@ -23418,7 +23423,7 @@ var Clicker = function () {
             if (is_volume) {
                 if (!toggleAudio) {
                     var randomIndex = Math.floor(Math.random() * sounds.length); // Рандомим звук
-                    var audio = new Audio(sounds[randomIndex]);
+                    var audio = sounds[randomIndex];
                     audio.volume = 0.4; // Громкость звука
                     audio.play();
                     setToggleAudio(true);
