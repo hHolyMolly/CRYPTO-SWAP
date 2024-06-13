@@ -23495,7 +23495,7 @@ var Clicker = function () {
             }
         };
     }, [toggleAudio]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(1373), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsx)("div", { className: "crab-tab-clicker", onClick: clicker, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'block' }, src: __webpack_require__(1373), alt: "Crabs" }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
 };
 exports["default"] = Clicker;
 
@@ -24119,14 +24119,6 @@ module.exports = __webpack_require__.p + "img/7b74ff189ed44e1bb975.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/aea2613949b73a509ec8.png";
-
-/***/ }),
-
-/***/ 1190:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
 
 /***/ }),
 
