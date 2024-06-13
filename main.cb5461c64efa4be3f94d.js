@@ -22536,7 +22536,7 @@ var store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
 var settings_1 = __webpack_require__(863);
 var Router_1 = __importDefault(__webpack_require__(3748));
-var PreloadImages_1 = __importDefault(__webpack_require__(7266));
+var Preloader_1 = __importDefault(__webpack_require__(2177));
 function App() {
     var dispatch = (0, store_1.useAppDispatch)();
     var user = (0, store_1.useAppSelector)(function (_a) {
@@ -22585,38 +22585,9 @@ function App() {
             setClickerTimeoutCount(10);
         }
     }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Router_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "hidden", children: (0, jsx_runtime_1.jsx)(PreloadImages_1.default, { images: [
-                        __webpack_require__(5232),
-                        __webpack_require__(596),
-                        __webpack_require__(1135),
-                        __webpack_require__(7040),
-                        __webpack_require__(7586),
-                        __webpack_require__(8897),
-                    ] }) })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Router_1.default, {}), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] }));
 }
 exports["default"] = App;
-
-
-/***/ }),
-
-/***/ 7266:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
-var PreloadImages = function (_a) {
-    var images = _a.images;
-    (0, react_1.useEffect)(function () {
-        images.forEach(function (imageUrl) {
-            var img = new Image();
-            img.src = imageUrl;
-        });
-    }, [images]);
-    return null;
-};
-exports["default"] = PreloadImages;
 
 
 /***/ }),
@@ -22984,6 +22955,127 @@ exports["default"] = MainLayout;
 
 /***/ }),
 
+/***/ 2177:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __importDefault(__webpack_require__(6540));
+var sounds_1 = __webpack_require__(6278);
+var images = [
+    // Backgrounds
+    __webpack_require__(5232),
+    __webpack_require__(596),
+    __webpack_require__(1135),
+    __webpack_require__(7040),
+    __webpack_require__(7586),
+    __webpack_require__(8897),
+    __webpack_require__(1190),
+    __webpack_require__(7883),
+    // Energy
+    __webpack_require__(5819),
+    // Tools
+    __webpack_require__(7694),
+    __webpack_require__(5305),
+    __webpack_require__(2056),
+    __webpack_require__(5673),
+    __webpack_require__(7002),
+    // Burgers
+    __webpack_require__(7265),
+    __webpack_require__(2600),
+    __webpack_require__(1871),
+    __webpack_require__(8302),
+    __webpack_require__(5985),
+    __webpack_require__(1325),
+    __webpack_require__(1056),
+];
+var Preloader = function () {
+    react_1.default.useEffect(function () {
+        images.forEach(function (imageUrl) {
+            var img = new Image();
+            img.src = imageUrl;
+        });
+    }, [images]);
+    react_1.default.useEffect(function () {
+        var loadSounds = function () { return __awaiter(void 0, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Promise.all(sounds_1.sounds.map(function (sound) {
+                                return new Promise(function (resolve, reject) {
+                                    sound.onloadeddata = resolve;
+                                    sound.onerror = reject;
+                                    sound.load();
+                                });
+                            }))];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.error('Ошибка при загрузке звуков:', error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        loadSounds();
+        return function () {
+            sounds_1.sounds.forEach(function (sound) {
+                sound.onloadeddata = null;
+                sound.onerror = null;
+            });
+        };
+    }, []);
+    return null;
+};
+exports["default"] = Preloader;
+
+
+/***/ }),
+
 /***/ 3748:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23143,6 +23235,23 @@ exports.toolsLevelsIcons = {
     24: __webpack_require__(7002),
     25: __webpack_require__(7002),
 };
+
+
+/***/ }),
+
+/***/ 6278:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.sounds = void 0;
+exports.sounds = [
+    new Audio(__webpack_require__(1164)),
+    new Audio(__webpack_require__(2670)),
+    new Audio(__webpack_require__(4725)),
+    new Audio(__webpack_require__(5412)),
+];
 
 
 /***/ }),
@@ -23424,14 +23533,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
+var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
-var sounds = [
-    new Audio(__webpack_require__(1164)),
-    new Audio(__webpack_require__(2670)),
-    new Audio(__webpack_require__(4725)),
-    new Audio(__webpack_require__(5412)),
-];
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var _a = (0, _store_1.useAppSelector)(function (_a) {
@@ -23444,58 +23548,39 @@ var Clicker = function () {
     }).clickerTimeout;
     var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
     var _c = react_1.default.useState(false), toggleAudio = _c[0], setToggleAudio = _c[1];
-    var durationGif = 500; // Время действия анимации краба
+    var durationGif = 600; // Время действия анимации краба
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var clicker = function () {
+        if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
+            return;
+        if (!toggleGif) {
+            setToggleGif(true);
+            console.log('Удаляем');
+            setTimeout(function () {
+                setToggleGif(false);
+            }, durationGif);
+        }
+        if (is_volume) {
+            if (!toggleAudio) {
+                var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
+                var audio = sounds_1.sounds[randomIndex];
+                audio.volume = 0.4; // Громкость звука
+                audio.play();
+                setToggleAudio(true);
+                setTimeout(function () {
+                    setToggleAudio(false);
+                }, durationAudio);
+            }
+        }
         try {
-            if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
-                return;
-            if (!toggleGif) {
-                setToggleGif(true);
-            }
-            if (is_volume) {
-                if (!toggleAudio) {
-                    var randomIndex = Math.floor(Math.random() * sounds.length); // Рандомим звук
-                    var audio = sounds[randomIndex];
-                    audio.volume = 0.4; // Громкость звука
-                    audio.play();
-                    setToggleAudio(true);
-                }
-            }
             dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
         }
         catch (err) {
             console.log(err);
         }
     };
-    react_1.default.useEffect(function () {
-        var timer = null;
-        if (toggleGif) {
-            timer = setTimeout(function () {
-                setToggleGif(false);
-            }, durationGif);
-        }
-        return function () {
-            if (timer) {
-                clearTimeout(timer);
-            }
-        };
-    }, [toggleGif]);
-    react_1.default.useEffect(function () {
-        var timer = null;
-        if (toggleAudio) {
-            timer = setTimeout(function () {
-                setToggleAudio(false);
-            }, durationAudio);
-        }
-        return function () {
-            if (timer) {
-                clearTimeout(timer);
-            }
-        };
-    }, [toggleAudio]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsx)("div", { className: "crab-tab-clicker", onClick: clicker, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'block' }, src: __webpack_require__(1373), alt: "Crabs" }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
 };
 exports["default"] = Clicker;
 
@@ -24122,11 +24207,27 @@ module.exports = __webpack_require__.p + "img/aea2613949b73a509ec8.png";
 
 /***/ }),
 
-/***/ 1373:
+/***/ 1190:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
+
+/***/ }),
+
+/***/ 7883:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "img/6fe1779ff6fdc01990ed.gif";
+
+/***/ }),
+
+/***/ 1325:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/342b849875cfecce3a48.png";
 
 /***/ }),
 
@@ -24135,6 +24236,14 @@ module.exports = __webpack_require__.p + "img/6fe1779ff6fdc01990ed.gif";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/012dce15f1f1e8ca4906.png";
+
+/***/ }),
+
+/***/ 1056:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/7a1b3916f88e2cbec206.png";
 
 /***/ }),
 
