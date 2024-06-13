@@ -57,61 +57,6 @@ __webpack_require__(7452);
 
 /***/ }),
 
-/***/ 9536:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(5866)
-} else {}
-
-/***/ }),
-
-/***/ 3381:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(4694)
-} else {}
-
-/***/ }),
-
-/***/ 2840:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(9682)
-} else {}
-
-/***/ }),
-
-/***/ 9422:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(7450)
-} else {}
-
-/***/ }),
-
-/***/ 4932:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(8642)
-} else {}
-
-/***/ }),
-
 /***/ 5679:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -3209,129 +3154,6 @@ var autoBatchEnhancer = function (options) {
 F();
 
 //# sourceMappingURL=redux-toolkit.esm.js.map
-
-/***/ }),
-
-/***/ 7965:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-
-var deselectCurrent = __webpack_require__(6426);
-
-var clipboardToIE11Formatting = {
-  "text/plain": "Text",
-  "text/html": "Url",
-  "default": "Text"
-}
-
-var defaultMessage = "Copy to clipboard: #{key}, Enter";
-
-function format(message) {
-  var copyKey = (/mac os x/i.test(navigator.userAgent) ? "⌘" : "Ctrl") + "+C";
-  return message.replace(/#{\s*key\s*}/g, copyKey);
-}
-
-function copy(text, options) {
-  var debug,
-    message,
-    reselectPrevious,
-    range,
-    selection,
-    mark,
-    success = false;
-  if (!options) {
-    options = {};
-  }
-  debug = options.debug || false;
-  try {
-    reselectPrevious = deselectCurrent();
-
-    range = document.createRange();
-    selection = document.getSelection();
-
-    mark = document.createElement("span");
-    mark.textContent = text;
-    // avoid screen readers from reading out loud the text
-    mark.ariaHidden = "true"
-    // reset user styles for span element
-    mark.style.all = "unset";
-    // prevents scrolling to the end of the page
-    mark.style.position = "fixed";
-    mark.style.top = 0;
-    mark.style.clip = "rect(0, 0, 0, 0)";
-    // used to preserve spaces and line breaks
-    mark.style.whiteSpace = "pre";
-    // do not inherit user-select (it may be `none`)
-    mark.style.webkitUserSelect = "text";
-    mark.style.MozUserSelect = "text";
-    mark.style.msUserSelect = "text";
-    mark.style.userSelect = "text";
-    mark.addEventListener("copy", function(e) {
-      e.stopPropagation();
-      if (options.format) {
-        e.preventDefault();
-        if (typeof e.clipboardData === "undefined") { // IE 11
-          debug && console.warn("unable to use e.clipboardData");
-          debug && console.warn("trying IE specific stuff");
-          window.clipboardData.clearData();
-          var format = clipboardToIE11Formatting[options.format] || clipboardToIE11Formatting["default"]
-          window.clipboardData.setData(format, text);
-        } else { // all other browsers
-          e.clipboardData.clearData();
-          e.clipboardData.setData(options.format, text);
-        }
-      }
-      if (options.onCopy) {
-        e.preventDefault();
-        options.onCopy(e.clipboardData);
-      }
-    });
-
-    document.body.appendChild(mark);
-
-    range.selectNodeContents(mark);
-    selection.addRange(range);
-
-    var successful = document.execCommand("copy");
-    if (!successful) {
-      throw new Error("copy command was unsuccessful");
-    }
-    success = true;
-  } catch (err) {
-    debug && console.error("unable to copy using execCommand: ", err);
-    debug && console.warn("trying IE specific stuff");
-    try {
-      window.clipboardData.setData(options.format || "text", text);
-      options.onCopy && options.onCopy(window.clipboardData);
-      success = true;
-    } catch (err) {
-      debug && console.error("unable to copy using clipboardData: ", err);
-      debug && console.error("falling back to prompt");
-      message = format("message" in options ? options.message : defaultMessage);
-      window.prompt(message, text);
-    }
-  } finally {
-    if (selection) {
-      if (typeof selection.removeRange == "function") {
-        selection.removeRange(range);
-      } else {
-        selection.removeAllRanges();
-      }
-    }
-
-    if (mark) {
-      document.body.removeChild(mark);
-    }
-    reselectPrevious();
-  }
-
-  return success;
-}
-
-module.exports = copy;
-
 
 /***/ }),
 
@@ -11479,91 +11301,6 @@ module.exports = __webpack_require__(6094);
 
 /***/ }),
 
-/***/ 2774:
-/***/ (function(module) {
-
-"use strict";
-
-
-// do not edit .js files directly - edit src/index.jst
-
-
-
-module.exports = function equal(a, b) {
-  if (a === b) return true;
-
-  if (a && b && typeof a == 'object' && typeof b == 'object') {
-    if (a.constructor !== b.constructor) return false;
-
-    var length, i, keys;
-    if (Array.isArray(a)) {
-      length = a.length;
-      if (length != b.length) return false;
-      for (i = length; i-- !== 0;)
-        if (!equal(a[i], b[i])) return false;
-      return true;
-    }
-
-
-
-    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
-    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
-    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
-
-    keys = Object.keys(a);
-    length = keys.length;
-    if (length !== Object.keys(b).length) return false;
-
-    for (i = length; i-- !== 0;)
-      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
-
-    for (i = length; i-- !== 0;) {
-      var key = keys[i];
-
-      if (key === '_owner' && a.$$typeof) {
-        // React-specific: avoid traversing React elements' _owner.
-        //  _owner contains circular references
-        // and is not needed when comparing the actual elements (and not their owners)
-        continue;
-      }
-
-      if (!equal(a[key], b[key])) return false;
-    }
-
-    return true;
-  }
-
-  // true if both NaN, false otherwise
-  return a!==a && b!==b;
-};
-
-
-/***/ }),
-
-/***/ 9851:
-/***/ (function(__unused_webpack_module, exports) {
-
-var keyList = Object.keys;
-
-exports.L = function equal (a, b) {
-  if (a === b) return true;
-  if (!(a instanceof Object) || !(b instanceof Object)) return false;
-
-  var keys = keyList(a);
-  var length = keys.length;
-
-  for (var i = 0; i < length; i++)
-    if (!(keys[i] in b)) return false;
-
-  for (var i = 0; i < length; i++)
-    if (a[keys[i]] !== b[keys[i]]) return false;
-
-  return length === keyList(b).length;
-};
-
-
-/***/ }),
-
 /***/ 4146:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -11675,180 +11412,6 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ 2215:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * JavaScript Cookie v2.2.1
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-;(function (factory) {
-	var registeredInModuleLoader;
-	if (true) {
-		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-		(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-		__WEBPACK_AMD_DEFINE_FACTORY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		registeredInModuleLoader = true;
-	}
-	if (true) {
-		module.exports = factory();
-		registeredInModuleLoader = true;
-	}
-	if (!registeredInModuleLoader) {
-		var OldCookies = window.Cookies;
-		var api = window.Cookies = factory();
-		api.noConflict = function () {
-			window.Cookies = OldCookies;
-			return api;
-		};
-	}
-}(function () {
-	function extend () {
-		var i = 0;
-		var result = {};
-		for (; i < arguments.length; i++) {
-			var attributes = arguments[ i ];
-			for (var key in attributes) {
-				result[key] = attributes[key];
-			}
-		}
-		return result;
-	}
-
-	function decode (s) {
-		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-	}
-
-	function init (converter) {
-		function api() {}
-
-		function set (key, value, attributes) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			attributes = extend({
-				path: '/'
-			}, api.defaults, attributes);
-
-			if (typeof attributes.expires === 'number') {
-				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
-			}
-
-			// We're using "expires" because "max-age" is not supported by IE
-			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
-			try {
-				var result = JSON.stringify(value);
-				if (/^[\{\[]/.test(result)) {
-					value = result;
-				}
-			} catch (e) {}
-
-			value = converter.write ?
-				converter.write(value, key) :
-				encodeURIComponent(String(value))
-					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-
-			key = encodeURIComponent(String(key))
-				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
-				.replace(/[\(\)]/g, escape);
-
-			var stringifiedAttributes = '';
-			for (var attributeName in attributes) {
-				if (!attributes[attributeName]) {
-					continue;
-				}
-				stringifiedAttributes += '; ' + attributeName;
-				if (attributes[attributeName] === true) {
-					continue;
-				}
-
-				// Considers RFC 6265 section 5.2:
-				// ...
-				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
-				//     character:
-				// Consume the characters of the unparsed-attributes up to,
-				// not including, the first %x3B (";") character.
-				// ...
-				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
-			}
-
-			return (document.cookie = key + '=' + value + stringifiedAttributes);
-		}
-
-		function get (key, json) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			var jar = {};
-			// To prevent the for loop in the first place assign an empty array
-			// in case there are no cookies at all.
-			var cookies = document.cookie ? document.cookie.split('; ') : [];
-			var i = 0;
-
-			for (; i < cookies.length; i++) {
-				var parts = cookies[i].split('=');
-				var cookie = parts.slice(1).join('=');
-
-				if (!json && cookie.charAt(0) === '"') {
-					cookie = cookie.slice(1, -1);
-				}
-
-				try {
-					var name = decode(parts[0]);
-					cookie = (converter.read || converter)(cookie, name) ||
-						decode(cookie);
-
-					if (json) {
-						try {
-							cookie = JSON.parse(cookie);
-						} catch (e) {}
-					}
-
-					jar[name] = cookie;
-
-					if (key === name) {
-						break;
-					}
-				} catch (e) {}
-			}
-
-			return key ? jar[key] : jar;
-		}
-
-		api.set = set;
-		api.get = function (key) {
-			return get(key, false /* read as raw */);
-		};
-		api.getJSON = function (key) {
-			return get(key, true /* read as json */);
-		};
-		api.remove = function (key, attributes) {
-			set(key, '', extend(attributes, {
-				expires: -1
-			}));
-		};
-
-		api.defaults = {};
-
-		api.withConverter = init;
-
-		return api;
-	}
-
-	return init(function () {});
-}));
-
-
-/***/ }),
-
 /***/ 5803:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -11925,335 +11488,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ 759:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-exports.v = function (renderer) {
-    // CSSOM support only browser environment.
-    if (!renderer.client) return;
-
-    if (false) {}
-
-    // Style sheet for media queries.
-    document.head.appendChild(renderer.msh = document.createElement('style'));
-
-    renderer.createRule = function (selector, prelude) {
-        var rawCss = selector + '{}';
-        if (prelude) rawCss = prelude + '{' + rawCss + '}';
-        var sheet = prelude ? renderer.msh.sheet : renderer.sh.sheet;
-        var index = sheet.insertRule(rawCss, sheet.cssRules.length);
-        var rule = (sheet.cssRules || sheet.rules)[index];
-
-        // Keep track of `index` where rule was inserted in the sheet. This is
-        // needed for rule deletion.
-        rule.index = index;
-
-        if (prelude) {
-            // If rule has media query (it has prelude), move style (CSSStyleDeclaration)
-            // object to the "top" to normalize it with a rule without the media
-            // query, so that both rules have `.style` property available.
-            var selectorRule = (rule.cssRules || rule.rules)[0];
-            rule.style = selectorRule.style;
-            rule.styleMap = selectorRule.styleMap;
-        }
-
-        return rule;
-    };
-};
-
-
-/***/ }),
-
-/***/ 2731:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var removeRule = (__webpack_require__(5732)/* .removeRule */ .t);
-
-exports.v = function (renderer) {
-    // VCSSOM support only browser environment.
-    if (!renderer.client) return;
-
-    if (false) {}
-
-    var kebab = renderer.kebab;
-
-    function VRule (selector, prelude) {
-        this.rule = renderer.createRule(selector, prelude);
-        this.decl = {};
-    }
-    VRule.prototype.diff = function (newDecl) {
-        var oldDecl = this.decl;
-        var style = this.rule.style;
-        var property;
-        for (property in oldDecl)
-            if (newDecl[property] === undefined)
-                style.removeProperty(property);
-        for (property in newDecl)
-            if (newDecl[property] !== oldDecl[property])
-                style.setProperty(kebab(property), newDecl[property]);
-        this.decl = newDecl;
-    };
-    VRule.prototype.del = function () {
-        removeRule(this.rule);
-    };
-
-    function VSheet () {
-        /**
-         * {
-         *   '<at-rule-prelude>': {
-         *     '<selector>': {
-         *       color: 'red
-         *     }
-         *   }
-         * }
-         */
-        this.tree = {};
-    }
-    VSheet.prototype.diff = function (newTree) {
-        var oldTree = this.tree;
-
-        // Remove media queries not present in new tree.
-        for (var prelude in oldTree) {
-            if (newTree[prelude] === undefined) {
-                var rules = oldTree[prelude];
-                for (var selector in rules)
-                    rules[selector].del();
-            }
-        }
-
-        for (var prelude in newTree) {
-            if (oldTree[prelude] === undefined) {
-                // Whole media query is new.
-                for (var selector in newTree[prelude]) {
-                    var rule = new VRule(selector, prelude);
-                    rule.diff(newTree[prelude][selector]);
-                    newTree[prelude][selector] = rule;
-                }
-            } else {
-                // Old tree already has rules with this media query.
-                var oldRules = oldTree[prelude];
-                var newRules = newTree[prelude];
-
-                // Remove rules not present in new tree.
-                for (var selector in oldRules)
-                    if (!newRules[selector])
-                        oldRules[selector].del();
-
-                // Apply new rules.
-                for (var selector in newRules) {
-                    var rule = oldRules[selector];
-                    if (rule) {
-                        rule.diff(newRules[selector]);
-                        newRules[selector] = rule;
-                    } else {
-                        rule = new VRule(selector, prelude);
-                        rule.diff(newRules[selector]);
-                        newRules[selector] = rule;
-                    }
-                }
-            }
-        }
-
-        this.tree = newTree;
-    };
-
-    renderer.VRule = VRule;
-    renderer.VSheet = VSheet;
-};
-
-
-/***/ }),
-
-/***/ 2798:
-/***/ (function(__unused_webpack_module, exports) {
-
-function cssToTree (tree, css, selector, prelude) {
-    var declarations = {};
-    var hasDeclarations = false;
-    var key, value;
-
-    for (key in css) {
-        value = css[key];
-        if (typeof value !== 'object') {
-            hasDeclarations = true;
-            declarations[key] = value;
-        }
-    }
-
-    if (hasDeclarations) {
-        if (!tree[prelude]) tree[prelude] = {};
-        tree[prelude][selector] = declarations;
-    }
-
-    for (key in css) {
-        value = css[key];
-        if (typeof value === 'object') {
-            if (key[0] === '@') {
-                cssToTree(tree, value, selector, key);
-            } else {
-                var hasCurrentSymbol = key.indexOf('&') > -1;
-                var selectorParts = selector.split(',');
-                if (hasCurrentSymbol) {
-                    for (var i = 0; i < selectorParts.length; i++) {
-                        selectorParts[i] = key.replace(/&/g, selectorParts[i]);
-                    }
-                } else {
-                    for (var i = 0; i < selectorParts.length; i++) {
-                        selectorParts[i] = selectorParts[i] + ' ' + key;
-                    }
-                }
-                cssToTree(tree, value, selectorParts.join(','), prelude);
-            }
-        }
-    }
-};
-
-exports.J = cssToTree;
-
-
-/***/ }),
-
-/***/ 5732:
-/***/ (function(__unused_webpack_module, exports) {
-
-function removeRule (rule) {
-    var maxIndex = rule.index;
-    var sh = rule.parentStyleSheet;
-    var rules = sh.cssRules || sh.rules;
-    maxIndex = Math.max(maxIndex, rules.length - 1);
-    while (maxIndex >= 0) {
-        if (rules[maxIndex] === rule) {
-            sh.deleteRule(maxIndex);
-            break;
-        }
-        maxIndex--;
-    }
-}
-
-exports.t = removeRule;
-
-
-/***/ }),
-
-/***/ 2365:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-var KEBAB_REGEX = /[A-Z]/g;
-
-var hash = function (str) {
-    var h = 5381, i = str.length;
-
-    while (i) h = (h * 33) ^ str.charCodeAt(--i);
-
-    return '_' + (h >>> 0).toString(36);
-};
-
-exports.v = function (config) {
-    config = config || {};
-    var assign = config.assign || Object.assign;
-    var client = typeof window === 'object';
-
-    // Check if we are really in browser environment.
-    if (false) {}
-
-    var renderer = assign({
-        raw: '',
-        pfx: '_',
-        client: client,
-        assign: assign,
-        stringify: JSON.stringify,
-        kebab: function (prop) {
-            return prop.replace(KEBAB_REGEX, '-$&').toLowerCase();
-        },
-        decl: function (key, value) {
-            key = renderer.kebab(key);
-            return key + ':' + value + ';';
-        },
-        hash: function (obj) {
-            return hash(renderer.stringify(obj));
-        },
-        selector: function (parent, selector) {
-            return parent + (selector[0] === ':' ? ''  : ' ') + selector;
-        },
-        putRaw: function (rawCssRule) {
-            renderer.raw += rawCssRule;
-        }
-    }, config);
-
-    if (renderer.client) {
-        if (!renderer.sh)
-            document.head.appendChild(renderer.sh = document.createElement('style'));
-
-        if (false) {}
-
-        renderer.putRaw = function (rawCssRule) {
-            // .insertRule() is faster than .appendChild(), that's why we use it in PROD.
-            // But CSS injected using .insertRule() is not displayed in Chrome Devtools,
-            // that's why we use .appendChild in DEV.
-            if (true) {
-                var sheet = renderer.sh.sheet;
-
-                // Unknown pseudo-selectors will throw, this try/catch swallows all errors.
-                try {
-                    sheet.insertRule(rawCssRule, sheet.cssRules.length);
-                // eslint-disable-next-line no-empty
-                } catch (error) {}
-            } else {}
-        };
-    }
-
-    renderer.put = function (selector, decls, atrule) {
-        var str = '';
-        var prop, value;
-        var postponed = [];
-
-        for (prop in decls) {
-            value = decls[prop];
-
-            if ((value instanceof Object) && !(value instanceof Array)) {
-                postponed.push(prop);
-            } else {
-                if (false) {} else {
-                    str += renderer.decl(prop, value, selector, atrule);
-                }
-            }
-        }
-
-        if (str) {
-            if (false) {} else {
-                str = selector + '{' + str + '}';
-            }
-            renderer.putRaw(atrule ? atrule + '{' + str + '}' : str);
-        }
-
-        for (var i = 0; i < postponed.length; i++) {
-            prop = postponed[i];
-
-            if (prop[0] === '@' && prop !== '@font-face') {
-                renderer.putAt(selector, decls[prop], prop);
-            } else {
-                renderer.put(renderer.selector(selector, prop), decls[prop], atrule);
-            }
-        }
-    };
-
-    renderer.putAt = renderer.put;
-
-    return renderer;
-};
 
 
 /***/ }),
@@ -22398,4445 +21632,6 @@ function useViewTransitionState(to, opts) {
 
 /***/ }),
 
-/***/ 4282:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-if (true) {
-  module.exports = __webpack_require__(3438)
-} else {}
-
-/***/ }),
-
-/***/ 2009:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(1635);
-var wrapInStatefulComponent_1 = tslib_1.__importDefault(__webpack_require__(7092));
-var addClassDecoratorSupport = function (Comp) {
-    var isSFC = !Comp.prototype;
-    return !isSFC ? Comp : wrapInStatefulComponent_1.default(Comp);
-};
-exports["default"] = addClassDecoratorSupport;
-//# sourceMappingURL=addClassDecoratorSupport.js.map
-
-/***/ }),
-
-/***/ 8012:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.divWrapper = void 0;
-var tslib_1 = __webpack_require__(1635);
-var React = tslib_1.__importStar(__webpack_require__(6540));
-var addClassDecoratorSupport_1 = tslib_1.__importDefault(__webpack_require__(2009));
-var h = React.createElement;
-var noWrap = function (Comp, propName, props, state) {
-    var _a;
-    return h(Comp, propName ? tslib_1.__assign((_a = {}, _a[propName] = state, _a), props) : tslib_1.__assign(tslib_1.__assign({}, state), props));
-};
-exports.divWrapper = function (Comp, propName, props, state) {
-    return h('div', null, noWrap(Comp, propName, props, state));
-};
-var createEnhancer = function (Facc, prop, wrapper) {
-    if (wrapper === void 0) { wrapper = noWrap; }
-    var enhancer = function (Comp, propName, faccProps) {
-        if (propName === void 0) { propName = prop; }
-        if (faccProps === void 0) { faccProps = null; }
-        var isClassDecoratorMethodCall = typeof Comp === 'string';
-        if (isClassDecoratorMethodCall) {
-            return function (Klass) { return enhancer(Klass, Comp || prop, propName); };
-        }
-        var Enhanced = function (props) {
-            return h(Facc, faccProps, function (state) { return wrapper(Comp, propName, props, state); });
-        };
-        if (false) {}
-        return isClassDecoratorMethodCall ? addClassDecoratorSupport_1.default(Enhanced) : Enhanced;
-    };
-    return enhancer;
-};
-exports["default"] = createEnhancer;
-//# sourceMappingURL=createEnhancer.js.map
-
-/***/ }),
-
-/***/ 7975:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(1635);
-var render_1 = tslib_1.__importDefault(__webpack_require__(1284));
-var defaultMapPropsToArgs = function (props) { return [props]; };
-var hookToRenderProp = function (hook, mapPropsToArgs) {
-    if (mapPropsToArgs === void 0) { mapPropsToArgs = defaultMapPropsToArgs; }
-    return function (props) { return render_1.default(props, hook.apply(void 0, mapPropsToArgs(props))); };
-};
-exports["default"] = hookToRenderProp;
-//# sourceMappingURL=hookToRenderProp.js.map
-
-/***/ }),
-
-/***/ 3426:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = ({ value: true });
-__webpack_unused_export__ = __webpack_unused_export__ = __webpack_unused_export__ = void 0;
-var tslib_1 = __webpack_require__(1635);
-var render_1 = tslib_1.__importDefault(__webpack_require__(1284));
-__webpack_unused_export__ = render_1.default;
-var createEnhancer_1 = tslib_1.__importDefault(__webpack_require__(8012));
-__webpack_unused_export__ = createEnhancer_1.default;
-var hookToRenderProp_1 = tslib_1.__importDefault(__webpack_require__(7975));
-__webpack_unused_export__ = hookToRenderProp_1.default;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 1284:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(1635);
-var react_1 = __webpack_require__(6540);
-var isReact16Plus = parseInt(react_1.version.substr(0, react_1.version.indexOf('.'))) > 15;
-var isFn = function (fn) { return typeof fn === 'function'; };
-var render = function (props, data) {
-    var more = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        more[_i - 2] = arguments[_i];
-    }
-    if (false) { var children_1, render_1; }
-    var render = props.render, _a = props.children, children = _a === void 0 ? render : _a, component = props.component, _b = props.comp, comp = _b === void 0 ? component : _b;
-    if (isFn(children))
-        return children.apply(void 0, tslib_1.__spreadArrays([data], more));
-    if (comp) {
-        return react_1.createElement(comp, data);
-    }
-    if (children instanceof Array)
-        return isReact16Plus ? children : react_1.createElement.apply(void 0, tslib_1.__spreadArrays(['div', null], children));
-    if (children && (children instanceof Object)) {
-        if (false) {}
-        else {
-            if (typeof children.type === 'string')
-                return children;
-            return react_1.cloneElement(children, Object.assign({}, children.props, data));
-        }
-    }
-    return children || null;
-};
-exports["default"] = render;
-//# sourceMappingURL=render.js.map
-
-/***/ }),
-
-/***/ 7092:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(1635);
-var React = tslib_1.__importStar(__webpack_require__(6540));
-var wrapInStatefulComponent = function (Comp) {
-    var Decorated = (function (_super) {
-        tslib_1.__extends(class_1, _super);
-        function class_1() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        class_1.prototype.render = function () {
-            return Comp(this.props, this.context);
-        };
-        return class_1;
-    }(React.Component));
-    if (false) {}
-    return Decorated;
-};
-exports["default"] = wrapInStatefulComponent;
-//# sourceMappingURL=wrapInStatefulComponent.js.map
-
-/***/ }),
-
-/***/ 2380:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  createBreakpoint: function() { return /* reexport */ factory_createBreakpoint; },
-  createGlobalState: function() { return /* reexport */ createGlobalState; },
-  createMemo: function() { return /* reexport */ factory_createMemo; },
-  createReducer: function() { return /* reexport */ factory_createReducer; },
-  createReducerContext: function() { return /* reexport */ factory_createReducerContext; },
-  createStateContext: function() { return /* reexport */ factory_createStateContext; },
-  ensuredForwardRef: function() { return /* reexport */ ensuredForwardRef; },
-  useAsync: function() { return /* reexport */ useAsync; },
-  useAsyncFn: function() { return /* reexport */ useAsyncFn; },
-  useAsyncRetry: function() { return /* reexport */ esm_useAsyncRetry; },
-  useAudio: function() { return /* reexport */ esm_useAudio; },
-  useBattery: function() { return /* reexport */ esm_useBattery; },
-  useBeforeUnload: function() { return /* reexport */ esm_useBeforeUnload; },
-  useBoolean: function() { return /* reexport */ useBoolean; },
-  useClickAway: function() { return /* reexport */ esm_useClickAway; },
-  useCookie: function() { return /* reexport */ esm_useCookie; },
-  useCopyToClipboard: function() { return /* reexport */ esm_useCopyToClipboard; },
-  useCounter: function() { return /* reexport */ useCounter; },
-  useCss: function() { return /* reexport */ esm_useCss; },
-  useCustomCompareEffect: function() { return /* reexport */ esm_useCustomCompareEffect; },
-  useDebounce: function() { return /* reexport */ useDebounce; },
-  useDeepCompareEffect: function() { return /* reexport */ esm_useDeepCompareEffect; },
-  useDefault: function() { return /* reexport */ esm_useDefault; },
-  useDrop: function() { return /* reexport */ esm_useDrop; },
-  useDropArea: function() { return /* reexport */ esm_useDropArea; },
-  useEffectOnce: function() { return /* reexport */ esm_useEffectOnce; },
-  useEnsuredForwardedRef: function() { return /* reexport */ useEnsuredForwardedRef; },
-  useError: function() { return /* reexport */ esm_useError; },
-  useEvent: function() { return /* reexport */ esm_useEvent; },
-  useFavicon: function() { return /* reexport */ esm_useFavicon; },
-  useFirstMountState: function() { return /* reexport */ useFirstMountState; },
-  useFullscreen: function() { return /* reexport */ esm_useFullscreen; },
-  useGeolocation: function() { return /* reexport */ esm_useGeolocation; },
-  useGetSet: function() { return /* reexport */ useGetSet; },
-  useGetSetState: function() { return /* reexport */ esm_useGetSetState; },
-  useHarmonicIntervalFn: function() { return /* reexport */ esm_useHarmonicIntervalFn; },
-  useHash: function() { return /* reexport */ useHash; },
-  useHover: function() { return /* reexport */ esm_useHover; },
-  useHoverDirty: function() { return /* reexport */ esm_useHoverDirty; },
-  useIdle: function() { return /* reexport */ esm_useIdle; },
-  useIntersection: function() { return /* reexport */ esm_useIntersection; },
-  useInterval: function() { return /* reexport */ esm_useInterval; },
-  useIsomorphicLayoutEffect: function() { return /* reexport */ esm_useIsomorphicLayoutEffect; },
-  useKey: function() { return /* reexport */ esm_useKey; },
-  useKeyPress: function() { return /* reexport */ esm_useKeyPress; },
-  useKeyPressEvent: function() { return /* reexport */ esm_useKeyPressEvent; },
-  useLatest: function() { return /* reexport */ esm_useLatest; },
-  useLifecycles: function() { return /* reexport */ esm_useLifecycles; },
-  useList: function() { return /* reexport */ esm_useList; },
-  useLocalStorage: function() { return /* reexport */ esm_useLocalStorage; },
-  useLocation: function() { return /* reexport */ useLocation; },
-  useLockBodyScroll: function() { return /* reexport */ useLockBodyScroll; },
-  useLogger: function() { return /* reexport */ esm_useLogger; },
-  useLongPress: function() { return /* reexport */ esm_useLongPress; },
-  useMap: function() { return /* reexport */ esm_useMap; },
-  useMeasure: function() { return /* reexport */ esm_useMeasure; },
-  useMedia: function() { return /* reexport */ esm_useMedia; },
-  useMediaDevices: function() { return /* reexport */ esm_useMediaDevices; },
-  useMediatedState: function() { return /* reexport */ useMediatedState; },
-  useMethods: function() { return /* reexport */ esm_useMethods; },
-  useMotion: function() { return /* reexport */ esm_useMotion; },
-  useMount: function() { return /* reexport */ esm_useMount; },
-  useMountedState: function() { return /* reexport */ useMountedState; },
-  useMouse: function() { return /* reexport */ esm_useMouse; },
-  useMouseHovered: function() { return /* reexport */ esm_useMouseHovered; },
-  useMouseWheel: function() { return /* reexport */ useMouseWheel; },
-  useMultiStateValidator: function() { return /* reexport */ useMultiStateValidator; },
-  useNetworkState: function() { return /* reexport */ useNetworkState; },
-  useNumber: function() { return /* reexport */ useNumber; },
-  useObservable: function() { return /* reexport */ esm_useObservable; },
-  useOrientation: function() { return /* reexport */ esm_useOrientation; },
-  usePageLeave: function() { return /* reexport */ esm_usePageLeave; },
-  usePermission: function() { return /* reexport */ esm_usePermission; },
-  usePinchZoom: function() { return /* reexport */ esm_usePinchZoom; },
-  usePrevious: function() { return /* reexport */ usePrevious; },
-  usePreviousDistinct: function() { return /* reexport */ usePreviousDistinct; },
-  usePromise: function() { return /* reexport */ esm_usePromise; },
-  useQueue: function() { return /* reexport */ esm_useQueue; },
-  useRaf: function() { return /* reexport */ esm_useRaf; },
-  useRafLoop: function() { return /* reexport */ useRafLoop; },
-  useRafState: function() { return /* reexport */ esm_useRafState; },
-  useRendersCount: function() { return /* reexport */ useRendersCount; },
-  useScratch: function() { return /* reexport */ esm_useScratch; },
-  useScroll: function() { return /* reexport */ esm_useScroll; },
-  useScrollbarWidth: function() { return /* reexport */ useScrollbarWidth; },
-  useScrolling: function() { return /* reexport */ esm_useScrolling; },
-  useSearchParam: function() { return /* reexport */ esm_useSearchParam; },
-  useSessionStorage: function() { return /* reexport */ esm_useSessionStorage; },
-  useSet: function() { return /* reexport */ esm_useSet; },
-  useSetState: function() { return /* reexport */ esm_useSetState; },
-  useShallowCompareEffect: function() { return /* reexport */ esm_useShallowCompareEffect; },
-  useSize: function() { return /* reexport */ esm_useSize; },
-  useSlider: function() { return /* reexport */ esm_useSlider; },
-  useSpeech: function() { return /* reexport */ esm_useSpeech; },
-  useStartTyping: function() { return /* reexport */ esm_useStartTyping; },
-  useStateList: function() { return /* reexport */ useStateList; },
-  useStateValidator: function() { return /* reexport */ useStateValidator; },
-  useStateWithHistory: function() { return /* reexport */ useStateWithHistory; },
-  useThrottle: function() { return /* reexport */ esm_useThrottle; },
-  useThrottleFn: function() { return /* reexport */ esm_useThrottleFn; },
-  useTimeout: function() { return /* reexport */ useTimeout; },
-  useTimeoutFn: function() { return /* reexport */ useTimeoutFn; },
-  useTitle: function() { return /* reexport */ esm_useTitle; },
-  useToggle: function() { return /* reexport */ esm_useToggle; },
-  useTween: function() { return /* reexport */ esm_useTween; },
-  useUnmount: function() { return /* reexport */ esm_useUnmount; },
-  useUnmountPromise: function() { return /* reexport */ esm_useUnmountPromise; },
-  useUpdate: function() { return /* reexport */ useUpdate; },
-  useUpdateEffect: function() { return /* reexport */ esm_useUpdateEffect; },
-  useUpsert: function() { return /* reexport */ useUpsert; },
-  useVibrate: function() { return /* reexport */ esm_useVibrate; },
-  useVideo: function() { return /* reexport */ esm_useVideo; },
-  useWindowScroll: function() { return /* reexport */ esm_useWindowScroll; },
-  useWindowSize: function() { return /* reexport */ esm_useWindowSize; }
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(6540);
-var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createMemo.js
-
-var createMemo = function (fn) {
-    return function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return (0,react.useMemo)(function () { return fn.apply(void 0, args); }, args);
-    };
-};
-/* harmony default export */ var factory_createMemo = (createMemo);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createReducerContext.js
-
-var createReducerContext = function (reducer, defaultInitialState) {
-    var context = (0,react.createContext)(undefined);
-    var providerFactory = function (props, children) { return (0,react.createElement)(context.Provider, props, children); };
-    var ReducerProvider = function (_a) {
-        var children = _a.children, initialState = _a.initialState;
-        var state = (0,react.useReducer)(reducer, initialState !== undefined ? initialState : defaultInitialState);
-        return providerFactory({ value: state }, children);
-    };
-    var useReducerContext = function () {
-        var state = (0,react.useContext)(context);
-        if (state == null) {
-            throw new Error("useReducerContext must be used inside a ReducerProvider.");
-        }
-        return state;
-    };
-    return [useReducerContext, ReducerProvider, context];
-};
-/* harmony default export */ var factory_createReducerContext = (createReducerContext);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useFirstMountState.js
-
-function useFirstMountState() {
-    var isFirst = (0,react.useRef)(true);
-    if (isFirst.current) {
-        isFirst.current = false;
-        return true;
-    }
-    return isFirst.current;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useUpdateEffect.js
-
-
-var useUpdateEffect = function (effect, deps) {
-    var isFirstMount = useFirstMountState();
-    (0,react.useEffect)(function () {
-        if (!isFirstMount) {
-            return effect();
-        }
-    }, deps);
-};
-/* harmony default export */ var esm_useUpdateEffect = (useUpdateEffect);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createReducer.js
-
-
-function composeMiddleware(chain) {
-    return function (context, dispatch) {
-        return chain.reduceRight(function (res, middleware) {
-            return middleware(context)(res);
-        }, dispatch);
-    };
-}
-var createReducer = function () {
-    var middlewares = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        middlewares[_i] = arguments[_i];
-    }
-    var composedMiddleware = composeMiddleware(middlewares);
-    return function (reducer, initialState, initializer) {
-        if (initializer === void 0) { initializer = function (value) { return value; }; }
-        var ref = (0,react.useRef)(initializer(initialState));
-        var _a = (0,react.useState)(ref.current), setState = _a[1];
-        var dispatch = (0,react.useCallback)(function (action) {
-            ref.current = reducer(ref.current, action);
-            setState(ref.current);
-            return action;
-        }, [reducer]);
-        var dispatchRef = (0,react.useRef)(composedMiddleware({
-            getState: function () { return ref.current; },
-            dispatch: function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                return dispatchRef.current.apply(dispatchRef, args);
-            },
-        }, dispatch));
-        esm_useUpdateEffect(function () {
-            dispatchRef.current = composedMiddleware({
-                getState: function () { return ref.current; },
-                dispatch: function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    return dispatchRef.current.apply(dispatchRef, args);
-                },
-            }, dispatch);
-        }, [dispatch]);
-        return [ref.current, dispatchRef.current];
-    };
-};
-/* harmony default export */ var factory_createReducer = (createReducer);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createStateContext.js
-
-var createStateContext = function (defaultInitialValue) {
-    var context = (0,react.createContext)(undefined);
-    var providerFactory = function (props, children) { return (0,react.createElement)(context.Provider, props, children); };
-    var StateProvider = function (_a) {
-        var children = _a.children, initialValue = _a.initialValue;
-        var state = (0,react.useState)(initialValue !== undefined ? initialValue : defaultInitialValue);
-        return providerFactory({ value: state }, children);
-    };
-    var useStateContext = function () {
-        var state = (0,react.useContext)(context);
-        if (state == null) {
-            throw new Error("useStateContext must be used inside a StateProvider.");
-        }
-        return state;
-    };
-    return [useStateContext, StateProvider, context];
-};
-/* harmony default export */ var factory_createStateContext = (createStateContext);
-
-// EXTERNAL MODULE: ./node_modules/tslib/tslib.es6.mjs
-var tslib_es6 = __webpack_require__(1635);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMountedState.js
-
-function useMountedState() {
-    var mountedRef = (0,react.useRef)(false);
-    var get = (0,react.useCallback)(function () { return mountedRef.current; }, []);
-    (0,react.useEffect)(function () {
-        mountedRef.current = true;
-        return function () {
-            mountedRef.current = false;
-        };
-    }, []);
-    return get;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useAsyncFn.js
-
-
-
-function useAsyncFn(fn, deps, initialState) {
-    if (deps === void 0) { deps = []; }
-    if (initialState === void 0) { initialState = { loading: false }; }
-    var lastCallId = (0,react.useRef)(0);
-    var isMounted = useMountedState();
-    var _a = (0,react.useState)(initialState), state = _a[0], set = _a[1];
-    var callback = (0,react.useCallback)(function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        var callId = ++lastCallId.current;
-        if (!state.loading) {
-            set(function (prevState) { return ((0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, prevState), { loading: true })); });
-        }
-        return fn.apply(void 0, args).then(function (value) {
-            isMounted() && callId === lastCallId.current && set({ value: value, loading: false });
-            return value;
-        }, function (error) {
-            isMounted() && callId === lastCallId.current && set({ error: error, loading: false });
-            return error;
-        });
-    }, deps);
-    return [state, callback];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useAsync.js
-
-
-function useAsync(fn, deps) {
-    if (deps === void 0) { deps = []; }
-    var _a = useAsyncFn(fn, deps, {
-        loading: true,
-    }), state = _a[0], callback = _a[1];
-    (0,react.useEffect)(function () {
-        callback();
-    }, [callback]);
-    return state;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useAsyncRetry.js
-
-
-
-var useAsyncRetry = function (fn, deps) {
-    if (deps === void 0) { deps = []; }
-    var _a = (0,react.useState)(0), attempt = _a[0], setAttempt = _a[1];
-    var state = useAsync(fn, (0,tslib_es6.__spreadArrays)(deps, [attempt]));
-    var stateLoading = state.loading;
-    var retry = (0,react.useCallback)(function () {
-        if (stateLoading) {
-            if (false) {}
-            return;
-        }
-        setAttempt(function (currentAttempt) { return currentAttempt + 1; });
-    }, (0,tslib_es6.__spreadArrays)(deps, [stateLoading]));
-    return (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, state), { retry: retry });
-};
-/* harmony default export */ var esm_useAsyncRetry = (useAsyncRetry);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSetState.js
-
-var useSetState = function (initialState) {
-    if (initialState === void 0) { initialState = {}; }
-    var _a = (0,react.useState)(initialState), state = _a[0], set = _a[1];
-    var setState = (0,react.useCallback)(function (patch) {
-        set(function (prevState) {
-            return Object.assign({}, prevState, patch instanceof Function ? patch(prevState) : patch);
-        });
-    }, []);
-    return [state, setState];
-};
-/* harmony default export */ var esm_useSetState = (useSetState);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/misc/parseTimeRanges.js
-function parseTimeRanges(ranges) {
-    var result = [];
-    for (var i = 0; i < ranges.length; i++) {
-        result.push({
-            start: ranges.start(i),
-            end: ranges.end(i),
-        });
-    }
-    return result;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createHTMLMediaHook.js
-
-
-
-
-
-function createHTMLMediaHook(tag) {
-    return function (elOrProps) {
-        var element;
-        var props;
-        if (react.isValidElement(elOrProps)) {
-            element = elOrProps;
-            props = element.props;
-        }
-        else {
-            props = elOrProps;
-        }
-        var _a = esm_useSetState({
-            buffered: [],
-            time: 0,
-            duration: 0,
-            paused: true,
-            muted: false,
-            volume: 1,
-            playing: false,
-        }), state = _a[0], setState = _a[1];
-        var ref = (0,react.useRef)(null);
-        var wrapEvent = function (userEvent, proxyEvent) {
-            return function (event) {
-                try {
-                    proxyEvent && proxyEvent(event);
-                }
-                finally {
-                    userEvent && userEvent(event);
-                }
-            };
-        };
-        var onPlay = function () { return setState({ paused: false }); };
-        var onPlaying = function () { return setState({ playing: true }); };
-        var onWaiting = function () { return setState({ playing: false }); };
-        var onPause = function () { return setState({ paused: true, playing: false }); };
-        var onVolumeChange = function () {
-            var el = ref.current;
-            if (!el) {
-                return;
-            }
-            setState({
-                muted: el.muted,
-                volume: el.volume,
-            });
-        };
-        var onDurationChange = function () {
-            var el = ref.current;
-            if (!el) {
-                return;
-            }
-            var duration = el.duration, buffered = el.buffered;
-            setState({
-                duration: duration,
-                buffered: parseTimeRanges(buffered),
-            });
-        };
-        var onTimeUpdate = function () {
-            var el = ref.current;
-            if (!el) {
-                return;
-            }
-            setState({ time: el.currentTime });
-        };
-        var onProgress = function () {
-            var el = ref.current;
-            if (!el) {
-                return;
-            }
-            setState({ buffered: parseTimeRanges(el.buffered) });
-        };
-        if (element) {
-            element = react.cloneElement(element, (0,tslib_es6.__assign)((0,tslib_es6.__assign)({ controls: false }, props), { ref: ref, onPlay: wrapEvent(props.onPlay, onPlay), onPlaying: wrapEvent(props.onPlaying, onPlaying), onWaiting: wrapEvent(props.onWaiting, onWaiting), onPause: wrapEvent(props.onPause, onPause), onVolumeChange: wrapEvent(props.onVolumeChange, onVolumeChange), onDurationChange: wrapEvent(props.onDurationChange, onDurationChange), onTimeUpdate: wrapEvent(props.onTimeUpdate, onTimeUpdate), onProgress: wrapEvent(props.onProgress, onProgress) }));
-        }
-        else {
-            element = react.createElement(tag, (0,tslib_es6.__assign)((0,tslib_es6.__assign)({ controls: false }, props), { ref: ref, onPlay: wrapEvent(props.onPlay, onPlay), onPlaying: wrapEvent(props.onPlaying, onPlaying), onWaiting: wrapEvent(props.onWaiting, onWaiting), onPause: wrapEvent(props.onPause, onPause), onVolumeChange: wrapEvent(props.onVolumeChange, onVolumeChange), onDurationChange: wrapEvent(props.onDurationChange, onDurationChange), onTimeUpdate: wrapEvent(props.onTimeUpdate, onTimeUpdate), onProgress: wrapEvent(props.onProgress, onProgress) })); // TODO: fix this typing.
-        }
-        // Some browsers return `Promise` on `.play()` and may throw errors
-        // if one tries to execute another `.play()` or `.pause()` while that
-        // promise is resolving. So we prevent that with this lock.
-        // See: https://bugs.chromium.org/p/chromium/issues/detail?id=593273
-        var lockPlay = false;
-        var controls = {
-            play: function () {
-                var el = ref.current;
-                if (!el) {
-                    return undefined;
-                }
-                if (!lockPlay) {
-                    var promise = el.play();
-                    var isPromise = typeof promise === 'object';
-                    if (isPromise) {
-                        lockPlay = true;
-                        var resetLock = function () {
-                            lockPlay = false;
-                        };
-                        promise.then(resetLock, resetLock);
-                    }
-                    return promise;
-                }
-                return undefined;
-            },
-            pause: function () {
-                var el = ref.current;
-                if (el && !lockPlay) {
-                    return el.pause();
-                }
-            },
-            seek: function (time) {
-                var el = ref.current;
-                if (!el || state.duration === undefined) {
-                    return;
-                }
-                time = Math.min(state.duration, Math.max(0, time));
-                el.currentTime = time;
-            },
-            volume: function (volume) {
-                var el = ref.current;
-                if (!el) {
-                    return;
-                }
-                volume = Math.min(1, Math.max(0, volume));
-                el.volume = volume;
-                setState({ volume: volume });
-            },
-            mute: function () {
-                var el = ref.current;
-                if (!el) {
-                    return;
-                }
-                el.muted = true;
-            },
-            unmute: function () {
-                var el = ref.current;
-                if (!el) {
-                    return;
-                }
-                el.muted = false;
-            },
-        };
-        (0,react.useEffect)(function () {
-            var el = ref.current;
-            if (!el) {
-                if (false) {}
-                return;
-            }
-            setState({
-                volume: el.volume,
-                muted: el.muted,
-                paused: el.paused,
-            });
-            // Start media, if autoPlay requested.
-            if (props.autoPlay && el.paused) {
-                controls.play();
-            }
-        }, [props.src]);
-        return [element, state, controls, ref];
-    };
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useAudio.js
-
-var useAudio = createHTMLMediaHook('audio');
-/* harmony default export */ var esm_useAudio = (useAudio);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/misc/util.js
-var noop = function () { };
-function on(obj) {
-    var args = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        args[_i - 1] = arguments[_i];
-    }
-    if (obj && obj.addEventListener) {
-        obj.addEventListener.apply(obj, args);
-    }
-}
-function off(obj) {
-    var args = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        args[_i - 1] = arguments[_i];
-    }
-    if (obj && obj.removeEventListener) {
-        obj.removeEventListener.apply(obj, args);
-    }
-}
-var isBrowser = typeof window !== 'undefined';
-var isNavigator = typeof navigator !== 'undefined';
-
-// EXTERNAL MODULE: ./node_modules/fast-deep-equal/react.js
-var fast_deep_equal_react = __webpack_require__(2774);
-var fast_deep_equal_react_default = /*#__PURE__*/__webpack_require__.n(fast_deep_equal_react);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/misc/isDeepEqual.js
-
-/* harmony default export */ var isDeepEqual = ((fast_deep_equal_react_default()));
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useBattery.js
-
-
-
-var nav = isNavigator ? navigator : undefined;
-var isBatteryApiSupported = nav && typeof nav.getBattery === 'function';
-function useBatteryMock() {
-    return { isSupported: false };
-}
-function useBattery() {
-    var _a = (0,react.useState)({ isSupported: true, fetched: false }), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var isMounted = true;
-        var battery = null;
-        var handleChange = function () {
-            if (!isMounted || !battery) {
-                return;
-            }
-            var newState = {
-                isSupported: true,
-                fetched: true,
-                level: battery.level,
-                charging: battery.charging,
-                dischargingTime: battery.dischargingTime,
-                chargingTime: battery.chargingTime,
-            };
-            !isDeepEqual(state, newState) && setState(newState);
-        };
-        nav.getBattery().then(function (bat) {
-            if (!isMounted) {
-                return;
-            }
-            battery = bat;
-            on(battery, 'chargingchange', handleChange);
-            on(battery, 'chargingtimechange', handleChange);
-            on(battery, 'dischargingtimechange', handleChange);
-            on(battery, 'levelchange', handleChange);
-            handleChange();
-        });
-        return function () {
-            isMounted = false;
-            if (battery) {
-                off(battery, 'chargingchange', handleChange);
-                off(battery, 'chargingtimechange', handleChange);
-                off(battery, 'dischargingtimechange', handleChange);
-                off(battery, 'levelchange', handleChange);
-            }
-        };
-    }, []);
-    return state;
-}
-/* harmony default export */ var esm_useBattery = (isBatteryApiSupported ? useBattery : useBatteryMock);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useBeforeUnload.js
-
-
-var useBeforeUnload = function (enabled, message) {
-    if (enabled === void 0) { enabled = true; }
-    var handler = (0,react.useCallback)(function (event) {
-        var finalEnabled = typeof enabled === 'function' ? enabled() : true;
-        if (!finalEnabled) {
-            return;
-        }
-        event.preventDefault();
-        if (message) {
-            event.returnValue = message;
-        }
-        return message;
-    }, [enabled, message]);
-    (0,react.useEffect)(function () {
-        if (!enabled) {
-            return;
-        }
-        on(window, 'beforeunload', handler);
-        return function () { return off(window, 'beforeunload', handler); };
-    }, [enabled, handler]);
-};
-/* harmony default export */ var esm_useBeforeUnload = (useBeforeUnload);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useToggle.js
-
-var toggleReducer = function (state, nextValue) {
-    return typeof nextValue === 'boolean' ? nextValue : !state;
-};
-var useToggle = function (initialValue) {
-    return (0,react.useReducer)(toggleReducer, initialValue);
-};
-/* harmony default export */ var esm_useToggle = (useToggle);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useBoolean.js
-
-/* harmony default export */ var useBoolean = (esm_useToggle);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useClickAway.js
-
-
-var defaultEvents = ['mousedown', 'touchstart'];
-var useClickAway = function (ref, onClickAway, events) {
-    if (events === void 0) { events = defaultEvents; }
-    var savedCallback = (0,react.useRef)(onClickAway);
-    (0,react.useEffect)(function () {
-        savedCallback.current = onClickAway;
-    }, [onClickAway]);
-    (0,react.useEffect)(function () {
-        var handler = function (event) {
-            var el = ref.current;
-            el && !el.contains(event.target) && savedCallback.current(event);
-        };
-        for (var _i = 0, events_1 = events; _i < events_1.length; _i++) {
-            var eventName = events_1[_i];
-            on(document, eventName, handler);
-        }
-        return function () {
-            for (var _i = 0, events_2 = events; _i < events_2.length; _i++) {
-                var eventName = events_2[_i];
-                off(document, eventName, handler);
-            }
-        };
-    }, [events, ref]);
-};
-/* harmony default export */ var esm_useClickAway = (useClickAway);
-
-// EXTERNAL MODULE: ./node_modules/js-cookie/src/js.cookie.js
-var js_cookie = __webpack_require__(2215);
-var js_cookie_default = /*#__PURE__*/__webpack_require__.n(js_cookie);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useCookie.js
-
-
-var useCookie = function (cookieName) {
-    var _a = (0,react.useState)(function () { return js_cookie_default().get(cookieName) || null; }), value = _a[0], setValue = _a[1];
-    var updateCookie = (0,react.useCallback)(function (newValue, options) {
-        js_cookie_default().set(cookieName, newValue, options);
-        setValue(newValue);
-    }, [cookieName]);
-    var deleteCookie = (0,react.useCallback)(function () {
-        js_cookie_default().remove(cookieName);
-        setValue(null);
-    }, [cookieName]);
-    return [value, updateCookie, deleteCookie];
-};
-/* harmony default export */ var esm_useCookie = (useCookie);
-
-// EXTERNAL MODULE: ./node_modules/copy-to-clipboard/index.js
-var copy_to_clipboard = __webpack_require__(7965);
-var copy_to_clipboard_default = /*#__PURE__*/__webpack_require__.n(copy_to_clipboard);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useCopyToClipboard.js
-
-
-
-
-var useCopyToClipboard = function () {
-    var isMounted = useMountedState();
-    var _a = esm_useSetState({
-        value: undefined,
-        error: undefined,
-        noUserInteraction: true,
-    }), state = _a[0], setState = _a[1];
-    var copyToClipboard = (0,react.useCallback)(function (value) {
-        if (!isMounted()) {
-            return;
-        }
-        var noUserInteraction;
-        var normalizedValue;
-        try {
-            // only strings and numbers casted to strings can be copied to clipboard
-            if (typeof value !== 'string' && typeof value !== 'number') {
-                var error = new Error("Cannot copy typeof " + typeof value + " to clipboard, must be a string");
-                if (false)
-                    {}
-                setState({
-                    value: value,
-                    error: error,
-                    noUserInteraction: true,
-                });
-                return;
-            }
-            // empty strings are also considered invalid
-            else if (value === '') {
-                var error = new Error("Cannot copy empty string to clipboard.");
-                if (false)
-                    {}
-                setState({
-                    value: value,
-                    error: error,
-                    noUserInteraction: true,
-                });
-                return;
-            }
-            normalizedValue = value.toString();
-            noUserInteraction = copy_to_clipboard_default()(normalizedValue);
-            setState({
-                value: normalizedValue,
-                error: undefined,
-                noUserInteraction: noUserInteraction,
-            });
-        }
-        catch (error) {
-            setState({
-                value: normalizedValue,
-                error: error,
-                noUserInteraction: noUserInteraction,
-            });
-        }
-    }, []);
-    return [state, copyToClipboard];
-};
-/* harmony default export */ var esm_useCopyToClipboard = (useCopyToClipboard);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useUpdate.js
-
-var updateReducer = function (num) { return (num + 1) % 1000000; };
-function useUpdate() {
-    var _a = (0,react.useReducer)(updateReducer, 0), update = _a[1];
-    return update;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/misc/hookState.js
-function resolveHookState(nextState, currentState) {
-    if (typeof nextState === 'function') {
-        return nextState.length ? nextState(currentState) : nextState();
-    }
-    return nextState;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useGetSet.js
-
-
-
-function useGetSet(initialState) {
-    var state = (0,react.useRef)(resolveHookState(initialState));
-    var update = useUpdate();
-    return (0,react.useMemo)(function () { return [
-        function () { return state.current; },
-        function (newState) {
-            state.current = resolveHookState(newState, state.current);
-            update();
-        },
-    ]; }, []);
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useCounter.js
-
-
-
-function useCounter(initialValue, max, min) {
-    if (initialValue === void 0) { initialValue = 0; }
-    if (max === void 0) { max = null; }
-    if (min === void 0) { min = null; }
-    var init = resolveHookState(initialValue);
-    typeof init !== 'number' &&
-        console.error('initialValue has to be a number, got ' + typeof initialValue);
-    if (typeof min === 'number') {
-        init = Math.max(init, min);
-    }
-    else if (min !== null) {
-        console.error('min has to be a number, got ' + typeof min);
-    }
-    if (typeof max === 'number') {
-        init = Math.min(init, max);
-    }
-    else if (max !== null) {
-        console.error('max has to be a number, got ' + typeof max);
-    }
-    var _a = useGetSet(init), get = _a[0], setInternal = _a[1];
-    return [
-        get(),
-        (0,react.useMemo)(function () {
-            var set = function (newState) {
-                var prevState = get();
-                var rState = resolveHookState(newState, prevState);
-                if (prevState !== rState) {
-                    if (typeof min === 'number') {
-                        rState = Math.max(rState, min);
-                    }
-                    if (typeof max === 'number') {
-                        rState = Math.min(rState, max);
-                    }
-                    prevState !== rState && setInternal(rState);
-                }
-            };
-            return {
-                get: get,
-                set: set,
-                inc: function (delta) {
-                    if (delta === void 0) { delta = 1; }
-                    var rDelta = resolveHookState(delta, get());
-                    if (typeof rDelta !== 'number') {
-                        console.error('delta has to be a number or function returning a number, got ' + typeof rDelta);
-                    }
-                    set(function (num) { return num + rDelta; });
-                },
-                dec: function (delta) {
-                    if (delta === void 0) { delta = 1; }
-                    var rDelta = resolveHookState(delta, get());
-                    if (typeof rDelta !== 'number') {
-                        console.error('delta has to be a number or function returning a number, got ' + typeof rDelta);
-                    }
-                    set(function (num) { return num - rDelta; });
-                },
-                reset: function (value) {
-                    if (value === void 0) { value = init; }
-                    var rValue = resolveHookState(value, get());
-                    if (typeof rValue !== 'number') {
-                        console.error('value has to be a number or function returning a number, got ' + typeof rValue);
-                    }
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                    init = rValue;
-                    set(rValue);
-                },
-            };
-        }, [init, min, max]),
-    ];
-}
-
-// EXTERNAL MODULE: ./node_modules/nano-css/index.js
-var nano_css = __webpack_require__(2365);
-// EXTERNAL MODULE: ./node_modules/nano-css/addon/cssom.js
-var cssom = __webpack_require__(759);
-// EXTERNAL MODULE: ./node_modules/nano-css/addon/vcssom.js
-var vcssom = __webpack_require__(2731);
-// EXTERNAL MODULE: ./node_modules/nano-css/addon/vcssom/cssToTree.js
-var cssToTree = __webpack_require__(2798);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useIsomorphicLayoutEffect.js
-
-
-var useIsomorphicLayoutEffect = isBrowser ? react.useLayoutEffect : react.useEffect;
-/* harmony default export */ var esm_useIsomorphicLayoutEffect = (useIsomorphicLayoutEffect);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useCss.js
-
-
-
-
-
-
-var nano = (0,nano_css/* create */.v)();
-(0,cssom/* addon */.v)(nano);
-(0,vcssom/* addon */.v)(nano);
-var counter = 0;
-var useCss = function (css) {
-    var className = (0,react.useMemo)(function () { return 'react-use-css-' + (counter++).toString(36); }, []);
-    var sheet = (0,react.useMemo)(function () { return new nano.VSheet(); }, []);
-    esm_useIsomorphicLayoutEffect(function () {
-        var tree = {};
-        (0,cssToTree/* cssToTree */.J)(tree, css, '.' + className, '');
-        sheet.diff(tree);
-        return function () {
-            sheet.diff({});
-        };
-    });
-    return className;
-};
-/* harmony default export */ var esm_useCss = (useCss);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useCustomCompareEffect.js
-
-var isPrimitive = function (val) { return val !== Object(val); };
-var useCustomCompareEffect = function (effect, deps, depsEqual) {
-    if (false) {}
-    var ref = (0,react.useRef)(undefined);
-    if (!ref.current || !depsEqual(deps, ref.current)) {
-        ref.current = deps;
-    }
-    (0,react.useEffect)(effect, ref.current);
-};
-/* harmony default export */ var esm_useCustomCompareEffect = (useCustomCompareEffect);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useTimeoutFn.js
-
-function useTimeoutFn(fn, ms) {
-    if (ms === void 0) { ms = 0; }
-    var ready = (0,react.useRef)(false);
-    var timeout = (0,react.useRef)();
-    var callback = (0,react.useRef)(fn);
-    var isReady = (0,react.useCallback)(function () { return ready.current; }, []);
-    var set = (0,react.useCallback)(function () {
-        ready.current = false;
-        timeout.current && clearTimeout(timeout.current);
-        timeout.current = setTimeout(function () {
-            ready.current = true;
-            callback.current();
-        }, ms);
-    }, [ms]);
-    var clear = (0,react.useCallback)(function () {
-        ready.current = null;
-        timeout.current && clearTimeout(timeout.current);
-    }, []);
-    // update ref when function changes
-    (0,react.useEffect)(function () {
-        callback.current = fn;
-    }, [fn]);
-    // set on mount, clear on unmount
-    (0,react.useEffect)(function () {
-        set();
-        return clear;
-    }, [ms]);
-    return [isReady, clear, set];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useDebounce.js
-
-
-function useDebounce(fn, ms, deps) {
-    if (ms === void 0) { ms = 0; }
-    if (deps === void 0) { deps = []; }
-    var _a = useTimeoutFn(fn, ms), isReady = _a[0], cancel = _a[1], reset = _a[2];
-    (0,react.useEffect)(reset, deps);
-    return [isReady, cancel];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useDeepCompareEffect.js
-
-
-var useDeepCompareEffect_isPrimitive = function (val) { return val !== Object(val); };
-var useDeepCompareEffect = function (effect, deps) {
-    if (false) {}
-    esm_useCustomCompareEffect(effect, deps, isDeepEqual);
-};
-/* harmony default export */ var esm_useDeepCompareEffect = (useDeepCompareEffect);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useDefault.js
-
-var useDefault = function (defaultValue, initialValue) {
-    var _a = (0,react.useState)(initialValue), value = _a[0], setValue = _a[1];
-    if (value === undefined || value === null) {
-        return [defaultValue, setValue];
-    }
-    return [value, setValue];
-};
-/* harmony default export */ var esm_useDefault = (useDefault);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useDrop.js
-
-
-
-var createProcess = function (options) { return function (dataTransfer, event) {
-    var uri = dataTransfer.getData('text/uri-list');
-    if (uri) {
-        (options.onUri || noop)(uri, event);
-        return;
-    }
-    if (dataTransfer.files && dataTransfer.files.length) {
-        (options.onFiles || noop)(Array.from(dataTransfer.files), event);
-        return;
-    }
-    if (event.clipboardData) {
-        var text = event.clipboardData.getData('text');
-        (options.onText || noop)(text, event);
-        return;
-    }
-}; };
-var useDrop = function (options, args) {
-    if (options === void 0) { options = {}; }
-    if (args === void 0) { args = []; }
-    var onFiles = options.onFiles, onText = options.onText, onUri = options.onUri;
-    var _a = (0,react.useState)(false), over = _a[0], setOverRaw = _a[1];
-    var setOver = (0,react.useCallback)(setOverRaw, []);
-    var process = (0,react.useMemo)(function () { return createProcess(options); }, [onFiles, onText, onUri]);
-    (0,react.useEffect)(function () {
-        var onDragOver = function (event) {
-            event.preventDefault();
-            setOver(true);
-        };
-        var onDragEnter = function (event) {
-            event.preventDefault();
-            setOver(true);
-        };
-        var onDragLeave = function () {
-            setOver(false);
-        };
-        var onDragExit = function () {
-            setOver(false);
-        };
-        var onDrop = function (event) {
-            event.preventDefault();
-            setOver(false);
-            process(event.dataTransfer, event);
-        };
-        var onPaste = function (event) {
-            process(event.clipboardData, event);
-        };
-        on(document, 'dragover', onDragOver);
-        on(document, 'dragenter', onDragEnter);
-        on(document, 'dragleave', onDragLeave);
-        on(document, 'dragexit', onDragExit);
-        on(document, 'drop', onDrop);
-        if (onText) {
-            on(document, 'paste', onPaste);
-        }
-        return function () {
-            off(document, 'dragover', onDragOver);
-            off(document, 'dragenter', onDragEnter);
-            off(document, 'dragleave', onDragLeave);
-            off(document, 'dragexit', onDragExit);
-            off(document, 'drop', onDrop);
-            off(document, 'paste', onPaste);
-        };
-    }, (0,tslib_es6.__spreadArrays)([process], args));
-    return { over: over };
-};
-/* harmony default export */ var esm_useDrop = (useDrop);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useDropArea.js
-
-
-
-/*
-const defaultState: DropAreaState = {
-  over: false,
-};
-*/
-var useDropArea_createProcess = function (options, mounted) { return function (dataTransfer, event) {
-    var uri = dataTransfer.getData('text/uri-list');
-    if (uri) {
-        (options.onUri || noop)(uri, event);
-        return;
-    }
-    if (dataTransfer.files && dataTransfer.files.length) {
-        (options.onFiles || noop)(Array.from(dataTransfer.files), event);
-        return;
-    }
-    if (dataTransfer.items && dataTransfer.items.length) {
-        dataTransfer.items[0].getAsString(function (text) {
-            if (mounted) {
-                (options.onText || noop)(text, event);
-            }
-        });
-    }
-}; };
-var createBond = function (process, setOver) { return ({
-    onDragOver: function (event) {
-        event.preventDefault();
-    },
-    onDragEnter: function (event) {
-        event.preventDefault();
-        setOver(true);
-    },
-    onDragLeave: function () {
-        setOver(false);
-    },
-    onDrop: function (event) {
-        event.preventDefault();
-        event.persist();
-        setOver(false);
-        process(event.dataTransfer, event);
-    },
-    onPaste: function (event) {
-        event.persist();
-        process(event.clipboardData, event);
-    },
-}); };
-var useDropArea = function (options) {
-    if (options === void 0) { options = {}; }
-    var onFiles = options.onFiles, onText = options.onText, onUri = options.onUri;
-    var isMounted = useMountedState();
-    var _a = (0,react.useState)(false), over = _a[0], setOver = _a[1];
-    var process = (0,react.useMemo)(function () { return useDropArea_createProcess(options, isMounted()); }, [onFiles, onText, onUri]);
-    var bond = (0,react.useMemo)(function () { return createBond(process, setOver); }, [process, setOver]);
-    return [bond, { over: over }];
-};
-/* harmony default export */ var esm_useDropArea = (useDropArea);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useEffectOnce.js
-
-var useEffectOnce = function (effect) {
-    (0,react.useEffect)(effect, []);
-};
-/* harmony default export */ var esm_useEffectOnce = (useEffectOnce);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useEnsuredForwardedRef.js
-
-function useEnsuredForwardedRef(forwardedRef) {
-    var ensuredRef = (0,react.useRef)(forwardedRef && forwardedRef.current);
-    (0,react.useEffect)(function () {
-        if (!forwardedRef) {
-            return;
-        }
-        forwardedRef.current = ensuredRef.current;
-    }, [forwardedRef]);
-    return ensuredRef;
-}
-function ensuredForwardRef(Component) {
-    return (0,react.forwardRef)(function (props, ref) {
-        var ensuredRef = useEnsuredForwardedRef(ref);
-        return Component(props, ensuredRef);
-    });
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useEvent.js
-
-
-var defaultTarget = isBrowser ? window : null;
-var isListenerType1 = function (target) {
-    return !!target.addEventListener;
-};
-var isListenerType2 = function (target) {
-    return !!target.on;
-};
-var useEvent = function (name, handler, target, options) {
-    if (target === void 0) { target = defaultTarget; }
-    (0,react.useEffect)(function () {
-        if (!handler) {
-            return;
-        }
-        if (!target) {
-            return;
-        }
-        if (isListenerType1(target)) {
-            on(target, name, handler, options);
-        }
-        else if (isListenerType2(target)) {
-            target.on(name, handler, options);
-        }
-        return function () {
-            if (isListenerType1(target)) {
-                off(target, name, handler, options);
-            }
-            else if (isListenerType2(target)) {
-                target.off(name, handler, options);
-            }
-        };
-    }, [name, handler, target, JSON.stringify(options)]);
-};
-/* harmony default export */ var esm_useEvent = (useEvent);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useError.js
-
-var useError = function () {
-    var _a = (0,react.useState)(null), error = _a[0], setError = _a[1];
-    (0,react.useEffect)(function () {
-        if (error) {
-            throw error;
-        }
-    }, [error]);
-    var dispatchError = (0,react.useCallback)(function (err) {
-        setError(err);
-    }, []);
-    return dispatchError;
-};
-/* harmony default export */ var esm_useError = (useError);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useFavicon.js
-
-var useFavicon = function (href) {
-    (0,react.useEffect)(function () {
-        var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        link.type = 'image/x-icon';
-        link.rel = 'shortcut icon';
-        link.href = href;
-        document.getElementsByTagName('head')[0].appendChild(link);
-    }, [href]);
-};
-/* harmony default export */ var esm_useFavicon = (useFavicon);
-
-// EXTERNAL MODULE: ./node_modules/screenfull/dist/screenfull.js
-var screenfull = __webpack_require__(1916);
-var screenfull_default = /*#__PURE__*/__webpack_require__.n(screenfull);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useFullscreen.js
-
-
-
-
-var useFullscreen = function (ref, enabled, options) {
-    if (options === void 0) { options = {}; }
-    var video = options.video, _a = options.onClose, onClose = _a === void 0 ? noop : _a;
-    var _b = (0,react.useState)(enabled), isFullscreen = _b[0], setIsFullscreen = _b[1];
-    esm_useIsomorphicLayoutEffect(function () {
-        if (!enabled) {
-            return;
-        }
-        if (!ref.current) {
-            return;
-        }
-        var onWebkitEndFullscreen = function () {
-            if (video === null || video === void 0 ? void 0 : video.current) {
-                off(video.current, 'webkitendfullscreen', onWebkitEndFullscreen);
-            }
-            onClose();
-        };
-        var onChange = function () {
-            if ((screenfull_default()).isEnabled) {
-                var isScreenfullFullscreen = (screenfull_default()).isFullscreen;
-                setIsFullscreen(isScreenfullFullscreen);
-                if (!isScreenfullFullscreen) {
-                    onClose();
-                }
-            }
-        };
-        if ((screenfull_default()).isEnabled) {
-            try {
-                screenfull_default().request(ref.current);
-                setIsFullscreen(true);
-            }
-            catch (error) {
-                onClose(error);
-                setIsFullscreen(false);
-            }
-            screenfull_default().on('change', onChange);
-        }
-        else if (video && video.current && video.current.webkitEnterFullscreen) {
-            video.current.webkitEnterFullscreen();
-            on(video.current, 'webkitendfullscreen', onWebkitEndFullscreen);
-            setIsFullscreen(true);
-        }
-        else {
-            onClose();
-            setIsFullscreen(false);
-        }
-        return function () {
-            setIsFullscreen(false);
-            if ((screenfull_default()).isEnabled) {
-                try {
-                    screenfull_default().off('change', onChange);
-                    screenfull_default().exit();
-                }
-                catch (_a) { }
-            }
-            else if (video && video.current && video.current.webkitExitFullscreen) {
-                off(video.current, 'webkitendfullscreen', onWebkitEndFullscreen);
-                video.current.webkitExitFullscreen();
-            }
-        };
-    }, [enabled, video, ref]);
-    return isFullscreen;
-};
-/* harmony default export */ var esm_useFullscreen = (useFullscreen);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useGeolocation.js
-
-
-var useGeolocation = function (options) {
-    var _a = (0,react.useState)({
-        loading: true,
-        accuracy: null,
-        altitude: null,
-        altitudeAccuracy: null,
-        heading: null,
-        latitude: null,
-        longitude: null,
-        speed: null,
-        timestamp: Date.now(),
-    }), state = _a[0], setState = _a[1];
-    var mounted = true;
-    var watchId;
-    var onEvent = function (event) {
-        if (mounted) {
-            setState({
-                loading: false,
-                accuracy: event.coords.accuracy,
-                altitude: event.coords.altitude,
-                altitudeAccuracy: event.coords.altitudeAccuracy,
-                heading: event.coords.heading,
-                latitude: event.coords.latitude,
-                longitude: event.coords.longitude,
-                speed: event.coords.speed,
-                timestamp: event.timestamp,
-            });
-        }
-    };
-    var onEventError = function (error) {
-        return mounted && setState(function (oldState) { return ((0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, oldState), { loading: false, error: error })); });
-    };
-    (0,react.useEffect)(function () {
-        navigator.geolocation.getCurrentPosition(onEvent, onEventError, options);
-        watchId = navigator.geolocation.watchPosition(onEvent, onEventError, options);
-        return function () {
-            mounted = false;
-            navigator.geolocation.clearWatch(watchId);
-        };
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useGeolocation = (useGeolocation);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useGetSetState.js
-
-
-
-var useGetSetState = function (initialState) {
-    if (initialState === void 0) { initialState = {}; }
-    if (false) {}
-    var update = useUpdate();
-    var state = (0,react.useRef)((0,tslib_es6.__assign)({}, initialState));
-    var get = (0,react.useCallback)(function () { return state.current; }, []);
-    var set = (0,react.useCallback)(function (patch) {
-        if (!patch) {
-            return;
-        }
-        if (false) {}
-        Object.assign(state.current, patch);
-        update();
-    }, []);
-    return [get, set];
-};
-/* harmony default export */ var esm_useGetSetState = (useGetSetState);
-
-;// CONCATENATED MODULE: ./node_modules/set-harmonic-interval/lib/index.esm.js
-var index_esm_counter = 0;
-var buckets = {};
-var setHarmonicInterval = function (fn, ms) {
-    var _a;
-    var id = index_esm_counter++;
-    if (buckets[ms]) {
-        buckets[ms].listeners[id] = fn;
-    }
-    else {
-        var timer = setInterval(function () {
-            var listeners = buckets[ms].listeners;
-            var didThrow = false;
-            var lastError;
-            for (var _i = 0, _a = Object.values(listeners); _i < _a.length; _i++) {
-                var listener = _a[_i];
-                try {
-                    listener();
-                }
-                catch (error) {
-                    didThrow = true;
-                    lastError = error;
-                }
-            }
-            if (didThrow)
-                throw lastError;
-        }, ms);
-        buckets[ms] = {
-            ms: ms,
-            timer: timer,
-            listeners: (_a = {},
-                _a[id] = fn,
-                _a),
-        };
-    }
-    return {
-        bucket: buckets[ms],
-        id: id,
-    };
-};
-var clearHarmonicInterval = function (_a) {
-    var bucket = _a.bucket, id = _a.id;
-    delete bucket.listeners[id];
-    var hasListeners = false;
-    for (var listener in bucket.listeners) {
-        hasListeners = true;
-        break;
-    }
-    if (!hasListeners) {
-        clearInterval(bucket.timer);
-        delete buckets[bucket.ms];
-    }
-};
-
-
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useHarmonicIntervalFn.js
-
-
-var useHarmonicIntervalFn = function (fn, delay) {
-    if (delay === void 0) { delay = 0; }
-    var latestCallback = (0,react.useRef)(function () { });
-    (0,react.useEffect)(function () {
-        latestCallback.current = fn;
-    });
-    (0,react.useEffect)(function () {
-        if (delay !== null) {
-            var interval_1 = setHarmonicInterval(function () { return latestCallback.current(); }, delay);
-            return function () { return clearHarmonicInterval(interval_1); };
-        }
-        return undefined;
-    }, [delay]);
-};
-/* harmony default export */ var esm_useHarmonicIntervalFn = (useHarmonicIntervalFn);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useHover.js
-
-
-var useState = react.useState;
-var useHover = function (element) {
-    var _a = useState(false), state = _a[0], setState = _a[1];
-    var onMouseEnter = function (originalOnMouseEnter) { return function (event) {
-        (originalOnMouseEnter || noop)(event);
-        setState(true);
-    }; };
-    var onMouseLeave = function (originalOnMouseLeave) { return function (event) {
-        (originalOnMouseLeave || noop)(event);
-        setState(false);
-    }; };
-    if (typeof element === 'function') {
-        element = element(state);
-    }
-    var el = react.cloneElement(element, {
-        onMouseEnter: onMouseEnter(element.props.onMouseEnter),
-        onMouseLeave: onMouseLeave(element.props.onMouseLeave),
-    });
-    return [el, state];
-};
-/* harmony default export */ var esm_useHover = (useHover);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useHoverDirty.js
-
-
-// kudos: https://usehooks.com/
-var useHoverDirty = function (ref, enabled) {
-    if (enabled === void 0) { enabled = true; }
-    if (false) {}
-    var _a = (0,react.useState)(false), value = _a[0], setValue = _a[1];
-    (0,react.useEffect)(function () {
-        var onMouseOver = function () { return setValue(true); };
-        var onMouseOut = function () { return setValue(false); };
-        if (enabled && ref && ref.current) {
-            on(ref.current, 'mouseover', onMouseOver);
-            on(ref.current, 'mouseout', onMouseOut);
-        }
-        // fixes react-hooks/exhaustive-deps warning about stale ref elements
-        var current = ref.current;
-        return function () {
-            if (enabled && current) {
-                off(current, 'mouseover', onMouseOver);
-                off(current, 'mouseout', onMouseOut);
-            }
-        };
-    }, [enabled, ref]);
-    return value;
-};
-/* harmony default export */ var esm_useHoverDirty = (useHoverDirty);
-
-;// CONCATENATED MODULE: ./node_modules/throttle-debounce/esm/index.js
-/* eslint-disable no-undefined,no-param-reassign,no-shadow */
-
-/**
- * Throttle execution of a function. Especially useful for rate limiting
- * execution of handlers on events like resize and scroll.
- *
- * @param  {number}    delay -          A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
- * @param  {boolean}   [noTrailing] -   Optional, defaults to false. If noTrailing is true, callback will only execute every `delay` milliseconds while the
- *                                    throttled-function is being called. If noTrailing is false or unspecified, callback will be executed one final time
- *                                    after the last throttled-function call. (After the throttled-function has not been called for `delay` milliseconds,
- *                                    the internal counter is reset).
- * @param  {Function}  callback -       A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
- *                                    to `callback` when the throttled-function is executed.
- * @param  {boolean}   [debounceMode] - If `debounceMode` is true (at begin), schedule `clear` to execute after `delay` ms. If `debounceMode` is false (at end),
- *                                    schedule `callback` to execute after `delay` ms.
- *
- * @returns {Function}  A new, throttled, function.
- */
-function throttle (delay, noTrailing, callback, debounceMode) {
-  /*
-   * After wrapper has stopped being called, this timeout ensures that
-   * `callback` is executed at the proper times in `throttle` and `end`
-   * debounce modes.
-   */
-  var timeoutID;
-  var cancelled = false; // Keep track of the last time `callback` was executed.
-
-  var lastExec = 0; // Function to clear existing timeout
-
-  function clearExistingTimeout() {
-    if (timeoutID) {
-      clearTimeout(timeoutID);
-    }
-  } // Function to cancel next exec
-
-
-  function cancel() {
-    clearExistingTimeout();
-    cancelled = true;
-  } // `noTrailing` defaults to falsy.
-
-
-  if (typeof noTrailing !== 'boolean') {
-    debounceMode = callback;
-    callback = noTrailing;
-    noTrailing = undefined;
-  }
-  /*
-   * The `wrapper` function encapsulates all of the throttling / debouncing
-   * functionality and when executed will limit the rate at which `callback`
-   * is executed.
-   */
-
-
-  function wrapper() {
-    for (var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++) {
-      arguments_[_key] = arguments[_key];
-    }
-
-    var self = this;
-    var elapsed = Date.now() - lastExec;
-
-    if (cancelled) {
-      return;
-    } // Execute `callback` and update the `lastExec` timestamp.
-
-
-    function exec() {
-      lastExec = Date.now();
-      callback.apply(self, arguments_);
-    }
-    /*
-     * If `debounceMode` is true (at begin) this is used to clear the flag
-     * to allow future `callback` executions.
-     */
-
-
-    function clear() {
-      timeoutID = undefined;
-    }
-
-    if (debounceMode && !timeoutID) {
-      /*
-       * Since `wrapper` is being called for the first time and
-       * `debounceMode` is true (at begin), execute `callback`.
-       */
-      exec();
-    }
-
-    clearExistingTimeout();
-
-    if (debounceMode === undefined && elapsed > delay) {
-      /*
-       * In throttle mode, if `delay` time has been exceeded, execute
-       * `callback`.
-       */
-      exec();
-    } else if (noTrailing !== true) {
-      /*
-       * In trailing throttle mode, since `delay` time has not been
-       * exceeded, schedule `callback` to execute `delay` ms after most
-       * recent execution.
-       *
-       * If `debounceMode` is true (at begin), schedule `clear` to execute
-       * after `delay` ms.
-       *
-       * If `debounceMode` is false (at end), schedule `callback` to
-       * execute after `delay` ms.
-       */
-      timeoutID = setTimeout(debounceMode ? clear : exec, debounceMode === undefined ? delay - elapsed : delay);
-    }
-  }
-
-  wrapper.cancel = cancel; // Return the wrapper function.
-
-  return wrapper;
-}
-
-/* eslint-disable no-undefined */
-/**
- * Debounce execution of a function. Debouncing, unlike throttling,
- * guarantees that a function is only executed a single time, either at the
- * very beginning of a series of calls, or at the very end.
- *
- * @param  {number}   delay -         A zero-or-greater delay in milliseconds. For event callbacks, values around 100 or 250 (or even higher) are most useful.
- * @param  {boolean}  [atBegin] -     Optional, defaults to false. If atBegin is false or unspecified, callback will only be executed `delay` milliseconds
- *                                  after the last debounced-function call. If atBegin is true, callback will be executed only at the first debounced-function call.
- *                                  (After the throttled-function has not been called for `delay` milliseconds, the internal counter is reset).
- * @param  {Function} callback -      A function to be executed after delay milliseconds. The `this` context and all arguments are passed through, as-is,
- *                                  to `callback` when the debounced-function is executed.
- *
- * @returns {Function} A new, debounced function.
- */
-
-function debounce (delay, atBegin, callback) {
-  return callback === undefined ? throttle(delay, atBegin, false) : throttle(delay, callback, atBegin !== false);
-}
-
-
-//# sourceMappingURL=index.js.map
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useIdle.js
-
-
-
-var useIdle_defaultEvents = ['mousemove', 'mousedown', 'resize', 'keydown', 'touchstart', 'wheel'];
-var oneMinute = 60e3;
-var useIdle = function (ms, initialState, events) {
-    if (ms === void 0) { ms = oneMinute; }
-    if (initialState === void 0) { initialState = false; }
-    if (events === void 0) { events = useIdle_defaultEvents; }
-    var _a = (0,react.useState)(initialState), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var mounted = true;
-        var timeout;
-        var localState = state;
-        var set = function (newState) {
-            if (mounted) {
-                localState = newState;
-                setState(newState);
-            }
-        };
-        var onEvent = throttle(50, function () {
-            if (localState) {
-                set(false);
-            }
-            clearTimeout(timeout);
-            timeout = setTimeout(function () { return set(true); }, ms);
-        });
-        var onVisibility = function () {
-            if (!document.hidden) {
-                onEvent();
-            }
-        };
-        for (var i = 0; i < events.length; i++) {
-            on(window, events[i], onEvent);
-        }
-        on(document, 'visibilitychange', onVisibility);
-        timeout = setTimeout(function () { return set(true); }, ms);
-        return function () {
-            mounted = false;
-            for (var i = 0; i < events.length; i++) {
-                off(window, events[i], onEvent);
-            }
-            off(document, 'visibilitychange', onVisibility);
-        };
-    }, [ms, events]);
-    return state;
-};
-/* harmony default export */ var esm_useIdle = (useIdle);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useIntersection.js
-
-var useIntersection = function (ref, options) {
-    var _a = (0,react.useState)(null), intersectionObserverEntry = _a[0], setIntersectionObserverEntry = _a[1];
-    (0,react.useEffect)(function () {
-        if (ref.current && typeof IntersectionObserver === 'function') {
-            var handler = function (entries) {
-                setIntersectionObserverEntry(entries[0]);
-            };
-            var observer_1 = new IntersectionObserver(handler, options);
-            observer_1.observe(ref.current);
-            return function () {
-                setIntersectionObserverEntry(null);
-                observer_1.disconnect();
-            };
-        }
-        return function () { };
-    }, [ref.current, options.threshold, options.root, options.rootMargin]);
-    return intersectionObserverEntry;
-};
-/* harmony default export */ var esm_useIntersection = (useIntersection);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useInterval.js
-
-var useInterval = function (callback, delay) {
-    var savedCallback = (0,react.useRef)(function () { });
-    (0,react.useEffect)(function () {
-        savedCallback.current = callback;
-    });
-    (0,react.useEffect)(function () {
-        if (delay !== null) {
-            var interval_1 = setInterval(function () { return savedCallback.current(); }, delay || 0);
-            return function () { return clearInterval(interval_1); };
-        }
-        return undefined;
-    }, [delay]);
-};
-/* harmony default export */ var esm_useInterval = (useInterval);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useKey.js
-
-
-
-var createKeyPredicate = function (keyFilter) {
-    return typeof keyFilter === 'function'
-        ? keyFilter
-        : typeof keyFilter === 'string'
-            ? function (event) { return event.key === keyFilter; }
-            : keyFilter
-                ? function () { return true; }
-                : function () { return false; };
-};
-var useKey = function (key, fn, opts, deps) {
-    if (fn === void 0) { fn = noop; }
-    if (opts === void 0) { opts = {}; }
-    if (deps === void 0) { deps = [key]; }
-    var _a = opts.event, event = _a === void 0 ? 'keydown' : _a, target = opts.target, options = opts.options;
-    var useMemoHandler = (0,react.useMemo)(function () {
-        var predicate = createKeyPredicate(key);
-        var handler = function (handlerEvent) {
-            if (predicate(handlerEvent)) {
-                return fn(handlerEvent);
-            }
-        };
-        return handler;
-    }, deps);
-    esm_useEvent(event, useMemoHandler, target, options);
-};
-/* harmony default export */ var esm_useKey = (useKey);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createBreakpoint.js
-
-
-var createBreakpoint = function (breakpoints) {
-    if (breakpoints === void 0) { breakpoints = { laptopL: 1440, laptop: 1024, tablet: 768 }; }
-    return function () {
-        var _a = (0,react.useState)(isBrowser ? window.innerWidth : 0), screen = _a[0], setScreen = _a[1];
-        (0,react.useEffect)(function () {
-            var setSideScreen = function () {
-                setScreen(window.innerWidth);
-            };
-            setSideScreen();
-            on(window, 'resize', setSideScreen);
-            return function () {
-                off(window, 'resize', setSideScreen);
-            };
-        });
-        var sortedBreakpoints = (0,react.useMemo)(function () { return Object.entries(breakpoints).sort(function (a, b) { return (a[1] >= b[1] ? 1 : -1); }); }, [breakpoints]);
-        var result = sortedBreakpoints.reduce(function (acc, _a) {
-            var name = _a[0], width = _a[1];
-            if (screen >= width) {
-                return name;
-            }
-            else {
-                return acc;
-            }
-        }, sortedBreakpoints[0][0]);
-        return result;
-    };
-};
-/* harmony default export */ var factory_createBreakpoint = (createBreakpoint);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useKeyPress.js
-
-
-var useKeyPress = function (keyFilter) {
-    var _a = (0,react.useState)([false, null]), state = _a[0], set = _a[1];
-    esm_useKey(keyFilter, function (event) { return set([true, event]); }, { event: 'keydown' }, [state]);
-    esm_useKey(keyFilter, function (event) { return set([false, event]); }, { event: 'keyup' }, [state]);
-    return state;
-};
-/* harmony default export */ var esm_useKeyPress = (useKeyPress);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useKeyPressEvent.js
-
-
-var useKeyPressEvent = function (key, keydown, keyup, useKeyPress) {
-    if (useKeyPress === void 0) { useKeyPress = esm_useKeyPress; }
-    var _a = useKeyPress(key), pressed = _a[0], event = _a[1];
-    esm_useUpdateEffect(function () {
-        if (!pressed && keyup) {
-            keyup(event);
-        }
-        else if (pressed && keydown) {
-            keydown(event);
-        }
-    }, [pressed]);
-};
-/* harmony default export */ var esm_useKeyPressEvent = (useKeyPressEvent);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLatest.js
-
-var useLatest = function (value) {
-    var ref = (0,react.useRef)(value);
-    ref.current = value;
-    return ref;
-};
-/* harmony default export */ var esm_useLatest = (useLatest);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLifecycles.js
-
-var useLifecycles = function (mount, unmount) {
-    (0,react.useEffect)(function () {
-        if (mount) {
-            mount();
-        }
-        return function () {
-            if (unmount) {
-                unmount();
-            }
-        };
-    }, []);
-};
-/* harmony default export */ var esm_useLifecycles = (useLifecycles);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useList.js
-
-
-
-function useList(initialList) {
-    if (initialList === void 0) { initialList = []; }
-    var list = (0,react.useRef)(resolveHookState(initialList));
-    var update = useUpdate();
-    var actions = (0,react.useMemo)(function () {
-        var a = {
-            set: function (newList) {
-                list.current = resolveHookState(newList, list.current);
-                update();
-            },
-            push: function () {
-                var items = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    items[_i] = arguments[_i];
-                }
-                items.length && actions.set(function (curr) { return curr.concat(items); });
-            },
-            updateAt: function (index, item) {
-                actions.set(function (curr) {
-                    var arr = curr.slice();
-                    arr[index] = item;
-                    return arr;
-                });
-            },
-            insertAt: function (index, item) {
-                actions.set(function (curr) {
-                    var arr = curr.slice();
-                    index > arr.length ? (arr[index] = item) : arr.splice(index, 0, item);
-                    return arr;
-                });
-            },
-            update: function (predicate, newItem) {
-                actions.set(function (curr) { return curr.map(function (item) { return (predicate(item, newItem) ? newItem : item); }); });
-            },
-            updateFirst: function (predicate, newItem) {
-                var index = list.current.findIndex(function (item) { return predicate(item, newItem); });
-                index >= 0 && actions.updateAt(index, newItem);
-            },
-            upsert: function (predicate, newItem) {
-                var index = list.current.findIndex(function (item) { return predicate(item, newItem); });
-                index >= 0 ? actions.updateAt(index, newItem) : actions.push(newItem);
-            },
-            sort: function (compareFn) {
-                actions.set(function (curr) { return curr.slice().sort(compareFn); });
-            },
-            filter: function (callbackFn, thisArg) {
-                actions.set(function (curr) { return curr.slice().filter(callbackFn, thisArg); });
-            },
-            removeAt: function (index) {
-                actions.set(function (curr) {
-                    var arr = curr.slice();
-                    arr.splice(index, 1);
-                    return arr;
-                });
-            },
-            clear: function () {
-                actions.set([]);
-            },
-            reset: function () {
-                actions.set(resolveHookState(initialList).slice());
-            },
-        };
-        /**
-         * @deprecated Use removeAt method instead
-         */
-        a.remove = a.removeAt;
-        return a;
-    }, []);
-    return [list.current, actions];
-}
-/* harmony default export */ var esm_useList = (useList);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLocalStorage.js
-
-
-var useLocalStorage = function (key, initialValue, options) {
-    if (!isBrowser) {
-        return [initialValue, noop, noop];
-    }
-    if (!key) {
-        throw new Error('useLocalStorage key may not be falsy');
-    }
-    var deserializer = options
-        ? options.raw
-            ? function (value) { return value; }
-            : options.deserializer
-        : JSON.parse;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var initializer = (0,react.useRef)(function (key) {
-        try {
-            var serializer = options ? (options.raw ? String : options.serializer) : JSON.stringify;
-            var localStorageValue = localStorage.getItem(key);
-            if (localStorageValue !== null) {
-                return deserializer(localStorageValue);
-            }
-            else {
-                initialValue && localStorage.setItem(key, serializer(initialValue));
-                return initialValue;
-            }
-        }
-        catch (_a) {
-            // If user is in private mode or has storage restriction
-            // localStorage can throw. JSON.parse and JSON.stringify
-            // can throw, too.
-            return initialValue;
-        }
-    });
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var _a = (0,react.useState)(function () { return initializer.current(key); }), state = _a[0], setState = _a[1];
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    (0,react.useLayoutEffect)(function () { return setState(initializer.current(key)); }, [key]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var set = (0,react.useCallback)(function (valOrFunc) {
-        try {
-            var newState = typeof valOrFunc === 'function' ? valOrFunc(state) : valOrFunc;
-            if (typeof newState === 'undefined')
-                return;
-            var value = void 0;
-            if (options)
-                if (options.raw)
-                    if (typeof newState === 'string')
-                        value = newState;
-                    else
-                        value = JSON.stringify(newState);
-                else if (options.serializer)
-                    value = options.serializer(newState);
-                else
-                    value = JSON.stringify(newState);
-            else
-                value = JSON.stringify(newState);
-            localStorage.setItem(key, value);
-            setState(deserializer(value));
-        }
-        catch (_a) {
-            // If user is in private mode or has storage restriction
-            // localStorage can throw. Also JSON.stringify can throw.
-        }
-    }, [key, setState]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var remove = (0,react.useCallback)(function () {
-        try {
-            localStorage.removeItem(key);
-            setState(undefined);
-        }
-        catch (_a) {
-            // If user is in private mode or has storage restriction
-            // localStorage can throw.
-        }
-    }, [key, setState]);
-    return [state, set, remove];
-};
-/* harmony default export */ var esm_useLocalStorage = (useLocalStorage);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLocation.js
-
-
-var patchHistoryMethod = function (method) {
-    var history = window.history;
-    var original = history[method];
-    history[method] = function (state) {
-        var result = original.apply(this, arguments);
-        var event = new Event(method.toLowerCase());
-        event.state = state;
-        window.dispatchEvent(event);
-        return result;
-    };
-};
-if (isBrowser) {
-    patchHistoryMethod('pushState');
-    patchHistoryMethod('replaceState');
-}
-var useLocationServer = function () { return ({
-    trigger: 'load',
-    length: 1,
-}); };
-var buildState = function (trigger) {
-    var _a = window.history, state = _a.state, length = _a.length;
-    var _b = window.location, hash = _b.hash, host = _b.host, hostname = _b.hostname, href = _b.href, origin = _b.origin, pathname = _b.pathname, port = _b.port, protocol = _b.protocol, search = _b.search;
-    return {
-        trigger: trigger,
-        state: state,
-        length: length,
-        hash: hash,
-        host: host,
-        hostname: hostname,
-        href: href,
-        origin: origin,
-        pathname: pathname,
-        port: port,
-        protocol: protocol,
-        search: search,
-    };
-};
-var useLocationBrowser = function () {
-    var _a = (0,react.useState)(buildState('load')), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var onPopstate = function () { return setState(buildState('popstate')); };
-        var onPushstate = function () { return setState(buildState('pushstate')); };
-        var onReplacestate = function () { return setState(buildState('replacestate')); };
-        on(window, 'popstate', onPopstate);
-        on(window, 'pushstate', onPushstate);
-        on(window, 'replacestate', onReplacestate);
-        return function () {
-            off(window, 'popstate', onPopstate);
-            off(window, 'pushstate', onPushstate);
-            off(window, 'replacestate', onReplacestate);
-        };
-    }, []);
-    return state;
-};
-var hasEventConstructor = typeof Event === 'function';
-/* harmony default export */ var useLocation = (isBrowser && hasEventConstructor ? useLocationBrowser : useLocationServer);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLockBodyScroll.js
-
-
-function getClosestBody(el) {
-    if (!el) {
-        return null;
-    }
-    else if (el.tagName === 'BODY') {
-        return el;
-    }
-    else if (el.tagName === 'IFRAME') {
-        var document_1 = el.contentDocument;
-        return document_1 ? document_1.body : null;
-    }
-    else if (!el.offsetParent) {
-        return null;
-    }
-    return getClosestBody(el.offsetParent);
-}
-function preventDefault(rawEvent) {
-    var e = rawEvent || window.event;
-    // Do not prevent if the event has more than one touch (usually meaning this is a multi touch gesture like pinch to zoom).
-    if (e.touches.length > 1)
-        return true;
-    if (e.preventDefault)
-        e.preventDefault();
-    return false;
-}
-var isIosDevice = isBrowser &&
-    window.navigator &&
-    window.navigator.platform &&
-    /iP(ad|hone|od)/.test(window.navigator.platform);
-var bodies = new Map();
-var doc = typeof document === 'object' ? document : undefined;
-var documentListenerAdded = false;
-/* harmony default export */ var useLockBodyScroll = (!doc
-    ? function useLockBodyMock(_locked, _elementRef) {
-        if (_locked === void 0) { _locked = true; }
-    }
-    : function useLockBody(locked, elementRef) {
-        if (locked === void 0) { locked = true; }
-        var bodyRef = (0,react.useRef)(doc.body);
-        elementRef = elementRef || bodyRef;
-        var lock = function (body) {
-            var bodyInfo = bodies.get(body);
-            if (!bodyInfo) {
-                bodies.set(body, { counter: 1, initialOverflow: body.style.overflow });
-                if (isIosDevice) {
-                    if (!documentListenerAdded) {
-                        on(document, 'touchmove', preventDefault, { passive: false });
-                        documentListenerAdded = true;
-                    }
-                }
-                else {
-                    body.style.overflow = 'hidden';
-                }
-            }
-            else {
-                bodies.set(body, {
-                    counter: bodyInfo.counter + 1,
-                    initialOverflow: bodyInfo.initialOverflow,
-                });
-            }
-        };
-        var unlock = function (body) {
-            var bodyInfo = bodies.get(body);
-            if (bodyInfo) {
-                if (bodyInfo.counter === 1) {
-                    bodies.delete(body);
-                    if (isIosDevice) {
-                        body.ontouchmove = null;
-                        if (documentListenerAdded) {
-                            off(document, 'touchmove', preventDefault);
-                            documentListenerAdded = false;
-                        }
-                    }
-                    else {
-                        body.style.overflow = bodyInfo.initialOverflow;
-                    }
-                }
-                else {
-                    bodies.set(body, {
-                        counter: bodyInfo.counter - 1,
-                        initialOverflow: bodyInfo.initialOverflow,
-                    });
-                }
-            }
-        };
-        (0,react.useEffect)(function () {
-            var body = getClosestBody(elementRef.current);
-            if (!body) {
-                return;
-            }
-            if (locked) {
-                lock(body);
-            }
-            else {
-                unlock(body);
-            }
-        }, [locked, elementRef.current]);
-        // clean up, on un-mount
-        (0,react.useEffect)(function () {
-            var body = getClosestBody(elementRef.current);
-            if (!body) {
-                return;
-            }
-            return function () {
-                unlock(body);
-            };
-        }, []);
-    });
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLogger.js
-
-
-
-var useLogger = function (componentName) {
-    var rest = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        rest[_i - 1] = arguments[_i];
-    }
-    esm_useEffectOnce(function () {
-        console.log.apply(console, (0,tslib_es6.__spreadArrays)([componentName + " mounted"], rest));
-        return function () { return console.log(componentName + " unmounted"); };
-    });
-    esm_useUpdateEffect(function () {
-        console.log.apply(console, (0,tslib_es6.__spreadArrays)([componentName + " updated"], rest));
-    });
-};
-/* harmony default export */ var esm_useLogger = (useLogger);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useLongPress.js
-
-
-var isTouchEvent = function (ev) {
-    return 'touches' in ev;
-};
-var useLongPress_preventDefault = function (ev) {
-    if (!isTouchEvent(ev))
-        return;
-    if (ev.touches.length < 2 && ev.preventDefault) {
-        ev.preventDefault();
-    }
-};
-var useLongPress = function (callback, _a) {
-    var _b = _a === void 0 ? {} : _a, _c = _b.isPreventDefault, isPreventDefault = _c === void 0 ? true : _c, _d = _b.delay, delay = _d === void 0 ? 300 : _d;
-    var timeout = (0,react.useRef)();
-    var target = (0,react.useRef)();
-    var start = (0,react.useCallback)(function (event) {
-        // prevent ghost click on mobile devices
-        if (isPreventDefault && event.target) {
-            on(event.target, 'touchend', useLongPress_preventDefault, { passive: false });
-            target.current = event.target;
-        }
-        timeout.current = setTimeout(function () { return callback(event); }, delay);
-    }, [callback, delay, isPreventDefault]);
-    var clear = (0,react.useCallback)(function () {
-        // clearTimeout and removeEventListener
-        timeout.current && clearTimeout(timeout.current);
-        if (isPreventDefault && target.current) {
-            off(target.current, 'touchend', useLongPress_preventDefault);
-        }
-    }, [isPreventDefault]);
-    return {
-        onMouseDown: function (e) { return start(e); },
-        onTouchStart: function (e) { return start(e); },
-        onMouseUp: clear,
-        onMouseLeave: clear,
-        onTouchEnd: clear,
-    };
-};
-/* harmony default export */ var esm_useLongPress = (useLongPress);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMap.js
-
-
-var useMap = function (initialMap) {
-    if (initialMap === void 0) { initialMap = {}; }
-    var _a = (0,react.useState)(initialMap), map = _a[0], set = _a[1];
-    var stableActions = (0,react.useMemo)(function () { return ({
-        set: function (key, entry) {
-            set(function (prevMap) {
-                var _a;
-                return ((0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, prevMap), (_a = {}, _a[key] = entry, _a)));
-            });
-        },
-        setAll: function (newMap) {
-            set(newMap);
-        },
-        remove: function (key) {
-            set(function (prevMap) {
-                var _a = prevMap, _b = key, omit = _a[_b], rest = (0,tslib_es6.__rest)(_a, [typeof _b === "symbol" ? _b : _b + ""]);
-                return rest;
-            });
-        },
-        reset: function () { return set(initialMap); },
-    }); }, [set]);
-    var utils = (0,tslib_es6.__assign)({ get: (0,react.useCallback)(function (key) { return map[key]; }, [map]) }, stableActions);
-    return [map, utils];
-};
-/* harmony default export */ var esm_useMap = (useMap);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMedia.js
-
-
-var getInitialState = function (query, defaultState) {
-    // Prevent a React hydration mismatch when a default value is provided by not defaulting to window.matchMedia(query).matches.
-    if (defaultState !== undefined) {
-        return defaultState;
-    }
-    if (isBrowser) {
-        return window.matchMedia(query).matches;
-    }
-    // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
-    if (false) {}
-    return false;
-};
-var useMedia = function (query, defaultState) {
-    var _a = (0,react.useState)(getInitialState(query, defaultState)), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var mounted = true;
-        var mql = window.matchMedia(query);
-        var onChange = function () {
-            if (!mounted) {
-                return;
-            }
-            setState(!!mql.matches);
-        };
-        mql.addEventListener('change', onChange);
-        setState(mql.matches);
-        return function () {
-            mounted = false;
-            mql.removeEventListener('change', onChange);
-        };
-    }, [query]);
-    return state;
-};
-/* harmony default export */ var esm_useMedia = (useMedia);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMediaDevices.js
-
-
-var useMediaDevices = function () {
-    var _a = (0,react.useState)({}), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var mounted = true;
-        var onChange = function () {
-            navigator.mediaDevices
-                .enumerateDevices()
-                .then(function (devices) {
-                if (mounted) {
-                    setState({
-                        devices: devices.map(function (_a) {
-                            var deviceId = _a.deviceId, groupId = _a.groupId, kind = _a.kind, label = _a.label;
-                            return ({
-                                deviceId: deviceId,
-                                groupId: groupId,
-                                kind: kind,
-                                label: label,
-                            });
-                        }),
-                    });
-                }
-            })
-                .catch(noop);
-        };
-        on(navigator.mediaDevices, 'devicechange', onChange);
-        onChange();
-        return function () {
-            mounted = false;
-            off(navigator.mediaDevices, 'devicechange', onChange);
-        };
-    }, []);
-    return state;
-};
-var useMediaDevicesMock = function () { return ({}); };
-/* harmony default export */ var esm_useMediaDevices = (isNavigator && !!navigator.mediaDevices ? useMediaDevices : useMediaDevicesMock);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMediatedState.js
-
-function useMediatedState(mediator, initialState) {
-    var mediatorFn = (0,react.useRef)(mediator);
-    var _a = (0,react.useState)(initialState), state = _a[0], setMediatedState = _a[1];
-    var setState = (0,react.useCallback)(function (newState) {
-        if (mediatorFn.current.length === 2) {
-            mediatorFn.current(newState, setMediatedState);
-        }
-        else {
-            setMediatedState(mediatorFn.current(newState));
-        }
-    }, [state]);
-    return [state, setState];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMethods.js
-
-var useMethods = function (createMethods, initialState) {
-    var reducer = (0,react.useMemo)(function () { return function (reducerState, action) {
-        var _a;
-        return (_a = createMethods(reducerState))[action.type].apply(_a, action.payload);
-    }; }, [createMethods]);
-    var _a = (0,react.useReducer)(reducer, initialState), state = _a[0], dispatch = _a[1];
-    var wrappedMethods = (0,react.useMemo)(function () {
-        var actionTypes = Object.keys(createMethods(initialState));
-        return actionTypes.reduce(function (acc, type) {
-            acc[type] = function () {
-                var payload = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    payload[_i] = arguments[_i];
-                }
-                return dispatch({ type: type, payload: payload });
-            };
-            return acc;
-        }, {});
-    }, [createMethods, initialState]);
-    return [state, wrappedMethods];
-};
-/* harmony default export */ var esm_useMethods = (useMethods);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMotion.js
-
-
-var defaultState = {
-    acceleration: {
-        x: null,
-        y: null,
-        z: null,
-    },
-    accelerationIncludingGravity: {
-        x: null,
-        y: null,
-        z: null,
-    },
-    rotationRate: {
-        alpha: null,
-        beta: null,
-        gamma: null,
-    },
-    interval: 16,
-};
-var useMotion = function (initialState) {
-    if (initialState === void 0) { initialState = defaultState; }
-    var _a = (0,react.useState)(initialState), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var handler = function (event) {
-            var acceleration = event.acceleration, accelerationIncludingGravity = event.accelerationIncludingGravity, rotationRate = event.rotationRate, interval = event.interval;
-            setState({
-                acceleration: {
-                    x: acceleration.x,
-                    y: acceleration.y,
-                    z: acceleration.z,
-                },
-                accelerationIncludingGravity: {
-                    x: accelerationIncludingGravity.x,
-                    y: accelerationIncludingGravity.y,
-                    z: accelerationIncludingGravity.z,
-                },
-                rotationRate: {
-                    alpha: rotationRate.alpha,
-                    beta: rotationRate.beta,
-                    gamma: rotationRate.gamma,
-                },
-                interval: interval,
-            });
-        };
-        on(window, 'devicemotion', handler);
-        return function () {
-            off(window, 'devicemotion', handler);
-        };
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useMotion = (useMotion);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMount.js
-
-var useMount = function (fn) {
-    esm_useEffectOnce(function () {
-        fn();
-    });
-};
-/* harmony default export */ var esm_useMount = (useMount);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useUnmount.js
-
-
-var useUnmount = function (fn) {
-    var fnRef = (0,react.useRef)(fn);
-    // update the ref each render so if it change the newest callback will be invoked
-    fnRef.current = fn;
-    esm_useEffectOnce(function () { return function () { return fnRef.current(); }; });
-};
-/* harmony default export */ var esm_useUnmount = (useUnmount);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useRafState.js
-
-
-var useRafState = function (initialState) {
-    var frame = (0,react.useRef)(0);
-    var _a = (0,react.useState)(initialState), state = _a[0], setState = _a[1];
-    var setRafState = (0,react.useCallback)(function (value) {
-        cancelAnimationFrame(frame.current);
-        frame.current = requestAnimationFrame(function () {
-            setState(value);
-        });
-    }, []);
-    esm_useUnmount(function () {
-        cancelAnimationFrame(frame.current);
-    });
-    return [state, setRafState];
-};
-/* harmony default export */ var esm_useRafState = (useRafState);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMouse.js
-
-
-
-var useMouse = function (ref) {
-    if (false) {}
-    var _a = esm_useRafState({
-        docX: 0,
-        docY: 0,
-        posX: 0,
-        posY: 0,
-        elX: 0,
-        elY: 0,
-        elH: 0,
-        elW: 0,
-    }), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var moveHandler = function (event) {
-            if (ref && ref.current) {
-                var _a = ref.current.getBoundingClientRect(), left = _a.left, top_1 = _a.top, elW = _a.width, elH = _a.height;
-                var posX = left + window.pageXOffset;
-                var posY = top_1 + window.pageYOffset;
-                var elX = event.pageX - posX;
-                var elY = event.pageY - posY;
-                setState({
-                    docX: event.pageX,
-                    docY: event.pageY,
-                    posX: posX,
-                    posY: posY,
-                    elX: elX,
-                    elY: elY,
-                    elH: elH,
-                    elW: elW,
-                });
-            }
-        };
-        on(document, 'mousemove', moveHandler);
-        return function () {
-            off(document, 'mousemove', moveHandler);
-        };
-    }, [ref]);
-    return state;
-};
-/* harmony default export */ var esm_useMouse = (useMouse);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMouseHovered.js
-
-
-var nullRef = { current: null };
-var useMouseHovered = function (ref, options) {
-    if (options === void 0) { options = {}; }
-    var whenHovered = !!options.whenHovered;
-    var bound = !!options.bound;
-    var isHovered = esm_useHoverDirty(ref, whenHovered);
-    var state = esm_useMouse(whenHovered && !isHovered ? nullRef : ref);
-    if (bound) {
-        state.elX = Math.max(0, Math.min(state.elX, state.elW));
-        state.elY = Math.max(0, Math.min(state.elY, state.elH));
-    }
-    return state;
-};
-/* harmony default export */ var esm_useMouseHovered = (useMouseHovered);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMouseWheel.js
-
-
-/* harmony default export */ var useMouseWheel = (function () {
-    var _a = (0,react.useState)(0), mouseWheelScrolled = _a[0], setMouseWheelScrolled = _a[1];
-    (0,react.useEffect)(function () {
-        var updateScroll = function (e) {
-            setMouseWheelScrolled(e.deltaY + mouseWheelScrolled);
-        };
-        on(window, 'wheel', updateScroll, false);
-        return function () { return off(window, 'wheel', updateScroll); };
-    });
-    return mouseWheelScrolled;
-});
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useNetworkState.js
-
-
-var useNetworkState_nav = isNavigator ? navigator : undefined;
-var conn = useNetworkState_nav && (useNetworkState_nav.connection || useNetworkState_nav.mozConnection || useNetworkState_nav.webkitConnection);
-function getConnectionState(previousState) {
-    var online = useNetworkState_nav === null || useNetworkState_nav === void 0 ? void 0 : useNetworkState_nav.onLine;
-    var previousOnline = previousState === null || previousState === void 0 ? void 0 : previousState.online;
-    return {
-        online: online,
-        previous: previousOnline,
-        since: online !== previousOnline ? new Date() : previousState === null || previousState === void 0 ? void 0 : previousState.since,
-        downlink: conn === null || conn === void 0 ? void 0 : conn.downlink,
-        downlinkMax: conn === null || conn === void 0 ? void 0 : conn.downlinkMax,
-        effectiveType: conn === null || conn === void 0 ? void 0 : conn.effectiveType,
-        rtt: conn === null || conn === void 0 ? void 0 : conn.rtt,
-        saveData: conn === null || conn === void 0 ? void 0 : conn.saveData,
-        type: conn === null || conn === void 0 ? void 0 : conn.type,
-    };
-}
-function useNetworkState(initialState) {
-    var _a = (0,react.useState)(initialState !== null && initialState !== void 0 ? initialState : getConnectionState), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var handleStateChange = function () {
-            setState(getConnectionState);
-        };
-        on(window, 'online', handleStateChange, { passive: true });
-        on(window, 'offline', handleStateChange, { passive: true });
-        if (conn) {
-            on(conn, 'change', handleStateChange, { passive: true });
-        }
-        return function () {
-            off(window, 'online', handleStateChange);
-            off(window, 'offline', handleStateChange);
-            if (conn) {
-                off(conn, 'change', handleStateChange);
-            }
-        };
-    }, []);
-    return state;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useNumber.js
-
-/* harmony default export */ var useNumber = (useCounter);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useObservable.js
-
-
-function useObservable(observable$, initialValue) {
-    var _a = (0,react.useState)(initialValue), value = _a[0], update = _a[1];
-    esm_useIsomorphicLayoutEffect(function () {
-        var s = observable$.subscribe(update);
-        return function () { return s.unsubscribe(); };
-    }, [observable$]);
-    return value;
-}
-/* harmony default export */ var esm_useObservable = (useObservable);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useOrientation.js
-
-
-var useOrientation_defaultState = {
-    angle: 0,
-    type: 'landscape-primary',
-};
-var useOrientation = function (initialState) {
-    if (initialState === void 0) { initialState = useOrientation_defaultState; }
-    var _a = (0,react.useState)(initialState), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var screen = window.screen;
-        var mounted = true;
-        var onChange = function () {
-            if (mounted) {
-                var orientation_1 = screen.orientation;
-                if (orientation_1) {
-                    var angle = orientation_1.angle, type = orientation_1.type;
-                    setState({ angle: angle, type: type });
-                }
-                else if (window.orientation !== undefined) {
-                    setState({
-                        angle: typeof window.orientation === 'number' ? window.orientation : 0,
-                        type: '',
-                    });
-                }
-                else {
-                    setState(initialState);
-                }
-            }
-        };
-        on(window, 'orientationchange', onChange);
-        onChange();
-        return function () {
-            mounted = false;
-            off(window, 'orientationchange', onChange);
-        };
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useOrientation = (useOrientation);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePageLeave.js
-
-
-var usePageLeave = function (onPageLeave, args) {
-    if (args === void 0) { args = []; }
-    (0,react.useEffect)(function () {
-        if (!onPageLeave) {
-            return;
-        }
-        var handler = function (event) {
-            event = event ? event : window.event;
-            var from = event.relatedTarget || event.toElement;
-            if (!from || from.nodeName === 'HTML') {
-                onPageLeave();
-            }
-        };
-        on(document, 'mouseout', handler);
-        return function () {
-            off(document, 'mouseout', handler);
-        };
-    }, args);
-};
-/* harmony default export */ var esm_usePageLeave = (usePageLeave);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePermission.js
-
-
-// const usePermission = <T extends PermissionDescriptor>(permissionDesc: T): IState => {
-var usePermission = function (permissionDesc) {
-    var _a = (0,react.useState)(''), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var mounted = true;
-        var permissionStatus = null;
-        var onChange = function () {
-            if (!mounted) {
-                return;
-            }
-            setState(function () { var _a; return (_a = permissionStatus === null || permissionStatus === void 0 ? void 0 : permissionStatus.state) !== null && _a !== void 0 ? _a : ''; });
-        };
-        navigator.permissions
-            .query(permissionDesc)
-            .then(function (status) {
-            permissionStatus = status;
-            on(permissionStatus, 'change', onChange);
-            onChange();
-        })
-            .catch(noop);
-        return function () {
-            permissionStatus && off(permissionStatus, 'change', onChange);
-            mounted = false;
-            permissionStatus = null;
-        };
-    }, [permissionDesc]);
-    return state;
-};
-/* harmony default export */ var esm_usePermission = (usePermission);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePrevious.js
-
-function usePrevious(state) {
-    var ref = (0,react.useRef)();
-    (0,react.useEffect)(function () {
-        ref.current = state;
-    });
-    return ref.current;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePreviousDistinct.js
-
-
-var strictEquals = function (prev, next) { return prev === next; };
-function usePreviousDistinct(value, compare) {
-    if (compare === void 0) { compare = strictEquals; }
-    var prevRef = (0,react.useRef)();
-    var curRef = (0,react.useRef)(value);
-    var isFirstMount = useFirstMountState();
-    if (!isFirstMount && !compare(curRef.current, value)) {
-        prevRef.current = curRef.current;
-        curRef.current = value;
-    }
-    return prevRef.current;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePromise.js
-
-
-var usePromise = function () {
-    var isMounted = useMountedState();
-    return (0,react.useCallback)(function (promise) {
-        return new Promise(function (resolve, reject) {
-            var onValue = function (value) {
-                isMounted() && resolve(value);
-            };
-            var onError = function (error) {
-                isMounted() && reject(error);
-            };
-            promise.then(onValue, onError);
-        });
-    }, []);
-};
-/* harmony default export */ var esm_usePromise = (usePromise);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useQueue.js
-
-
-var useQueue = function (initialValue) {
-    if (initialValue === void 0) { initialValue = []; }
-    var _a = (0,react.useState)(initialValue), state = _a[0], set = _a[1];
-    return {
-        add: function (value) {
-            set(function (queue) { return (0,tslib_es6.__spreadArrays)(queue, [value]); });
-        },
-        remove: function () {
-            var result;
-            set(function (_a) {
-                var first = _a[0], rest = _a.slice(1);
-                result = first;
-                return rest;
-            });
-            return result;
-        },
-        get first() {
-            return state[0];
-        },
-        get last() {
-            return state[state.length - 1];
-        },
-        get size() {
-            return state.length;
-        },
-    };
-};
-/* harmony default export */ var esm_useQueue = (useQueue);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useRaf.js
-
-
-var useRaf = function (ms, delay) {
-    if (ms === void 0) { ms = 1e12; }
-    if (delay === void 0) { delay = 0; }
-    var _a = (0,react.useState)(0), elapsed = _a[0], set = _a[1];
-    esm_useIsomorphicLayoutEffect(function () {
-        var raf;
-        var timerStop;
-        var start;
-        var onFrame = function () {
-            var time = Math.min(1, (Date.now() - start) / ms);
-            set(time);
-            loop();
-        };
-        var loop = function () {
-            raf = requestAnimationFrame(onFrame);
-        };
-        var onStart = function () {
-            timerStop = setTimeout(function () {
-                cancelAnimationFrame(raf);
-                set(1);
-            }, ms);
-            start = Date.now();
-            loop();
-        };
-        var timerDelay = setTimeout(onStart, delay);
-        return function () {
-            clearTimeout(timerStop);
-            clearTimeout(timerDelay);
-            cancelAnimationFrame(raf);
-        };
-    }, [ms, delay]);
-    return elapsed;
-};
-/* harmony default export */ var esm_useRaf = (useRaf);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useRafLoop.js
-
-function useRafLoop(callback, initiallyActive) {
-    if (initiallyActive === void 0) { initiallyActive = true; }
-    var raf = (0,react.useRef)(null);
-    var rafActivity = (0,react.useRef)(false);
-    var rafCallback = (0,react.useRef)(callback);
-    rafCallback.current = callback;
-    var step = (0,react.useCallback)(function (time) {
-        if (rafActivity.current) {
-            rafCallback.current(time);
-            raf.current = requestAnimationFrame(step);
-        }
-    }, []);
-    var result = (0,react.useMemo)(function () {
-        return [
-            function () {
-                // stop
-                if (rafActivity.current) {
-                    rafActivity.current = false;
-                    raf.current && cancelAnimationFrame(raf.current);
-                }
-            },
-            function () {
-                // start
-                if (!rafActivity.current) {
-                    rafActivity.current = true;
-                    raf.current = requestAnimationFrame(step);
-                }
-            },
-            function () { return rafActivity.current; },
-        ];
-    }, []);
-    (0,react.useEffect)(function () {
-        if (initiallyActive) {
-            result[1]();
-        }
-        return result[0];
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    return result;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSearchParam.js
-
-
-var getValue = function (search, param) { return new URLSearchParams(search).get(param); };
-var useSearchParam = function (param) {
-    var location = window.location;
-    var _a = (0,react.useState)(function () { return getValue(location.search, param); }), value = _a[0], setValue = _a[1];
-    (0,react.useEffect)(function () {
-        var onChange = function () {
-            setValue(getValue(location.search, param));
-        };
-        on(window, 'popstate', onChange);
-        on(window, 'pushstate', onChange);
-        on(window, 'replacestate', onChange);
-        return function () {
-            off(window, 'popstate', onChange);
-            off(window, 'pushstate', onChange);
-            off(window, 'replacestate', onChange);
-        };
-    }, []);
-    return value;
-};
-var useSearchParamServer = function () { return null; };
-/* harmony default export */ var esm_useSearchParam = (isBrowser ? useSearchParam : useSearchParamServer);
-
-// EXTERNAL MODULE: ./node_modules/react-universal-interface/lib/index.js
-var lib = __webpack_require__(3426);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useScratch.js
-
-
-
-
-
-var useScratch = function (params) {
-    if (params === void 0) { params = {}; }
-    var disabled = params.disabled;
-    var paramsRef = esm_useLatest(params);
-    var _a = (0,react.useState)({ isScratching: false }), state = _a[0], setState = _a[1];
-    var refState = (0,react.useRef)(state);
-    var refScratching = (0,react.useRef)(false);
-    var refAnimationFrame = (0,react.useRef)(null);
-    var _b = (0,react.useState)(null), el = _b[0], setEl = _b[1];
-    (0,react.useEffect)(function () {
-        if (disabled)
-            return;
-        if (!el)
-            return;
-        var onMoveEvent = function (docX, docY) {
-            cancelAnimationFrame(refAnimationFrame.current);
-            refAnimationFrame.current = requestAnimationFrame(function () {
-                var _a = el.getBoundingClientRect(), left = _a.left, top = _a.top;
-                var elX = left + window.scrollX;
-                var elY = top + window.scrollY;
-                var x = docX - elX;
-                var y = docY - elY;
-                setState(function (oldState) {
-                    var newState = (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, oldState), { dx: x - (oldState.x || 0), dy: y - (oldState.y || 0), end: Date.now(), isScratching: true });
-                    refState.current = newState;
-                    (paramsRef.current.onScratch || noop)(newState);
-                    return newState;
-                });
-            });
-        };
-        var onMouseMove = function (event) {
-            onMoveEvent(event.pageX, event.pageY);
-        };
-        var onTouchMove = function (event) {
-            onMoveEvent(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-        };
-        var onMouseUp;
-        var onTouchEnd;
-        var stopScratching = function () {
-            if (!refScratching.current)
-                return;
-            refScratching.current = false;
-            refState.current = (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, refState.current), { isScratching: false });
-            (paramsRef.current.onScratchEnd || noop)(refState.current);
-            setState({ isScratching: false });
-            off(window, 'mousemove', onMouseMove);
-            off(window, 'touchmove', onTouchMove);
-            off(window, 'mouseup', onMouseUp);
-            off(window, 'touchend', onTouchEnd);
-        };
-        onMouseUp = stopScratching;
-        onTouchEnd = stopScratching;
-        var startScratching = function (docX, docY) {
-            if (!refScratching.current)
-                return;
-            var _a = el.getBoundingClientRect(), left = _a.left, top = _a.top;
-            var elX = left + window.scrollX;
-            var elY = top + window.scrollY;
-            var x = docX - elX;
-            var y = docY - elY;
-            var time = Date.now();
-            var newState = {
-                isScratching: true,
-                start: time,
-                end: time,
-                docX: docX,
-                docY: docY,
-                x: x,
-                y: y,
-                dx: 0,
-                dy: 0,
-                elH: el.offsetHeight,
-                elW: el.offsetWidth,
-                elX: elX,
-                elY: elY,
-            };
-            refState.current = newState;
-            (paramsRef.current.onScratchStart || noop)(newState);
-            setState(newState);
-            on(window, 'mousemove', onMouseMove);
-            on(window, 'touchmove', onTouchMove);
-            on(window, 'mouseup', onMouseUp);
-            on(window, 'touchend', onTouchEnd);
-        };
-        var onMouseDown = function (event) {
-            refScratching.current = true;
-            startScratching(event.pageX, event.pageY);
-        };
-        var onTouchStart = function (event) {
-            refScratching.current = true;
-            startScratching(event.changedTouches[0].pageX, event.changedTouches[0].pageY);
-        };
-        on(el, 'mousedown', onMouseDown);
-        on(el, 'touchstart', onTouchStart);
-        return function () {
-            off(el, 'mousedown', onMouseDown);
-            off(el, 'touchstart', onTouchStart);
-            off(window, 'mousemove', onMouseMove);
-            off(window, 'touchmove', onTouchMove);
-            off(window, 'mouseup', onMouseUp);
-            off(window, 'touchend', onTouchEnd);
-            if (refAnimationFrame.current)
-                cancelAnimationFrame(refAnimationFrame.current);
-            refAnimationFrame.current = null;
-            refScratching.current = false;
-            refState.current = { isScratching: false };
-            setState(refState.current);
-        };
-    }, [el, disabled, paramsRef]);
-    return [setEl, state];
-};
-var ScratchSensor = function (props) {
-    var children = props.children, params = __rest(props, ["children"]);
-    var _a = useScratch(params), ref = _a[0], state = _a[1];
-    var element = render(props, state);
-    return cloneElement(element, __assign(__assign({}, element.props), { ref: function (el) {
-            if (element.props.ref) {
-                if (typeof element.props.ref === 'object')
-                    element.props.ref.current = el;
-                if (typeof element.props.ref === 'function')
-                    element.props.ref(el);
-            }
-            ref(el);
-        } }));
-};
-/* harmony default export */ var esm_useScratch = (useScratch);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useScroll.js
-
-
-
-var useScroll = function (ref) {
-    if (false) {}
-    var _a = esm_useRafState({
-        x: 0,
-        y: 0,
-    }), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var handler = function () {
-            if (ref.current) {
-                setState({
-                    x: ref.current.scrollLeft,
-                    y: ref.current.scrollTop,
-                });
-            }
-        };
-        if (ref.current) {
-            on(ref.current, 'scroll', handler, {
-                capture: false,
-                passive: true,
-            });
-        }
-        return function () {
-            if (ref.current) {
-                off(ref.current, 'scroll', handler);
-            }
-        };
-    }, [ref]);
-    return state;
-};
-/* harmony default export */ var esm_useScroll = (useScroll);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useScrolling.js
-
-
-var useScrolling = function (ref) {
-    var _a = (0,react.useState)(false), scrolling = _a[0], setScrolling = _a[1];
-    (0,react.useEffect)(function () {
-        if (ref.current) {
-            var scrollingTimeout_1;
-            var handleScrollEnd_1 = function () {
-                setScrolling(false);
-            };
-            var handleScroll_1 = function () {
-                setScrolling(true);
-                clearTimeout(scrollingTimeout_1);
-                scrollingTimeout_1 = setTimeout(function () { return handleScrollEnd_1(); }, 150);
-            };
-            on(ref.current, 'scroll', handleScroll_1, false);
-            return function () {
-                if (ref.current) {
-                    off(ref.current, 'scroll', handleScroll_1, false);
-                }
-            };
-        }
-        return function () { };
-    }, [ref]);
-    return scrolling;
-};
-/* harmony default export */ var esm_useScrolling = (useScrolling);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSessionStorage.js
-
-
-var useSessionStorage = function (key, initialValue, raw) {
-    if (!isBrowser) {
-        return [initialValue, function () { }];
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var _a = (0,react.useState)(function () {
-        try {
-            var sessionStorageValue = sessionStorage.getItem(key);
-            if (typeof sessionStorageValue !== 'string') {
-                sessionStorage.setItem(key, raw ? String(initialValue) : JSON.stringify(initialValue));
-                return initialValue;
-            }
-            else {
-                return raw ? sessionStorageValue : JSON.parse(sessionStorageValue || 'null');
-            }
-        }
-        catch (_a) {
-            // If user is in private mode or has storage restriction
-            // sessionStorage can throw. JSON.parse and JSON.stringify
-            // can throw, too.
-            return initialValue;
-        }
-    }), state = _a[0], setState = _a[1];
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    (0,react.useEffect)(function () {
-        try {
-            var serializedState = raw ? String(state) : JSON.stringify(state);
-            sessionStorage.setItem(key, serializedState);
-        }
-        catch (_a) {
-            // If user is in private mode or has storage restriction
-            // sessionStorage can throw. Also JSON.stringify can throw.
-        }
-    });
-    return [state, setState];
-};
-/* harmony default export */ var esm_useSessionStorage = (useSessionStorage);
-
-// EXTERNAL MODULE: ./node_modules/fast-shallow-equal/index.js
-var fast_shallow_equal = __webpack_require__(9851);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useShallowCompareEffect.js
-
-
-var useShallowCompareEffect_isPrimitive = function (val) { return val !== Object(val); };
-var shallowEqualDepsList = function (prevDeps, nextDeps) {
-    return prevDeps.every(function (dep, index) { return (0,fast_shallow_equal/* equal */.L)(dep, nextDeps[index]); });
-};
-var useShallowCompareEffect = function (effect, deps) {
-    if (false) {}
-    esm_useCustomCompareEffect(effect, deps, shallowEqualDepsList);
-};
-/* harmony default export */ var esm_useShallowCompareEffect = (useShallowCompareEffect);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSize.js
-
-
-
-var useSize_useState = react.useState, useEffect = react.useEffect, useRef = react.useRef;
-var DRAF = function (callback) { return setTimeout(callback, 35); };
-var useSize = function (element, _a) {
-    var _b = _a === void 0 ? {} : _a, _c = _b.width, width = _c === void 0 ? Infinity : _c, _d = _b.height, height = _d === void 0 ? Infinity : _d;
-    if (!isBrowser) {
-        return [
-            typeof element === 'function' ? element({ width: width, height: height }) : element,
-            { width: width, height: height },
-        ];
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var _e = useSize_useState({ width: width, height: height }), state = _e[0], setState = _e[1];
-    if (typeof element === 'function') {
-        element = element(state);
-    }
-    var style = element.props.style || {};
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    var ref = useRef(null);
-    var window = null;
-    var setSize = function () {
-        var iframe = ref.current;
-        var size = iframe
-            ? {
-                width: iframe.offsetWidth,
-                height: iframe.offsetHeight,
-            }
-            : { width: width, height: height };
-        setState(size);
-    };
-    var onWindow = function (windowToListenOn) {
-        on(windowToListenOn, 'resize', setSize);
-        DRAF(setSize);
-    };
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(function () {
-        var iframe = ref.current;
-        if (!iframe) {
-            // iframe will be undefined if component is already unmounted
-            return;
-        }
-        if (iframe.contentWindow) {
-            window = iframe.contentWindow;
-            onWindow(window);
-        }
-        else {
-            var onLoad_1 = function () {
-                on(iframe, 'load', onLoad_1);
-                window = iframe.contentWindow;
-                onWindow(window);
-            };
-            off(iframe, 'load', onLoad_1);
-        }
-        return function () {
-            if (window && window.removeEventListener) {
-                off(window, 'resize', setSize);
-            }
-        };
-    }, []);
-    style.position = 'relative';
-    var sized = react.cloneElement.apply(react_namespaceObject, (0,tslib_es6.__spreadArrays)([element, { style: style }], (0,tslib_es6.__spreadArrays)([
-        react.createElement('iframe', {
-            ref: ref,
-            style: {
-                background: 'transparent',
-                border: 'none',
-                height: '100%',
-                left: 0,
-                position: 'absolute',
-                top: 0,
-                width: '100%',
-                zIndex: -1,
-            },
-        })
-    ], react.Children.toArray(element.props.children))));
-    return [sized, state];
-};
-/* harmony default export */ var esm_useSize = (useSize);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSlider.js
-
-
-
-
-var useSlider = function (ref, options) {
-    if (options === void 0) { options = {}; }
-    var isMounted = useMountedState();
-    var isSliding = (0,react.useRef)(false);
-    var valueRef = (0,react.useRef)(0);
-    var frame = (0,react.useRef)(0);
-    var _a = esm_useSetState({
-        isSliding: false,
-        value: 0,
-    }), state = _a[0], setState = _a[1];
-    valueRef.current = state.value;
-    (0,react.useEffect)(function () {
-        if (isBrowser) {
-            var styles = options.styles === undefined ? true : options.styles;
-            var reverse_1 = options.reverse === undefined ? false : options.reverse;
-            if (ref.current && styles) {
-                ref.current.style.userSelect = 'none';
-            }
-            var startScrubbing_1 = function () {
-                if (!isSliding.current && isMounted()) {
-                    (options.onScrubStart || noop)();
-                    isSliding.current = true;
-                    setState({ isSliding: true });
-                    bindEvents_1();
-                }
-            };
-            var stopScrubbing_1 = function () {
-                if (isSliding.current && isMounted()) {
-                    (options.onScrubStop || noop)(valueRef.current);
-                    isSliding.current = false;
-                    setState({ isSliding: false });
-                    unbindEvents_1();
-                }
-            };
-            var onMouseDown_1 = function (event) {
-                startScrubbing_1();
-                onMouseMove_1(event);
-            };
-            var onMouseMove_1 = options.vertical
-                ? function (event) { return onScrub_1(event.clientY); }
-                : function (event) { return onScrub_1(event.clientX); };
-            var onTouchStart_1 = function (event) {
-                startScrubbing_1();
-                onTouchMove_1(event);
-            };
-            var onTouchMove_1 = options.vertical
-                ? function (event) { return onScrub_1(event.changedTouches[0].clientY); }
-                : function (event) { return onScrub_1(event.changedTouches[0].clientX); };
-            var bindEvents_1 = function () {
-                on(document, 'mousemove', onMouseMove_1);
-                on(document, 'mouseup', stopScrubbing_1);
-                on(document, 'touchmove', onTouchMove_1);
-                on(document, 'touchend', stopScrubbing_1);
-            };
-            var unbindEvents_1 = function () {
-                off(document, 'mousemove', onMouseMove_1);
-                off(document, 'mouseup', stopScrubbing_1);
-                off(document, 'touchmove', onTouchMove_1);
-                off(document, 'touchend', stopScrubbing_1);
-            };
-            var onScrub_1 = function (clientXY) {
-                cancelAnimationFrame(frame.current);
-                frame.current = requestAnimationFrame(function () {
-                    if (isMounted() && ref.current) {
-                        var rect = ref.current.getBoundingClientRect();
-                        var pos = options.vertical ? rect.top : rect.left;
-                        var length_1 = options.vertical ? rect.height : rect.width;
-                        // Prevent returning 0 when element is hidden by CSS
-                        if (!length_1) {
-                            return;
-                        }
-                        var value = (clientXY - pos) / length_1;
-                        if (value > 1) {
-                            value = 1;
-                        }
-                        else if (value < 0) {
-                            value = 0;
-                        }
-                        if (reverse_1) {
-                            value = 1 - value;
-                        }
-                        setState({
-                            value: value,
-                        });
-                        (options.onScrub || noop)(value);
-                    }
-                });
-            };
-            on(ref.current, 'mousedown', onMouseDown_1);
-            on(ref.current, 'touchstart', onTouchStart_1);
-            return function () {
-                off(ref.current, 'mousedown', onMouseDown_1);
-                off(ref.current, 'touchstart', onTouchStart_1);
-            };
-        }
-        else {
-            return undefined;
-        }
-    }, [ref, options.vertical]);
-    return state;
-};
-/* harmony default export */ var esm_useSlider = (useSlider);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSpeech.js
-
-
-var Status;
-(function (Status) {
-    Status[Status["init"] = 0] = "init";
-    Status[Status["play"] = 1] = "play";
-    Status[Status["pause"] = 2] = "pause";
-    Status[Status["end"] = 3] = "end";
-})(Status || (Status = {}));
-var useSpeech = function (text, options) {
-    var mounted = (0,react.useRef)(false);
-    var _a = (0,react.useState)(function () {
-        var _a = options.voice || {}, _b = _a.lang, lang = _b === void 0 ? 'default' : _b, _c = _a.name, name = _c === void 0 ? '' : _c;
-        return {
-            isPlaying: false,
-            status: Status[Status.init],
-            lang: options.lang || 'default',
-            voiceInfo: { lang: lang, name: name },
-            rate: options.rate || 1,
-            pitch: options.pitch || 1,
-            volume: options.volume || 1,
-        };
-    }), state = _a[0], setState = _a[1];
-    var handlePlay = (0,react.useCallback)(function () {
-        if (!mounted.current) {
-            return;
-        }
-        setState(function (preState) {
-            return (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, preState), { isPlaying: true, status: Status[Status.play] });
-        });
-    }, []);
-    var handlePause = (0,react.useCallback)(function () {
-        if (!mounted.current) {
-            return;
-        }
-        setState(function (preState) {
-            return (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, preState), { isPlaying: false, status: Status[Status.pause] });
-        });
-    }, []);
-    var handleEnd = (0,react.useCallback)(function () {
-        if (!mounted.current) {
-            return;
-        }
-        setState(function (preState) {
-            return (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, preState), { isPlaying: false, status: Status[Status.end] });
-        });
-    }, []);
-    (0,react.useEffect)(function () {
-        mounted.current = true;
-        var utterance = new SpeechSynthesisUtterance(text);
-        options.lang && (utterance.lang = options.lang);
-        options.voice && (utterance.voice = options.voice);
-        utterance.rate = options.rate || 1;
-        utterance.pitch = options.pitch || 1;
-        utterance.volume = options.volume || 1;
-        utterance.onstart = handlePlay;
-        utterance.onpause = handlePause;
-        utterance.onresume = handlePlay;
-        utterance.onend = handleEnd;
-        window.speechSynthesis.speak(utterance);
-        return function () {
-            mounted.current = false;
-        };
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useSpeech = (useSpeech);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useStartTyping.js
-
-
-var isFocusedElementEditable = function () {
-    var activeElement = document.activeElement, body = document.body;
-    if (!activeElement) {
-        return false;
-    }
-    // If not element has focus, we assume it is not editable, too.
-    if (activeElement === body) {
-        return false;
-    }
-    // Assume <input> and <textarea> elements are editable.
-    switch (activeElement.tagName) {
-        case 'INPUT':
-        case 'TEXTAREA':
-            return true;
-    }
-    // Check if any other focused element id editable.
-    return activeElement.hasAttribute('contenteditable');
-};
-var isTypedCharGood = function (_a) {
-    var keyCode = _a.keyCode, metaKey = _a.metaKey, ctrlKey = _a.ctrlKey, altKey = _a.altKey;
-    if (metaKey || ctrlKey || altKey) {
-        return false;
-    }
-    // 0...9
-    if (keyCode >= 48 && keyCode <= 57) {
-        return true;
-    }
-    // a...z
-    if (keyCode >= 65 && keyCode <= 90) {
-        return true;
-    }
-    // All other keys.
-    return false;
-};
-var useStartTyping = function (onStartTyping) {
-    esm_useIsomorphicLayoutEffect(function () {
-        var keydown = function (event) {
-            !isFocusedElementEditable() && isTypedCharGood(event) && onStartTyping(event);
-        };
-        on(document, 'keydown', keydown);
-        return function () {
-            off(document, 'keydown', keydown);
-        };
-    }, []);
-};
-/* harmony default export */ var esm_useStartTyping = (useStartTyping);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useStateWithHistory.js
-
-
-
-function useStateWithHistory(initialState, capacity, initialHistory) {
-    if (capacity === void 0) { capacity = 10; }
-    if (capacity < 1) {
-        throw new Error("Capacity has to be greater than 1, got '" + capacity + "'");
-    }
-    var isFirstMount = useFirstMountState();
-    var _a = (0,react.useState)(initialState), state = _a[0], innerSetState = _a[1];
-    var history = (0,react.useRef)((initialHistory !== null && initialHistory !== void 0 ? initialHistory : []));
-    var historyPosition = (0,react.useRef)(0);
-    // do the states manipulation only on first mount, no sense to load re-renders with useless calculations
-    if (isFirstMount) {
-        if (history.current.length) {
-            // if last element of history !== initial - push initial to history
-            if (history.current[history.current.length - 1] !== initialState) {
-                history.current.push(initialState);
-            }
-            // if initial history bigger that capacity - crop the first elements out
-            if (history.current.length > capacity) {
-                history.current = history.current.slice(history.current.length - capacity);
-            }
-        }
-        else {
-            // initiate the history with initial state
-            history.current.push(initialState);
-        }
-        historyPosition.current = history.current.length && history.current.length - 1;
-    }
-    var setState = (0,react.useCallback)(function (newState) {
-        innerSetState(function (currentState) {
-            newState = resolveHookState(newState, currentState);
-            // is state has changed
-            if (newState !== currentState) {
-                // if current position is not the last - pop element to the right
-                if (historyPosition.current < history.current.length - 1) {
-                    history.current = history.current.slice(0, historyPosition.current + 1);
-                }
-                historyPosition.current = history.current.push(newState) - 1;
-                // if capacity is reached - shift first elements
-                if (history.current.length > capacity) {
-                    history.current = history.current.slice(history.current.length - capacity);
-                }
-            }
-            return newState;
-        });
-    }, [state, capacity]);
-    var historyState = (0,react.useMemo)(function () { return ({
-        history: history.current,
-        position: historyPosition.current,
-        capacity: capacity,
-        back: function (amount) {
-            if (amount === void 0) { amount = 1; }
-            // don't do anything if we already at the left border
-            if (!historyPosition.current) {
-                return;
-            }
-            innerSetState(function () {
-                historyPosition.current -= Math.min(amount, historyPosition.current);
-                return history.current[historyPosition.current];
-            });
-        },
-        forward: function (amount) {
-            if (amount === void 0) { amount = 1; }
-            // don't do anything if we already at the right border
-            if (historyPosition.current === history.current.length - 1) {
-                return;
-            }
-            innerSetState(function () {
-                historyPosition.current = Math.min(historyPosition.current + amount, history.current.length - 1);
-                return history.current[historyPosition.current];
-            });
-        },
-        go: function (position) {
-            if (position === historyPosition.current) {
-                return;
-            }
-            innerSetState(function () {
-                historyPosition.current =
-                    position < 0
-                        ? Math.max(history.current.length + position, 0)
-                        : Math.min(history.current.length - 1, position);
-                return history.current[historyPosition.current];
-            });
-        },
-    }); }, [state]);
-    return [state, setState, historyState];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useStateList.js
-
-
-
-
-
-function useStateList(stateSet) {
-    if (stateSet === void 0) { stateSet = []; }
-    var isMounted = useMountedState();
-    var update = useUpdate();
-    var index = (0,react.useRef)(0);
-    // If new state list is shorter that before - switch to the last element
-    esm_useUpdateEffect(function () {
-        if (stateSet.length <= index.current) {
-            index.current = stateSet.length - 1;
-            update();
-        }
-    }, [stateSet.length]);
-    var actions = (0,react.useMemo)(function () { return ({
-        next: function () { return actions.setStateAt(index.current + 1); },
-        prev: function () { return actions.setStateAt(index.current - 1); },
-        setStateAt: function (newIndex) {
-            // do nothing on unmounted component
-            if (!isMounted())
-                return;
-            // do nothing on empty states list
-            if (!stateSet.length)
-                return;
-            // in case new index is equal current - do nothing
-            if (newIndex === index.current)
-                return;
-            // it gives the ability to travel through the left and right borders.
-            // 4ex: if list contains 5 elements, attempt to set index 9 will bring use to 5th element
-            // in case of negative index it will start counting from the right, so -17 will bring us to 4th element
-            index.current =
-                newIndex >= 0
-                    ? newIndex % stateSet.length
-                    : stateSet.length + (newIndex % stateSet.length);
-            update();
-        },
-        setState: function (state) {
-            // do nothing on unmounted component
-            if (!isMounted())
-                return;
-            var newIndex = stateSet.length ? stateSet.indexOf(state) : -1;
-            if (newIndex === -1) {
-                throw new Error("State '" + state + "' is not a valid state (does not exist in state list)");
-            }
-            index.current = newIndex;
-            update();
-        },
-    }); }, [stateSet]);
-    return (0,tslib_es6.__assign)({ state: stateSet[index.current], currentIndex: index.current, isFirst: index.current === 0, isLast: index.current === stateSet.length - 1 }, actions);
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useThrottle.js
-
-
-var useThrottle = function (value, ms) {
-    if (ms === void 0) { ms = 200; }
-    var _a = (0,react.useState)(value), state = _a[0], setState = _a[1];
-    var timeout = (0,react.useRef)();
-    var nextValue = (0,react.useRef)(null);
-    var hasNextValue = (0,react.useRef)(0);
-    (0,react.useEffect)(function () {
-        if (!timeout.current) {
-            setState(value);
-            var timeoutCallback_1 = function () {
-                if (hasNextValue.current) {
-                    hasNextValue.current = false;
-                    setState(nextValue.current);
-                    timeout.current = setTimeout(timeoutCallback_1, ms);
-                }
-                else {
-                    timeout.current = undefined;
-                }
-            };
-            timeout.current = setTimeout(timeoutCallback_1, ms);
-        }
-        else {
-            nextValue.current = value;
-            hasNextValue.current = true;
-        }
-    }, [value]);
-    esm_useUnmount(function () {
-        timeout.current && clearTimeout(timeout.current);
-    });
-    return state;
-};
-/* harmony default export */ var esm_useThrottle = (useThrottle);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useThrottleFn.js
-
-
-var useThrottleFn = function (fn, ms, args) {
-    if (ms === void 0) { ms = 200; }
-    var _a = (0,react.useState)(null), state = _a[0], setState = _a[1];
-    var timeout = (0,react.useRef)();
-    var nextArgs = (0,react.useRef)();
-    (0,react.useEffect)(function () {
-        if (!timeout.current) {
-            setState(fn.apply(void 0, args));
-            var timeoutCallback_1 = function () {
-                if (nextArgs.current) {
-                    setState(fn.apply(void 0, nextArgs.current));
-                    nextArgs.current = undefined;
-                    timeout.current = setTimeout(timeoutCallback_1, ms);
-                }
-                else {
-                    timeout.current = undefined;
-                }
-            };
-            timeout.current = setTimeout(timeoutCallback_1, ms);
-        }
-        else {
-            nextArgs.current = args;
-        }
-    }, args);
-    esm_useUnmount(function () {
-        timeout.current && clearTimeout(timeout.current);
-    });
-    return state;
-};
-/* harmony default export */ var esm_useThrottleFn = (useThrottleFn);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useTimeout.js
-
-
-function useTimeout(ms) {
-    if (ms === void 0) { ms = 0; }
-    var update = useUpdate();
-    return useTimeoutFn(update, ms);
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useTitle.js
-
-var DEFAULT_USE_TITLE_OPTIONS = {
-    restoreOnUnmount: false,
-};
-function useTitle(title, options) {
-    if (options === void 0) { options = DEFAULT_USE_TITLE_OPTIONS; }
-    var prevTitleRef = (0,react.useRef)(document.title);
-    if (document.title !== title)
-        document.title = title;
-    (0,react.useEffect)(function () {
-        if (options && options.restoreOnUnmount) {
-            return function () {
-                document.title = prevTitleRef.current;
-            };
-        }
-        else {
-            return;
-        }
-    }, []);
-}
-/* harmony default export */ var esm_useTitle = (typeof document !== 'undefined' ? useTitle : function (_title) { });
-
-// EXTERNAL MODULE: ./node_modules/ts-easing/lib/index.js
-var ts_easing_lib = __webpack_require__(3118);
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useTween.js
-
-
-var useTween = function (easingName, ms, delay) {
-    if (easingName === void 0) { easingName = 'inCirc'; }
-    if (ms === void 0) { ms = 200; }
-    if (delay === void 0) { delay = 0; }
-    var fn = ts_easing_lib/* easing */.c[easingName];
-    var t = esm_useRaf(ms, delay);
-    if (false) {}
-    return fn(t);
-};
-/* harmony default export */ var esm_useTween = (useTween);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useUnmountPromise.js
-
-
-var useUnmountPromise = function () {
-    var refUnmounted = (0,react.useRef)(false);
-    esm_useEffectOnce(function () { return function () {
-        refUnmounted.current = true;
-    }; });
-    var wrapper = (0,react.useMemo)(function () {
-        var race = function (promise, onError) {
-            var newPromise = new Promise(function (resolve, reject) {
-                promise.then(function (result) {
-                    if (!refUnmounted.current)
-                        resolve(result);
-                }, function (error) {
-                    if (!refUnmounted.current)
-                        reject(error);
-                    else if (onError)
-                        onError(error);
-                    else
-                        console.error('useUnmountPromise', error);
-                });
-            });
-            return newPromise;
-        };
-        return race;
-    }, []);
-    return wrapper;
-};
-/* harmony default export */ var esm_useUnmountPromise = (useUnmountPromise);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useUpsert.js
-
-
-/**
- * @deprecated Use `useList` hook's upsert action instead
- */
-function useUpsert(predicate, initialList) {
-    if (initialList === void 0) { initialList = []; }
-    var _a = esm_useList(initialList), list = _a[0], listActions = _a[1];
-    return [
-        list,
-        (0,tslib_es6.__assign)((0,tslib_es6.__assign)({}, listActions), { upsert: function (newItem) {
-                listActions.upsert(predicate, newItem);
-            } }),
-    ];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useVibrate.js
-
-
-var isVibrationApiSupported = isNavigator && 'vibrate' in navigator;
-function useVibrate(enabled, pattern, loop) {
-    if (enabled === void 0) { enabled = true; }
-    if (pattern === void 0) { pattern = [1000, 1000]; }
-    if (loop === void 0) { loop = true; }
-    (0,react.useEffect)(function () {
-        var interval;
-        if (enabled) {
-            navigator.vibrate(pattern);
-            if (loop) {
-                var duration = pattern instanceof Array ? pattern.reduce(function (a, b) { return a + b; }) : pattern;
-                interval = setInterval(function () {
-                    navigator.vibrate(pattern);
-                }, duration);
-            }
-        }
-        return function () {
-            if (enabled) {
-                navigator.vibrate(0);
-                if (loop) {
-                    clearInterval(interval);
-                }
-            }
-        };
-    }, [enabled]);
-}
-/* harmony default export */ var esm_useVibrate = (isVibrationApiSupported ? useVibrate : noop);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useVideo.js
-
-var useVideo = createHTMLMediaHook('video');
-/* harmony default export */ var esm_useVideo = (useVideo);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useStateValidator.js
-
-function useStateValidator(state, validator, initialState) {
-    if (initialState === void 0) { initialState = [undefined]; }
-    var validatorInner = (0,react.useRef)(validator);
-    var stateInner = (0,react.useRef)(state);
-    validatorInner.current = validator;
-    stateInner.current = state;
-    var _a = (0,react.useState)(initialState), validity = _a[0], setValidity = _a[1];
-    var validate = (0,react.useCallback)(function () {
-        if (validatorInner.current.length >= 2) {
-            validatorInner.current(stateInner.current, setValidity);
-        }
-        else {
-            setValidity(validatorInner.current(stateInner.current));
-        }
-    }, [setValidity]);
-    (0,react.useEffect)(function () {
-        validate();
-    }, [state]);
-    return [validity, validate];
-}
-
-;// CONCATENATED MODULE: ./node_modules/@xobotyi/scrollbar-width/dist/index.esm.js
-var e=function(t){if("undefined"==typeof document)return 0;if(document.body&&(!document.readyState||"loading"!==document.readyState)){if(!0!==t&&"number"==typeof e.__cache)return e.__cache;var o=document.createElement("div"),d=o.style;d.display="block",d.position="absolute",d.width="100px",d.height="100px",d.left="-999px",d.top="-999px",d.overflow="scroll",document.body.insertBefore(o,null);var n=o.clientWidth;if(0!==n)return e.__cache=100-n,document.body.removeChild(o),e.__cache;document.body.removeChild(o)}};
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useScrollbarWidth.js
-
-
-function useScrollbarWidth() {
-    var _a = (0,react.useState)(e()), sbw = _a[0], setSbw = _a[1];
-    // this needed to ensure the scrollbar width in case hook called before the DOM is ready
-    (0,react.useEffect)(function () {
-        if (typeof sbw !== 'undefined') {
-            return;
-        }
-        var raf = requestAnimationFrame(function () {
-            setSbw(e());
-        });
-        return function () { return cancelAnimationFrame(raf); };
-    }, []);
-    return sbw;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMultiStateValidator.js
-
-function useMultiStateValidator(states, validator, initialValidity) {
-    if (initialValidity === void 0) { initialValidity = [undefined]; }
-    if (typeof states !== 'object') {
-        throw new Error('states expected to be an object or array, got ' + typeof states);
-    }
-    var validatorInner = (0,react.useRef)(validator);
-    var statesInner = (0,react.useRef)(states);
-    validatorInner.current = validator;
-    statesInner.current = states;
-    var _a = (0,react.useState)(initialValidity), validity = _a[0], setValidity = _a[1];
-    var validate = (0,react.useCallback)(function () {
-        if (validatorInner.current.length >= 2) {
-            validatorInner.current(statesInner.current, setValidity);
-        }
-        else {
-            setValidity(validatorInner.current(statesInner.current));
-        }
-    }, [setValidity]);
-    (0,react.useEffect)(function () {
-        validate();
-    }, Object.values(states));
-    return [validity, validate];
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useWindowScroll.js
-
-
-
-var useWindowScroll = function () {
-    var _a = esm_useRafState(function () { return ({
-        x: isBrowser ? window.pageXOffset : 0,
-        y: isBrowser ? window.pageYOffset : 0,
-    }); }), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        var handler = function () {
-            setState(function (state) {
-                var pageXOffset = window.pageXOffset, pageYOffset = window.pageYOffset;
-                //Check state for change, return same state if no change happened to prevent rerender
-                //(see useState/setState documentation). useState/setState is used internally in useRafState/setState.
-                return state.x !== pageXOffset || state.y !== pageYOffset
-                    ? {
-                        x: pageXOffset,
-                        y: pageYOffset,
-                    }
-                    : state;
-            });
-        };
-        //We have to update window scroll at mount, before subscription.
-        //Window scroll may be changed between render and effect handler.
-        handler();
-        on(window, 'scroll', handler, {
-            capture: false,
-            passive: true,
-        });
-        return function () {
-            off(window, 'scroll', handler);
-        };
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useWindowScroll = (useWindowScroll);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useWindowSize.js
-
-
-
-var useWindowSize = function (initialWidth, initialHeight) {
-    if (initialWidth === void 0) { initialWidth = Infinity; }
-    if (initialHeight === void 0) { initialHeight = Infinity; }
-    var _a = esm_useRafState({
-        width: isBrowser ? window.innerWidth : initialWidth,
-        height: isBrowser ? window.innerHeight : initialHeight,
-    }), state = _a[0], setState = _a[1];
-    (0,react.useEffect)(function () {
-        if (isBrowser) {
-            var handler_1 = function () {
-                setState({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-            };
-            on(window, 'resize', handler_1);
-            return function () {
-                off(window, 'resize', handler_1);
-            };
-        }
-    }, []);
-    return state;
-};
-/* harmony default export */ var esm_useWindowSize = (useWindowSize);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useMeasure.js
-
-
-
-var useMeasure_defaultState = {
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-};
-function useMeasure() {
-    var _a = (0,react.useState)(null), element = _a[0], ref = _a[1];
-    var _b = (0,react.useState)(useMeasure_defaultState), rect = _b[0], setRect = _b[1];
-    var observer = (0,react.useMemo)(function () {
-        return new window.ResizeObserver(function (entries) {
-            if (entries[0]) {
-                var _a = entries[0].contentRect, x = _a.x, y = _a.y, width = _a.width, height = _a.height, top_1 = _a.top, left = _a.left, bottom = _a.bottom, right = _a.right;
-                setRect({ x: x, y: y, width: width, height: height, top: top_1, left: left, bottom: bottom, right: right });
-            }
-        });
-    }, []);
-    esm_useIsomorphicLayoutEffect(function () {
-        if (!element)
-            return;
-        observer.observe(element);
-        return function () {
-            observer.disconnect();
-        };
-    }, [element]);
-    return [ref, rect];
-}
-/* harmony default export */ var esm_useMeasure = (isBrowser && typeof window.ResizeObserver !== 'undefined'
-    ? useMeasure
-    : (function () { return [noop, useMeasure_defaultState]; }));
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/usePinchZoom.js
-
-var ZoomState;
-(function (ZoomState) {
-    ZoomState["ZOOMING_IN"] = "ZOOMING_IN";
-    ZoomState["ZOOMING_OUT"] = "ZOOMING_OUT";
-})(ZoomState || (ZoomState = {}));
-var usePinchZoom = function (ref) {
-    var cacheRef = (0,react.useMemo)(function () { return ({
-        evCache: [],
-        prevDiff: -1,
-    }); }, [ref.current]);
-    var _a = (0,react.useState)(), zoomingState = _a[0], setZoomingState = _a[1];
-    var pointermove_handler = function (ev) {
-        // This function implements a 2-pointer horizontal pinch/zoom gesture.
-        //
-        // If the distance between the two pointers has increased (zoom in),
-        // the target element's background is changed to 'pink' and if the
-        // distance is decreasing (zoom out), the color is changed to 'lightblue'.
-        //
-        // This function sets the target element's border to 'dashed' to visually
-        // indicate the pointer's target received a move event.
-        // Find this event in the cache and update its record with this event
-        for (var i = 0; i < cacheRef.evCache.length; i++) {
-            if (ev.pointerId == cacheRef.evCache[i].pointerId) {
-                cacheRef.evCache[i] = ev;
-                break;
-            }
-        }
-        // If two pointers are down, check for pinch gestures
-        if (cacheRef.evCache.length == 2) {
-            // console.log(prevDiff)
-            // Calculate the distance between the two pointers
-            var curDiff = Math.abs(cacheRef.evCache[0].clientX - cacheRef.evCache[1].clientX);
-            if (cacheRef.prevDiff > 0) {
-                if (curDiff > cacheRef.prevDiff) {
-                    // The distance between the two pointers has increased
-                    setZoomingState([ZoomState.ZOOMING_IN, curDiff]);
-                }
-                if (curDiff < cacheRef.prevDiff) {
-                    // The distance between the two pointers has decreased
-                    setZoomingState([ZoomState.ZOOMING_OUT, curDiff]);
-                }
-            }
-            // Cache the distance for the next move event
-            cacheRef.prevDiff = curDiff;
-        }
-    };
-    var pointerdown_handler = function (ev) {
-        // The pointerdown event signals the start of a touch interaction.
-        // This event is cached to support 2-finger gestures
-        cacheRef.evCache.push(ev);
-        // console.log('pointerDown', ev);
-    };
-    var pointerup_handler = function (ev) {
-        // Remove this pointer from the cache and reset the target's
-        // background and border
-        remove_event(ev);
-        // If the number of pointers down is less than two then reset diff tracker
-        if (cacheRef.evCache.length < 2) {
-            cacheRef.prevDiff = -1;
-        }
-    };
-    var remove_event = function (ev) {
-        // Remove this event from the target's cache
-        for (var i = 0; i < cacheRef.evCache.length; i++) {
-            if (cacheRef.evCache[i].pointerId == ev.pointerId) {
-                cacheRef.evCache.splice(i, 1);
-                break;
-            }
-        }
-    };
-    (0,react.useEffect)(function () {
-        if (ref === null || ref === void 0 ? void 0 : ref.current) {
-            ref.current.onpointerdown = pointerdown_handler;
-            ref.current.onpointermove = pointermove_handler;
-            ref.current.onpointerup = pointerup_handler;
-            ref.current.onpointercancel = pointerup_handler;
-            ref.current.onpointerout = pointerup_handler;
-            ref.current.onpointerleave = pointerup_handler;
-        }
-    }, [ref === null || ref === void 0 ? void 0 : ref.current]);
-    return zoomingState
-        ? { zoomingState: zoomingState[0], pinchState: zoomingState[1] }
-        : { zoomingState: null, pinchState: 0 };
-};
-/* harmony default export */ var esm_usePinchZoom = (usePinchZoom);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useRendersCount.js
-
-function useRendersCount() {
-    return ++(0,react.useRef)(0).current;
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useSet.js
-
-
-var useSet = function (initialSet) {
-    if (initialSet === void 0) { initialSet = new Set(); }
-    var _a = (0,react.useState)(initialSet), set = _a[0], setSet = _a[1];
-    var stableActions = (0,react.useMemo)(function () {
-        var add = function (item) { return setSet(function (prevSet) { return new Set((0,tslib_es6.__spreadArrays)(Array.from(prevSet), [item])); }); };
-        var remove = function (item) {
-            return setSet(function (prevSet) { return new Set(Array.from(prevSet).filter(function (i) { return i !== item; })); });
-        };
-        var toggle = function (item) {
-            return setSet(function (prevSet) {
-                return prevSet.has(item)
-                    ? new Set(Array.from(prevSet).filter(function (i) { return i !== item; }))
-                    : new Set((0,tslib_es6.__spreadArrays)(Array.from(prevSet), [item]));
-            });
-        };
-        return { add: add, remove: remove, toggle: toggle, reset: function () { return setSet(initialSet); }, clear: function () { return setSet(new Set()); } };
-    }, [setSet]);
-    var utils = (0,tslib_es6.__assign)({ has: (0,react.useCallback)(function (item) { return set.has(item); }, [set]) }, stableActions);
-    return [set, utils];
-};
-/* harmony default export */ var esm_useSet = (useSet);
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/factory/createGlobalState.js
-
-
-
-
-function createGlobalState(initialState) {
-    var store = {
-        state: initialState instanceof Function ? initialState() : initialState,
-        setState: function (nextState) {
-            store.state = resolveHookState(nextState, store.state);
-            store.setters.forEach(function (setter) { return setter(store.state); });
-        },
-        setters: [],
-    };
-    return function () {
-        var _a = (0,react.useState)(store.state), globalState = _a[0], stateSetter = _a[1];
-        esm_useEffectOnce(function () { return function () {
-            store.setters = store.setters.filter(function (setter) { return setter !== stateSetter; });
-        }; });
-        esm_useIsomorphicLayoutEffect(function () {
-            if (!store.setters.includes(stateSetter)) {
-                store.setters.push(stateSetter);
-            }
-        });
-        return [globalState, store.setState];
-    };
-}
-/* harmony default export */ var factory_createGlobalState = ((/* unused pure expression or super */ null && (createGlobalState)));
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/useHash.js
-
-
-
-/**
- * read and write url hash, response to url hash change
- */
-var useHash = function () {
-    var _a = (0,react.useState)(function () { return window.location.hash; }), hash = _a[0], setHash = _a[1];
-    var onHashChange = (0,react.useCallback)(function () {
-        setHash(window.location.hash);
-    }, []);
-    esm_useLifecycles(function () {
-        on(window, 'hashchange', onHashChange);
-    }, function () {
-        off(window, 'hashchange', onHashChange);
-    });
-    var _setHash = (0,react.useCallback)(function (newHash) {
-        if (newHash !== hash) {
-            window.location.hash = newHash;
-        }
-    }, [hash]);
-    return [hash, _setHash];
-};
-
-;// CONCATENATED MODULE: ./node_modules/react-use/esm/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// not exported because of peer dependency
-// export { default as useKeyboardJs } from './useKeyboardJs';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// not exported because of peer dependency
-// export { default as useSpring } from './useSpring';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ 1020:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -27724,321 +22519,6 @@ if (true) {
 
 /***/ }),
 
-/***/ 1916:
-/***/ (function(module) {
-
-/*!
-* screenfull
-* v5.2.0 - 2021-11-03
-* (c) Sindre Sorhus; MIT License
-*/
-(function () {
-	'use strict';
-
-	var document = typeof window !== 'undefined' && typeof window.document !== 'undefined' ? window.document : {};
-	var isCommonjs =  true && module.exports;
-
-	var fn = (function () {
-		var val;
-
-		var fnMap = [
-			[
-				'requestFullscreen',
-				'exitFullscreen',
-				'fullscreenElement',
-				'fullscreenEnabled',
-				'fullscreenchange',
-				'fullscreenerror'
-			],
-			// New WebKit
-			[
-				'webkitRequestFullscreen',
-				'webkitExitFullscreen',
-				'webkitFullscreenElement',
-				'webkitFullscreenEnabled',
-				'webkitfullscreenchange',
-				'webkitfullscreenerror'
-
-			],
-			// Old WebKit
-			[
-				'webkitRequestFullScreen',
-				'webkitCancelFullScreen',
-				'webkitCurrentFullScreenElement',
-				'webkitCancelFullScreen',
-				'webkitfullscreenchange',
-				'webkitfullscreenerror'
-
-			],
-			[
-				'mozRequestFullScreen',
-				'mozCancelFullScreen',
-				'mozFullScreenElement',
-				'mozFullScreenEnabled',
-				'mozfullscreenchange',
-				'mozfullscreenerror'
-			],
-			[
-				'msRequestFullscreen',
-				'msExitFullscreen',
-				'msFullscreenElement',
-				'msFullscreenEnabled',
-				'MSFullscreenChange',
-				'MSFullscreenError'
-			]
-		];
-
-		var i = 0;
-		var l = fnMap.length;
-		var ret = {};
-
-		for (; i < l; i++) {
-			val = fnMap[i];
-			if (val && val[1] in document) {
-				for (i = 0; i < val.length; i++) {
-					ret[fnMap[0][i]] = val[i];
-				}
-				return ret;
-			}
-		}
-
-		return false;
-	})();
-
-	var eventNameMap = {
-		change: fn.fullscreenchange,
-		error: fn.fullscreenerror
-	};
-
-	var screenfull = {
-		request: function (element, options) {
-			return new Promise(function (resolve, reject) {
-				var onFullScreenEntered = function () {
-					this.off('change', onFullScreenEntered);
-					resolve();
-				}.bind(this);
-
-				this.on('change', onFullScreenEntered);
-
-				element = element || document.documentElement;
-
-				var returnPromise = element[fn.requestFullscreen](options);
-
-				if (returnPromise instanceof Promise) {
-					returnPromise.then(onFullScreenEntered).catch(reject);
-				}
-			}.bind(this));
-		},
-		exit: function () {
-			return new Promise(function (resolve, reject) {
-				if (!this.isFullscreen) {
-					resolve();
-					return;
-				}
-
-				var onFullScreenExit = function () {
-					this.off('change', onFullScreenExit);
-					resolve();
-				}.bind(this);
-
-				this.on('change', onFullScreenExit);
-
-				var returnPromise = document[fn.exitFullscreen]();
-
-				if (returnPromise instanceof Promise) {
-					returnPromise.then(onFullScreenExit).catch(reject);
-				}
-			}.bind(this));
-		},
-		toggle: function (element, options) {
-			return this.isFullscreen ? this.exit() : this.request(element, options);
-		},
-		onchange: function (callback) {
-			this.on('change', callback);
-		},
-		onerror: function (callback) {
-			this.on('error', callback);
-		},
-		on: function (event, callback) {
-			var eventName = eventNameMap[event];
-			if (eventName) {
-				document.addEventListener(eventName, callback, false);
-			}
-		},
-		off: function (event, callback) {
-			var eventName = eventNameMap[event];
-			if (eventName) {
-				document.removeEventListener(eventName, callback, false);
-			}
-		},
-		raw: fn
-	};
-
-	if (!fn) {
-		if (isCommonjs) {
-			module.exports = {isEnabled: false};
-		} else {
-			window.screenfull = {isEnabled: false};
-		}
-
-		return;
-	}
-
-	Object.defineProperties(screenfull, {
-		isFullscreen: {
-			get: function () {
-				return Boolean(document[fn.fullscreenElement]);
-			}
-		},
-		element: {
-			enumerable: true,
-			get: function () {
-				return document[fn.fullscreenElement];
-			}
-		},
-		isEnabled: {
-			enumerable: true,
-			get: function () {
-				// Coerce to boolean in case of old WebKit
-				return Boolean(document[fn.fullscreenEnabled]);
-			}
-		}
-	});
-
-	if (isCommonjs) {
-		module.exports = screenfull;
-	} else {
-		window.screenfull = screenfull;
-	}
-})();
-
-
-/***/ }),
-
-/***/ 6426:
-/***/ (function(module) {
-
-
-module.exports = function () {
-  var selection = document.getSelection();
-  if (!selection.rangeCount) {
-    return function () {};
-  }
-  var active = document.activeElement;
-
-  var ranges = [];
-  for (var i = 0; i < selection.rangeCount; i++) {
-    ranges.push(selection.getRangeAt(i));
-  }
-
-  switch (active.tagName.toUpperCase()) { // .toUpperCase handles XHTML
-    case 'INPUT':
-    case 'TEXTAREA':
-      active.blur();
-      break;
-
-    default:
-      active = null;
-      break;
-  }
-
-  selection.removeAllRanges();
-  return function () {
-    selection.type === 'Caret' &&
-    selection.removeAllRanges();
-
-    if (!selection.rangeCount) {
-      ranges.forEach(function(range) {
-        selection.addRange(range);
-      });
-    }
-
-    active &&
-    active.focus();
-  };
-};
-
-
-/***/ }),
-
-/***/ 3118:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = ({ value: true });
-exports.c = {
-    // No easing, no acceleration
-    linear: function (t) { return t; },
-    // Accelerates fast, then slows quickly towards end.
-    quadratic: function (t) { return t * (-(t * t) * t + 4 * t * t - 6 * t + 4); },
-    // Overshoots over 1 and then returns to 1 towards end.
-    cubic: function (t) { return t * (4 * t * t - 9 * t + 6); },
-    // Overshoots over 1 multiple times - wiggles around 1.
-    elastic: function (t) { return t * (33 * t * t * t * t - 106 * t * t * t + 126 * t * t - 67 * t + 15); },
-    // Accelerating from zero velocity
-    inQuad: function (t) { return t * t; },
-    // Decelerating to zero velocity
-    outQuad: function (t) { return t * (2 - t); },
-    // Acceleration until halfway, then deceleration
-    inOutQuad: function (t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t; },
-    // Accelerating from zero velocity
-    inCubic: function (t) { return t * t * t; },
-    // Decelerating to zero velocity
-    outCubic: function (t) { return (--t) * t * t + 1; },
-    // Acceleration until halfway, then deceleration
-    inOutCubic: function (t) { return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1; },
-    // Accelerating from zero velocity
-    inQuart: function (t) { return t * t * t * t; },
-    // Decelerating to zero velocity
-    outQuart: function (t) { return 1 - (--t) * t * t * t; },
-    // Acceleration until halfway, then deceleration
-    inOutQuart: function (t) { return t < .5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t; },
-    // Accelerating from zero velocity
-    inQuint: function (t) { return t * t * t * t * t; },
-    // Decelerating to zero velocity
-    outQuint: function (t) { return 1 + (--t) * t * t * t * t; },
-    // Acceleration until halfway, then deceleration
-    inOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t; },
-    // Accelerating from zero velocity
-    inSine: function (t) { return -Math.cos(t * (Math.PI / 2)) + 1; },
-    // Decelerating to zero velocity
-    outSine: function (t) { return Math.sin(t * (Math.PI / 2)); },
-    // Accelerating until halfway, then decelerating
-    inOutSine: function (t) { return -(Math.cos(Math.PI * t) - 1) / 2; },
-    // Exponential accelerating from zero velocity
-    inExpo: function (t) { return Math.pow(2, 10 * (t - 1)); },
-    // Exponential decelerating to zero velocity
-    outExpo: function (t) { return -Math.pow(2, -10 * t) + 1; },
-    // Exponential accelerating until halfway, then decelerating
-    inOutExpo: function (t) {
-        t /= .5;
-        if (t < 1)
-            return Math.pow(2, 10 * (t - 1)) / 2;
-        t--;
-        return (-Math.pow(2, -10 * t) + 2) / 2;
-    },
-    // Circular accelerating from zero velocity
-    inCirc: function (t) { return -Math.sqrt(1 - t * t) + 1; },
-    // Circular decelerating to zero velocity Moves VERY fast at the beginning and
-    // then quickly slows down in the middle. This tween can actually be used
-    // in continuous transitions where target value changes all the time,
-    // because of the very quick start, it hides the jitter between target value changes.
-    outCirc: function (t) { return Math.sqrt(1 - (t = t - 1) * t); },
-    // Circular acceleration until halfway, then deceleration
-    inOutCirc: function (t) {
-        t /= .5;
-        if (t < 1)
-            return -(Math.sqrt(1 - t * t) - 1) / 2;
-        t -= 2;
-        return (Math.sqrt(1 - t * t) + 1) / 2;
-    }
-};
-
-
-/***/ }),
-
 /***/ 8577:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -28055,6 +22535,7 @@ var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
 var store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
+var settings_1 = __webpack_require__(863);
 function App() {
     var dispatch = (0, store_1.useAppDispatch)();
     var user = (0, store_1.useAppSelector)(function (_a) {
@@ -28063,13 +22544,11 @@ function App() {
     }).user;
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
+    var _a = react_1.default.useState(0), clickerTimeoutCount = _a[0], setClickerTimeoutCount = _a[1];
+    // Получаем telegramID
     react_1.default.useEffect(function () {
-        var tgApp = window.Telegram.WebApp;
-        tgApp.ready();
         if (telegramUserId) {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
-        }
-        else {
         }
     }, []);
     // Вшиваем параметр telegramUserId в URL
@@ -28080,9 +22559,54 @@ function App() {
             window.history.replaceState({}, '', url.toString());
         }
     }, [location.pathname]);
+    // Автоматическое восстановление энергии
+    react_1.default.useEffect(function () {
+        if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) === undefined)
+            return;
+        var maxEnergy = 1000 + 500 * ((user === null || user === void 0 ? void 0 : user.burgerLevel) - 1);
+        if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) !== maxEnergy) {
+            var interval_1 = setInterval(function () {
+                dispatch((0, auth_1.setIncrementEnergy)());
+            }, 1000);
+            return function () { return clearInterval(interval_1); };
+        }
+    }, [user === null || user === void 0 ? void 0 : user.burgerEnergy]);
+    react_1.default.useEffect(function () {
+        if (clickerTimeoutCount > 0) {
+            setTimeout(function () {
+                setClickerTimeoutCount(clickerTimeoutCount - 1);
+            }, 1000);
+        }
+        dispatch((0, settings_1.setTimeoutClicker)(clickerTimeoutCount));
+    }, [clickerTimeoutCount]);
+    react_1.default.useEffect(function () {
+        if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy)) {
+            setClickerTimeoutCount(10);
+        }
+    }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
+
+
+/***/ }),
+
+/***/ 5256:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var _store_1 = __webpack_require__(2482);
+var Balance = function () {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: Math.round(user === null || user === void 0 ? void 0 : user.balance) || 0 }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
+};
+exports["default"] = Balance;
 
 
 /***/ }),
@@ -28177,7 +22701,7 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var Title = function (_a) {
     var children = _a.children, className = _a.className;
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n          p-[8px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-600\n          \n          uppercase font-bold text-[16px] leading-[16px] text-yellow-800\n        ", className), children: children }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n          mb-[24px]\n          p-[8px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-600\n          \n          uppercase font-bold text-[16px] leading-[16px] text-yellow-800\n        ", className), children: children }));
 };
 exports["default"] = Title;
 
@@ -28192,7 +22716,7 @@ exports["default"] = Title;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var UserBar = function (_a) {
-    var balance = _a.balance, nickName = _a.nickName, position = _a.position;
+    var balance = _a.balance, nickName = _a.nickName, _b = _a.position, position = _b === void 0 ? 1 : _b;
     var styles = {
         1: {
             borderColor: '#918b55',
@@ -28208,7 +22732,7 @@ var UserBar = function (_a) {
         },
     };
     var style = styles[position];
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: balance }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: Math.round(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
 };
 exports["default"] = UserBar;
 
@@ -28224,7 +22748,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FaqItem = exports.UserBar = exports.Title = exports.CustomLink = exports.Button = void 0;
+exports.Balance = exports.FaqItem = exports.UserBar = exports.Title = exports.CustomLink = exports.Button = void 0;
 var Button_1 = __importDefault(__webpack_require__(1462));
 exports.Button = Button_1.default;
 var CustomLink_1 = __importDefault(__webpack_require__(1443));
@@ -28235,6 +22759,8 @@ var UserBar_1 = __importDefault(__webpack_require__(9828));
 exports.UserBar = UserBar_1.default;
 var FaqItem_1 = __importDefault(__webpack_require__(1145));
 exports.FaqItem = FaqItem_1.default;
+var Balance_1 = __importDefault(__webpack_require__(5256));
+exports.Balance = Balance_1.default;
 
 
 /***/ }),
@@ -28316,40 +22842,21 @@ exports["default"] = react_1.default.memo(Container);
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var index_1 = __webpack_require__(2482);
-var react_1 = __importDefault(__webpack_require__(6540));
+var iconsLevels_1 = __webpack_require__(589);
+var _store_1 = __webpack_require__(2482);
 var Energy = function () {
-    var user = (0, index_1.useAppSelector)(function (_a) {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_1.default.useState(null), noFullEnergy = _a[0], setNoFullEnergy = _a[1];
-    var _b = react_1.default.useState(null), burgerEnergy = _b[0], setBurgerEnergy = _b[1];
-    var maxEnergy = 1000 * (user === null || user === void 0 ? void 0 : user.burgerLevel);
+    var maxEnergy = 1000 + 500 * ((user === null || user === void 0 ? void 0 : user.burgerLevel) - 1);
     var percentEnergy = ((user === null || user === void 0 ? void 0 : user.burgerEnergy) / maxEnergy) * 100;
-    react_1.default.useEffect(function () {
-        if (noFullEnergy && burgerEnergy !== (user === null || user === void 0 ? void 0 : user.burgerEnergy)) {
-            setTimeout(function () {
-                // setBurgerEnergy(burgerEnergy + 1);
-                console.log(burgerEnergy + 1);
-            }, 1000);
-        }
-    }, [burgerEnergy, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
-    react_1.default.useEffect(function () {
-        setBurgerEnergy(user === null || user === void 0 ? void 0 : user.burgerEnergy);
-        if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) === maxEnergy) {
-            setNoFullEnergy(false);
-        }
-        else {
-            setNoFullEnergy(true);
-        }
-    }, [user === null || user === void 0 ? void 0 : user.burgerEnergy]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: __webpack_require__(7265), width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsxs)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-[#5B4B23] [@media(min-height:500px)]:text-white\r\n          ", children: [burgerEnergy, "/", maxEnergy] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percentEnergy, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
+    if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) === undefined) {
+        return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {});
+    }
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "px-[35px] mb-[10px] [@media(min-height:700px)]:mb-[16px] flex flex-col relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[2px] [@media(min-height:700px)]:mb-[4px] mx-auto\r\n          flex items-center\r\n          absolute [@media(min-height:500px)]:static\r\n          left-1/2 [@media(min-height:500px)]:top-[none]\r\n          top-1/2 [@media(min-height:500px)]:left-[none]\r\n          z-[2]\r\n          -translate-x-1/2 [@media(min-height:500px)]:translate-x-[0]\r\n          -translate-y-1/2 [@media(min-height:500px)]:translate-y-[0]\r\n        ", children: [(0, jsx_runtime_1.jsx)("img", { className: "mr-[4px] w-[34px] [@media(min-height:700px)]:w-[40px] h-[34px] [@media(min-height:700px)]:h-[40px]", src: iconsLevels_1.burgerLevelsIcons[user === null || user === void 0 ? void 0 : user.burgerLevel], width: 40, height: 40, alt: "Burger" }), (0, jsx_runtime_1.jsxs)("span", { className: "\r\n            font-bold\r\n            text-[14px] [@media(min-height:700px)]:text-[16px]\r\n            leading-[1]\r\n            text-white\r\n          ", children: [user === null || user === void 0 ? void 0 : user.burgerEnergy, "/", maxEnergy] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mx-auto w-full h-[14px] [@media(min-height:700px)]:h-[16px] overflow-hidden rounded-[100px] backdrop-blur-[2px] bg-[rgba(91,75,35,0.60)]", children: (0, jsx_runtime_1.jsx)("div", { className: "h-full rounded-[100px] shadow-[-4px_0px_4px_0px_#E5C97FBF_inset]", style: { width: "".concat(percentEnergy, "%"), background: 'linear-gradient(90deg, #FBC12D 0%, #EDC765 100%)' } }) })] }));
 };
 exports["default"] = Energy;
 
@@ -28457,34 +22964,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
 var react_router_dom_1 = __webpack_require__(2648);
-var react_spring_1 = __webpack_require__(4282);
 var routes_1 = __importDefault(__webpack_require__(7236));
 var MainLayout_1 = __importDefault(__webpack_require__(2030));
 var Router = function () {
-    var _a = react_1.default.useState(true), firstRender = _a[0], setFirstRender = _a[1];
-    react_1.default.useEffect(function () {
-        setFirstRender(false);
-    }, []);
-    var location = (0, react_router_dom_1.useLocation)();
-    var transitions = (0, react_spring_1.useTransition)(location, {
-        unique: true,
-        from: { opacity: 0 },
-        enter: { opacity: 1 },
-        leave: {
-            width: '100%',
-            transform: 'translateY(0px)',
-            position: 'absolute',
-        },
-        config: { duration: 300 },
-        initial: firstRender ? { opacity: 1 } : undefined,
-    });
     var pageRoutes = routes_1.default.map(function (_a) {
         var path = _a.path, title = _a.title, element = _a.element;
         return (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: path, element: element }, title);
     });
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: transitions(function (props, item) { return ((0, jsx_runtime_1.jsx)(react_spring_1.animated.div, { className: "router-animate", style: props, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }) })); }) }));
+    return ((0, jsx_runtime_1.jsx)(react_router_dom_1.Routes, { children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Route, { path: "/", element: (0, jsx_runtime_1.jsx)(MainLayout_1.default, {}), children: pageRoutes }) }));
 };
 exports["default"] = Router;
 
@@ -28564,6 +23052,71 @@ exports["default"] = routes;
 
 /***/ }),
 
+/***/ 589:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.toolsLevelsIcons = exports.burgerLevelsIcons = void 0;
+exports.burgerLevelsIcons = {
+    1: __webpack_require__(7265),
+    2: __webpack_require__(7265),
+    3: __webpack_require__(7265),
+    4: __webpack_require__(7265),
+    5: __webpack_require__(7265),
+    6: __webpack_require__(2600),
+    7: __webpack_require__(2600),
+    8: __webpack_require__(2600),
+    9: __webpack_require__(2600),
+    10: __webpack_require__(2600),
+    11: __webpack_require__(1871),
+    12: __webpack_require__(1871),
+    13: __webpack_require__(1871),
+    14: __webpack_require__(1871),
+    15: __webpack_require__(1871),
+    16: __webpack_require__(8302),
+    17: __webpack_require__(8302),
+    18: __webpack_require__(8302),
+    19: __webpack_require__(8302),
+    20: __webpack_require__(8302),
+    21: __webpack_require__(8366),
+    22: __webpack_require__(8366),
+    23: __webpack_require__(8366),
+    24: __webpack_require__(8366),
+    25: __webpack_require__(8366),
+};
+exports.toolsLevelsIcons = {
+    1: __webpack_require__(7694),
+    2: __webpack_require__(7694),
+    3: __webpack_require__(7694),
+    4: __webpack_require__(7694),
+    5: __webpack_require__(7694),
+    6: __webpack_require__(5305),
+    7: __webpack_require__(5305),
+    8: __webpack_require__(5305),
+    9: __webpack_require__(5305),
+    10: __webpack_require__(5305),
+    11: __webpack_require__(2056),
+    12: __webpack_require__(2056),
+    13: __webpack_require__(2056),
+    14: __webpack_require__(2056),
+    15: __webpack_require__(2056),
+    16: __webpack_require__(5673),
+    17: __webpack_require__(5673),
+    18: __webpack_require__(5673),
+    19: __webpack_require__(5673),
+    20: __webpack_require__(5673),
+    21: __webpack_require__(7002),
+    22: __webpack_require__(7002),
+    23: __webpack_require__(7002),
+    24: __webpack_require__(7002),
+    25: __webpack_require__(7002),
+};
+
+
+/***/ }),
+
 /***/ 3900:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -28603,9 +23156,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var UI_1 = __webpack_require__(456);
+var _store_1 = __webpack_require__(2482);
 var Template_1 = __importDefault(__webpack_require__(123));
+var UI_1 = __webpack_require__(456);
 function Boost() {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
     return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
 }
 exports["default"] = Boost;
@@ -28626,185 +23184,14 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Faq() {
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[284px] after:h-[367px] bg-[url('@assets/img/bg/faq.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Faq" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] w-full flex flex-col" })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[284px] after:h-[367px] bg-[url('@assets/img/bg/faq.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Faq" }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." }), (0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." }), (0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." })] })] }));
 }
 exports["default"] = Faq;
 
 
 /***/ }),
 
-/***/ 7997:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var FriendItem = function (_a) {
-    var nickName = _a.nickName, bonus = _a.bonus;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[38px] [@media(min-height:570px)]:w-[42px]\r\n            h-[38px] [@media(min-height:570px)]:h-[42px]\r\n          ", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-yellow-300", children: ["+", bonus] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
-};
-exports["default"] = FriendItem;
-
-
-/***/ }),
-
 /***/ 9715:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
-var jsx_runtime_1 = __webpack_require__(2467);
-var react_2 = __importDefault(__webpack_require__(6540));
-var API_1 = __webpack_require__(9309);
-var _store_1 = __webpack_require__(2482);
-var UI_1 = __webpack_require__(456);
-var Template_1 = __importDefault(__webpack_require__(123));
-var FriendItem_1 = __importDefault(__webpack_require__(7997));
-function Friends() {
-    var _a;
-    var user = (0, _store_1.useAppSelector)(function (_a) {
-        var auth = _a.auth;
-        return auth;
-    }).user;
-    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
-    var onClickRefLink = function () {
-        var tgApp = window.Telegram.WebApp;
-        tgApp.shareLink('https://www.google.com/', {
-            text: 'Check out this cool link!',
-        });
-    };
-    function getReffers() {
-        return __awaiter(this, void 0, void 0, function () {
-            var data, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, API_1.API.get('/reffers/' + (user === null || user === void 0 ? void 0 : user.tgId))];
-                    case 1:
-                        data = (_a.sent()).data;
-                        setResponse(data);
-                        return [3 /*break*/, 3];
-                    case 2:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    }
-    react_2.default.useEffect(function () {
-        if (user === null || user === void 0 ? void 0 : user.tgId) {
-            getReffers();
-        }
-    }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.numberOfReferrals })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: response === null || response === void 0 ? void 0 : response.myBalance })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.referralsInfo) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx) }))); }) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] })] }));
-}
-exports["default"] = Friends;
-
-
-/***/ }),
-
-/***/ 7728:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var _store_1 = __webpack_require__(2482);
-var Balance = function () {
-    var user = (0, _store_1.useAppSelector)(function (_a) {
-        var auth = _a.auth;
-        return auth;
-    }).user;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: user === null || user === void 0 ? void 0 : user.balance }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
-};
-exports["default"] = Balance;
-
-
-/***/ }),
-
-/***/ 7956:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var _store_1 = __webpack_require__(2482);
-var auth_1 = __webpack_require__(1692);
-var Volume = function () {
-    var dispatch = (0, _store_1.useAppDispatch)();
-    var is_volume = (0, _store_1.useAppSelector)(function (_a) {
-        var auth = _a.auth;
-        return auth;
-    }).is_volume;
-    var onClickVolume = function () {
-        dispatch((0, auth_1.setVolume)(!is_volume));
-    };
-    return ((0, jsx_runtime_1.jsxs)("button", { className: "volume-button", onClick: onClickVolume, type: "button", children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7774), style: { display: is_volume ? 'block' : 'none' }, width: 26, height: 24, alt: "Volume" }), (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7151), style: { display: is_volume ? 'none' : 'block' }, width: 21, height: 24, alt: "Volume" })] }));
-};
-exports["default"] = Volume;
-
-
-/***/ }),
-
-/***/ 1245:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -28851,37 +23238,183 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var react_use_1 = __webpack_require__(2380);
-__webpack_require__(2843);
+var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
+var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
-var UserBar_1 = __importDefault(__webpack_require__(9828));
-var Volume_1 = __importDefault(__webpack_require__(7956));
-var Balance_1 = __importDefault(__webpack_require__(7728));
-var auth_1 = __webpack_require__(1692);
-function Home() {
-    var _this = this;
-    var dispatch = (0, _store_1.useAppDispatch)();
+function Friends() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_1.default.useState(false), toggleClicker = _a[0], setToggleClicker = _a[1];
-    var durationClicker = 600;
-    var clicker = function () { return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            try {
-                dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
-                if (!toggleClicker) {
-                    setToggleClicker(true);
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var onClickRefLink = function () { };
+    function getReffers() {
+        return __awaiter(this, void 0, void 0, function () {
+            var data, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, API_1.API.get('/reffers/' + (user === null || user === void 0 ? void 0 : user.tgId))];
+                    case 1:
+                        data = (_a.sent()).data;
+                        setResponse(data);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_1 = _a.sent();
+                        console.log(err_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    react_1.default.useEffect(function () {
+        if (user === null || user === void 0 ? void 0 : user.tgId) {
+            getReffers();
+        }
+    }, [user === null || user === void 0 ? void 0 : user.tgId]);
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }) }));
+}
+exports["default"] = Friends;
+
+
+/***/ }),
+
+/***/ 5285:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
+var classnames_1 = __importDefault(__webpack_require__(6942));
+var _store_1 = __webpack_require__(2482);
+var auth_1 = __webpack_require__(1692);
+var sounds = [__webpack_require__(1164), __webpack_require__(2670), __webpack_require__(4725), __webpack_require__(5412)];
+var Clicker = function () {
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }), user = _a.user, is_volume = _a.is_volume;
+    var clickerTimeout = (0, _store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }).clickerTimeout;
+    var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
+    var _c = react_1.default.useState(false), toggleAudio = _c[0], setToggleAudio = _c[1];
+    var durationGif = 500; // Время действия анимации краба
+    var durationAudio = 100; // Время действия звука при тапе
+    // Тапаем по крабу
+    var clicker = function () {
+        try {
+            if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
+                return;
+            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
+            if (!toggleGif) {
+                setToggleGif(true);
+            }
+            if (is_volume) {
+                if (!toggleAudio) {
+                    var randomIndex = Math.floor(Math.random() * sounds.length); // Рандомим звук
+                    var audio = new Audio(sounds[randomIndex]);
+                    audio.volume = 0.4; // Громкость звука
+                    audio.play();
+                    setToggleAudio(true);
                 }
             }
-            catch (err) { }
-            return [2 /*return*/];
-        });
-    }); };
-    (0, react_use_1.useInterval)(function () { return setToggleClicker(false); }, toggleClicker ? durationClicker : null);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UserBar_1.default, { balance: user === null || user === void 0 ? void 0 : user.balance, nickName: user === null || user === void 0 ? void 0 : user.nickName, position: user === null || user === void 0 ? void 0 : user.position }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(Balance_1.default, {}), (0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleClicker ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleClicker ? 'block' : 'none' }, src: __webpack_require__(1373), alt: "Crabs" })] })] }));
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    react_1.default.useEffect(function () {
+        var timer = null;
+        if (toggleGif) {
+            timer = setTimeout(function () {
+                setToggleGif(false);
+            }, durationGif);
+        }
+        return function () {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        };
+    }, [toggleGif]);
+    react_1.default.useEffect(function () {
+        var timer = null;
+        if (toggleAudio) {
+            timer = setTimeout(function () {
+                setToggleAudio(false);
+            }, durationAudio);
+        }
+        return function () {
+            if (timer) {
+                clearTimeout(timer);
+            }
+        };
+    }, [toggleAudio]);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(1373), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+};
+exports["default"] = Clicker;
+
+
+/***/ }),
+
+/***/ 7956:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var _store_1 = __webpack_require__(2482);
+var auth_1 = __webpack_require__(1692);
+var Volume = function () {
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var is_volume = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).is_volume;
+    // Включаем/отключаем звук
+    var onClickVolume = function () {
+        dispatch((0, auth_1.setVolume)(!is_volume));
+    };
+    return ((0, jsx_runtime_1.jsxs)("button", { className: "volume-button", onClick: onClickVolume, type: "button", children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7774), style: { display: is_volume ? 'block' : 'none' }, width: 26, height: 24, alt: "Volume" }), (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7151), style: { display: is_volume ? 'none' : 'block' }, width: 21, height: 24, alt: "Volume" })] }));
+};
+exports["default"] = Volume;
+
+
+/***/ }),
+
+/***/ 1245:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+__webpack_require__(2843);
+var _store_1 = __webpack_require__(2482);
+var Template_1 = __importDefault(__webpack_require__(123));
+var UI_1 = __webpack_require__(456);
+var Volume_1 = __importDefault(__webpack_require__(7956));
+var Clicker_1 = __importDefault(__webpack_require__(5285));
+function Home() {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', position: user === null || user === void 0 ? void 0 : user.position }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
 }
 exports["default"] = Home;
 
@@ -28984,7 +23517,7 @@ function Ratings() {
     react_1.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }) }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }) }));
 }
 exports["default"] = Ratings;
 
@@ -29051,7 +23584,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.API = exports.BASE_URL = void 0;
 var axios_1 = __importDefault(__webpack_require__(6425));
-exports.BASE_URL = 'http://77.37.86.105:3000';
+exports.BASE_URL = 'https://crabstoken.io/api/';
 exports.API = axios_1.default.create({
     baseURL: exports.BASE_URL,
 });
@@ -29072,9 +23605,11 @@ exports.useAppSelector = exports.useAppDispatch = exports.store = void 0;
 var react_redux_1 = __webpack_require__(134);
 var toolkit_1 = __webpack_require__(5679);
 var auth_1 = __importDefault(__webpack_require__(1692));
+var settings_1 = __importDefault(__webpack_require__(863));
 exports.store = (0, toolkit_1.configureStore)({
     reducer: {
         auth: auth_1.default,
+        settings: settings_1.default,
     },
 });
 exports.useAppDispatch = react_redux_1.useDispatch;
@@ -29135,11 +23670,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setVolume = exports.fetchPostTap = exports.fetchGetUser = void 0;
+exports.setUpgradeCost = exports.setIncrementEnergy = exports.setVolume = exports.fetchPostTap = exports.fetchGetUser = void 0;
 var toolkit_1 = __webpack_require__(5679);
 var API_1 = __webpack_require__(9309);
+// Отправляем запрос на бек с получением пользователя
 exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
     var dataUser, dataPosition, err_1;
     return __generator(this, function (_a) {
@@ -29163,6 +23699,7 @@ exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function 
         }
     });
 }); });
+// Отправляем запрос на бек с тапом
 exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
     var data, err_2;
     return __generator(this, function (_a) {
@@ -29185,6 +23722,7 @@ exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function 
         }
     });
 }); });
+// Получаем с локального хранилища состояние по звуку
 var volumeLocal = JSON.parse(window.localStorage.getItem('volume'));
 var initialState = {
     user: null,
@@ -29194,10 +23732,23 @@ var authSlice = (0, toolkit_1.createSlice)({
     name: 'auth',
     initialState: initialState,
     reducers: {
+        // Включаем/отключаем звук в приложении
         setVolume: function (state, _a) {
             var payload = _a.payload;
             state.is_volume = payload;
             window.localStorage.setItem('volume', String(payload));
+        },
+        // Автоматическое восстановление энергии
+        setIncrementEnergy: function (state) {
+            var _a;
+            var maxEnergy = 1000 + 500 * (((_a = state.user) === null || _a === void 0 ? void 0 : _a.burgerLevel) - 1);
+            var value = state.user.burgerEnergy;
+            var newValue = value + 1 * state.user.shovelLevel;
+            state.user.burgerEnergy = newValue <= maxEnergy ? newValue : maxEnergy;
+        },
+        setUpgradeCost: function (state, _a) {
+            var payload = _a.payload;
+            state.user = __assign(__assign({}, state.user), payload);
         },
     },
     extraReducers: (_a = {},
@@ -29215,8 +23766,38 @@ var authSlice = (0, toolkit_1.createSlice)({
         },
         _a),
 });
-exports.setVolume = authSlice.actions.setVolume;
+exports.setVolume = (_b = authSlice.actions, _b.setVolume), exports.setIncrementEnergy = _b.setIncrementEnergy, exports.setUpgradeCost = _b.setUpgradeCost;
 exports["default"] = authSlice.reducer;
+
+
+/***/ }),
+
+/***/ 863:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.setTimeoutClicker = void 0;
+var toolkit_1 = __webpack_require__(5679);
+// Получаем с локального хранилища состояние по звуку
+var initialState = {
+    clickerTimeout: 0,
+};
+var settingsSlice = (0, toolkit_1.createSlice)({
+    name: 'auth',
+    initialState: initialState,
+    reducers: {
+        // Добавляем таймаут для кликера, когда энергия на нуле
+        setTimeoutClicker: function (state, _a) {
+            var payload = _a.payload;
+            state.clickerTimeout = payload;
+        },
+    },
+    extraReducers: {},
+});
+exports.setTimeoutClicker = settingsSlice.actions.setTimeoutClicker;
+exports["default"] = settingsSlice.reducer;
 
 
 /***/ }),
@@ -29309,7 +23890,39 @@ module.exports = __webpack_require__.p + "img/0b4864cf756e112faa05.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/08bbce0e5ffd528c406d.png";
+module.exports = __webpack_require__.p + "img/aa743470b7a9609937b9.png";
+
+/***/ }),
+
+/***/ 1871:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/58c1b43de9c87690521e.png";
+
+/***/ }),
+
+/***/ 8302:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/87dfa1ba4e02d6e2df90.png";
+
+/***/ }),
+
+/***/ 8366:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/7b74ff189ed44e1bb975.png";
+
+/***/ }),
+
+/***/ 2600:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/aea2613949b73a509ec8.png";
 
 /***/ }),
 
@@ -29317,7 +23930,7 @@ module.exports = __webpack_require__.p + "img/08bbce0e5ffd528c406d.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/d82bfa15567c455f87a2.gif";
+module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
 
 /***/ }),
 
@@ -29325,7 +23938,7 @@ module.exports = __webpack_require__.p + "img/d82bfa15567c455f87a2.gif";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/5117baf4454e37de8d15.gif";
+module.exports = __webpack_require__.p + "img/6fe1779ff6fdc01990ed.gif";
 
 /***/ }),
 
@@ -29393,48 +24006,75 @@ module.exports = __webpack_require__.p + "img/0bdad81a30bb32905980.svg";
 
 /***/ }),
 
-/***/ 5866:
+/***/ 7694:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-var D=Object.create;var T=Object.defineProperty;var K=Object.getOwnPropertyDescriptor;var M=Object.getOwnPropertyNames;var q=Object.getPrototypeOf,z=Object.prototype.hasOwnProperty;var G=(e,r)=>{for(var t in r)T(e,t,{get:r[t],enumerable:!0})},E=(e,r,t,a)=>{if(r&&typeof r=="object"||typeof r=="function")for(let n of M(r))!z.call(e,n)&&n!==t&&T(e,n,{get:()=>r[n],enumerable:!(a=K(r,n))||a.enumerable});return e};var J=(e,r,t)=>(t=e!=null?D(q(e)):{},E(r||!e||!e.__esModule?T(t,"default",{value:e,enumerable:!0}):t,e)),Q=e=>E(T({},"__esModule",{value:!0}),e);var re={};G(re,{Animated:()=>h,AnimatedArray:()=>g,AnimatedObject:()=>p,AnimatedString:()=>m,AnimatedValue:()=>d,createHost:()=>te,getAnimated:()=>v,getAnimatedType:()=>Y,getPayload:()=>k,isAnimated:()=>S,setAnimated:()=>N});module.exports=Q(re);var O=__webpack_require__(2840),b=Symbol.for("Animated:node"),S=e=>!!e&&e[b]===e,v=e=>e&&e[b],N=(e,r)=>(0,O.defineHidden)(e,b,r),k=e=>e&&e[b]&&e[b].getPayload(),h=class{constructor(){N(this,this)}getPayload(){return this.payload||[]}};var P=__webpack_require__(2840);var d=class extends h{constructor(t){super();this._value=t;this.done=!0;this.durationProgress=0;P.is.num(this._value)&&(this.lastPosition=this._value)}static create(t){return new d(t)}getPayload(){return[this]}getValue(){return this._value}setValue(t,a){return P.is.num(t)&&(this.lastPosition=t,a&&(t=Math.round(t/a)*a,this.done&&(this.lastPosition=t))),this._value===t?!1:(this._value=t,!0)}reset(){let{done:t}=this;this.done=!1,P.is.num(this._value)&&(this.elapsedTime=0,this.durationProgress=0,this.lastPosition=this._value,t&&(this.lastVelocity=null),this.v0=null)}};var x=__webpack_require__(2840),m=class extends d{constructor(t){super(0);this._string=null;this._toString=(0,x.createInterpolator)({output:[t,t]})}static create(t){return new m(t)}getValue(){let t=this._string;return t??(this._string=this._toString(this._value))}setValue(t){if(x.is.str(t)){if(t==this._string)return!1;this._string=t,this._value=1}else if(super.setValue(t))this._string=null;else return!1;return!0}reset(t){t&&(this._toString=(0,x.createInterpolator)({output:[this.getValue(),t]})),this._value=0,super.reset()}};var U=__webpack_require__(2840);var u=__webpack_require__(2840);var V={dependencies:null};var p=class extends h{constructor(t){super();this.source=t;this.setValue(t)}getValue(t){let a={};return(0,u.eachProp)(this.source,(n,s)=>{S(n)?a[s]=n.getValue(t):(0,u.hasFluidValue)(n)?a[s]=(0,u.getFluidValue)(n):t||(a[s]=n)}),a}setValue(t){this.source=t,this.payload=this._makePayload(t)}reset(){this.payload&&(0,u.each)(this.payload,t=>t.reset())}_makePayload(t){if(t){let a=new Set;return(0,u.eachProp)(t,this._addToPayload,a),Array.from(a)}}_addToPayload(t){V.dependencies&&(0,u.hasFluidValue)(t)&&V.dependencies.add(t);let a=k(t);a&&(0,u.each)(a,n=>this.add(n))}};var g=class extends p{constructor(r){super(r)}static create(r){return new g(r)}getValue(){return this.source.map(r=>r.getValue())}setValue(r){let t=this.getPayload();return r.length==t.length?t.map((a,n)=>a.setValue(r[n])).some(Boolean):(super.setValue(r.map(X)),!0)}};function X(e){return((0,U.isAnimatedString)(e)?m:d).create(e)}var _=__webpack_require__(2840);function Y(e){let r=v(e);return r?r.constructor:_.is.arr(e)?g:(0,_.isAnimatedString)(e)?m:d}var f=__webpack_require__(2840);var j=J(__webpack_require__(6540)),c=__webpack_require__(6540),o=__webpack_require__(2840);var R=(e,r)=>{let t=!o.is.fun(e)||e.prototype&&e.prototype.isReactComponent;return(0,c.forwardRef)((a,n)=>{let s=(0,c.useRef)(null),i=t&&(0,c.useCallback)(l=>{s.current=ee(n,l)},[n]),[y,L]=Z(a,r),$=(0,o.useForceUpdate)(),w=()=>{let l=s.current;if(t&&!l)return;(l?r.applyAnimatedValues(l,y.getValue(!0)):!1)===!1&&$()},C=new F(w,L),A=(0,c.useRef)();(0,o.useIsomorphicLayoutEffect)(()=>(A.current=C,(0,o.each)(L,l=>(0,o.addFluidObserver)(l,C)),()=>{A.current&&((0,o.each)(A.current.deps,l=>(0,o.removeFluidObserver)(l,A.current)),o.raf.cancel(A.current.update))})),(0,c.useEffect)(w,[]),(0,o.useOnce)(()=>()=>{let l=A.current;(0,o.each)(l.deps,H=>(0,o.removeFluidObserver)(H,l))});let B=r.getComponentProps(y.getValue());return j.createElement(e,{...B,ref:i})})},F=class{constructor(r,t){this.update=r;this.deps=t}eventObserved(r){r.type=="change"&&o.raf.write(this.update)}};function Z(e,r){let t=new Set;return V.dependencies=t,e.style&&(e={...e,style:r.createAnimatedStyle(e.style)}),e=new p(e),V.dependencies=null,[e,t]}function ee(e,r){return e&&(o.is.fun(e)?e(r):e.current=r),r}var I=Symbol.for("AnimatedComponent"),te=(e,{applyAnimatedValues:r=()=>!1,createAnimatedStyle:t=n=>new p(n),getComponentProps:a=n=>n}={})=>{let n={applyAnimatedValues:r,createAnimatedStyle:t,getComponentProps:a},s=i=>{let y=W(i)||"Anonymous";return f.is.str(i)?i=s[i]||(s[i]=R(i,n)):i=i[I]||(i[I]=R(i,n)),i.displayName=`Animated(${y})`,i};return(0,f.eachProp)(e,(i,y)=>{f.is.arr(e)&&(y=W(i)),s[y]=s(i)}),{animated:s}},W=e=>f.is.str(e)?e:e&&f.is.str(e.displayName)?e.displayName:f.is.fun(e)&&e.name||null;
-//# sourceMappingURL=react-spring_animated.production.min.cjs.map
+module.exports = __webpack_require__.p + "img/8cce4bf7fb3313ee4336.png";
 
 /***/ }),
 
-/***/ 4694:
+/***/ 2056:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-var qt=Object.create;var ze=Object.defineProperty;var Qt=Object.getOwnPropertyDescriptor;var zt=Object.getOwnPropertyNames;var Gt=Object.getPrototypeOf,Bt=Object.prototype.hasOwnProperty;var Kt=(t,n)=>{for(var e in n)ze(t,e,{get:n[e],enumerable:!0})},Qe=(t,n,e,r)=>{if(n&&typeof n=="object"||typeof n=="function")for(let o of zt(n))!Bt.call(t,o)&&o!==e&&ze(t,o,{get:()=>n[o],enumerable:!(r=Qt(n,o))||r.enumerable});return t},E=(t,n,e)=>(Qe(t,n,"default"),e&&Qe(e,n,"default")),Pt=(t,n,e)=>(e=t!=null?qt(Gt(t)):{},Qe(n||!t||!t.__esModule?ze(e,"default",{value:t,enumerable:!0}):e,t)),Xt=t=>Qe(ze({},"__esModule",{value:!0}),t);var U={};Kt(U,{BailSignal:()=>Ce,Controller:()=>le,FrameValue:()=>te,Globals:()=>Ae.Globals,Interpolation:()=>se,Spring:()=>mn,SpringContext:()=>re,SpringRef:()=>ce,SpringValue:()=>pe,Trail:()=>hn,Transition:()=>gn,config:()=>it,createInterpolator:()=>de.createInterpolator,easings:()=>de.easings,inferTo:()=>Se,interpolate:()=>Pn,to:()=>Sn,update:()=>Tn,useChain:()=>$t,useInView:()=>dn,useIsomorphicLayoutEffect:()=>de.useIsomorphicLayoutEffect,useReducedMotion:()=>de.useReducedMotion,useResize:()=>cn,useScroll:()=>ln,useSpring:()=>oe,useSpringRef:()=>sn,useSpringValue:()=>an,useSprings:()=>je,useTrail:()=>ht,useTransition:()=>gt});module.exports=Xt(U);var Z=__webpack_require__(2840);var _=__webpack_require__(2840);function k(t,...n){return _.is.fun(t)?t(...n):t}var ge=(t,n)=>t===!0||!!(n&&t&&(_.is.fun(t)?t(n):(0,_.toArray)(t).includes(n))),st=(t,n)=>_.is.obj(t)?n&&t[n]:t;var Ge=(t,n)=>t.default===!0?t[n]:t.default?t.default[n]:void 0,Yt=t=>t,ye=(t,n=Yt)=>{let e=Ht;t.default&&t.default!==!0&&(t=t.default,e=Object.keys(t));let r={};for(let o of e){let s=n(t[o],o);_.is.und(s)||(r[o]=s)}return r},Ht=["config","onProps","onStart","onChange","onPause","onResume","onRest"],Jt={config:1,from:1,to:1,ref:1,loop:1,reset:1,pause:1,cancel:1,reverse:1,immediate:1,default:1,delay:1,onProps:1,onStart:1,onChange:1,onPause:1,onResume:1,onRest:1,onResolve:1,items:1,trail:1,sort:1,expires:1,initial:1,enter:1,update:1,leave:1,children:1,onDestroyed:1,keys:1,callId:1,parentId:1};function Wt(t){let n={},e=0;if((0,_.eachProp)(t,(r,o)=>{Jt[o]||(n[o]=r,e++)}),e)return n}function Se(t){let n=Wt(t);if(n){let e={to:n};return(0,_.eachProp)(t,(r,o)=>o in n||(e[o]=r)),e}return{...t}}function Re(t){return t=(0,_.getFluidValue)(t),_.is.arr(t)?t.map(Re):(0,_.isAnimatedString)(t)?_.Globals.createStringInterpolator({range:[0,1],output:[t,t]})(1):t}function Be(t){for(let n in t)return!0;return!1}function Ke(t){return _.is.fun(t)||_.is.arr(t)&&_.is.obj(t[0])}function ke(t,n){t.ref?.delete(t),n?.delete(t)}function ve(t,n){n&&t.ref!==n&&(t.ref?.delete(t),n.add(t),t.ref=n)}function $t(t,n,e=1e3){(0,Z.useIsomorphicLayoutEffect)(()=>{if(n){let r=0;(0,Z.each)(t,(o,s)=>{let u=o.current;if(u.length){let i=e*n[s];isNaN(i)?i=r:r=i,(0,Z.each)(u,l=>{(0,Z.each)(l.queue,p=>{let R=p.delay;p.delay=c=>i+k(R||0,c)})}),o.start()}})}else{let r=Promise.resolve();(0,Z.each)(t,o=>{let s=o.current;if(s.length){let u=s.map(i=>{let l=i.queue;return i.queue=[],l});r=r.then(()=>((0,Z.each)(s,(i,l)=>(0,Z.each)(u[l]||[],p=>i.queue.push(p))),Promise.all(o.start())))}})}})}var Et=__webpack_require__(2840);var W=__webpack_require__(6540),j=__webpack_require__(2840);var a=__webpack_require__(2840),O=__webpack_require__(9536);var J=__webpack_require__(2840);var it={default:{tension:170,friction:26},gentle:{tension:120,friction:14},wobbly:{tension:180,friction:12},stiff:{tension:210,friction:20},slow:{tension:280,friction:60},molasses:{tension:280,friction:120}};var at={...it.default,mass:1,damping:1,easing:J.easings.linear,clamp:!1},Xe=class{constructor(){this.velocity=0;Object.assign(this,at)}};function xt(t,n,e){e&&(e={...e},Tt(e,n),n={...e,...n}),Tt(t,n),Object.assign(t,n);for(let u in at)t[u]==null&&(t[u]=at[u]);let{frequency:r,damping:o}=t,{mass:s}=t;return J.is.und(r)||(r<.01&&(r=.01),o<0&&(o=0),t.tension=Math.pow(2*Math.PI/r,2)*s,t.friction=4*Math.PI*o*s/r),t}function Tt(t,n){if(!J.is.und(n.decay))t.duration=void 0;else{let e=!J.is.und(n.tension)||!J.is.und(n.friction);(e||!J.is.und(n.frequency)||!J.is.und(n.damping)||!J.is.und(n.mass))&&(t.duration=void 0,t.decay=void 0),e&&(t.frequency=void 0)}}var bt=[],Ye=class{constructor(){this.changed=!1;this.values=bt;this.toValues=null;this.fromValues=bt;this.config=new Xe;this.immediate=!1}};var Pe=__webpack_require__(2840);function He(t,{key:n,props:e,defaultProps:r,state:o,actions:s}){return new Promise((u,i)=>{let l,p,R=ge(e.cancel??r?.cancel,n);if(R)y();else{Pe.is.und(e.pause)||(o.paused=ge(e.pause,n));let g=r?.pause;g!==!0&&(g=o.paused||ge(g,n)),l=k(e.delay||0,n),g?(o.resumeQueue.add(S),s.pause()):(s.resume(),S())}function c(){o.resumeQueue.add(S),o.timeouts.delete(p),p.cancel(),l=p.time-Pe.raf.now()}function S(){l>0&&!Pe.Globals.skipAnimation?(o.delayed=!0,p=Pe.raf.setTimeout(y,l),o.pauseQueue.add(c),o.timeouts.add(p)):y()}function y(){o.delayed&&(o.delayed=!1),o.pauseQueue.delete(c),o.timeouts.delete(p),t<=(o.cancelId||0)&&(R=!0);try{s.start({...e,callId:t,cancel:R},u)}catch(g){i(g)}}})}var Q=__webpack_require__(2840);var Ue=(t,n)=>n.length==1?n[0]:n.some(e=>e.cancelled)?ee(t.get()):n.every(e=>e.noop)?ut(t.get()):B(t.get(),n.every(e=>e.finished)),ut=t=>({value:t,noop:!0,finished:!0,cancelled:!1}),B=(t,n,e=!1)=>({value:t,finished:n,cancelled:e}),ee=t=>({value:t,cancelled:!0,finished:!1});function We(t,n,e,r){let{callId:o,parentId:s,onRest:u}=n,{asyncTo:i,promise:l}=e;return!s&&t===i&&!n.reset?l:e.promise=(async()=>{e.asyncId=o,e.asyncTo=t;let p=ye(n,(m,d)=>d==="onRest"?void 0:m),R,c,S=new Promise((m,d)=>(R=m,c=d)),y=m=>{let d=o<=(e.cancelId||0)&&ee(r)||o!==e.asyncId&&B(r,!1);if(d)throw m.result=d,c(m),m},g=(m,d)=>{let b=new Ce,T=new Je;return(async()=>{if(Q.Globals.skipAnimation)throw Te(e),T.result=B(r,!1),c(T),T;y(b);let I=Q.is.obj(m)?{...m}:{...d,to:m};I.parentId=o,(0,Q.eachProp)(p,(F,V)=>{Q.is.und(I[V])&&(I[V]=F)});let A=await r.start(I);return y(b),e.paused&&await new Promise(F=>{e.resumeQueue.add(F)}),A})()},f;if(Q.Globals.skipAnimation)return Te(e),B(r,!1);try{let m;Q.is.arr(t)?m=(async d=>{for(let b of d)await g(b)})(t):m=Promise.resolve(t(g,r.stop.bind(r))),await Promise.all([m.then(R),S]),f=B(r.get(),!0,!1)}catch(m){if(m instanceof Ce)f=m.result;else if(m instanceof Je)f=m.result;else throw m}finally{o==e.asyncId&&(e.asyncId=s,e.asyncTo=s?i:void 0,e.promise=s?l:void 0)}return Q.is.fun(u)&&Q.raf.batchedUpdates(()=>{u(f,r,r.item)}),f})()}function Te(t,n){(0,Q.flush)(t.timeouts,e=>e.cancel()),t.pauseQueue.clear(),t.resumeQueue.clear(),t.asyncId=t.asyncTo=t.promise=void 0,n&&(t.cancelId=n)}var Ce=class extends Error{constructor(){super("An async animation has been interrupted. You see this error because you forgot to use `await` or `.catch(...)` on its returned promise.")}},Je=class extends Error{constructor(){super("SkipAnimationSignal")}};var X=__webpack_require__(2840),At=__webpack_require__(9536),Ee=t=>t instanceof te,Zt=1,te=class extends X.FluidValue{constructor(){super(...arguments);this.id=Zt++;this._priority=0}get priority(){return this._priority}set priority(e){this._priority!=e&&(this._priority=e,this._onPriorityChange(e))}get(){let e=(0,At.getAnimated)(this);return e&&e.getValue()}to(...e){return X.Globals.to(this,e)}interpolate(...e){return(0,X.deprecateInterpolate)(),X.Globals.to(this,e)}toJSON(){return this.get()}observerAdded(e){e==1&&this._attach()}observerRemoved(e){e==0&&this._detach()}_attach(){}_detach(){}_onChange(e,r=!1){(0,X.callFluidObservers)(this,{type:"change",parent:this,value:e,idle:r})}_onPriorityChange(e){this.idle||X.frameLoop.sort(this),(0,X.callFluidObservers)(this,{type:"priority",parent:this,priority:e})}};var xe=Symbol.for("SpringPhase"),Rt=1,pt=2,lt=4,$e=t=>(t[xe]&Rt)>0,ne=t=>(t[xe]&pt)>0,Ie=t=>(t[xe]&lt)>0,ct=(t,n)=>n?t[xe]|=pt|Rt:t[xe]&=~pt,ft=(t,n)=>n?t[xe]|=lt:t[xe]&=~lt;var pe=class extends te{constructor(e,r){super();this.animation=new Ye;this.defaultProps={};this._state={paused:!1,delayed:!1,pauseQueue:new Set,resumeQueue:new Set,timeouts:new Set};this._pendingCalls=new Set;this._lastCallId=0;this._lastToId=0;this._memoizedDuration=0;if(!a.is.und(e)||!a.is.und(r)){let o=a.is.obj(e)?{...e}:{...r,from:e};a.is.und(o.default)&&(o.default=!0),this.start(o)}}get idle(){return!(ne(this)||this._state.asyncTo)||Ie(this)}get goal(){return(0,a.getFluidValue)(this.animation.to)}get velocity(){let e=(0,O.getAnimated)(this);return e instanceof O.AnimatedValue?e.lastVelocity||0:e.getPayload().map(r=>r.lastVelocity||0)}get hasAnimated(){return $e(this)}get isAnimating(){return ne(this)}get isPaused(){return Ie(this)}get isDelayed(){return this._state.delayed}advance(e){let r=!0,o=!1,s=this.animation,{toValues:u}=s,{config:i}=s,l=(0,O.getPayload)(s.to);!l&&(0,a.hasFluidValue)(s.to)&&(u=(0,a.toArray)((0,a.getFluidValue)(s.to))),s.values.forEach((c,S)=>{if(c.done)return;let y=c.constructor==O.AnimatedString?1:l?l[S].lastPosition:u[S],g=s.immediate,f=y;if(!g){if(f=c.lastPosition,i.tension<=0){c.done=!0;return}let m=c.elapsedTime+=e,d=s.fromValues[S],b=c.v0!=null?c.v0:c.v0=a.is.arr(i.velocity)?i.velocity[S]:i.velocity,T,I=i.precision||(d==y?.005:Math.min(1,Math.abs(y-d)*.001));if(a.is.und(i.duration))if(i.decay){let A=i.decay===!0?.998:i.decay,F=Math.exp(-(1-A)*m);f=d+b/(1-A)*(1-F),g=Math.abs(c.lastPosition-f)<=I,T=b*F}else{T=c.lastVelocity==null?b:c.lastVelocity;let A=i.restVelocity||I/10,F=i.clamp?0:i.bounce,V=!a.is.und(F),z=d==y?c.v0>0:d<y,w,Y=!1,q=1,ae=Math.ceil(e/q);for(let K=0;K<ae&&(w=Math.abs(T)>A,!(!w&&(g=Math.abs(y-f)<=I,g)));++K){V&&(Y=f==y||f>y==z,Y&&(T=-T*F,f=y));let h=-i.tension*1e-6*(f-y),x=-i.friction*.001*T,L=(h+x)/i.mass;T=T+L*q,f=f+T*q}}else{let A=1;i.duration>0&&(this._memoizedDuration!==i.duration&&(this._memoizedDuration=i.duration,c.durationProgress>0&&(c.elapsedTime=i.duration*c.durationProgress,m=c.elapsedTime+=e)),A=(i.progress||0)+m/this._memoizedDuration,A=A>1?1:A<0?0:A,c.durationProgress=A),f=d+i.easing(A)*(y-d),T=(f-c.lastPosition)/e,g=A==1}c.lastVelocity=T,Number.isNaN(f)&&(console.warn("Got NaN while animating:",this),g=!0)}l&&!l[S].done&&(g=!1),g?c.done=!0:r=!1,c.setValue(f,i.round)&&(o=!0)});let p=(0,O.getAnimated)(this),R=p.getValue();if(r){let c=(0,a.getFluidValue)(s.to);(R!==c||o)&&!i.decay?(p.setValue(c),this._onChange(c)):o&&i.decay&&this._onChange(R),this._stop()}else o&&this._onChange(R)}set(e){return a.raf.batchedUpdates(()=>{this._stop(),this._focus(e),this._set(e)}),this}pause(){this._update({pause:!0})}resume(){this._update({pause:!1})}finish(){if(ne(this)){let{to:e,config:r}=this.animation;a.raf.batchedUpdates(()=>{this._onStart(),r.decay||this._set(e,!1),this._stop()})}return this}update(e){return(this.queue||(this.queue=[])).push(e),this}start(e,r){let o;return a.is.und(e)?(o=this.queue||[],this.queue=[]):o=[a.is.obj(e)?e:{...r,to:e}],Promise.all(o.map(s=>this._update(s))).then(s=>Ue(this,s))}stop(e){let{to:r}=this.animation;return this._focus(this.get()),Te(this._state,e&&this._lastCallId),a.raf.batchedUpdates(()=>this._stop(r,e)),this}reset(){this._update({reset:!0})}eventObserved(e){e.type=="change"?this._start():e.type=="priority"&&(this.priority=e.priority+1)}_prepareNode(e){let r=this.key||"",{to:o,from:s}=e;o=a.is.obj(o)?o[r]:o,(o==null||Ke(o))&&(o=void 0),s=a.is.obj(s)?s[r]:s,s==null&&(s=void 0);let u={to:o,from:s};return $e(this)||(e.reverse&&([o,s]=[s,o]),s=(0,a.getFluidValue)(s),a.is.und(s)?(0,O.getAnimated)(this)||this._set(o):this._set(s)),u}_update({...e},r){let{key:o,defaultProps:s}=this;e.default&&Object.assign(s,ye(e,(l,p)=>/^on/.test(p)?st(l,o):l)),Ct(this,e,"onProps"),Le(this,"onProps",e,this);let u=this._prepareNode(e);if(Object.isFrozen(this))throw Error("Cannot animate a `SpringValue` object that is frozen. Did you forget to pass your component to `animated(...)` before animating its props?");let i=this._state;return He(++this._lastCallId,{key:o,props:e,defaultProps:s,state:i,actions:{pause:()=>{Ie(this)||(ft(this,!0),(0,a.flushCalls)(i.pauseQueue),Le(this,"onPause",B(this,we(this,this.animation.to)),this))},resume:()=>{Ie(this)&&(ft(this,!1),ne(this)&&this._resume(),(0,a.flushCalls)(i.resumeQueue),Le(this,"onResume",B(this,we(this,this.animation.to)),this))},start:this._merge.bind(this,u)}}).then(l=>{if(e.loop&&l.finished&&!(r&&l.noop)){let p=dt(e);if(p)return this._update(p,!0)}return l})}_merge(e,r,o){if(r.cancel)return this.stop(!0),o(ee(this));let s=!a.is.und(e.to),u=!a.is.und(e.from);if(s||u)if(r.callId>this._lastToId)this._lastToId=r.callId;else return o(ee(this));let{key:i,defaultProps:l,animation:p}=this,{to:R,from:c}=p,{to:S=R,from:y=c}=e;u&&!s&&(!r.default||a.is.und(S))&&(S=y),r.reverse&&([S,y]=[y,S]);let g=!(0,a.isEqual)(y,c);g&&(p.from=y),y=(0,a.getFluidValue)(y);let f=!(0,a.isEqual)(S,R);f&&this._focus(S);let m=Ke(r.to),{config:d}=p,{decay:b,velocity:T}=d;(s||u)&&(d.velocity=0),r.config&&!m&&xt(d,k(r.config,i),r.config!==l.config?k(l.config,i):void 0);let I=(0,O.getAnimated)(this);if(!I||a.is.und(S))return o(B(this,!0));let A=a.is.und(r.reset)?u&&!r.default:!a.is.und(y)&&ge(r.reset,i),F=A?y:this.get(),V=Re(S),z=a.is.num(V)||a.is.arr(V)||(0,a.isAnimatedString)(V),w=!m&&(!z||ge(l.immediate||r.immediate,i));if(f){let K=(0,O.getAnimatedType)(S);if(K!==I.constructor)if(w)I=this._set(V);else throw Error(`Cannot animate between ${I.constructor.name} and ${K.name}, as the "to" prop suggests`)}let Y=I.constructor,q=(0,a.hasFluidValue)(S),ae=!1;if(!q){let K=A||!$e(this)&&g;(f||K)&&(ae=(0,a.isEqual)(Re(F),V),q=!ae),(!(0,a.isEqual)(p.immediate,w)&&!w||!(0,a.isEqual)(d.decay,b)||!(0,a.isEqual)(d.velocity,T))&&(q=!0)}if(ae&&ne(this)&&(p.changed&&!A?q=!0:q||this._stop(R)),!m&&((q||(0,a.hasFluidValue)(R))&&(p.values=I.getPayload(),p.toValues=(0,a.hasFluidValue)(S)?null:Y==O.AnimatedString?[1]:(0,a.toArray)(V)),p.immediate!=w&&(p.immediate=w,!w&&!A&&this._set(R)),q)){let{onRest:K}=p;(0,a.each)(en,x=>Ct(this,r,x));let h=B(this,we(this,R));(0,a.flushCalls)(this._pendingCalls,h),this._pendingCalls.add(o),p.changed&&a.raf.batchedUpdates(()=>{p.changed=!A,K?.(h,this),A?k(l.onRest,h):p.onStart?.(h,this)})}A&&this._set(F),m?o(We(r.to,r,this._state,this)):q?this._start():ne(this)&&!f?this._pendingCalls.add(o):o(ut(F))}_focus(e){let r=this.animation;e!==r.to&&((0,a.getFluidObservers)(this)&&this._detach(),r.to=e,(0,a.getFluidObservers)(this)&&this._attach())}_attach(){let e=0,{to:r}=this.animation;(0,a.hasFluidValue)(r)&&((0,a.addFluidObserver)(r,this),Ee(r)&&(e=r.priority+1)),this.priority=e}_detach(){let{to:e}=this.animation;(0,a.hasFluidValue)(e)&&(0,a.removeFluidObserver)(e,this)}_set(e,r=!0){let o=(0,a.getFluidValue)(e);if(!a.is.und(o)){let s=(0,O.getAnimated)(this);if(!s||!(0,a.isEqual)(o,s.getValue())){let u=(0,O.getAnimatedType)(o);!s||s.constructor!=u?(0,O.setAnimated)(this,u.create(o)):s.setValue(o),s&&a.raf.batchedUpdates(()=>{this._onChange(o,r)})}}return(0,O.getAnimated)(this)}_onStart(){let e=this.animation;e.changed||(e.changed=!0,Le(this,"onStart",B(this,we(this,e.to)),this))}_onChange(e,r){r||(this._onStart(),k(this.animation.onChange,e,this)),k(this.defaultProps.onChange,e,this),super._onChange(e,r)}_start(){let e=this.animation;(0,O.getAnimated)(this).reset((0,a.getFluidValue)(e.to)),e.immediate||(e.fromValues=e.values.map(r=>r.lastPosition)),ne(this)||(ct(this,!0),Ie(this)||this._resume())}_resume(){a.Globals.skipAnimation?this.finish():a.frameLoop.start(this)}_stop(e,r){if(ne(this)){ct(this,!1);let o=this.animation;(0,a.each)(o.values,u=>{u.done=!0}),o.toValues&&(o.onChange=o.onPause=o.onResume=void 0),(0,a.callFluidObservers)(this,{type:"idle",parent:this});let s=r?ee(this.get()):B(this.get(),we(this,e??o.to));(0,a.flushCalls)(this._pendingCalls,s),o.changed&&(o.changed=!1,Le(this,"onRest",s,this))}}};function we(t,n){let e=Re(n),r=Re(t.get());return(0,a.isEqual)(r,e)}function dt(t,n=t.loop,e=t.to){let r=k(n);if(r){let o=r!==!0&&Se(r),s=(o||t).reverse,u=!o||o.reset;return Ve({...t,loop:n,default:!1,pause:void 0,to:!s||Ke(e)?e:void 0,from:u?t.from:void 0,reset:u,...o})}}function Ve(t){let{to:n,from:e}=t=Se(t),r=new Set;return a.is.obj(n)&&vt(n,r),a.is.obj(e)&&vt(e,r),t.keys=r.size?Array.from(r):null,t}function It(t){let n=Ve(t);return a.is.und(n.default)&&(n.default=ye(n)),n}function vt(t,n){(0,a.eachProp)(t,(e,r)=>e!=null&&n.add(r))}var en=["onStart","onRest","onChange","onPause","onResume"];function Ct(t,n,e){t.animation[e]=n[e]!==Ge(n,e)?st(n[e],t.key):void 0}function Le(t,n,...e){t.animation[n]?.(...e),t.defaultProps[n]?.(...e)}var P=__webpack_require__(2840);var tn=["onStart","onChange","onRest"],nn=1,le=class{constructor(n,e){this.id=nn++;this.springs={};this.queue=[];this._lastAsyncId=0;this._active=new Set;this._changed=new Set;this._started=!1;this._state={paused:!1,pauseQueue:new Set,resumeQueue:new Set,timeouts:new Set};this._events={onStart:new Map,onChange:new Map,onRest:new Map};this._onFrame=this._onFrame.bind(this),e&&(this._flush=e),n&&this.start({default:!0,...n})}get idle(){return!this._state.asyncTo&&Object.values(this.springs).every(n=>n.idle&&!n.isDelayed&&!n.isPaused)}get item(){return this._item}set item(n){this._item=n}get(){let n={};return this.each((e,r)=>n[r]=e.get()),n}set(n){for(let e in n){let r=n[e];P.is.und(r)||this.springs[e].set(r)}}update(n){return n&&this.queue.push(Ve(n)),this}start(n){let{queue:e}=this;return n?e=(0,P.toArray)(n).map(Ve):this.queue=[],this._flush?this._flush(this,e):(Ft(this,e),Ze(this,e))}stop(n,e){if(n!==!!n&&(e=n),e){let r=this.springs;(0,P.each)((0,P.toArray)(e),o=>r[o].stop(!!n))}else Te(this._state,this._lastAsyncId),this.each(r=>r.stop(!!n));return this}pause(n){if(P.is.und(n))this.start({pause:!0});else{let e=this.springs;(0,P.each)((0,P.toArray)(n),r=>e[r].pause())}return this}resume(n){if(P.is.und(n))this.start({pause:!1});else{let e=this.springs;(0,P.each)((0,P.toArray)(n),r=>e[r].resume())}return this}each(n){(0,P.eachProp)(this.springs,n)}_onFrame(){let{onStart:n,onChange:e,onRest:r}=this._events,o=this._active.size>0,s=this._changed.size>0;(o&&!this._started||s&&!this._started)&&(this._started=!0,(0,P.flush)(n,([l,p])=>{p.value=this.get(),l(p,this,this._item)}));let u=!o&&this._started,i=s||u&&r.size?this.get():null;s&&e.size&&(0,P.flush)(e,([l,p])=>{p.value=i,l(p,this,this._item)}),u&&(this._started=!1,(0,P.flush)(r,([l,p])=>{p.value=i,l(p,this,this._item)}))}eventObserved(n){if(n.type=="change")this._changed.add(n.parent),n.idle||this._active.add(n.parent);else if(n.type=="idle")this._active.delete(n.parent);else return;P.raf.onFrame(this._onFrame)}};function Ze(t,n){return Promise.all(n.map(e=>Vt(t,e))).then(e=>Ue(t,e))}async function Vt(t,n,e){let{keys:r,to:o,from:s,loop:u,onRest:i,onResolve:l}=n,p=P.is.obj(n.default)&&n.default;u&&(n.loop=!1),o===!1&&(n.to=null),s===!1&&(n.from=null);let R=P.is.arr(o)||P.is.fun(o)?o:void 0;R?(n.to=void 0,n.onRest=void 0,p&&(p.onRest=void 0)):(0,P.each)(tn,f=>{let m=n[f];if(P.is.fun(m)){let d=t._events[f];n[f]=({finished:b,cancelled:T})=>{let I=d.get(m);I?(b||(I.finished=!1),T&&(I.cancelled=!0)):d.set(m,{value:null,finished:b||!1,cancelled:T||!1})},p&&(p[f]=n[f])}});let c=t._state;n.pause===!c.paused?(c.paused=n.pause,(0,P.flushCalls)(n.pause?c.pauseQueue:c.resumeQueue)):c.paused&&(n.pause=!0);let S=(r||Object.keys(t.springs)).map(f=>t.springs[f].start(n)),y=n.cancel===!0||Ge(n,"cancel")===!0;(R||y&&c.asyncId)&&S.push(He(++t._lastAsyncId,{props:n,state:c,actions:{pause:P.noop,resume:P.noop,start(f,m){y?(Te(c,t._lastAsyncId),m(ee(t))):(f.onRest=i,m(We(R,f,c,t)))}}})),c.paused&&await new Promise(f=>{c.resumeQueue.add(f)});let g=Ue(t,await Promise.all(S));if(u&&g.finished&&!(e&&g.noop)){let f=dt(n,u,o);if(f)return Ft(t,[f]),Vt(t,f,!0)}return l&&P.raf.batchedUpdates(()=>l(g,t,t.item)),g}function Me(t,n){let e={...t.springs};return n&&(0,P.each)((0,P.toArray)(n),r=>{P.is.und(r.keys)&&(r=Ve(r)),P.is.obj(r.to)||(r={...r,to:void 0}),Ot(e,r,o=>_t(o))}),mt(t,e),e}function mt(t,n){(0,P.eachProp)(n,(e,r)=>{t.springs[r]||(t.springs[r]=e,(0,P.addFluidObserver)(e,t))})}function _t(t,n){let e=new pe;return e.key=t,n&&(0,P.addFluidObserver)(e,n),e}function Ot(t,n,e){n.keys&&(0,P.each)(n.keys,r=>{(t[r]||(t[r]=e(r)))._prepareNode(n)})}function Ft(t,n){(0,P.each)(n,e=>{Ot(t.springs,e,r=>_t(r,t))})}var tt=Pt(__webpack_require__(6540)),kt=__webpack_require__(6540),Ut=__webpack_require__(2840),re=({children:t,...n})=>{let e=(0,kt.useContext)(et),r=n.pause||!!e.pause,o=n.immediate||!!e.immediate;n=(0,Ut.useMemoOne)(()=>({pause:r,immediate:o}),[r,o]);let{Provider:s}=et;return tt.createElement(s,{value:n},t)},et=rn(re,{});re.Provider=et.Provider;re.Consumer=et.Consumer;function rn(t,n){return Object.assign(t,tt.createContext(n)),t.Provider._context=t,t.Consumer._context=t,t}var D=__webpack_require__(2840),ce=()=>{let t=[],n=function(r){(0,D.deprecateDirectCall)();let o=[];return(0,D.each)(t,(s,u)=>{if(D.is.und(r))o.push(s.start());else{let i=e(r,s,u);i&&o.push(s.start(i))}}),o};n.current=t,n.add=function(r){t.includes(r)||t.push(r)},n.delete=function(r){let o=t.indexOf(r);~o&&t.splice(o,1)},n.pause=function(){return(0,D.each)(t,r=>r.pause(...arguments)),this},n.resume=function(){return(0,D.each)(t,r=>r.resume(...arguments)),this},n.set=function(r){(0,D.each)(t,(o,s)=>{let u=D.is.fun(r)?r(s,o):r;u&&o.set(u)})},n.start=function(r){let o=[];return(0,D.each)(t,(s,u)=>{if(D.is.und(r))o.push(s.start());else{let i=this._getProps(r,s,u);i&&o.push(s.start(i))}}),o},n.stop=function(){return(0,D.each)(t,r=>r.stop(...arguments)),this},n.update=function(r){return(0,D.each)(t,(o,s)=>o.update(this._getProps(r,o,s))),this};let e=function(r,o,s){return D.is.fun(r)?r(s,o):r};return n._getProps=e,n};function je(t,n,e){let r=j.is.fun(n)&&n;r&&!e&&(e=[]);let o=(0,W.useMemo)(()=>r||arguments.length==3?ce():void 0,[]),s=(0,W.useRef)(0),u=(0,j.useForceUpdate)(),i=(0,W.useMemo)(()=>({ctrls:[],queue:[],flush(d,b){let T=Me(d,b);return s.current>0&&!i.queue.length&&!Object.keys(T).some(A=>!d.springs[A])?Ze(d,b):new Promise(A=>{mt(d,T),i.queue.push(()=>{A(Ze(d,b))}),u()})}}),[]),l=(0,W.useRef)([...i.ctrls]),p=[],R=(0,j.usePrev)(t)||0;(0,W.useMemo)(()=>{(0,j.each)(l.current.slice(t,R),d=>{ke(d,o),d.stop(!0)}),l.current.length=t,c(R,t)},[t]),(0,W.useMemo)(()=>{c(0,Math.min(R,t))},e);function c(d,b){for(let T=d;T<b;T++){let I=l.current[T]||(l.current[T]=new le(null,i.flush)),A=r?r(T,I):n[T];A&&(p[T]=It(A))}}let S=l.current.map((d,b)=>Me(d,p[b])),y=(0,W.useContext)(re),g=(0,j.usePrev)(y),f=y!==g&&Be(y);(0,j.useIsomorphicLayoutEffect)(()=>{s.current++,i.ctrls=l.current;let{queue:d}=i;d.length&&(i.queue=[],(0,j.each)(d,b=>b())),(0,j.each)(l.current,(b,T)=>{o?.add(b),f&&b.start({default:y});let I=p[T];I&&(ve(b,I.ref),b.ref?b.queue.push(I):b.start(I))})}),(0,j.useOnce)(()=>()=>{(0,j.each)(i.ctrls,d=>d.stop(!0))});let m=S.map(d=>({...d}));return o?[m,o]:m}function oe(t,n){let e=Et.is.fun(t),[[r],o]=je(1,e?t:[t],e?n||[]:n);return e||arguments.length==2?[r,o]:r}var wt=__webpack_require__(6540);var on=()=>ce(),sn=()=>(0,wt.useState)(on)[0];var nt=__webpack_require__(2840);var an=(t,n)=>{let e=(0,nt.useConstant)(()=>new pe(t,n));return(0,nt.useOnce)(()=>()=>{e.stop()}),e};var be=__webpack_require__(2840);function ht(t,n,e){let r=be.is.fun(n)&&n;r&&!e&&(e=[]);let o=!0,s,u=je(t,(i,l)=>{let p=r?r(i,l):n;return s=p.ref,o=o&&p.reverse,p},e||[{}]);if((0,be.useIsomorphicLayoutEffect)(()=>{(0,be.each)(u[1].current,(i,l)=>{let p=u[1].current[l+(o?1:-1)];if(ve(i,s),i.ref){p&&i.update({to:p.springs});return}p?i.start({to:p.springs}):i.start()})},e),r||arguments.length==3){let i=s??u[1];return i._getProps=(l,p,R)=>{let c=be.is.fun(l)?l(R,p):l;if(c){let S=i.current[R+(c.reverse?1:-1)];return S&&(c.to=S.springs),c}},u}return u[0]}var Ne=Pt(__webpack_require__(6540)),fe=__webpack_require__(6540),v=__webpack_require__(2840);function gt(t,n,e){let r=v.is.fun(n)&&n,{reset:o,sort:s,trail:u=0,expires:i=!0,exitBeforeEnter:l=!1,onDestroyed:p,ref:R,config:c}=r?r():n,S=(0,fe.useMemo)(()=>r||arguments.length==3?ce():void 0,[]),y=(0,v.toArray)(t),g=[],f=(0,fe.useRef)(null),m=o?null:f.current;(0,v.useIsomorphicLayoutEffect)(()=>{f.current=g}),(0,v.useOnce)(()=>((0,v.each)(g,h=>{S?.add(h.ctrl),h.ctrl.ref=S}),()=>{(0,v.each)(f.current,h=>{h.expired&&clearTimeout(h.expirationId),ke(h.ctrl,S),h.ctrl.stop(!0)})}));let d=pn(y,r?r():n,m),b=o&&f.current||[];(0,v.useIsomorphicLayoutEffect)(()=>(0,v.each)(b,({ctrl:h,item:x,key:L})=>{ke(h,S),k(p,x,L)}));let T=[];if(m&&(0,v.each)(m,(h,x)=>{h.expired?(clearTimeout(h.expirationId),b.push(h)):(x=T[x]=d.indexOf(h.key),~x&&(g[x]=h))}),(0,v.each)(y,(h,x)=>{g[x]||(g[x]={key:d[x],item:h,phase:"mount",ctrl:new le},g[x].ctrl.item=h)}),T.length){let h=-1,{leave:x}=r?r():n;(0,v.each)(T,(L,N)=>{let M=m[N];~L?(h=g.indexOf(M),g[h]={...M,item:y[L]}):x&&g.splice(++h,0,M)})}v.is.fun(s)&&g.sort((h,x)=>s(h.item,x.item));let I=-u,A=(0,v.useForceUpdate)(),F=ye(n),V=new Map,z=(0,fe.useRef)(new Map),w=(0,fe.useRef)(!1);(0,v.each)(g,(h,x)=>{let L=h.key,N=h.phase,M=r?r():n,G,$,Nt=k(M.delay||0,L);if(N=="mount")G=M.enter,$="enter";else{let H=d.indexOf(L)<0;if(N!="leave")if(H)G=M.leave,$="leave";else if(G=M.update)$="update";else return;else if(!H)G=M.enter,$="enter";else return}if(G=k(G,h.item,x),G=v.is.obj(G)?Se(G):{to:G},!G.config){let H=c||F.config;G.config=k(H,h.item,x,$)}I+=u;let me={...F,delay:Nt+I,ref:R,immediate:M.immediate,reset:!1,...G};if($=="enter"&&v.is.und(me.from)){let H=r?r():n,Fe=v.is.und(H.initial)||m?H.from:H.initial;me.from=k(Fe,h.item,x)}let{onResolve:Dt}=me;me.onResolve=H=>{k(Dt,H);let Fe=f.current,ue=Fe.find(qe=>qe.key===L);if(ue&&!(H.cancelled&&ue.phase!="update")&&ue.ctrl.idle){let qe=Fe.every(he=>he.ctrl.idle);if(ue.phase=="leave"){let he=k(i,ue.item);if(he!==!1){let ot=he===!0?0:he;if(ue.expired=!0,!qe&&ot>0){ot<=2147483647&&(ue.expirationId=setTimeout(A,ot));return}}}qe&&Fe.some(he=>he.expired)&&(z.current.delete(ue),l&&(w.current=!0),A())}};let St=Me(h.ctrl,me);$==="leave"&&l?z.current.set(h,{phase:$,springs:St,payload:me}):V.set(h,{phase:$,springs:St,payload:me})});let Y=(0,fe.useContext)(re),q=(0,v.usePrev)(Y),ae=Y!==q&&Be(Y);(0,v.useIsomorphicLayoutEffect)(()=>{ae&&(0,v.each)(g,h=>{h.ctrl.start({default:Y})})},[Y]),(0,v.each)(V,(h,x)=>{if(z.current.size){let L=g.findIndex(N=>N.key===x.key);g.splice(L,1)}}),(0,v.useIsomorphicLayoutEffect)(()=>{(0,v.each)(z.current.size?z.current:V,({phase:h,payload:x},L)=>{let{ctrl:N}=L;L.phase=h,S?.add(N),ae&&h=="enter"&&N.start({default:Y}),x&&(ve(N,x.ref),(N.ref||S)&&!w.current?N.update(x):(N.start(x),w.current&&(w.current=!1)))})},o?void 0:e);let K=h=>Ne.createElement(Ne.Fragment,null,g.map((x,L)=>{let{springs:N}=V.get(x)||x.ctrl,M=h({...N},x.item,x,L);return M&&M.type?Ne.createElement(M.type,{...M.props,key:v.is.str(x.key)||v.is.num(x.key)?x.key:x.ctrl.id,ref:M.ref}):M}));return S?[K,S]:K}var un=1;function pn(t,{key:n,keys:e=n},r){if(e===null){let o=new Set;return t.map(s=>{let u=r&&r.find(i=>i.item===s&&i.phase!=="leave"&&!o.has(i));return u?(o.add(u),u.key):un++})}return v.is.und(e)?t:v.is.fun(e)?t.map(e):(0,v.toArray)(e)}var _e=__webpack_require__(2840);var ln=({container:t,...n}={})=>{let[e,r]=oe(()=>({scrollX:0,scrollY:0,scrollXProgress:0,scrollYProgress:0,...n}),[]);return(0,_e.useIsomorphicLayoutEffect)(()=>{let o=(0,_e.onScroll)(({x:s,y:u})=>{r.start({scrollX:s.current,scrollXProgress:s.progress,scrollY:u.current,scrollYProgress:u.progress})},{container:t?.current||void 0});return()=>{(0,_e.each)(Object.values(e),s=>s.stop()),o()}},[]),e};var Oe=__webpack_require__(2840);var cn=({container:t,...n})=>{let[e,r]=oe(()=>({width:0,height:0,...n}),[]);return(0,Oe.useIsomorphicLayoutEffect)(()=>{let o=(0,Oe.onResize)(({width:s,height:u})=>{r.start({width:s,height:u,immediate:e.width.get()===0||e.height.get()===0})},{container:t?.current||void 0});return()=>{(0,Oe.each)(Object.values(e),s=>s.stop()),o()}},[]),e};var rt=__webpack_require__(6540),De=__webpack_require__(2840);var fn={any:0,all:1};function dn(t,n){let[e,r]=(0,rt.useState)(!1),o=(0,rt.useRef)(),s=De.is.fun(t)&&t,u=s?s():{},{to:i={},from:l={},...p}=u,R=s?n:t,[c,S]=oe(()=>({from:l,...p}),[]);return(0,De.useIsomorphicLayoutEffect)(()=>{let y=o.current,{root:g,once:f,amount:m="any",...d}=R??{};if(!y||f&&e||typeof IntersectionObserver>"u")return;let b=new WeakMap,T=()=>(i&&S.start(i),r(!0),f?void 0:()=>{l&&S.start(l),r(!1)}),I=F=>{F.forEach(V=>{let z=b.get(V.target);if(V.isIntersecting!==!!z)if(V.isIntersecting){let w=T();De.is.fun(w)?b.set(V.target,w):A.unobserve(V.target)}else z&&(z(),b.delete(V.target))})},A=new IntersectionObserver(I,{root:g&&g.current||void 0,threshold:typeof m=="number"||Array.isArray(m)?m:fn[m],...d});return A.observe(y),()=>A.unobserve(y)},[R]),s?[o,c]:[o,e]}function mn({children:t,...n}){return t(oe(n))}var Lt=__webpack_require__(2840);function hn({items:t,children:n,...e}){let r=ht(t.length,e);return t.map((o,s)=>{let u=n(o,s);return Lt.is.fun(u)?u(r[s]):u})}function gn({items:t,children:n,...e}){return gt(t,e)(n)}var jt=__webpack_require__(2840);var C=__webpack_require__(2840);var ie=__webpack_require__(9536),se=class extends te{constructor(e,r){super();this.source=e;this.idle=!0;this._active=new Set;this.calc=(0,C.createInterpolator)(...r);let o=this._get(),s=(0,ie.getAnimatedType)(o);(0,ie.setAnimated)(this,s.create(o))}advance(e){let r=this._get(),o=this.get();(0,C.isEqual)(r,o)||((0,ie.getAnimated)(this).setValue(r),this._onChange(r,this.idle)),!this.idle&&Mt(this._active)&&yt(this)}_get(){let e=C.is.arr(this.source)?this.source.map(C.getFluidValue):(0,C.toArray)((0,C.getFluidValue)(this.source));return this.calc(...e)}_start(){this.idle&&!Mt(this._active)&&(this.idle=!1,(0,C.each)((0,ie.getPayload)(this),e=>{e.done=!1}),C.Globals.skipAnimation?(C.raf.batchedUpdates(()=>this.advance()),yt(this)):C.frameLoop.start(this))}_attach(){let e=1;(0,C.each)((0,C.toArray)(this.source),r=>{(0,C.hasFluidValue)(r)&&(0,C.addFluidObserver)(r,this),Ee(r)&&(r.idle||this._active.add(r),e=Math.max(e,r.priority+1))}),this.priority=e,this._start()}_detach(){(0,C.each)((0,C.toArray)(this.source),e=>{(0,C.hasFluidValue)(e)&&(0,C.removeFluidObserver)(e,this)}),this._active.clear(),yt(this)}eventObserved(e){e.type=="change"?e.idle?this.advance():(this._active.add(e.parent),this._start()):e.type=="idle"?this._active.delete(e.parent):e.type=="priority"&&(this.priority=(0,C.toArray)(this.source).reduce((r,o)=>Math.max(r,(Ee(o)?o.priority:0)+1),0))}};function yn(t){return t.idle!==!1}function Mt(t){return!t.size||Array.from(t).every(yn)}function yt(t){t.idle||(t.idle=!0,(0,C.each)((0,ie.getPayload)(t),n=>{n.done=!0}),(0,C.callFluidObservers)(t,{type:"idle",parent:t}))}var Sn=(t,...n)=>new se(t,n),Pn=(t,...n)=>((0,jt.deprecateInterpolate)(),new se(t,n));var Ae=__webpack_require__(2840);Ae.Globals.assign({createStringInterpolator:Ae.createStringInterpolator,to:(t,n)=>new se(t,n)});var Tn=Ae.frameLoop.advance;var de=__webpack_require__(2840);E(U,__webpack_require__(9422),module.exports);
-//# sourceMappingURL=react-spring_core.production.min.cjs.map
+module.exports = __webpack_require__.p + "img/4bbbcf9a766e51b5b15f.png";
 
 /***/ }),
 
-/***/ 9682:
+/***/ 5673:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-var Y=Object.defineProperty;var ut=Object.getOwnPropertyDescriptor;var lt=Object.getOwnPropertyNames;var ct=Object.prototype.hasOwnProperty;var ke=(e,t)=>{for(var r in t)Y(e,r,{get:t[r],enumerable:!0})},dt=(e,t,r,n)=>{if(t&&typeof t=="object"||typeof t=="function")for(let o of lt(t))!ct.call(e,o)&&o!==r&&Y(e,o,{get:()=>t[o],enumerable:!(n=ut(t,o))||n.enumerable});return e};var pt=e=>dt(Y({},"__esModule",{value:!0}),e);var Jt={};ke(Jt,{FluidValue:()=>ge,Globals:()=>x,addFluidObserver:()=>Mt,callFluidObserver:()=>Ke,callFluidObservers:()=>At,clamp:()=>ue,colorToRgba:()=>G,colors:()=>Et,createInterpolator:()=>H,createStringInterpolator:()=>Vt,defineHidden:()=>bt,deprecateDirectCall:()=>Ut,deprecateInterpolate:()=>Pt,each:()=>ze,eachProp:()=>ht,easings:()=>kt,flush:()=>Le,flushCalls:()=>gt,frameLoop:()=>Pe,getFluidObservers:()=>Rt,getFluidValue:()=>ve,hasFluidValue:()=>St,hex3:()=>me,hex4:()=>be,hex6:()=>xe,hex8:()=>he,hsl:()=>de,hsla:()=>pe,is:()=>l,isAnimatedString:()=>$t,isEqual:()=>xt,isSSR:()=>h,noop:()=>ae,onResize:()=>Te,onScroll:()=>jt,once:()=>Fe,prefix:()=>W,raf:()=>f,removeFluidObserver:()=>Ct,rgb:()=>le,rgba:()=>ce,setFluidGetter:()=>_e,toArray:()=>yt,useConstant:()=>Dt,useForceUpdate:()=>Wt,useIsomorphicLayoutEffect:()=>C,useMemoOne:()=>Kt,useOnce:()=>Nt,usePrev:()=>Xt,useReducedMotion:()=>Yt});module.exports=pt(Jt);var x={};ke(x,{assign:()=>fe,colors:()=>d,createStringInterpolator:()=>V,skipAnimation:()=>qe,to:()=>Ve,willAdvance:()=>q});var ee=k(),f=e=>I(e,ee),te=k();f.write=e=>I(e,te);var L=k();f.onStart=e=>I(e,L);var re=k();f.onFrame=e=>I(e,re);var ne=k();f.onFinish=e=>I(e,ne);var w=[];f.setTimeout=(e,t)=>{let r=f.now()+t,n=()=>{let a=w.findIndex(s=>s.cancel==n);~a&&w.splice(a,1),b-=~a?1:0},o={time:r,handler:e,cancel:n};return w.splice(Se(r),0,o),b+=1,Re(),o};var Se=e=>~(~w.findIndex(t=>t.time>e)||~w.length);f.cancel=e=>{L.delete(e),re.delete(e),ne.delete(e),ee.delete(e),te.delete(e)};f.sync=e=>{J=!0,f.batchedUpdates(e),J=!1};f.throttle=e=>{let t;function r(){try{e(...t)}finally{t=null}}function n(...o){t=o,f.onStart(r)}return n.handler=e,n.cancel=()=>{L.delete(r),t=null},n};var oe=typeof window<"u"?window.requestAnimationFrame:()=>{};f.use=e=>oe=e;f.now=typeof performance<"u"?()=>performance.now():Date.now;f.batchedUpdates=e=>e();f.catch=console.error;f.frameLoop="always";f.advance=()=>{f.frameLoop!=="demand"?console.warn("Cannot call the manual advancement of rafz whilst frameLoop is not set as demand"):Me()};var m=-1,b=0,J=!1;function I(e,t){J?(t.delete(e),e(0)):(t.add(e),Re())}function Re(){m<0&&(m=0,f.frameLoop!=="demand"&&oe(Ae))}function mt(){m=-1}function Ae(){~m&&(oe(Ae),f.batchedUpdates(Me))}function Me(){let e=m;m=f.now();let t=Se(m);if(t&&(Ce(w.splice(0,t),r=>r.handler()),b-=t),!b){mt();return}L.flush(),ee.flush(e?Math.min(64,m-e):16.667),re.flush(),te.flush(),ne.flush()}function k(){let e=new Set,t=e;return{add(r){b+=t==e&&!e.has(r)?1:0,e.add(r)},delete(r){return b-=t==e&&e.has(r)?1:0,e.delete(r)},flush(r){t.size&&(e=new Set,b-=t.size,Ce(t,n=>n(r)&&e.add(n)),b+=e.size,t=e)}}}function Ce(e,t){e.forEach(r=>{try{t(r)}catch(n){f.catch(n)}})}function ae(){}var bt=(e,t,r)=>Object.defineProperty(e,t,{value:r,writable:!0,configurable:!0}),l={arr:Array.isArray,obj:e=>!!e&&e.constructor.name==="Object",fun:e=>typeof e=="function",str:e=>typeof e=="string",num:e=>typeof e=="number",und:e=>e===void 0};function xt(e,t){if(l.arr(e)){if(!l.arr(t)||e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if(e[r]!==t[r])return!1;return!0}return e===t}var ze=(e,t)=>e.forEach(t);function ht(e,t,r){if(l.arr(e)){for(let n=0;n<e.length;n++)t.call(r,e[n],`${n}`);return}for(let n in e)e.hasOwnProperty(n)&&t.call(r,e[n],n)}var yt=e=>l.und(e)?[]:l.arr(e)?e:[e];function Le(e,t){if(e.size){let r=Array.from(e);e.clear(),ze(r,t)}}var gt=(e,...t)=>Le(e,r=>r(...t)),h=()=>typeof window>"u"||!window.navigator||/ServerSideRendering|^Deno\//.test(window.navigator.userAgent);var V,Ve,d=null,qe=!1,q=ae,fe=e=>{e.to&&(Ve=e.to),e.now&&(f.now=e.now),e.colors!==void 0&&(d=e.colors),e.skipAnimation!=null&&(qe=e.skipAnimation),e.createStringInterpolator&&(V=e.createStringInterpolator),e.requestAnimationFrame&&f.use(e.requestAnimationFrame),e.batchedUpdates&&(f.batchedUpdates=e.batchedUpdates),e.willAdvance&&(q=e.willAdvance),e.frameLoop&&(f.frameLoop=e.frameLoop)};var S=new Set,c=[],ie=[],P=0,Pe={get idle(){return!S.size&&!c.length},start(e){P>e.priority?(S.add(e),f.onStart(vt)):(Qe(e),f(se))},advance:se,sort(e){if(P)f.onFrame(()=>Pe.sort(e));else{let t=c.indexOf(e);~t&&(c.splice(t,1),Ue(e))}},clear(){c=[],S.clear()}};function vt(){S.forEach(Qe),S.clear(),f(se)}function Qe(e){c.includes(e)||Ue(e)}function Ue(e){c.splice(wt(c,t=>t.priority>e.priority),0,e)}function se(e){let t=ie;for(let r=0;r<c.length;r++){let n=c[r];P=n.priority,n.idle||(q(n),n.advance(e),n.idle||t.push(n))}return P=0,ie=c,ie.length=0,c=t,c.length>0}function wt(e,t){let r=e.findIndex(t);return r<0?e.length:r}var ue=(e,t,r)=>Math.min(Math.max(r,e),t);var Et={transparent:0,aliceblue:4042850303,antiquewhite:4209760255,aqua:16777215,aquamarine:2147472639,azure:4043309055,beige:4126530815,bisque:4293182719,black:255,blanchedalmond:4293643775,blue:65535,blueviolet:2318131967,brown:2771004159,burlywood:3736635391,burntsienna:3934150143,cadetblue:1604231423,chartreuse:2147418367,chocolate:3530104575,coral:4286533887,cornflowerblue:1687547391,cornsilk:4294499583,crimson:3692313855,cyan:16777215,darkblue:35839,darkcyan:9145343,darkgoldenrod:3095792639,darkgray:2846468607,darkgreen:6553855,darkgrey:2846468607,darkkhaki:3182914559,darkmagenta:2332068863,darkolivegreen:1433087999,darkorange:4287365375,darkorchid:2570243327,darkred:2332033279,darksalmon:3918953215,darkseagreen:2411499519,darkslateblue:1211993087,darkslategray:793726975,darkslategrey:793726975,darkturquoise:13554175,darkviolet:2483082239,deeppink:4279538687,deepskyblue:12582911,dimgray:1768516095,dimgrey:1768516095,dodgerblue:512819199,firebrick:2988581631,floralwhite:4294635775,forestgreen:579543807,fuchsia:4278255615,gainsboro:3705462015,ghostwhite:4177068031,gold:4292280575,goldenrod:3668254975,gray:2155905279,green:8388863,greenyellow:2919182335,grey:2155905279,honeydew:4043305215,hotpink:4285117695,indianred:3445382399,indigo:1258324735,ivory:4294963455,khaki:4041641215,lavender:3873897215,lavenderblush:4293981695,lawngreen:2096890111,lemonchiffon:4294626815,lightblue:2916673279,lightcoral:4034953471,lightcyan:3774873599,lightgoldenrodyellow:4210742015,lightgray:3553874943,lightgreen:2431553791,lightgrey:3553874943,lightpink:4290167295,lightsalmon:4288707327,lightseagreen:548580095,lightskyblue:2278488831,lightslategray:2005441023,lightslategrey:2005441023,lightsteelblue:2965692159,lightyellow:4294959359,lime:16711935,limegreen:852308735,linen:4210091775,magenta:4278255615,maroon:2147483903,mediumaquamarine:1724754687,mediumblue:52735,mediumorchid:3126187007,mediumpurple:2473647103,mediumseagreen:1018393087,mediumslateblue:2070474495,mediumspringgreen:16423679,mediumturquoise:1221709055,mediumvioletred:3340076543,midnightblue:421097727,mintcream:4127193855,mistyrose:4293190143,moccasin:4293178879,navajowhite:4292783615,navy:33023,oldlace:4260751103,olive:2155872511,olivedrab:1804477439,orange:4289003775,orangered:4282712319,orchid:3664828159,palegoldenrod:4008225535,palegreen:2566625535,paleturquoise:2951671551,palevioletred:3681588223,papayawhip:4293907967,peachpuff:4292524543,peru:3448061951,pink:4290825215,plum:3718307327,powderblue:2967529215,purple:2147516671,rebeccapurple:1714657791,red:4278190335,rosybrown:3163525119,royalblue:1097458175,saddlebrown:2336560127,salmon:4202722047,sandybrown:4104413439,seagreen:780883967,seashell:4294307583,sienna:2689740287,silver:3233857791,skyblue:2278484991,slateblue:1784335871,slategray:1887473919,slategrey:1887473919,snow:4294638335,springgreen:16744447,steelblue:1182971135,tan:3535047935,teal:8421631,thistle:3636451583,tomato:4284696575,turquoise:1088475391,violet:4001558271,wheat:4125012991,white:4294967295,whitesmoke:4126537215,yellow:4294902015,yellowgreen:2597139199};var p="[-+]?\\d*\\.?\\d+",Q=p+"%";function U(...e){return"\\(\\s*("+e.join(")\\s*,\\s*(")+")\\s*\\)"}var le=new RegExp("rgb"+U(p,p,p)),ce=new RegExp("rgba"+U(p,p,p,p)),de=new RegExp("hsl"+U(p,Q,Q)),pe=new RegExp("hsla"+U(p,Q,Q,p)),me=/^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,be=/^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,xe=/^#([0-9a-fA-F]{6})$/,he=/^#([0-9a-fA-F]{8})$/;function Be(e){let t;return typeof e=="number"?e>>>0===e&&e>=0&&e<=4294967295?e:null:(t=xe.exec(e))?parseInt(t[1]+"ff",16)>>>0:d&&d[e]!==void 0?d[e]:(t=le.exec(e))?(E(t[1])<<24|E(t[2])<<16|E(t[3])<<8|255)>>>0:(t=ce.exec(e))?(E(t[1])<<24|E(t[2])<<16|E(t[3])<<8|He(t[4]))>>>0:(t=me.exec(e))?parseInt(t[1]+t[1]+t[2]+t[2]+t[3]+t[3]+"ff",16)>>>0:(t=he.exec(e))?parseInt(t[1],16)>>>0:(t=be.exec(e))?parseInt(t[1]+t[1]+t[2]+t[2]+t[3]+t[3]+t[4]+t[4],16)>>>0:(t=de.exec(e))?($e(Ge(t[1]),$(t[2]),$(t[3]))|255)>>>0:(t=pe.exec(e))?($e(Ge(t[1]),$(t[2]),$(t[3]))|He(t[4]))>>>0:null}function ye(e,t,r){return r<0&&(r+=1),r>1&&(r-=1),r<1/6?e+(t-e)*6*r:r<1/2?t:r<2/3?e+(t-e)*(2/3-r)*6:e}function $e(e,t,r){let n=r<.5?r*(1+t):r+t-r*t,o=2*r-n,a=ye(o,n,e+1/3),s=ye(o,n,e),u=ye(o,n,e-1/3);return Math.round(a*255)<<24|Math.round(s*255)<<16|Math.round(u*255)<<8}function E(e){let t=parseInt(e,10);return t<0?0:t>255?255:t}function Ge(e){return(parseFloat(e)%360+360)%360/360}function He(e){let t=parseFloat(e);return t<0?0:t>1?255:Math.round(t*255)}function $(e){let t=parseFloat(e);return t<0?0:t>100?1:t/100}function G(e){let t=Be(e);if(t===null)return e;t=t||0;let r=(t&4278190080)>>>24,n=(t&16711680)>>>16,o=(t&65280)>>>8,a=(t&255)/255;return`rgba(${r}, ${n}, ${o}, ${a})`}var H=(e,t,r)=>{if(l.fun(e))return e;if(l.arr(e))return H({range:e,output:t,extrapolate:r});if(l.str(e.output[0]))return V(e);let n=e,o=n.output,a=n.range||[0,1],s=n.extrapolateLeft||n.extrapolate||"extend",u=n.extrapolateRight||n.extrapolate||"extend",v=n.easing||(i=>i);return i=>{let z=Tt(i,a);return Ft(i,a[z],a[z+1],o[z],o[z+1],v,s,u,n.map)}};function Ft(e,t,r,n,o,a,s,u,v){let i=v?v(e):e;if(i<t){if(s==="identity")return i;s==="clamp"&&(i=t)}if(i>r){if(u==="identity")return i;u==="clamp"&&(i=r)}return n===o?n:t===r?e<=t?n:o:(t===-1/0?i=-i:r===1/0?i=i-t:i=(i-t)/(r-t),i=a(i),n===-1/0?i=-i:o===1/0?i=i+n:i=i*(o-n)+n,i)}function Tt(e,t){for(var r=1;r<t.length-1&&!(t[r]>=e);++r);return r-1}var It=(e,t="end")=>r=>{r=t==="end"?Math.min(r,.999):Math.max(r,.001);let n=r*e,o=t==="end"?Math.floor(n):Math.ceil(n);return ue(0,1,o/e)},D=1.70158,B=D*1.525,je=D+1,De=2*Math.PI/3,We=2*Math.PI/4.5,j=e=>e<1/2.75?7.5625*e*e:e<2/2.75?7.5625*(e-=1.5/2.75)*e+.75:e<2.5/2.75?7.5625*(e-=2.25/2.75)*e+.9375:7.5625*(e-=2.625/2.75)*e+.984375,kt={linear:e=>e,easeInQuad:e=>e*e,easeOutQuad:e=>1-(1-e)*(1-e),easeInOutQuad:e=>e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2,easeInCubic:e=>e*e*e,easeOutCubic:e=>1-Math.pow(1-e,3),easeInOutCubic:e=>e<.5?4*e*e*e:1-Math.pow(-2*e+2,3)/2,easeInQuart:e=>e*e*e*e,easeOutQuart:e=>1-Math.pow(1-e,4),easeInOutQuart:e=>e<.5?8*e*e*e*e:1-Math.pow(-2*e+2,4)/2,easeInQuint:e=>e*e*e*e*e,easeOutQuint:e=>1-Math.pow(1-e,5),easeInOutQuint:e=>e<.5?16*e*e*e*e*e:1-Math.pow(-2*e+2,5)/2,easeInSine:e=>1-Math.cos(e*Math.PI/2),easeOutSine:e=>Math.sin(e*Math.PI/2),easeInOutSine:e=>-(Math.cos(Math.PI*e)-1)/2,easeInExpo:e=>e===0?0:Math.pow(2,10*e-10),easeOutExpo:e=>e===1?1:1-Math.pow(2,-10*e),easeInOutExpo:e=>e===0?0:e===1?1:e<.5?Math.pow(2,20*e-10)/2:(2-Math.pow(2,-20*e+10))/2,easeInCirc:e=>1-Math.sqrt(1-Math.pow(e,2)),easeOutCirc:e=>Math.sqrt(1-Math.pow(e-1,2)),easeInOutCirc:e=>e<.5?(1-Math.sqrt(1-Math.pow(2*e,2)))/2:(Math.sqrt(1-Math.pow(-2*e+2,2))+1)/2,easeInBack:e=>je*e*e*e-D*e*e,easeOutBack:e=>1+je*Math.pow(e-1,3)+D*Math.pow(e-1,2),easeInOutBack:e=>e<.5?Math.pow(2*e,2)*((B+1)*2*e-B)/2:(Math.pow(2*e-2,2)*((B+1)*(e*2-2)+B)+2)/2,easeInElastic:e=>e===0?0:e===1?1:-Math.pow(2,10*e-10)*Math.sin((e*10-10.75)*De),easeOutElastic:e=>e===0?0:e===1?1:Math.pow(2,-10*e)*Math.sin((e*10-.75)*De)+1,easeInOutElastic:e=>e===0?0:e===1?1:e<.5?-(Math.pow(2,20*e-10)*Math.sin((20*e-11.125)*We))/2:Math.pow(2,-20*e+10)*Math.sin((20*e-11.125)*We)/2+1,easeInBounce:e=>1-j(1-e),easeOutBounce:j,easeInOutBounce:e=>e<.5?(1-j(1-2*e))/2:(1+j(2*e-1))/2,steps:It};var O=Symbol.for("FluidValue.get"),y=Symbol.for("FluidValue.observers");var St=e=>!!(e&&e[O]),ve=e=>e&&e[O]?e[O]():e,Rt=e=>e[y]||null;function Ke(e,t){e.eventObserved?e.eventObserved(t):e(t)}function At(e,t){let r=e[y];r&&r.forEach(n=>{Ke(n,t)})}var ge=class{constructor(t){if(!t&&!(t=this.get))throw Error("Unknown getter");_e(this,t)}};O,y;var _e=(e,t)=>Ne(e,O,t);function Mt(e,t){if(e[O]){let r=e[y];r||Ne(e,y,r=new Set),r.has(t)||(r.add(t),e.observerAdded&&e.observerAdded(r.size,t))}return t}function Ct(e,t){let r=e[y];if(r&&r.has(t)){let n=r.size-1;n?r.delete(t):e[y]=null,e.observerRemoved&&e.observerRemoved(n,t)}}var Ne=(e,t,r)=>Object.defineProperty(e,t,{value:r,writable:!0,configurable:!0});var R=/[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,Ze=/(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/gi,we=new RegExp(`(${R.source})(%|[a-z]+)`,"i"),Xe=/rgba\(([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+)\)/gi,g=/var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;var Ee=e=>{let[t,r]=zt(e);if(!t||h())return e;let n=window.getComputedStyle(document.documentElement).getPropertyValue(t);if(n)return n.trim();if(r&&r.startsWith("--")){let o=window.getComputedStyle(document.documentElement).getPropertyValue(r);return o||e}else{if(r&&g.test(r))return Ee(r);if(r)return r}return e},zt=e=>{let t=g.exec(e);if(!t)return[,];let[,r,n]=t;return[r,n]};var Oe,Lt=(e,t,r,n,o)=>`rgba(${Math.round(t)}, ${Math.round(r)}, ${Math.round(n)}, ${o})`,Vt=e=>{Oe||(Oe=d?new RegExp(`(${Object.keys(d).join("|")})(?!\\w)`,"g"):/^\b$/);let t=e.output.map(a=>ve(a).replace(g,Ee).replace(Ze,G).replace(Oe,G)),r=t.map(a=>a.match(R).map(Number)),o=r[0].map((a,s)=>r.map(u=>{if(!(s in u))throw Error('The arity of each "output" value must be equal');return u[s]})).map(a=>H({...e,output:a}));return a=>{let s=!we.test(t[0])&&t.find(v=>we.test(v))?.replace(R,""),u=0;return t[0].replace(R,()=>`${o[u++](a)}${s||""}`).replace(Xe,Lt)}};var W="react-spring: ",Fe=e=>{let t=e,r=!1;if(typeof t!="function")throw new TypeError(`${W}once requires a function parameter`);return(...n)=>{r||(t(...n),r=!0)}},qt=Fe(console.warn);function Pt(){qt(`${W}The "interpolate" function is deprecated in v9 (use "to" instead)`)}var Qt=Fe(console.warn);function Ut(){Qt(`${W}Directly calling start instead of using the api object is deprecated in v9 (use ".start" instead), this will be removed in later 0.X.0 versions`)}function $t(e){return l.str(e)&&(e[0]=="#"||/\d/.test(e)||!h()&&g.test(e)||e in(d||{}))}var F,K=new WeakMap,Gt=e=>e.forEach(({target:t,contentRect:r})=>K.get(t)?.forEach(n=>n(r)));function Ye(e,t){F||typeof ResizeObserver<"u"&&(F=new ResizeObserver(Gt));let r=K.get(t);return r||(r=new Set,K.set(t,r)),r.add(e),F&&F.observe(t),()=>{let n=K.get(t);n&&(n.delete(e),!n.size&&F&&F.unobserve(t))}}var _=new Set,A,Ht=()=>{let e=()=>{_.forEach(t=>t({width:window.innerWidth,height:window.innerHeight}))};return window.addEventListener("resize",e),()=>{window.removeEventListener("resize",e)}},Je=e=>(_.add(e),A||(A=Ht()),()=>{_.delete(e),!_.size&&A&&(A(),A=void 0)});var Te=(e,{container:t=document.documentElement}={})=>t===document.documentElement?Je(e):Ye(e,t);var et=(e,t,r)=>t-e===0?1:(r-e)/(t-e);var Bt={x:{length:"Width",position:"Left"},y:{length:"Height",position:"Top"}},N=class{constructor(t,r){this.createAxis=()=>({current:0,progress:0,scrollLength:0});this.updateAxis=t=>{let r=this.info[t],{length:n,position:o}=Bt[t];r.current=this.container[`scroll${o}`],r.scrollLength=this.container["scroll"+n]-this.container["client"+n],r.progress=et(0,r.scrollLength,r.current)};this.update=()=>{this.updateAxis("x"),this.updateAxis("y")};this.sendEvent=()=>{this.callback(this.info)};this.advance=()=>{this.update(),this.sendEvent()};this.callback=t,this.container=r,this.info={time:0,x:this.createAxis(),y:this.createAxis()}}};var M=new WeakMap,tt=new WeakMap,Ie=new WeakMap,rt=e=>e===document.documentElement?window:e,jt=(e,{container:t=document.documentElement}={})=>{let r=Ie.get(t);r||(r=new Set,Ie.set(t,r));let n=new N(e,t);if(r.add(n),!M.has(t)){let a=()=>(r?.forEach(u=>u.advance()),!0);M.set(t,a);let s=rt(t);window.addEventListener("resize",a,{passive:!0}),t!==document.documentElement&&tt.set(t,Te(a,{container:t})),s.addEventListener("scroll",a,{passive:!0})}let o=M.get(t);return f(o),()=>{f.cancel(o);let a=Ie.get(t);if(!a||(a.delete(n),a.size))return;let s=M.get(t);M.delete(t),s&&(rt(t).removeEventListener("scroll",s),window.removeEventListener("resize",s),tt.get(t)?.())}};var nt=__webpack_require__(6540);function Dt(e){let t=(0,nt.useRef)(null);return t.current===null&&(t.current=e()),t.current}var ft=__webpack_require__(6540);var ot=__webpack_require__(6540);var Z=__webpack_require__(6540);var C=h()?Z.useEffect:Z.useLayoutEffect;var at=()=>{let e=(0,ot.useRef)(!1);return C(()=>(e.current=!0,()=>{e.current=!1}),[]),e};function Wt(){let e=(0,ft.useState)()[1],t=at();return()=>{t.current&&e(Math.random())}}var T=__webpack_require__(6540);function Kt(e,t){let[r]=(0,T.useState)(()=>({inputs:t,result:e()})),n=(0,T.useRef)(),o=n.current,a=o;return a?t&&a.inputs&&_t(t,a.inputs)||(a={inputs:t,result:e()}):a=r,(0,T.useEffect)(()=>{n.current=a,o==r&&(r.inputs=r.result=void 0)},[a]),a.result}function _t(e,t){if(e.length!==t.length)return!1;for(let r=0;r<e.length;r++)if(e[r]!==t[r])return!1;return!0}var it=__webpack_require__(6540),Nt=e=>(0,it.useEffect)(e,Zt),Zt=[];var X=__webpack_require__(6540);function Xt(e){let t=(0,X.useRef)();return(0,X.useEffect)(()=>{t.current=e}),t.current}var st=__webpack_require__(6540);var Yt=()=>{let[e,t]=(0,st.useState)(null);return C(()=>{let r=window.matchMedia("(prefers-reduced-motion)"),n=o=>{t(o.matches),fe({skipAnimation:o.matches})};return n(r),r.addEventListener("change",n),()=>{r.removeEventListener("change",n)}},[]),e};
-//# sourceMappingURL=react-spring_shared.production.min.cjs.map
+module.exports = __webpack_require__.p + "img/c7fd5c694f50ff491ced.png";
 
 /***/ }),
 
-/***/ 7450:
-/***/ (function(module) {
-
-"use strict";
-var r=Object.defineProperty;var T=Object.getOwnPropertyDescriptor;var a=Object.getOwnPropertyNames;var s=Object.prototype.hasOwnProperty;var x=(t,e)=>{for(var o in e)r(t,o,{get:e[o],enumerable:!0})},i=(t,e,o,y)=>{if(e&&typeof e=="object"||typeof e=="function")for(let n of a(e))!s.call(t,n)&&n!==o&&r(t,n,{get:()=>e[n],enumerable:!(y=T(e,n))||y.enumerable});return t};var f=t=>i(r({},"__esModule",{value:!0}),t);var d={};x(d,{Any:()=>p});module.exports=f(d);var p=class{};
-//# sourceMappingURL=react-spring_types.production.min.cjs.map
-
-/***/ }),
-
-/***/ 8642:
+/***/ 7002:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-var v=Object.defineProperty;var T=Object.getOwnPropertyDescriptor;var j=Object.getOwnPropertyNames;var R=Object.prototype.hasOwnProperty;var W=(t,e)=>{for(var o in e)v(t,o,{get:e[o],enumerable:!0})},O=(t,e,o,i)=>{if(e&&typeof e=="object"||typeof e=="function")for(let s of j(e))!R.call(t,s)&&s!==o&&v(t,s,{get:()=>e[s],enumerable:!(i=T(e,s))||i.enumerable});return t},l=(t,e,o)=>(O(t,e,"default"),o&&O(o,e,"default"));var _=t=>O(v({},"__esModule",{value:!0}),t);var u={};W(u,{a:()=>q,animated:()=>q});module.exports=_(u);var S=__webpack_require__(3381),E=__webpack_require__(961),x=__webpack_require__(2840),P=__webpack_require__(9536);var C=/^--/;function $(t,e){return e==null||typeof e=="boolean"||e===""?"":typeof e=="number"&&e!==0&&!C.test(t)&&!(h.hasOwnProperty(t)&&h[t])?e+"px":(""+e).trim()}var A={};function I(t,e){if(!t.nodeType||!t.setAttribute)return!1;let o=t.nodeName==="filter"||t.parentNode&&t.parentNode.nodeName==="filter",{style:i,children:s,scrollTop:d,scrollLeft:m,viewBox:p,...a}=e,f=Object.values(a),b=Object.keys(a).map(n=>o||t.hasAttribute(n)?n:A[n]||(A[n]=n.replace(/([A-Z])/g,c=>"-"+c.toLowerCase())));s!==void 0&&(t.textContent=s);for(let n in i)if(i.hasOwnProperty(n)){let c=$(n,i[n]);C.test(n)?t.style.setProperty(n,c):t.style[n]=c}b.forEach((n,c)=>{t.setAttribute(n,f[c])}),d!==void 0&&(t.scrollTop=d),m!==void 0&&(t.scrollLeft=m),p!==void 0&&t.setAttribute("viewBox",p)}var h={animationIterationCount:!0,borderImageOutset:!0,borderImageSlice:!0,borderImageWidth:!0,boxFlex:!0,boxFlexGroup:!0,boxOrdinalGroup:!0,columnCount:!0,columns:!0,flex:!0,flexGrow:!0,flexPositive:!0,flexShrink:!0,flexNegative:!0,flexOrder:!0,gridRow:!0,gridRowEnd:!0,gridRowSpan:!0,gridRowStart:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnSpan:!0,gridColumnStart:!0,fontWeight:!0,lineClamp:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,tabSize:!0,widows:!0,zIndex:!0,zoom:!0,fillOpacity:!0,floodOpacity:!0,stopOpacity:!0,strokeDasharray:!0,strokeDashoffset:!0,strokeMiterlimit:!0,strokeOpacity:!0,strokeWidth:!0},G=(t,e)=>t+e.charAt(0).toUpperCase()+e.substring(1),M=["Webkit","Ms","Moz","O"];h=Object.keys(h).reduce((t,e)=>(M.forEach(o=>t[G(o,e)]=t[e]),t),h);var F=__webpack_require__(9536),r=__webpack_require__(2840),N=/^(matrix|translate|scale|rotate|skew)/,U=/^(translate)/,D=/^(rotate|skew)/,k=(t,e)=>r.is.num(t)&&t!==0?t+e:t,g=(t,e)=>r.is.arr(t)?t.every(o=>g(o,e)):r.is.num(t)?t===e:parseFloat(t)===e,y=class extends F.AnimatedObject{constructor({x:e,y:o,z:i,...s}){let d=[],m=[];(e||o||i)&&(d.push([e||0,o||0,i||0]),m.push(p=>[`translate3d(${p.map(a=>k(a,"px")).join(",")})`,g(p,0)])),(0,r.eachProp)(s,(p,a)=>{if(a==="transform")d.push([p||""]),m.push(f=>[f,f===""]);else if(N.test(a)){if(delete s[a],r.is.und(p))return;let f=U.test(a)?"px":D.test(a)?"deg":"";d.push((0,r.toArray)(p)),m.push(a==="rotate3d"?([b,n,c,w])=>[`rotate3d(${b},${n},${c},${k(w,f)})`,g(w,0)]:b=>[`${a}(${b.map(n=>k(n,f)).join(",")})`,g(b,a.startsWith("scale")?1:0)])}}),d.length&&(s.transform=new V(d,m)),super(s)}},V=class extends r.FluidValue{constructor(o,i){super();this.inputs=o;this.transforms=i;this._value=null}get(){return this._value||(this._value=this._get())}_get(){let o="",i=!0;return(0,r.each)(this.inputs,(s,d)=>{let m=(0,r.getFluidValue)(s[0]),[p,a]=this.transforms[d](r.is.arr(m)?m:s.map(r.getFluidValue));o+=" "+p,i=i&&a}),i?"none":o}observerAdded(o){o==1&&(0,r.each)(this.inputs,i=>(0,r.each)(i,s=>(0,r.hasFluidValue)(s)&&(0,r.addFluidObserver)(s,this)))}observerRemoved(o){o==0&&(0,r.each)(this.inputs,i=>(0,r.each)(i,s=>(0,r.hasFluidValue)(s)&&(0,r.removeFluidObserver)(s,this)))}eventObserved(o){o.type=="change"&&(this._value=null),(0,r.callFluidObservers)(this,o)}};var L=["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","big","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","menuitem","meta","meter","nav","noscript","object","ol","optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","u","ul","var","video","wbr","circle","clipPath","defs","ellipse","foreignObject","g","image","line","linearGradient","mask","path","pattern","polygon","polyline","radialGradient","rect","stop","svg","text","tspan"];l(u,__webpack_require__(3381),module.exports);S.Globals.assign({batchedUpdates:E.unstable_batchedUpdates,createStringInterpolator:x.createStringInterpolator,colors:x.colors});var H=(0,P.createHost)(L,{applyAnimatedValues:I,createAnimatedStyle:t=>new y(t),getComponentProps:({scrollTop:t,scrollLeft:e,...o})=>o}),q=H.animated;
-//# sourceMappingURL=react-spring_web.production.min.cjs.map
+module.exports = __webpack_require__.p + "img/7f050fcb65de2300ee55.png";
+
+/***/ }),
+
+/***/ 5305:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/45b651d27b5fb065459f.png";
+
+/***/ }),
+
+/***/ 1164:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
+
+/***/ }),
+
+/***/ 2670:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/4fe31d10ac563414944a.mp3";
+
+/***/ }),
+
+/***/ 4725:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/773ed2f0c229ce8e5955.mp3";
+
+/***/ }),
+
+/***/ 5412:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/17339624ea904a73d206.mp3";
 
 /***/ }),
 
@@ -33167,15 +27807,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 3438:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-var a=Object.defineProperty;var b=Object.getOwnPropertyDescriptor;var c=Object.getOwnPropertyNames;var d=Object.prototype.hasOwnProperty;var p=(r,o,f,x)=>{if(o&&typeof o=="object"||typeof o=="function")for(let e of c(o))!d.call(r,e)&&e!==f&&a(r,e,{get:()=>o[e],enumerable:!(x=b(o,e))||x.enumerable});return r},t=(r,o,f)=>(p(r,o,"default"),f&&p(f,o,"default"));var g=r=>p(a({},"__esModule",{value:!0}),r);var m={};module.exports=g(m);t(m,__webpack_require__(4932),module.exports);
-//# sourceMappingURL=react-spring.production.min.cjs.map
-
-/***/ }),
-
 /***/ 8798:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
@@ -33879,421 +28510,6 @@ function exclude(input, filter, options) {
 
 
 /* harmony default export */ var query_string = (base_namespaceObject);
-
-
-/***/ }),
-
-/***/ 1635:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   __addDisposableResource: function() { return /* binding */ __addDisposableResource; },
-/* harmony export */   __assign: function() { return /* binding */ __assign; },
-/* harmony export */   __asyncDelegator: function() { return /* binding */ __asyncDelegator; },
-/* harmony export */   __asyncGenerator: function() { return /* binding */ __asyncGenerator; },
-/* harmony export */   __asyncValues: function() { return /* binding */ __asyncValues; },
-/* harmony export */   __await: function() { return /* binding */ __await; },
-/* harmony export */   __awaiter: function() { return /* binding */ __awaiter; },
-/* harmony export */   __classPrivateFieldGet: function() { return /* binding */ __classPrivateFieldGet; },
-/* harmony export */   __classPrivateFieldIn: function() { return /* binding */ __classPrivateFieldIn; },
-/* harmony export */   __classPrivateFieldSet: function() { return /* binding */ __classPrivateFieldSet; },
-/* harmony export */   __createBinding: function() { return /* binding */ __createBinding; },
-/* harmony export */   __decorate: function() { return /* binding */ __decorate; },
-/* harmony export */   __disposeResources: function() { return /* binding */ __disposeResources; },
-/* harmony export */   __esDecorate: function() { return /* binding */ __esDecorate; },
-/* harmony export */   __exportStar: function() { return /* binding */ __exportStar; },
-/* harmony export */   __extends: function() { return /* binding */ __extends; },
-/* harmony export */   __generator: function() { return /* binding */ __generator; },
-/* harmony export */   __importDefault: function() { return /* binding */ __importDefault; },
-/* harmony export */   __importStar: function() { return /* binding */ __importStar; },
-/* harmony export */   __makeTemplateObject: function() { return /* binding */ __makeTemplateObject; },
-/* harmony export */   __metadata: function() { return /* binding */ __metadata; },
-/* harmony export */   __param: function() { return /* binding */ __param; },
-/* harmony export */   __propKey: function() { return /* binding */ __propKey; },
-/* harmony export */   __read: function() { return /* binding */ __read; },
-/* harmony export */   __rest: function() { return /* binding */ __rest; },
-/* harmony export */   __runInitializers: function() { return /* binding */ __runInitializers; },
-/* harmony export */   __setFunctionName: function() { return /* binding */ __setFunctionName; },
-/* harmony export */   __spread: function() { return /* binding */ __spread; },
-/* harmony export */   __spreadArray: function() { return /* binding */ __spreadArray; },
-/* harmony export */   __spreadArrays: function() { return /* binding */ __spreadArrays; },
-/* harmony export */   __values: function() { return /* binding */ __values; }
-/* harmony export */ });
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise, SuppressedError, Symbol */
-
-var extendStatics = function(d, b) {
-  extendStatics = Object.setPrototypeOf ||
-      ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-      function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-  return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-  if (typeof b !== "function" && b !== null)
-      throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-  extendStatics(d, b);
-  function __() { this.constructor = d; }
-  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = function() {
-  __assign = Object.assign || function __assign(t) {
-      for (var s, i = 1, n = arguments.length; i < n; i++) {
-          s = arguments[i];
-          for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-      }
-      return t;
-  }
-  return __assign.apply(this, arguments);
-}
-
-function __rest(s, e) {
-  var t = {};
-  for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
-  if (s != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
-      }
-  return t;
-}
-
-function __decorate(decorators, target, key, desc) {
-  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-  return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-function __param(paramIndex, decorator) {
-  return function (target, key) { decorator(target, key, paramIndex); }
-}
-
-function __esDecorate(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-  function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
-  var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-  var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-  var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-  var _, done = false;
-  for (var i = decorators.length - 1; i >= 0; i--) {
-      var context = {};
-      for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-      for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-      context.addInitializer = function (f) { if (done) throw new TypeError("Cannot add initializers after decoration has completed"); extraInitializers.push(accept(f || null)); };
-      var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-      if (kind === "accessor") {
-          if (result === void 0) continue;
-          if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-          if (_ = accept(result.get)) descriptor.get = _;
-          if (_ = accept(result.set)) descriptor.set = _;
-          if (_ = accept(result.init)) initializers.unshift(_);
-      }
-      else if (_ = accept(result)) {
-          if (kind === "field") initializers.unshift(_);
-          else descriptor[key] = _;
-      }
-  }
-  if (target) Object.defineProperty(target, contextIn.name, descriptor);
-  done = true;
-};
-
-function __runInitializers(thisArg, initializers, value) {
-  var useValue = arguments.length > 2;
-  for (var i = 0; i < initializers.length; i++) {
-      value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-  }
-  return useValue ? value : void 0;
-};
-
-function __propKey(x) {
-  return typeof x === "symbol" ? x : "".concat(x);
-};
-
-function __setFunctionName(f, name, prefix) {
-  if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
-  return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-};
-
-function __metadata(metadataKey, metadataValue) {
-  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-}
-
-function __awaiter(thisArg, _arguments, P, generator) {
-  function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-  return new (P || (P = Promise))(function (resolve, reject) {
-      function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-      function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-      function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-}
-
-function __generator(thisArg, body) {
-  var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-  return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-  function verb(n) { return function (v) { return step([n, v]); }; }
-  function step(op) {
-      if (f) throw new TypeError("Generator is already executing.");
-      while (g && (g = 0, op[0] && (_ = 0)), _) try {
-          if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          if (y = 0, t) op = [op[0] & 2, t.value];
-          switch (op[0]) {
-              case 0: case 1: t = op; break;
-              case 4: _.label++; return { value: op[1], done: false };
-              case 5: _.label++; y = op[1]; op = [0]; continue;
-              case 7: op = _.ops.pop(); _.trys.pop(); continue;
-              default:
-                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                  if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                  if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                  if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                  if (t[2]) _.ops.pop();
-                  _.trys.pop(); continue;
-          }
-          op = body.call(thisArg, _);
-      } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-      if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-  }
-}
-
-var __createBinding = Object.create ? (function(o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-  }
-  Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-function __exportStar(m, o) {
-  for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
-}
-
-function __values(o) {
-  var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-  if (m) return m.call(o);
-  if (o && typeof o.length === "number") return {
-      next: function () {
-          if (o && i >= o.length) o = void 0;
-          return { value: o && o[i++], done: !o };
-      }
-  };
-  throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-}
-
-function __read(o, n) {
-  var m = typeof Symbol === "function" && o[Symbol.iterator];
-  if (!m) return o;
-  var i = m.call(o), r, ar = [], e;
-  try {
-      while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-  }
-  catch (error) { e = { error: error }; }
-  finally {
-      try {
-          if (r && !r.done && (m = i["return"])) m.call(i);
-      }
-      finally { if (e) throw e.error; }
-  }
-  return ar;
-}
-
-/** @deprecated */
-function __spread() {
-  for (var ar = [], i = 0; i < arguments.length; i++)
-      ar = ar.concat(__read(arguments[i]));
-  return ar;
-}
-
-/** @deprecated */
-function __spreadArrays() {
-  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-  for (var r = Array(s), k = 0, i = 0; i < il; i++)
-      for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-          r[k] = a[j];
-  return r;
-}
-
-function __spreadArray(to, from, pack) {
-  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-      if (ar || !(i in from)) {
-          if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-          ar[i] = from[i];
-      }
-  }
-  return to.concat(ar || Array.prototype.slice.call(from));
-}
-
-function __await(v) {
-  return this instanceof __await ? (this.v = v, this) : new __await(v);
-}
-
-function __asyncGenerator(thisArg, _arguments, generator) {
-  if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-  var g = generator.apply(thisArg, _arguments || []), i, q = [];
-  return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-  function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-  function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-  function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-  function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-  function fulfill(value) { resume("next", value); }
-  function reject(value) { resume("throw", value); }
-  function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-}
-
-function __asyncDelegator(o) {
-  var i, p;
-  return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-  function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: false } : f ? f(v) : v; } : f; }
-}
-
-function __asyncValues(o) {
-  if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-  var m = o[Symbol.asyncIterator], i;
-  return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-  function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-  function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-}
-
-function __makeTemplateObject(cooked, raw) {
-  if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-  return cooked;
-};
-
-var __setModuleDefault = Object.create ? (function(o, v) {
-  Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-  o["default"] = v;
-};
-
-function __importStar(mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  __setModuleDefault(result, mod);
-  return result;
-}
-
-function __importDefault(mod) {
-  return (mod && mod.__esModule) ? mod : { default: mod };
-}
-
-function __classPrivateFieldGet(receiver, state, kind, f) {
-  if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-}
-
-function __classPrivateFieldSet(receiver, state, value, kind, f) {
-  if (kind === "m") throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-}
-
-function __classPrivateFieldIn(state, receiver) {
-  if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
-  return typeof state === "function" ? receiver === state : state.has(receiver);
-}
-
-function __addDisposableResource(env, value, async) {
-  if (value !== null && value !== void 0) {
-    if (typeof value !== "object" && typeof value !== "function") throw new TypeError("Object expected.");
-    var dispose, inner;
-    if (async) {
-      if (!Symbol.asyncDispose) throw new TypeError("Symbol.asyncDispose is not defined.");
-      dispose = value[Symbol.asyncDispose];
-    }
-    if (dispose === void 0) {
-      if (!Symbol.dispose) throw new TypeError("Symbol.dispose is not defined.");
-      dispose = value[Symbol.dispose];
-      if (async) inner = dispose;
-    }
-    if (typeof dispose !== "function") throw new TypeError("Object not disposable.");
-    if (inner) dispose = function() { try { inner.call(this); } catch (e) { return Promise.reject(e); } };
-    env.stack.push({ value: value, dispose: dispose, async: async });
-  }
-  else if (async) {
-    env.stack.push({ async: true });
-  }
-  return value;
-}
-
-var _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-  var e = new Error(message);
-  return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-};
-
-function __disposeResources(env) {
-  function fail(e) {
-    env.error = env.hasError ? new _SuppressedError(e, env.error, "An error was suppressed during disposal.") : e;
-    env.hasError = true;
-  }
-  function next() {
-    while (env.stack.length) {
-      var rec = env.stack.pop();
-      try {
-        var result = rec.dispose && rec.dispose.call(rec.value);
-        if (rec.async) return Promise.resolve(result).then(next, function(e) { fail(e); return next(); });
-      }
-      catch (e) {
-          fail(e);
-      }
-    }
-    if (env.hasError) throw env.error;
-  }
-  return next();
-}
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  __extends,
-  __assign,
-  __rest,
-  __decorate,
-  __param,
-  __metadata,
-  __awaiter,
-  __generator,
-  __createBinding,
-  __exportStar,
-  __values,
-  __read,
-  __spread,
-  __spreadArrays,
-  __spreadArray,
-  __await,
-  __asyncGenerator,
-  __asyncDelegator,
-  __asyncValues,
-  __makeTemplateObject,
-  __importStar,
-  __importDefault,
-  __classPrivateFieldGet,
-  __classPrivateFieldSet,
-  __classPrivateFieldIn,
-  __addDisposableResource,
-  __disposeResources,
-});
 
 
 /***/ })
