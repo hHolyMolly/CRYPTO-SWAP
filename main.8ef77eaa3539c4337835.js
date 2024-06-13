@@ -22530,12 +22530,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var Router_1 = __importDefault(__webpack_require__(3748));
 var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
 var store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
 var settings_1 = __webpack_require__(863);
+var Router_1 = __importDefault(__webpack_require__(3748));
+var PreloadImages_1 = __importDefault(__webpack_require__(7266));
 function App() {
     var dispatch = (0, store_1.useAppDispatch)();
     var user = (0, store_1.useAppSelector)(function (_a) {
@@ -22584,9 +22585,38 @@ function App() {
             setClickerTimeoutCount(10);
         }
     }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
-    return (0, jsx_runtime_1.jsx)(Router_1.default, {});
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Router_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "hidden", children: (0, jsx_runtime_1.jsx)(PreloadImages_1.default, { images: [
+                        __webpack_require__(5232),
+                        __webpack_require__(596),
+                        __webpack_require__(1135),
+                        __webpack_require__(7040),
+                        __webpack_require__(7586),
+                        __webpack_require__(8897),
+                    ] }) })] }));
 }
 exports["default"] = App;
+
+
+/***/ }),
+
+/***/ 7266:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
+var PreloadImages = function (_a) {
+    var images = _a.images;
+    (0, react_1.useEffect)(function () {
+        images.forEach(function (imageUrl) {
+            var img = new Image();
+            img.src = imageUrl;
+        });
+    }, [images]);
+    return null;
+};
+exports["default"] = PreloadImages;
 
 
 /***/ }),
@@ -23996,6 +24026,54 @@ if (true) {
 
 "use strict";
 module.exports = __webpack_require__.p + "img/0b4864cf756e112faa05.png";
+
+/***/ }),
+
+/***/ 596:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/421443fc12b2d84fa368.png";
+
+/***/ }),
+
+/***/ 8897:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/e6fb3bdd1359da7356d0.png";
+
+/***/ }),
+
+/***/ 7586:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/3bd4d8c552cf8947cc2d.png";
+
+/***/ }),
+
+/***/ 5232:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/3a1a96712b0765c273c5.png";
+
+/***/ }),
+
+/***/ 7040:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/c4946fe54184c865e941.png";
+
+/***/ }),
+
+/***/ 1135:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/ba19019306585e28d42e.png";
 
 /***/ }),
 
