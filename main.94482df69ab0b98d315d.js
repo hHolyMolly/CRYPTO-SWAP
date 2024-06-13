@@ -22655,16 +22655,16 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var icons_1 = __webpack_require__(4428);
 var Button = function (_a) {
-    var children = _a.children, className = _a.className, style = _a.style, onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'button' : _b, _c = _a.status, status = _c === void 0 ? 'loaded' : _c, before = _a.before, after = _a.after;
+    var children = _a.children, className = _a.className, style = _a.style, onClick = _a.onClick, _b = _a.type, type = _b === void 0 ? 'button' : _b, _c = _a.status, status = _c === void 0 ? 'loaded' : _c, before = _a.before, after = _a.after, disabled = _a.disabled;
     var onClickButton = react_1.default.useCallback(function () {
         if (onClick)
             onClick();
     }, [onClick]);
     return ((0, jsx_runtime_1.jsxs)("button", { className: (0, classnames_1.default)("\n          px-[24px]\n          min-h-[44px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-300\n\n          font-bold\n          text-[16px]\n          text-[#5B4B23]\n\t\t    ", className, 
         // loading
-        status === 'loading' && 'pointer-events-none opacity-60', 
+        status === 'loading' && 'pointer-events-none opacity-50', 
         // error
-        'disabled:pointer-events-none disabled:opacity-60'), style: style, onClick: onClickButton, type: type, disabled: status === 'error', children: [before && (0, jsx_runtime_1.jsx)("i", { className: "mr-[10px]", children: before }), status !== 'loading' ? children : (0, jsx_runtime_1.jsx)(icons_1.LoadingIcon, {}), after && (0, jsx_runtime_1.jsx)("i", { className: "ml-[10px]", children: after })] }));
+        'disabled:pointer-events-none disabled:opacity-60'), style: style, onClick: onClickButton, type: type, disabled: status === 'error' || disabled, children: [before && (0, jsx_runtime_1.jsx)("i", { className: "mr-[10px]", children: before }), status !== 'loading' ? children : (0, jsx_runtime_1.jsx)(icons_1.LoadingIcon, {}), after && (0, jsx_runtime_1.jsx)("i", { className: "ml-[10px]", children: after })] }));
 };
 exports["default"] = react_1.default.memo(Button);
 
@@ -23241,28 +23241,33 @@ var BoostersItem = function (_a) {
     else {
         upgradeCost = parseFloat((1000 * Math.pow(1.75, level - 1)).toFixed(0));
     }
+    var maxLevel = level === 25;
     var onClick = function () { return __awaiter(void 0, void 0, void 0, function () {
         var data, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    if (maxLevel)
+                        return [2 /*return*/];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, API_1.API.post('/upgrade/' + item, {
                             tgId: user === null || user === void 0 ? void 0 : user.tgId,
                         })];
-                case 1:
+                case 2:
                     data = (_a.sent()).data;
                     dispatch((0, auth_1.setUpgradeCost)(data));
-                    return [3 /*break*/, 3];
-                case 2:
+                    return [3 /*break*/, 4];
+                case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex items-start\r\n\t\t\trounded-[14px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n\t\t  \tmr-[12px]\r\n\t\t\tw-[90px]\r\n\t\t\th-[90px]\r\n\t\t\tflex justify-center items-center\r\n\t\t\tflex-[0_0_90px]\r\n\t\t\trounded-full\r\n\t\t\tborder border-solid border-[#EED38D]\r\n\t\t  ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", level === 25 ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), children: upgradeCost })] })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex items-start\r\n\t\t\trounded-[14px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n\t\t  \tmr-[12px]\r\n\t\t\tw-[90px]\r\n\t\t\th-[90px]\r\n\t\t\tflex justify-center items-center\r\n\t\t\tflex-[0_0_90px]\r\n\t\t\trounded-full\r\n\t\t\tborder border-solid border-[#EED38D]\r\n\t\t  ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel, children: maxLevel ? '25/25' : upgradeCost })] })] })] }));
 };
 exports["default"] = react_1.default.memo(BoostersItem);
 
@@ -23446,7 +23451,6 @@ var Clicker = function () {
         try {
             if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
                 return;
-            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
             if (!toggleGif) {
                 setToggleGif(true);
             }
@@ -23459,6 +23463,7 @@ var Clicker = function () {
                     setToggleAudio(true);
                 }
             }
+            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
         }
         catch (err) {
             console.log(err);
