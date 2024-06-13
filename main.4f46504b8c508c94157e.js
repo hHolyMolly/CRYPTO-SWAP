@@ -28064,6 +28064,8 @@ function App() {
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
     react_1.default.useEffect(function () {
+        var tg = window.Telegram.WebApp;
+        tg.ready();
         if (telegramUserId) {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }
@@ -28104,7 +28106,7 @@ var Button = function (_a) {
         if (onClick)
             onClick();
     }, [onClick]);
-    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, classnames_1.default)("\n          px-[25px]\n          min-h-[45px]\n          inline-flex justify-center items-center\n          rounded-lg\n          bg-blue-500\n\n          text-white\n\t\t    ", className, 
+    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, classnames_1.default)("\n          px-[24px]\n          min-h-[44px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-300\n\n          font-bold\n          text-[16px]\n          text-[#5B4B23]\n\t\t    ", className, 
         // loading
         status === 'loading' && 'pointer-events-none opacity-60', 
         // error
@@ -28191,7 +28193,22 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var UserBar = function (_a) {
     var balance = _a.balance, nickName = _a.nickName, position = _a.position;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)', border: '1px solid #918b55' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: balance }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+    var styles = {
+        1: {
+            borderColor: '#918b55',
+            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)',
+        },
+        2: {
+            borderColor: '#D4D3CE',
+            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(212, 211, 206, 0.60) 100%)',
+        },
+        3: {
+            borderColor: '#BF8835',
+            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(191, 136, 53, 0.60) 100%)',
+        },
+    };
+    var style = styles[position];
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: balance }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
 };
 exports["default"] = UserBar;
 
@@ -28609,9 +28626,25 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Faq() {
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[284px] after:h-[367px] bg-[url('@assets/img/bg/faq.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Faq" }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." }), (0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." }), (0, jsx_runtime_1.jsx)(UI_1.FaqItem, { title: "Lorem ipsum dolor?", text: "Aliquam lobortis, dui eget condimentum facilisis, lectus nulla ultrices ex, vitae lacinia ex sapien eu tellus. Vivamus commodo sollicitudin justo ut consectetur." })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[284px] after:h-[367px] bg-[url('@assets/img/bg/faq.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Faq" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] w-full flex flex-col" })] }));
 }
 exports["default"] = Faq;
+
+
+/***/ }),
+
+/***/ 7997:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var FriendItem = function (_a) {
+    var nickName = _a.nickName, bonus = _a.bonus;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[38px] [@media(min-height:570px)]:w-[42px]\r\n            h-[38px] [@media(min-height:570px)]:h-[42px]\r\n          ", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-yellow-300", children: ["+", bonus] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+};
+exports["default"] = FriendItem;
 
 
 /***/ }),
@@ -28621,6 +28654,17 @@ exports["default"] = Faq;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -28661,18 +28705,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
 var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
+var FriendItem_1 = __importDefault(__webpack_require__(7997));
 function Friends() {
+    var _a;
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
+    var onClickRefLink = function () {
+        var tg = window.Telegram.WebApp;
+        tg.share({
+            url: (response === null || response === void 0 ? void 0 : response.link) || 'https://www.google.com/',
+            text: 'Check out this amazing app!',
+        });
+    };
     function getReffers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -28694,12 +28748,12 @@ function Friends() {
             });
         });
     }
-    react_1.default.useEffect(function () {
+    react_2.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
             getReffers();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Friends" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.numberOfReferrals })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: response === null || response === void 0 ? void 0 : response.myBalance })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.referralsInfo) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx) }))); }) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] })] }));
 }
 exports["default"] = Friends;
 
@@ -28860,17 +28914,6 @@ exports["default"] = Quests;
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -28911,15 +28954,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_2 = __importDefault(__webpack_require__(6540));
+var react_1 = __importDefault(__webpack_require__(6540));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Ratings() {
-    var _a;
-    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -28941,10 +28982,10 @@ function Ratings() {
             });
         });
     }
-    react_2.default.useEffect(function () {
+    react_1.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { className: "mb-[24px]", children: "Ratings" }) }));
 }
 exports["default"] = Ratings;
 
