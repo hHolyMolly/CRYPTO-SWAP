@@ -23446,6 +23446,17 @@ exports["default"] = Quests;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23486,13 +23497,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Ratings() {
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _a;
+    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -23514,10 +23527,10 @@ function Ratings() {
             });
         });
     }
-    react_1.default.useEffect(function () {
+    react_2.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.totalUsers })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.registeredUsersCount })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
 }
 exports["default"] = Ratings;
 
