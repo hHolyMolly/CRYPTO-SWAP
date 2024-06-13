@@ -11422,7 +11422,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 5985:
+/***/ 8366:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22918,7 +22918,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_router_dom_1 = __webpack_require__(2648);
-__webpack_require__(5985);
+__webpack_require__(8366);
 var paths_1 = __importDefault(__webpack_require__(3184));
 var Container_1 = __importDefault(__webpack_require__(6654));
 var Menu_1 = __importDefault(__webpack_require__(4977));
@@ -23080,11 +23080,11 @@ exports.burgerLevelsIcons = {
     18: __webpack_require__(8302),
     19: __webpack_require__(8302),
     20: __webpack_require__(8302),
-    21: __webpack_require__(8366),
-    22: __webpack_require__(8366),
-    23: __webpack_require__(8366),
-    24: __webpack_require__(8366),
-    25: __webpack_require__(8366),
+    21: __webpack_require__(5985),
+    22: __webpack_require__(5985),
+    23: __webpack_require__(5985),
+    24: __webpack_require__(5985),
+    25: __webpack_require__(5985),
 };
 exports.toolsLevelsIcons = {
     1: __webpack_require__(7694),
@@ -23146,6 +23146,99 @@ __webpack_require__(458);
 
 /***/ }),
 
+/***/ 8336:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
+var API_1 = __webpack_require__(9309);
+var _store_1 = __webpack_require__(2482);
+var auth_1 = __webpack_require__(1692);
+var UI_1 = __webpack_require__(456);
+var BoostersItem = function (_a) {
+    var item = _a.item, title = _a.title, imageURL = _a.imageURL, description = _a.description, level = _a.level;
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    var upgradeCost;
+    if (level === 1) {
+        upgradeCost = 1000;
+    }
+    else {
+        upgradeCost = parseFloat((1000 * Math.pow(1.75, level - 1)).toFixed(0));
+    }
+    var onClick = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var data, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, API_1.API.post('/upgrade/' + item, {
+                            tgId: user === null || user === void 0 ? void 0 : user.tgId,
+                        })];
+                case 1:
+                    data = (_a.sent()).data;
+                    dispatch((0, auth_1.setUpgradeCost)(data));
+                    return [3 /*break*/, 3];
+                case 2:
+                    err_1 = _a.sent();
+                    console.log(err_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    }); };
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex items-start\r\n\t\t\trounded-[14px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n\t\t  \tmr-[12px]\r\n\t\t\tw-[90px]\r\n\t\t\th-[90px]\r\n\t\t\tflex justify-center items-center\r\n\t\t\tflex-[0_0_90px]\r\n\t\t\trounded-full\r\n\t\t\tborder border-solid border-[#EED38D]\r\n\t\t  ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", level === 25 ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), children: upgradeCost })] })] })] }));
+};
+exports["default"] = react_1.default.memo(BoostersItem);
+
+
+/***/ }),
+
 /***/ 6225:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23156,15 +23249,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var iconsLevels_1 = __webpack_require__(589);
 var _store_1 = __webpack_require__(2482);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UI_1 = __webpack_require__(456);
+var BoostersItem_1 = __importDefault(__webpack_require__(8336));
 function Boost() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: __webpack_require__(5819), title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1 })] })] }));
 }
 exports["default"] = Boost;
 
@@ -23923,7 +24018,7 @@ module.exports = __webpack_require__.p + "img/87dfa1ba4e02d6e2df90.png";
 
 /***/ }),
 
-/***/ 8366:
+/***/ 5985:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -23952,6 +24047,14 @@ module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/6fe1779ff6fdc01990ed.gif";
+
+/***/ }),
+
+/***/ 5819:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/012dce15f1f1e8ca4906.png";
 
 /***/ }),
 
