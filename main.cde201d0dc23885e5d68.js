@@ -23509,7 +23509,7 @@ function Home() {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', position: user === null || user === void 0 ? void 0 : user.position }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', position: 1 }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
 }
 exports["default"] = Home;
 
