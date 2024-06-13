@@ -28064,8 +28064,8 @@ function App() {
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
     react_1.default.useEffect(function () {
-        var tg = window.Telegram.WebApp;
-        tg.ready();
+        var tgApp = window.Telegram.WebApp;
+        tgApp.ready();
         if (telegramUserId) {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }
@@ -28721,10 +28721,9 @@ function Friends() {
     }).user;
     var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
     var onClickRefLink = function () {
-        var tg = window.Telegram.WebApp;
-        tg.share({
-            url: (response === null || response === void 0 ? void 0 : response.link) || 'https://www.google.com/',
-            text: 'Check out this amazing app!',
+        var tgApp = window.Telegram.WebApp;
+        tgApp.shareLink('https://www.google.com/', {
+            text: 'Check out this cool link!',
         });
     };
     function getReffers() {
