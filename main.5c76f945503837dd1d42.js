@@ -23548,7 +23548,7 @@ var Clicker = function () {
     }).clickerTimeout;
     var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
     var _c = react_1.default.useState(false), toggleAudio = _c[0], setToggleAudio = _c[1];
-    var durationGif = 600; // Время действия анимации краба
+    var durationGif = 500; // Время действия анимации краба
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var clicker = function () {
@@ -23556,7 +23556,6 @@ var Clicker = function () {
             return;
         if (!toggleGif) {
             setToggleGif(true);
-            console.log('Удаляем');
             setTimeout(function () {
                 setToggleGif(false);
             }, durationGif);
