@@ -23604,7 +23604,6 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
-var auth_1 = __webpack_require__(1692);
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var _a = (0, _store_1.useAppSelector)(function (_a) {
@@ -23616,6 +23615,7 @@ var Clicker = function () {
         return settings;
     }).clickerTimeout;
     var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
+    var _c = react_1.default.useState(user === null || user === void 0 ? void 0 : user.balance), newBallance = _c[0], setNewBallance = _c[1];
     var durationGif = 500; // Время действия анимации краба
     // const durationAudio = 100; // Время действия звука при тапе
     var durationNumber = 1000; // Время действия полета цифры
@@ -23636,13 +23636,14 @@ var Clicker = function () {
             audio.play();
         }
         try {
-            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
+            // dispatch(fetchPostTap(user?.tgId));
+            setNewBallance(function (prev) { return prev + 1; });
         }
         catch (err) {
             console.log(err);
         }
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), newBallance, (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
 };
 exports["default"] = Clicker;
 
