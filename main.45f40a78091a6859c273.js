@@ -23606,15 +23606,6 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -23623,7 +23614,6 @@ var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
-var toolkit_1 = __webpack_require__(5679);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
@@ -23660,14 +23650,14 @@ var Clicker = function () {
             audio.volume = 0.4; // Громкость звука
             audio.play();
         }
-        var pageX = e.pageX, pageY = e.pageY;
-        var particle = {
-            ID: (0, toolkit_1.nanoid)(),
-            y: pageY,
-            x: pageX,
-            value: user === null || user === void 0 ? void 0 : user.spatulaLevel,
-        };
-        setParticles(function (prev) { return __spreadArray(__spreadArray([], prev, true), [particle], false); });
+        // const { pageX, pageY } = e;
+        // const particle: TypeParticle = {
+        //   ID: nanoid(),
+        //   y: pageY,
+        //   x: pageX,
+        //   value: user?.spatulaLevel,
+        // };
+        // setParticles((prev) => [...prev, particle]);
         try {
             dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
         }
@@ -23678,7 +23668,7 @@ var Clicker = function () {
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsx)("div", { className: "crab-tab-clicker", onClick: clicker, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }) }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsx)("div", { className: "crab-tab-clicker", onTouchStart: clicker, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full pointer-events-none", style: { display: toggleGif ? 'block' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }) }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
 };
 exports["default"] = Clicker;
 
