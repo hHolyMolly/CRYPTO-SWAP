@@ -23724,7 +23724,7 @@ var Clicker = function () {
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onTouchStart: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full pointer-events-none", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -24305,6 +24305,36 @@ if (true) {
   module.exports = __webpack_require__(8940);
 } else {}
 
+
+/***/ }),
+
+/***/ 6184:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var map = {
+	"./crabs-static.gif": 1190,
+	"./crabs-tap.gif": 7883
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 6184;
 
 /***/ }),
 
