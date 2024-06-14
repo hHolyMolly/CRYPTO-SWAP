@@ -23595,15 +23595,39 @@ exports["default"] = Friends;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
+var toolkit_1 = __webpack_require__(5679);
+var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
+var auth_1 = __webpack_require__(1692);
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var _a = (0, _store_1.useAppSelector)(function (_a) {
@@ -23614,15 +23638,16 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
-    var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
-    var _c = react_1.default.useState(0), newBallance = _c[0], setNewBallance = _c[1];
+    var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
+    var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var durationGif = 500; // Время действия анимации краба
-    // const durationAudio = 100; // Время действия звука при тапе
-    var durationNumber = 1000; // Время действия полета цифры
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
             return;
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
         if (!toggleGif) {
             setToggleGif(true);
             setTimeout(function () {
@@ -23635,20 +23660,57 @@ var Clicker = function () {
             audio.volume = 0.4; // Громкость звука
             audio.play();
         }
+        var pageX = e.pageX, pageY = e.pageY;
+        var particle = {
+            ID: (0, toolkit_1.nanoid)(),
+            y: pageY,
+            x: pageX,
+            value: user === null || user === void 0 ? void 0 : user.spatulaLevel,
+        };
+        setParticles(function (prev) { return __spreadArray(__spreadArray([], prev, true), [particle], false); });
         try {
-            // dispatch(fetchPostTap(user?.tgId));
-            setNewBallance(function (prev) { return prev + 1; });
+            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
         }
         catch (err) {
             console.log(err);
         }
     };
-    react_1.default.useEffect(function () {
-        setNewBallance(user === null || user === void 0 ? void 0 : user.balance);
-    }, [user === null || user === void 0 ? void 0 : user.balance]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("div", { className: "p-[10px] text-[30px] text-red-900 bg-white", children: Math.round(newBallance) || 0 }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
+    var removeParticle = function (ID) {
+        setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
+    };
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: "crab-tab-clicker", onClick: clicker, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'none' : 'block' }, src: __webpack_require__(1190), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", style: { display: toggleGif ? 'block' : 'none' }, src: __webpack_require__(7883), alt: "Crabs" })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n            w-full h-full\n            justify-center items-center\n            absolute top-0 left-0\n            text-[60px] text-white\n          ", clickerTimeout === 0 ? 'hidden' : 'flex'), children: clickerTimeout })] }));
 };
 exports["default"] = Clicker;
+
+
+/***/ }),
+
+/***/ 8461:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
+var ParticleItem = function (_a) {
+    var ID = _a.ID, y = _a.y, x = _a.x, value = _a.value, removeParticle = _a.removeParticle;
+    var particleRef = react_1.default.useRef(null);
+    react_1.default.useEffect(function () {
+        if (!particleRef.current) {
+            particleRef.current = setTimeout(function () {
+                removeParticle(ID);
+            }, 2000);
+        }
+        // Очищаем таймаут при размонтировании компонента
+        return function () { return clearTimeout(particleRef.current); };
+    }, [ID]);
+    return (0, jsx_runtime_1.jsxs)("li", { style: { top: y, left: x }, children: ["+", value] });
+};
+exports["default"] = ParticleItem;
 
 
 /***/ }),
