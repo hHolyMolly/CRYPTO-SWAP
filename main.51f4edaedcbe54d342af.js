@@ -22603,15 +22603,19 @@ exports["default"] = App;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var _store_1 = __webpack_require__(2482);
 var Balance = function () {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: Math.round(user === null || user === void 0 ? void 0 : user.balance) || 0 }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        mb-[5px] [@media(min-height:400px)]:mb-[10px] [@media(min-height:435px)]:mb-[8px] [@media(min-height:500px)]:mb-[14px] [@media(min-height:610px)]:mb-[28px] [@media(min-height:680px)]:mb-[50px] h-lg:mb-[56px]\r\n        mx-auto flex flex-col justify-center\r\n      ", children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[11px] [@media(min-height:500px)]:text-[13px] [@media(min-height:768px)]:text-[1.05] leading-[16px] [@media(min-height:768px)]:leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "\r\n            mr-[6px] [@media(min-height:500px)]:mr-[8px] font-bold text-white\r\n\r\n            text-[26px] [@media(min-height:500px)]:text-[36px] [@media(min-height:650px)]:text-[46px] [@media(min-height:730px)]:text-[50px] [@media(min-height:768px)]:text-[54px]\r\n            leading-[1]\r\n          ", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) || 0 }), (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[30px] [@media(min-height:500px)]:w-[36px] [@media(min-height:650px)]:w-[40px] [@media(min-height:730px)]:w-[50px]\r\n            h-[30px] [@media(min-height:500px)]:h-[36px] [@media(min-height:650px)]:h-[40px] [@media(min-height:730px)]:h-[50px]\r\n          ", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
 };
 exports["default"] = Balance;
 
@@ -22720,8 +22724,12 @@ exports["default"] = Title;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var UserBar = function (_a) {
     var balance = _a.balance, nickName = _a.nickName, _b = _a.position, position = _b === void 0 ? 1 : _b;
     var styles = {
@@ -22739,7 +22747,7 @@ var UserBar = function (_a) {
         },
     };
     var style = styles[position];
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: Math.round(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: (0, balanceFunc_1.default)(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
 };
 exports["default"] = UserBar;
 
@@ -23187,33 +23195,60 @@ exports["default"] = routes;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toolsLevelsIcons = exports.burgerLevelsIcons = exports.clawLevelsIcons = void 0;
+exports.toolsLevelsIcons = exports.burgerLevelsIcons = exports.clawLevelsIcons = exports.energyLevelsIcons = void 0;
+exports.energyLevelsIcons = {
+    1: __webpack_require__(5819),
+    2: __webpack_require__(5819),
+    3: __webpack_require__(5819),
+    4: __webpack_require__(5819),
+    5: __webpack_require__(5819),
+    6: __webpack_require__(5906),
+    7: __webpack_require__(5906),
+    8: __webpack_require__(5906),
+    9: __webpack_require__(5906),
+    10: __webpack_require__(5906),
+    11: __webpack_require__(3825),
+    12: __webpack_require__(3825),
+    13: __webpack_require__(3825),
+    14: __webpack_require__(3825),
+    15: __webpack_require__(3825),
+    16: __webpack_require__(7272),
+    17: __webpack_require__(7272),
+    18: __webpack_require__(7272),
+    19: __webpack_require__(7272),
+    20: __webpack_require__(7272),
+    21: __webpack_require__(7699),
+    22: __webpack_require__(7699),
+    23: __webpack_require__(7699),
+    24: __webpack_require__(7699),
+    25: __webpack_require__(7699),
+};
 exports.clawLevelsIcons = {
     1: __webpack_require__(3322),
     2: __webpack_require__(3322),
     3: __webpack_require__(3322),
     4: __webpack_require__(3322),
     5: __webpack_require__(3322),
-    // 6: require('@assets/img/claw/6-10.png'),
-    // 7: require('@assets/img/claw/6-10.png'),
-    // 8: require('@assets/img/claw/6-10.png'),
-    // 9: require('@assets/img/claw/6-10.png'),
-    // 10: require('@assets/img/claw/6-10.png'),
-    // 11: require('@assets/img/claw/11-15.png'),
-    // 12: require('@assets/img/claw/11-15.png'),
-    // 13: require('@assets/img/claw/11-15.png'),
-    // 14: require('@assets/img/claw/11-15.png'),
-    // 15: require('@assets/img/claw/11-15.png'),
-    // 16: require('@assets/img/claw/16-20.png'),
-    // 17: require('@assets/img/claw/16-20.png'),
-    // 18: require('@assets/img/claw/16-20.png'),
-    // 19: require('@assets/img/claw/16-20.png'),
-    // 20: require('@assets/img/claw/16-20.png'),
-    // 21: require('@assets/img/claw/21-25.png'),
-    // 22: require('@assets/img/claw/21-25.png'),
-    // 23: require('@assets/img/claw/21-25.png'),
-    // 24: require('@assets/img/claw/21-25.png'),
-    // 25: require('@assets/img/claw/21-25.png'),
+    6: __webpack_require__(3597),
+    7: __webpack_require__(3597),
+    8: __webpack_require__(3597),
+    9: __webpack_require__(3597),
+    10: __webpack_require__(3597),
+    11: __webpack_require__(3588),
+    12: __webpack_require__(3588),
+    13: __webpack_require__(3588),
+    14: __webpack_require__(3588),
+    15: __webpack_require__(3588),
+    16: __webpack_require__(1301),
+    17: __webpack_require__(1301),
+    18: __webpack_require__(1301),
+    19: __webpack_require__(1301),
+    20: __webpack_require__(1301),
+    21: __webpack_require__(9606),
+    22: __webpack_require__(9606),
+    23: __webpack_require__(9606),
+    24: __webpack_require__(9606),
+    25: __webpack_require__(9606),
 };
 exports.burgerLevelsIcons = {
     1: __webpack_require__(7265),
@@ -23366,6 +23401,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -23410,7 +23446,7 @@ var BoostersItem = function (_a) {
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex items-start\r\n\t\t\trounded-[14px]\r\n      backdrop-blur-[4px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n\t\t  \tmr-[12px]\r\n\t\t\tw-[90px]\r\n\t\t\th-[90px]\r\n\t\t\tflex justify-center items-center\r\n\t\t\tflex-[0_0_90px]\r\n\t\t\trounded-full\r\n\t\t\tborder border-solid border-[#EED38D]\r\n\t\t  ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel, children: maxLevel ? '25/25' : upgradeCost })] })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel, children: maxLevel ? '25/25' : (0, balanceFunc_1.default)(upgradeCost) })] })] })] }));
 };
 exports["default"] = react_1.default.memo(BoostersItem);
 
@@ -23437,7 +23473,7 @@ function Boost() {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: __webpack_require__(5819), title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1 })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1 })] })] }));
 }
 exports["default"] = Boost;
 
@@ -23539,6 +23575,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
@@ -23583,7 +23620,7 @@ function Friends() {
             getReffers();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (response === null || response === void 0 ? void 0 : response.numberOfReferrals) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: Math.round(response === null || response === void 0 ? void 0 : response.myBalance) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.referralsInfo) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx) }))); }) })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (response === null || response === void 0 ? void 0 : response.numberOfReferrals) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: (0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.referralsInfo) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx) }))); }) })] })] }));
 }
 exports["default"] = Friends;
 
@@ -23645,8 +23682,8 @@ var Clicker = function () {
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
             return;
-        if (navigator.vibrate) {
-            navigator.vibrate(200);
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate(200);
         }
         if (!toggleGif) {
             setToggleGif(true);
@@ -23657,8 +23694,11 @@ var Clicker = function () {
         if (is_volume) {
             var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
             var audio = sounds_1.sounds[randomIndex];
-            audio.volume = 0.4; // Громкость звука
-            audio.play();
+            if (audio) {
+                audio.volume = 0.4; // Громкость звука
+                audio.currentTime = 0;
+                audio.play();
+            }
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
@@ -23854,6 +23894,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
@@ -23884,7 +23925,7 @@ function Ratings() {
     react_2.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.totalUsers })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: response === null || response === void 0 ? void 0 : response.registeredUsersCount })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.totalUsers) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.registeredUsersCount) })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
 }
 exports["default"] = Ratings;
 
@@ -24169,6 +24210,28 @@ exports["default"] = settingsSlice.reducer;
 
 /***/ }),
 
+/***/ 2408:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function balanceFunc(balance) {
+    if (balance === void 0) { balance = 0; }
+    var options = {
+        minimumIntegerDigits: 1,
+        minimumFractionDigits: 0,
+        useGrouping: true,
+        style: 'decimal',
+    };
+    var value = Math.round(balance).toLocaleString('ru-RU', options).replace(/\s/g, ',');
+    return value;
+}
+exports["default"] = balanceFunc;
+
+
+/***/ }),
+
 /***/ 5576:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24345,7 +24408,39 @@ module.exports = __webpack_require__.p + "img/aea2613949b73a509ec8.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/0b8b695952563847b7e4.png";
+module.exports = __webpack_require__.p + "img/4cf28f2194cd9ec648d1.png";
+
+/***/ }),
+
+/***/ 3588:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/6dd30f8998e8aac290b5.png";
+
+/***/ }),
+
+/***/ 1301:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/595d25dd9a0978dcdea9.png";
+
+/***/ }),
+
+/***/ 9606:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/1f6b6e83bec21e71c458.png";
+
+/***/ }),
+
+/***/ 3597:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/258e93f1731ce50468e4.png";
 
 /***/ }),
 
@@ -24377,7 +24472,39 @@ module.exports = __webpack_require__.p + "img/342b849875cfecce3a48.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
+module.exports = __webpack_require__.p + "img/3e4a94debc32ba9bc562.png";
+
+/***/ }),
+
+/***/ 3825:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/b97de182e7f34cda0801.png";
+
+/***/ }),
+
+/***/ 7272:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
 module.exports = __webpack_require__.p + "img/012dce15f1f1e8ca4906.png";
+
+/***/ }),
+
+/***/ 7699:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/a7abab4dffaffd4d18fe.png";
+
+/***/ }),
+
+/***/ 5906:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/3598761e51aae2bd1733.png";
 
 /***/ }),
 
