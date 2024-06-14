@@ -23529,6 +23529,7 @@ function Friends() {
         var shareURL = response === null || response === void 0 ? void 0 : response.link;
         var telegramUrl = "https://t.me/share/url?text=".concat(shareText, "&url=").concat(encodeURIComponent(shareURL));
         window.open(telegramUrl, '_blank');
+        navigator.clipboard.writeText(shareURL);
     };
     function getReffers() {
         return __awaiter(this, void 0, void 0, function () {
