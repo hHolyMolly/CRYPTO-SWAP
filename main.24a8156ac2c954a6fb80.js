@@ -23553,7 +23553,7 @@ function Friends() {
     var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
     var onClickRefLink = function () {
         var shareURL = response === null || response === void 0 ? void 0 : response.link;
-        var telegramUrl = "https://t.me/share/url?text=".concat(shareURL, "}");
+        var telegramUrl = "https://t.me/share/url?url=".concat(shareURL, "}");
         window.open(telegramUrl, '_blank');
         navigator.clipboard.writeText(shareURL);
     };
