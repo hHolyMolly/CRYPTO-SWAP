@@ -22955,7 +22955,7 @@ var react_device_detect_1 = __webpack_require__(159);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
 function MainLayout() {
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "wrapper", children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" }))] }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
 }
 exports["default"] = MainLayout;
 
@@ -23616,11 +23616,11 @@ var Clicker = function () {
         return settings;
     }).clickerTimeout;
     var _b = react_1.default.useState(false), toggleGif = _b[0], setToggleGif = _b[1];
-    var _c = react_1.default.useState(false), toggleAudio = _c[0], setToggleAudio = _c[1];
     var durationGif = 500; // Время действия анимации краба
-    var durationAudio = 100; // Время действия звука при тапе
+    // const durationAudio = 100; // Время действия звука при тапе
+    var durationNumber = 1000; // Время действия полета цифры
     // Тапаем по крабу
-    var clicker = function () {
+    var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
             return;
         if (!toggleGif) {
@@ -23630,16 +23630,10 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            if (!toggleAudio) {
-                var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
-                var audio = sounds_1.sounds[randomIndex];
-                audio.volume = 0.4; // Громкость звука
-                audio.play();
-                setToggleAudio(true);
-                setTimeout(function () {
-                    setToggleAudio(false);
-                }, durationAudio);
-            }
+            var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
+            var audio = sounds_1.sounds[randomIndex];
+            audio.volume = 0.4; // Громкость звука
+            audio.play();
         }
         try {
             dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
