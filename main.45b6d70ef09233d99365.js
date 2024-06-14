@@ -23606,6 +23606,15 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -23614,6 +23623,7 @@ var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
+var toolkit_1 = __webpack_require__(5679);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
@@ -23650,14 +23660,20 @@ var Clicker = function () {
             audio.volume = 0.4; // Громкость звука
             audio.play();
         }
-        // const { pageX, pageY } = e;
-        // const particle: TypeParticle = {
-        //   ID: nanoid(),
-        //   y: pageY,
-        //   x: pageX,
-        //   value: user?.spatulaLevel,
-        // };
-        // setParticles((prev) => [...prev, particle]);
+        var _loop_1 = function (idx) {
+            var touch = e.touches[idx];
+            var pageX = touch.pageX, pageY = touch.pageY;
+            var particle = {
+                ID: (0, toolkit_1.nanoid)(),
+                y: pageY,
+                x: pageX,
+                value: user === null || user === void 0 ? void 0 : user.spatulaLevel,
+            };
+            setParticles(function (prev) { return __spreadArray(__spreadArray([], prev, true), [particle], false); });
+        };
+        for (var idx = 0; idx < e.touches.length; idx++) {
+            _loop_1(idx);
+        }
         try {
             dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
         }
