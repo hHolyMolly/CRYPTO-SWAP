@@ -23437,11 +23437,38 @@ exports["default"] = Faq;
 
 /***/ }),
 
+/***/ 7997:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var FriendItem = function (_a) {
+    var nickName = _a.nickName, bonus = _a.bonus;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[38px] [@media(min-height:570px)]:w-[42px]\r\n            h-[38px] [@media(min-height:570px)]:h-[42px]\r\n          ", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-yellow-300", children: ["+", bonus] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+};
+exports["default"] = FriendItem;
+
+
+/***/ }),
+
 /***/ 9715:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23482,19 +23509,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
 var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
+var FriendItem_1 = __importDefault(__webpack_require__(7997));
 function Friends() {
+    var _a;
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    var onClickRefLink = function () { };
+    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
+    var onClickRefLink = function () {
+        var telegramUrl = "https://t.me/share/url?url=".concat(encodeURIComponent(response === null || response === void 0 ? void 0 : response.link));
+        window.open(telegramUrl, '_blank');
+    };
     function getReffers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -23516,12 +23549,12 @@ function Friends() {
             });
         });
     }
-    react_1.default.useEffect(function () {
+    react_2.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
             getReffers();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (response === null || response === void 0 ? void 0 : response.numberOfReferrals) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: Math.round(response === null || response === void 0 ? void 0 : response.myBalance) || 0 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.referralsInfo) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx) }))); }) })] })] }));
 }
 exports["default"] = Friends;
 
