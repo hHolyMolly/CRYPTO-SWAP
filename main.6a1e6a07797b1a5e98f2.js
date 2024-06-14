@@ -22584,6 +22584,13 @@ function App() {
             setClickerTimeoutCount(10);
         }
     }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
+    react_1.default.useEffect(function () {
+        if (window.Telegram.WebApp) {
+            var webApp = window.Telegram.WebApp;
+            webApp.ready();
+            webApp.expand();
+        }
+    }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
