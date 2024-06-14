@@ -23682,8 +23682,8 @@ var Clicker = function () {
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
             return;
-        if (window.navigator.vibrate) {
-            window.navigator.vibrate(200);
+        if ('vibrate' in navigator) {
+            navigator.vibrate(100);
         }
         if (!toggleGif) {
             setToggleGif(true);
@@ -24478,7 +24478,7 @@ module.exports = __webpack_require__.p + "img/258e93f1731ce50468e4.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
+module.exports = __webpack_require__.p + "img/60521dd022d25e76b4a0.gif";
 
 /***/ }),
 
@@ -24486,7 +24486,7 @@ module.exports = __webpack_require__.p + "img/1ec1982e9d27db887ddb.gif";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/6fe1779ff6fdc01990ed.gif";
+module.exports = __webpack_require__.p + "img/608bd3528223ebf2bac9.gif";
 
 /***/ }),
 
