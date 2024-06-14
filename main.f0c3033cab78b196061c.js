@@ -23187,7 +23187,34 @@ exports["default"] = routes;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.toolsLevelsIcons = exports.burgerLevelsIcons = void 0;
+exports.toolsLevelsIcons = exports.burgerLevelsIcons = exports.clawLevelsIcons = void 0;
+exports.clawLevelsIcons = {
+    1: __webpack_require__(3322),
+    2: __webpack_require__(3322),
+    3: __webpack_require__(3322),
+    4: __webpack_require__(3322),
+    5: __webpack_require__(3322),
+    // 6: require('@assets/img/claw/6-10.png'),
+    // 7: require('@assets/img/claw/6-10.png'),
+    // 8: require('@assets/img/claw/6-10.png'),
+    // 9: require('@assets/img/claw/6-10.png'),
+    // 10: require('@assets/img/claw/6-10.png'),
+    // 11: require('@assets/img/claw/11-15.png'),
+    // 12: require('@assets/img/claw/11-15.png'),
+    // 13: require('@assets/img/claw/11-15.png'),
+    // 14: require('@assets/img/claw/11-15.png'),
+    // 15: require('@assets/img/claw/11-15.png'),
+    // 16: require('@assets/img/claw/16-20.png'),
+    // 17: require('@assets/img/claw/16-20.png'),
+    // 18: require('@assets/img/claw/16-20.png'),
+    // 19: require('@assets/img/claw/16-20.png'),
+    // 20: require('@assets/img/claw/16-20.png'),
+    // 21: require('@assets/img/claw/21-25.png'),
+    // 22: require('@assets/img/claw/21-25.png'),
+    // 23: require('@assets/img/claw/21-25.png'),
+    // 24: require('@assets/img/claw/21-25.png'),
+    // 25: require('@assets/img/claw/21-25.png'),
+};
 exports.burgerLevelsIcons = {
     1: __webpack_require__(7265),
     2: __webpack_require__(7265),
@@ -24245,6 +24272,14 @@ module.exports = __webpack_require__.p + "img/7b74ff189ed44e1bb975.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/aea2613949b73a509ec8.png";
+
+/***/ }),
+
+/***/ 3322:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/0b8b695952563847b7e4.png";
 
 /***/ }),
 
