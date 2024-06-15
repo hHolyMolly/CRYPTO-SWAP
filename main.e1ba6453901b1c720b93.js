@@ -40775,7 +40775,7 @@ var BoostersItem = function (_a) {
     }
     var maxLevel = level === 25;
     var onClick = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var data, err_1;
+        var data, dataPosition, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -40783,19 +40783,25 @@ var BoostersItem = function (_a) {
                         return [2 /*return*/];
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, API_1.API.post('/upgrade/' + item, {
                             tgId: user === null || user === void 0 ? void 0 : user.tgId,
                         })];
                 case 2:
                     data = (_a.sent()).data;
-                    dispatch((0, auth_1.setUpgradeCost)(data));
-                    return [3 /*break*/, 4];
+                    return [4 /*yield*/, API_1.API.post('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
                 case 3:
+                    dataPosition = (_a.sent()).data;
+                    if (dataPosition && data) {
+                        dispatch((0, auth_1.setUpgradeCost)(data));
+                        dispatch((0, auth_1.setUserPosition)(dataPosition.position));
+                    }
+                    return [3 /*break*/, 5];
+                case 4:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     }); };
@@ -41636,6 +41642,7 @@ var authSlice = (0, toolkit_1.createSlice)({
         },
         setUpgradeCost: function (state, _a) {
             var payload = _a.payload;
+            console.log(payload);
             state.user = __assign(__assign({}, state.user), payload);
         },
         setUserPosition: function (state, _a) {
