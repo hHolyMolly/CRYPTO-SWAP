@@ -23196,7 +23196,7 @@ var Preloader = function () {
         return auth;
     }).user;
     var _a = react_1.default.useState(true), loadImages = _a[0], setLoadImages = _a[1];
-    var _b = react_1.default.useState('loading'), isPreloader = _b[0], setIsPreloader = _b[1];
+    var _b = react_1.default.useState('loaded'), isPreloader = _b[0], setIsPreloader = _b[1];
     react_1.default.useEffect(function () {
         allImages.forEach(function (imageURL) {
             var img = new Image();
