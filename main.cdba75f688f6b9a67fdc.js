@@ -24235,7 +24235,7 @@ function balanceFunc(balance) {
         useGrouping: true,
         style: 'decimal',
     };
-    var value = Math.round(balance).toLocaleString('ru-RU', options).replace(/\s/g, ',');
+    var value = Math.round(balance).toLocaleString('ru-RU', options);
     return value;
 }
 exports["default"] = balanceFunc;
