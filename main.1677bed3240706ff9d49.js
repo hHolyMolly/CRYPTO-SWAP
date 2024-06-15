@@ -23677,7 +23677,9 @@ var Clicker = function () {
     }).clickerTimeout;
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
+    var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
     var durationGif = 500; // Время действия анимации краба
+    var durationAudio = 200; // Время действия анимации краба
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
@@ -23689,12 +23691,24 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
-            var audio = sounds_1.sounds[randomIndex];
-            if (audio) {
-                audio.volume = 0.4; // Громкость звука
-                audio.currentTime = 0;
-                audio.play();
+            if (!toggleAudio) {
+                setToggleAudio(true);
+                var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
+                var audio_1 = sounds_1.sounds[randomIndex];
+                if (audio_1) {
+                    audio_1.volume = 0.4; // Громкость звука
+                    audio_1.currentTime = 0;
+                    audio_1.onerror = function () {
+                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(audio_1));
+                    };
+                    // Попытка воспроизведения звука
+                    audio_1.play().catch(function (error) {
+                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
+                    });
+                }
+                setTimeout(function () {
+                    setToggleAudio(false);
+                }, durationAudio);
             }
         }
         var _loop_1 = function (idx) {
