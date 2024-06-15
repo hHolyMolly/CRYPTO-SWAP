@@ -23131,6 +23131,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
+var sound_1 = __webpack_require__(2431);
 var images = [
     // Backgrounds
     __webpack_require__(5232),
@@ -23175,35 +23176,19 @@ var Preloader = function () {
             img.src = imageUrl;
         });
     }, [images]);
-    // React.useEffect(() => {
-    //   if (sound) {
-    //     sound.volume = 0; // Громкость звука
-    //     sound.currentTime = 0;
-    //     sound.onerror = () => {
-    //       console.error(`Ошибка воспроизведения файла: ${sound}`);
-    //     };
-    //     // Попытка воспроизведения звука
-    //     sound.play().catch((error) => {
-    //       console.error(`Ошибка при попытке воспроизведения: ${error}`);
-    //     });
-    //   }
-    //   const loadSound = async () => {
-    //     try {
-    //       await new Promise((resolve, reject) => {
-    //         sound.onloadeddata = resolve;
-    //         sound.onerror = reject;
-    //         sound.load();
-    //       });
-    //     } catch (error) {
-    //       console.error('Ошибка при загрузке звуков:', error);
-    //     }
-    //   };
-    //   loadSound();
-    //   return () => {
-    //     sound.onloadeddata = null;
-    //     sound.onerror = null;
-    //   };
-    // }, []);
+    react_1.default.useEffect(function () {
+        if (sound_1.sound) {
+            sound_1.sound.volume = 0; // Громкость звука
+            sound_1.sound.currentTime = 0;
+            sound_1.sound.onerror = function () {
+                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(sound_1.sound));
+            };
+            // Попытка воспроизведения звука
+            sound_1.sound.play().catch(function (error) {
+                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
+            });
+        }
+    }, []);
     return (0, jsx_runtime_1.jsx)("div", { className: "" });
 };
 exports["default"] = Preloader;
@@ -23781,7 +23766,7 @@ var Clicker = function () {
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
     var durationGif = 500; // Время действия анимации краба
-    var durationAudio = 150; // Время действия анимации краба
+    var durationAudio = 100; // Время действия анимации краба
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
