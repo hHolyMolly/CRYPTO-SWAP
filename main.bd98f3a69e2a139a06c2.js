@@ -22732,6 +22732,26 @@ exports["default"] = App;
 
 /***/ }),
 
+/***/ 1142:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var classnames_1 = __importDefault(__webpack_require__(6942));
+function LoadingWrapper(_a) {
+    var status = _a.status;
+    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center fixed top-0 left-0 transition-opacity duration-300', status === 'loaded' ? 'pointer-events-none' : 'pointer-events-auto') }));
+}
+exports["default"] = LoadingWrapper;
+
+
+/***/ }),
+
 /***/ 5256:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23131,7 +23151,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var images = [
+var classnames_1 = __importDefault(__webpack_require__(6942));
+var _store_1 = __webpack_require__(2482);
+var allImages = [
     // Backgrounds
     __webpack_require__(5232),
     __webpack_require__(596),
@@ -23169,13 +23191,52 @@ var images = [
     __webpack_require__(1056),
 ];
 var Preloader = function () {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    var _a = react_1.default.useState(true), loadImages = _a[0], setLoadImages = _a[1];
+    var _b = react_1.default.useState('loading'), isPreloader = _b[0], setIsPreloader = _b[1];
     react_1.default.useEffect(function () {
-        images.forEach(function (imageUrl) {
+        allImages.forEach(function (imageURL) {
             var img = new Image();
-            img.src = imageUrl;
+            img.src = imageURL;
         });
-    }, [images]);
-    return (0, jsx_runtime_1.jsx)("div", { className: "" });
+    }, [allImages]);
+    react_1.default.useEffect(function () {
+        var images = document.querySelectorAll('img');
+        var totalImages = images.length;
+        var loadedImages = 0;
+        var handleImageLoad = function () {
+            loadedImages++;
+            if (loadedImages === totalImages) {
+                setLoadImages(false);
+            }
+        };
+        images.forEach(function (image) {
+            if (image.complete) {
+                handleImageLoad();
+            }
+            else {
+                image.addEventListener('load', handleImageLoad);
+            }
+        });
+        return function () {
+            images.forEach(function (image) {
+                image.removeEventListener('load', handleImageLoad);
+            });
+        };
+    }, []);
+    react_1.default.useEffect(function () {
+        if (loadImages)
+            return;
+        if (!user)
+            return;
+        setTimeout(function () {
+            setIsPreloader('loaded');
+        }, 300);
+    }, [user, loadImages]);
+    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-[20] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
 };
 exports["default"] = Preloader;
 
@@ -23735,12 +23796,9 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
-    var audioRef = react_2.default.useRef(null);
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
-    var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
     var durationGif = 500; // Время действия анимации краба
-    var durationAudio = 100;
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
@@ -23752,21 +23810,6 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            var audio = audioRef.current;
-            if (audio && !toggleAudio) {
-                audio.currentTime = 0;
-                audio
-                    .play()
-                    .then(function () {
-                    setToggleAudio(true);
-                    setTimeout(function () {
-                        setToggleAudio(false);
-                    }, durationAudio);
-                })
-                    .catch(function (error) {
-                    console.error('Failed to play audio:', error);
-                });
-            }
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
@@ -23792,7 +23835,7 @@ var Clicker = function () {
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -23903,11 +23946,43 @@ exports["default"] = Quests;
 
 /***/ }),
 
+/***/ 5366:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_content_loader_1 = __importDefault(__webpack_require__(9432));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var InfoBlock = function (_a) {
+    var title = _a.title, count = _a.count, titleColor = _a.titleColor, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tgap-[4px] flex flex-col\r\n\t\t\tborder border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1]", style: { color: titleColor ? titleColor : 'var(--white)' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? ((0, balanceFunc_1.default)(count)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 124, height: 28, viewBox: "0 0 124 28", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "124", height: "28" }) })) })] }));
+};
+exports["default"] = InfoBlock;
+
+
+/***/ }),
+
 /***/ 6306:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23957,15 +24032,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
+var react_2 = __importDefault(__webpack_require__(6540));
 var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
+var InfoBlock_1 = __importDefault(__webpack_require__(5366));
+var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Ratings() {
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var _a = react_2.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_2.default.useState('loading'), status = _b[0], setStatus = _b[1];
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -23993,11 +24071,11 @@ function Ratings() {
             });
         });
     }
-    react_1.default.useEffect(function () {
+    react_2.default.useEffect(function () {
         getTopUsers();
     }, []);
     var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(10), true);
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: response === null || response === void 0 ? void 0 : response.totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: response === null || response === void 0 ? void 0 : response.registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: topUsersItems.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(idx), status: status, position: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : idx + 1 }))); }) })] }), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Ratings;
 
