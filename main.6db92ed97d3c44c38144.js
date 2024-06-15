@@ -23165,8 +23165,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var sounds_1 = __webpack_require__(6278);
+var sound_1 = __webpack_require__(2431);
 var images = [
     // Backgrounds
     __webpack_require__(5232),
@@ -23212,19 +23213,28 @@ var Preloader = function () {
         });
     }, [images]);
     react_1.default.useEffect(function () {
-        var loadSounds = function () { return __awaiter(void 0, void 0, void 0, function () {
+        if (sound_1.sound) {
+            sound_1.sound.volume = 0; // Громкость звука
+            sound_1.sound.currentTime = 0;
+            sound_1.sound.onerror = function () {
+                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(sound_1.sound));
+            };
+            // Попытка воспроизведения звука
+            sound_1.sound.play().catch(function (error) {
+                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
+            });
+        }
+        var loadSound = function () { return __awaiter(void 0, void 0, void 0, function () {
             var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, Promise.all(sounds_1.sounds.map(function (sound) {
-                                return new Promise(function (resolve, reject) {
-                                    sound.onloadeddata = resolve;
-                                    sound.onerror = reject;
-                                    sound.load();
-                                });
-                            }))];
+                        return [4 /*yield*/, new Promise(function (resolve, reject) {
+                                sound_1.sound.onloadeddata = resolve;
+                                sound_1.sound.onerror = reject;
+                                sound_1.sound.load();
+                            })];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 3];
@@ -23236,15 +23246,13 @@ var Preloader = function () {
                 }
             });
         }); };
-        loadSounds();
+        loadSound();
         return function () {
-            sounds_1.sounds.forEach(function (sound) {
-                sound.onloadeddata = null;
-                sound.onerror = null;
-            });
+            sound_1.sound.onloadeddata = null;
+            sound_1.sound.onerror = null;
         };
     }, []);
-    return null;
+    return (0, jsx_runtime_1.jsx)("div", { className: "" });
 };
 exports["default"] = Preloader;
 
@@ -23468,19 +23476,14 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
-/***/ 6278:
+/***/ 2431:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.sounds = void 0;
-exports.sounds = [
-    new Audio(__webpack_require__(1164)),
-    new Audio(__webpack_require__(2670)),
-    new Audio(__webpack_require__(4725)),
-    new Audio(__webpack_require__(5412)),
-];
+exports.sound = void 0;
+exports.sound = new Audio(__webpack_require__(1164));
 
 
 /***/ }),
@@ -23808,8 +23811,8 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(5679);
+var sound_1 = __webpack_require__(2431);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
-var sounds_1 = __webpack_require__(6278);
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
 var Clicker = function () {
@@ -23840,16 +23843,14 @@ var Clicker = function () {
         if (is_volume) {
             if (!toggleAudio) {
                 setToggleAudio(true);
-                var randomIndex = Math.floor(Math.random() * sounds_1.sounds.length); // Рандомим звук
-                var audio_1 = sounds_1.sounds[randomIndex];
-                if (audio_1) {
-                    audio_1.volume = 0.4; // Громкость звука
-                    audio_1.currentTime = 0;
-                    audio_1.onerror = function () {
-                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(audio_1));
+                if (sound_1.sound) {
+                    sound_1.sound.volume = 0.4; // Громкость звука
+                    sound_1.sound.currentTime = 0;
+                    sound_1.sound.onerror = function () {
+                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(sound_1.sound));
                     };
                     // Попытка воспроизведения звука
-                    audio_1.play().catch(function (error) {
+                    sound_1.sound.play().catch(function (error) {
                         console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
                     });
                 }
@@ -24831,30 +24832,6 @@ module.exports = __webpack_require__.p + "img/45b651d27b5fb065459f.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
-
-/***/ }),
-
-/***/ 2670:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/4fe31d10ac563414944a.mp3";
-
-/***/ }),
-
-/***/ 4725:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/773ed2f0c229ce8e5955.mp3";
-
-/***/ }),
-
-/***/ 5412:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/17339624ea904a73d206.mp3";
 
 /***/ }),
 
