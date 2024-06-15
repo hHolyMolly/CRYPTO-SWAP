@@ -23460,18 +23460,6 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
-/***/ 2431:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.sound = void 0;
-exports.sound = __webpack_require__(1164);
-
-
-/***/ }),
-
 /***/ 3900:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23795,7 +23783,6 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(5679);
-var sound_1 = __webpack_require__(2431);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -23809,9 +23796,7 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
-    var audioPoolSize = 5;
     var timerGifRef = react_2.default.useRef(null);
-    var audioRefs = react_2.default.useRef([]);
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var durationGif = 600; // Время действия анимации краба
@@ -23829,11 +23814,6 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            var availableAudio = audioRefs.current.find(function (audio) { return audio.paused; });
-            if (availableAudio) {
-                availableAudio.currentTime = 0;
-                availableAudio.play();
-            }
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
@@ -23860,19 +23840,12 @@ var Clicker = function () {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
     react_2.default.useEffect(function () {
-        // Инициализация аудиопула
-        for (var i = 0; i < audioPoolSize; i++) {
-            var audio = new Audio(sound_1.sound);
-            audioRefs.current.push(audio);
-        }
         return function () {
             if (timerGifRef.current) {
                 clearTimeout(timerGifRef.current);
             }
-            // Очистка аудиопула
-            audioRefs.current.forEach(function (audio) { return audio.pause(); });
         };
-    }, [sound_1.sound, audioPoolSize]);
+    }, []);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
@@ -24849,14 +24822,6 @@ module.exports = __webpack_require__.p + "img/7f050fcb65de2300ee55.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/45b651d27b5fb065459f.png";
-
-/***/ }),
-
-/***/ 1164:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
 
 /***/ }),
 
