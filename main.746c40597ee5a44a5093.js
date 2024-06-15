@@ -23399,18 +23399,6 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
-/***/ 2431:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.sound = void 0;
-exports.sound = __webpack_require__(1164);
-
-
-/***/ }),
-
 /***/ 3900:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23734,7 +23722,6 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(5679);
-var sound_1 = __webpack_require__(2431);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -23748,7 +23735,7 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
-    var audio = react_2.default.useState(new Audio(sound_1.sound))[0];
+    var audioRef = react_2.default.useRef(null);
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
@@ -23765,9 +23752,9 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            if (!toggleAudio) {
+            var audio = audioRef.current;
+            if (audio && !toggleAudio) {
                 audio.currentTime = 0;
-                audio.volume = 0.3;
                 audio
                     .play()
                     .then(function () {
@@ -24746,14 +24733,6 @@ module.exports = __webpack_require__.p + "img/7f050fcb65de2300ee55.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/45b651d27b5fb065459f.png";
-
-/***/ }),
-
-/***/ 1164:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
 
 /***/ }),
 
