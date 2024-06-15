@@ -23679,7 +23679,7 @@ var Clicker = function () {
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
     var durationGif = 500; // Время действия анимации краба
-    var durationAudio = 200; // Время действия анимации краба
+    var durationAudio = 150; // Время действия анимации краба
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
