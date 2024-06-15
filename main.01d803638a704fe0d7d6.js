@@ -23128,12 +23128,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var react_router_dom_1 = __webpack_require__(2648);
 var react_device_detect_1 = __webpack_require__(159);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
 function MainLayout() {
-    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
+    var wrapperRef = react_1.default.useRef(null);
+    var pathname = (0, react_router_dom_1.useLocation)().pathname;
+    react_1.default.useEffect(function () {
+        var _a;
+        if (wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) {
+            (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
+        }
+    }, [pathname]);
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
 }
 exports["default"] = MainLayout;
 
