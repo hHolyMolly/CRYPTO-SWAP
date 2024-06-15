@@ -23846,13 +23846,8 @@ var Clicker = function () {
                 if (sound_1.sound) {
                     sound_1.sound.volume = 0.4; // Громкость звука
                     sound_1.sound.currentTime = 0;
-                    sound_1.sound.onerror = function () {
-                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(sound_1.sound));
-                    };
-                    // Попытка воспроизведения звука
-                    sound_1.sound.play().catch(function (error) {
-                        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
-                    });
+                    sound_1.sound.play();
+                    console.log('asd');
                 }
                 setTimeout(function () {
                     setToggleAudio(false);
