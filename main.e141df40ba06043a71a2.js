@@ -22732,26 +22732,6 @@ exports["default"] = App;
 
 /***/ }),
 
-/***/ 1142:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var classnames_1 = __importDefault(__webpack_require__(6942));
-function LoadingWrapper(_a) {
-    var status = _a.status;
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center fixed top-0 left-0 transition-opacity duration-300', status === 'loaded' ? 'pointer-events-none' : 'pointer-events-auto') }));
-}
-exports["default"] = LoadingWrapper;
-
-
-/***/ }),
-
 /***/ 5256:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23680,43 +23660,11 @@ exports["default"] = Faq;
 
 /***/ }),
 
-/***/ 7997:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var react_content_loader_1 = __importDefault(__webpack_require__(9432));
-var balanceFunc_1 = __importDefault(__webpack_require__(2408));
-var FriendItem = function (_a) {
-    var nickName = _a.nickName, bonus = _a.bonus, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
-    return ((0, jsx_runtime_1.jsx)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: status === 'loaded' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n                w-[38px] [@media(min-height:570px)]:w-[42px]\r\n                h-[38px] [@media(min-height:570px)]:h-[42px]\r\n              ", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-yellow-300", children: ["+", (0, balanceFunc_1.default)(bonus)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-between items-center", children: (0, jsx_runtime_1.jsxs)(react_content_loader_1.default, { speed: 2, width: "100%", height: "100%", viewBox: "0 0 300 42", backgroundColor: "#91835d", foregroundColor: "#ad9f7b", children: [(0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "100", ry: "100", width: "42", height: "42" }), (0, jsx_runtime_1.jsx)("rect", { x: "57", y: "12", rx: "4", ry: "4", width: "140", height: "18" })] }) })) }));
-};
-exports["default"] = FriendItem;
-
-
-/***/ }),
-
 /***/ 9715:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -23766,25 +23714,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_2 = __importDefault(__webpack_require__(6540));
-var react_content_loader_1 = __importDefault(__webpack_require__(9432));
-var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var react_1 = __importDefault(__webpack_require__(6540));
 var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
-var FriendItem_1 = __importDefault(__webpack_require__(7997));
-var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Friends() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_2.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_2.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
     var onClickRefLink = function () {
         var shareURL = response === null || response === void 0 ? void 0 : response.link;
         var telegramUrl = "https://t.me/share/url?url=".concat(shareURL);
@@ -23818,13 +23761,13 @@ function Friends() {
             });
         });
     }
-    react_2.default.useEffect(function () {
+    react_1.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
             getReffers();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
     var friendsItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.referralsInfo : __spreadArray([], Array(8), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 140, height: 26, viewBox: "0 0 140 26", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: friendsItems.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx), status: status }))); }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }) }));
 }
 exports["default"] = Friends;
 
@@ -24050,43 +23993,11 @@ exports["default"] = Quests;
 
 /***/ }),
 
-/***/ 5366:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var react_content_loader_1 = __importDefault(__webpack_require__(9432));
-var balanceFunc_1 = __importDefault(__webpack_require__(2408));
-var InfoBlock = function (_a) {
-    var title = _a.title, count = _a.count, titleColor = _a.titleColor, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tgap-[4px] flex flex-col\r\n\t\t\tborder border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1]", style: { color: titleColor ? titleColor : 'var(--white)' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? ((0, balanceFunc_1.default)(count)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 124, height: 28, viewBox: "0 0 124 28", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "124", height: "28" }) })) })] }));
-};
-exports["default"] = InfoBlock;
-
-
-/***/ }),
-
 /***/ 6306:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -24136,18 +24047,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_2 = __importDefault(__webpack_require__(6540));
+var react_1 = __importDefault(__webpack_require__(6540));
 var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
-var InfoBlock_1 = __importDefault(__webpack_require__(5366));
-var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Ratings() {
-    var _a = react_2.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_2.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
@@ -24175,11 +24083,11 @@ function Ratings() {
             });
         });
     }
-    react_2.default.useEffect(function () {
+    react_1.default.useEffect(function () {
         getTopUsers();
     }, []);
     var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(10), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: response === null || response === void 0 ? void 0 : response.totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: response === null || response === void 0 ? void 0 : response.registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: topUsersItems.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(idx), status: status, position: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : idx + 1 }))); }) })] }), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }) }));
 }
 exports["default"] = Ratings;
 
