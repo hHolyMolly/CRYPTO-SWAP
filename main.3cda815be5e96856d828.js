@@ -23245,7 +23245,7 @@ var Preloader = function () {
             setIsPreloader('loaded');
         }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-[20] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[20] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
 };
 exports["default"] = Preloader;
 
