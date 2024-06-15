@@ -11492,6 +11492,140 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 9432:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+var React = __webpack_require__(6540);
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+var uid = (function () {
+    return Math.random()
+        .toString(36)
+        .substring(6);
+});
+
+var SVG = function (_a) {
+    var _b = _a.animate, animate = _b === void 0 ? true : _b, _c = _a.backgroundColor, backgroundColor = _c === void 0 ? '#f5f6f7' : _c, _d = _a.backgroundOpacity, backgroundOpacity = _d === void 0 ? 1 : _d, _e = _a.baseUrl, baseUrl = _e === void 0 ? '' : _e, children = _a.children, _f = _a.foregroundColor, foregroundColor = _f === void 0 ? '#eee' : _f, _g = _a.foregroundOpacity, foregroundOpacity = _g === void 0 ? 1 : _g, _h = _a.gradientRatio, gradientRatio = _h === void 0 ? 2 : _h, uniqueKey = _a.uniqueKey, _j = _a.rtl, rtl = _j === void 0 ? false : _j, _k = _a.speed, speed = _k === void 0 ? 1.2 : _k, _l = _a.style, style = _l === void 0 ? {} : _l, _m = _a.title, title = _m === void 0 ? 'Loading...' : _m, _o = _a.beforeMask, beforeMask = _o === void 0 ? null : _o, props = __rest(_a, ["animate", "backgroundColor", "backgroundOpacity", "baseUrl", "children", "foregroundColor", "foregroundOpacity", "gradientRatio", "uniqueKey", "rtl", "speed", "style", "title", "beforeMask"]);
+    var fixedId = uniqueKey || uid();
+    var idClip = "".concat(fixedId, "-diff");
+    var idGradient = "".concat(fixedId, "-animated-diff");
+    var idAria = "".concat(fixedId, "-aria");
+    var rtlStyle = rtl ? { transform: 'scaleX(-1)' } : null;
+    var dur = "".concat(speed, "s");
+    var from = "".concat(gradientRatio * -1, " 0");
+    var to = "".concat(gradientRatio, " 0");
+    return (React.createElement("svg", __assign({ "aria-labelledby": idAria, role: "img", style: __assign(__assign({}, style), rtlStyle) }, props),
+        title ? React.createElement("title", { id: idAria }, title) : null,
+        beforeMask && React.isValidElement(beforeMask) ? beforeMask : null,
+        React.createElement("rect", { role: "presentation", x: "0", y: "0", width: "100%", height: "100%", clipPath: "url(".concat(baseUrl, "#").concat(idClip, ")"), style: { fill: "url(".concat(baseUrl, "#").concat(idGradient, ")") } }),
+        React.createElement("defs", null,
+            React.createElement("clipPath", { id: idClip }, children),
+            React.createElement("linearGradient", { id: idGradient, gradientTransform: "translate(".concat(from, ")") },
+                React.createElement("stop", { offset: "0%", stopColor: backgroundColor, stopOpacity: backgroundOpacity }),
+                React.createElement("stop", { offset: "50%", stopColor: foregroundColor, stopOpacity: foregroundOpacity }),
+                React.createElement("stop", { offset: "100%", stopColor: backgroundColor, stopOpacity: backgroundOpacity }),
+                animate && (React.createElement("animateTransform", { attributeName: "gradientTransform", type: "translate", values: "".concat(from, "; 0 0; ").concat(to), dur: dur, repeatCount: "indefinite" }))))));
+};
+
+var ContentLoader = function (props) {
+    return props.children ? React.createElement(SVG, __assign({}, props)) : React.createElement(ReactContentLoaderFacebook, __assign({}, props));
+};
+
+var ReactContentLoaderFacebook = function (props) { return (React.createElement(ContentLoader, __assign({ viewBox: "0 0 476 124" }, props),
+    React.createElement("rect", { x: "48", y: "8", width: "88", height: "6", rx: "3" }),
+    React.createElement("rect", { x: "48", y: "26", width: "52", height: "6", rx: "3" }),
+    React.createElement("rect", { x: "0", y: "56", width: "410", height: "6", rx: "3" }),
+    React.createElement("rect", { x: "0", y: "72", width: "380", height: "6", rx: "3" }),
+    React.createElement("rect", { x: "0", y: "88", width: "178", height: "6", rx: "3" }),
+    React.createElement("circle", { cx: "20", cy: "20", r: "20" }))); };
+
+var ReactContentLoaderInstagram = function (props) { return (React.createElement(ContentLoader, __assign({ viewBox: "0 0 400 460" }, props),
+    React.createElement("circle", { cx: "31", cy: "31", r: "15" }),
+    React.createElement("rect", { x: "58", y: "18", rx: "2", ry: "2", width: "140", height: "10" }),
+    React.createElement("rect", { x: "58", y: "34", rx: "2", ry: "2", width: "140", height: "10" }),
+    React.createElement("rect", { x: "0", y: "60", rx: "2", ry: "2", width: "400", height: "400" }))); };
+
+var ReactContentLoaderCode = function (props) { return (React.createElement(ContentLoader, __assign({ viewBox: "0 0 340 84" }, props),
+    React.createElement("rect", { x: "0", y: "0", width: "67", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "76", y: "0", width: "140", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "127", y: "48", width: "53", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "187", y: "48", width: "72", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "18", y: "48", width: "100", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "0", y: "71", width: "37", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "18", y: "23", width: "140", height: "11", rx: "3" }),
+    React.createElement("rect", { x: "166", y: "23", width: "173", height: "11", rx: "3" }))); };
+
+var ReactContentLoaderListStyle = function (props) { return (React.createElement(ContentLoader, __assign({ viewBox: "0 0 400 110" }, props),
+    React.createElement("rect", { x: "0", y: "0", rx: "3", ry: "3", width: "250", height: "10" }),
+    React.createElement("rect", { x: "20", y: "20", rx: "3", ry: "3", width: "220", height: "10" }),
+    React.createElement("rect", { x: "20", y: "40", rx: "3", ry: "3", width: "170", height: "10" }),
+    React.createElement("rect", { x: "0", y: "60", rx: "3", ry: "3", width: "250", height: "10" }),
+    React.createElement("rect", { x: "20", y: "80", rx: "3", ry: "3", width: "200", height: "10" }),
+    React.createElement("rect", { x: "20", y: "100", rx: "3", ry: "3", width: "80", height: "10" }))); };
+
+var ReactContentLoaderBulletList = function (props) { return (React.createElement(ContentLoader, __assign({ viewBox: "0 0 245 125" }, props),
+    React.createElement("circle", { cx: "10", cy: "20", r: "8" }),
+    React.createElement("rect", { x: "25", y: "15", rx: "5", ry: "5", width: "220", height: "10" }),
+    React.createElement("circle", { cx: "10", cy: "50", r: "8" }),
+    React.createElement("rect", { x: "25", y: "45", rx: "5", ry: "5", width: "220", height: "10" }),
+    React.createElement("circle", { cx: "10", cy: "80", r: "8" }),
+    React.createElement("rect", { x: "25", y: "75", rx: "5", ry: "5", width: "220", height: "10" }),
+    React.createElement("circle", { cx: "10", cy: "110", r: "8" }),
+    React.createElement("rect", { x: "25", y: "105", rx: "5", ry: "5", width: "220", height: "10" }))); };
+
+exports.BulletList = ReactContentLoaderBulletList;
+exports.Code = ReactContentLoaderCode;
+exports.Facebook = ReactContentLoaderFacebook;
+exports.Instagram = ReactContentLoaderInstagram;
+exports.List = ReactContentLoaderListStyle;
+exports["default"] = ContentLoader;
+//# sourceMappingURL=react-content-loader.cjs.js.map
+
+
+/***/ }),
+
 /***/ 159:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -22729,25 +22863,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var stylesCard = {
+    1: {
+        borderColor: '#918b55',
+        background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)',
+    },
+    2: {
+        borderColor: '#D4D3CE',
+        background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(212, 211, 206, 0.60) 100%)',
+    },
+    3: {
+        borderColor: '#BF8835',
+        background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(191, 136, 53, 0.60) 100%)',
+    },
+};
+var stylesPreloader = {
+    1: {
+        backgroundColor: '#dbd48a',
+        foregroundColor: '#e6e0ae',
+    },
+    2: {
+        backgroundColor: '#e0e0da',
+        foregroundColor: '#edece8',
+    },
+    3: {
+        backgroundColor: '#9c7a46',
+        foregroundColor: '#b59667',
+    },
+};
 var UserBar = function (_a) {
-    var balance = _a.balance, nickName = _a.nickName, _b = _a.position, position = _b === void 0 ? 1 : _b;
-    var styles = {
-        1: {
-            borderColor: '#918b55',
-            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.6) 0%, rgba(229, 215, 82, 0.6) 100%)',
-        },
-        2: {
-            borderColor: '#D4D3CE',
-            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(212, 211, 206, 0.60) 100%)',
-        },
-        3: {
-            borderColor: '#BF8835',
-            background: 'linear-gradient(270deg, rgba(53, 50, 43, 0.60) 0%, rgba(191, 136, 53, 0.60) 100%)',
-        },
-    };
-    var style = styles[position];
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: style ? style : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: (0, balanceFunc_1.default)(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+    var balance = _a.balance, nickName = _a.nickName, position = _a.position, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
+    var styleCard = stylesCard[position];
+    var stylePreloader = stylesPreloader[position];
+    return ((0, jsx_runtime_1.jsx)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: styleCard ? styleCard : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: status === 'loaded' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n            w-[44px] [@media(min-height:570px)]:w-[50px]\r\n            h-[44px] [@media(min-height:570px)]:h-[50px]\r\n          ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "\r\n              mr-[6px]\r\n              w-[16px] [@media(min-height:570px)]:w-[18px]\r\n              h-[13px] [@media(min-height:570px)]:h-[15px]\r\n              fill-yellow-200\r\n            ", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-white", children: (0, balanceFunc_1.default)(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-between items-center", children: (0, jsx_runtime_1.jsxs)(react_content_loader_1.default, { speed: 2, width: "100%", height: "100%", viewBox: "0 0 300 50", backgroundColor: (stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.backgroundColor) ? stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.backgroundColor : '#a19c6a', foregroundColor: (stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.foregroundColor) ? stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.foregroundColor : '#c7c28f', children: [(0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "100", ry: "100", width: "50", height: "50" }), (0, jsx_runtime_1.jsx)("rect", { x: "57", y: "2", rx: "4", ry: "4", width: "140", height: "18" }), (0, jsx_runtime_1.jsx)("rect", { x: "58", y: "26", rx: "4", ry: "4", width: "80", height: "18" })] }) })) }));
 };
 exports["default"] = UserBar;
 
@@ -23819,7 +23969,7 @@ function Home() {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', position: 1 }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[5px] [@media(min-height:500px)]:mb-[12px] [@media(min-height:730px)]:mb-[16px] [@media(min-height:768px)]:mb-[24px] gap-[8px] [@media(min-height:730px)]:gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', position: 1, status: "loaded" }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
 }
 exports["default"] = Home;
 
@@ -23842,6 +23992,27 @@ function Quests() {
     return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/quests.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Quests" }) }));
 }
 exports["default"] = Quests;
+
+
+/***/ }),
+
+/***/ 5366:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_content_loader_1 = __importDefault(__webpack_require__(9432));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var InfoBlock = function (_a) {
+    var title = _a.title, count = _a.count, titleColor = _a.titleColor, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tgap-[4px] flex flex-col\r\n\t\t\tborder border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: status === 'loaded' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1]", style: { color: titleColor ? titleColor : 'var(--white)' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (0, balanceFunc_1.default)(count) })] })) : ((0, jsx_runtime_1.jsxs)(react_content_loader_1.default, { speed: 2, width: "100%", height: "100%", viewBox: "0 0 194 55", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: [(0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "5", ry: "5", width: "66", height: "15" }), (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "21", rx: "8", ry: "8", width: "124", height: "32" })] })) }));
+};
+exports["default"] = InfoBlock;
 
 
 /***/ }),
@@ -23898,6 +24069,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -23905,30 +24085,37 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_2 = __importDefault(__webpack_require__(6540));
-var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
+var InfoBlock_1 = __importDefault(__webpack_require__(5366));
 function Ratings() {
-    var _a;
-    var _b = react_2.default.useState(null), response = _b[0], setResponse = _b[1];
+    var _a = react_2.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_2.default.useState('loading'), status = _b[0], setStatus = _b[1];
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 3, , 4]);
+                        setStatus('loading');
                         return [4 /*yield*/, API_1.API.get('/users/top')];
                     case 1:
                         data = (_a.sent()).data;
                         setResponse(data);
-                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, (0, customTimeout_1.default)(300)];
                     case 2:
+                        _a.sent();
+                        setStatus('loaded');
+                        return [3 /*break*/, 4];
+                    case 3:
                         err_1 = _a.sent();
                         console.log(err_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        setStatus('error');
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -23936,7 +24123,8 @@ function Ratings() {
     react_2.default.useEffect(function () {
         getTopUsers();
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Users" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.totalUsers) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n            p-[12px]\r\n            gap-[4px] flex flex-col\r\n            border border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n          ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-yellow-300", children: "Last 24 h." }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: (0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.registeredUsersCount) })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: (_a = response === null || response === void 0 ? void 0 : response.topUsers) === null || _a === void 0 ? void 0 : _a.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(user.tgId) }))); }) })] })] }));
+    var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(10), true);
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: response === null || response === void 0 ? void 0 : response.totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: response === null || response === void 0 ? void 0 : response.registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: topUsersItems.map(function (user, idx) { return ((0, react_1.createElement)(UI_1.UserBar, __assign({}, user, { key: "user".concat(idx), status: status, position: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : idx + 1 }))); }) })] })] }));
 }
 exports["default"] = Ratings;
 
@@ -24239,6 +24427,20 @@ function balanceFunc(balance) {
     return value;
 }
 exports["default"] = balanceFunc;
+
+
+/***/ }),
+
+/***/ 9952:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+function customTimeout(ms) {
+    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+}
+exports["default"] = customTimeout;
 
 
 /***/ }),
