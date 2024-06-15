@@ -23798,7 +23798,7 @@ var Clicker = function () {
     }).clickerTimeout;
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
-    var durationGif = 500; // Время действия анимации краба
+    var durationGif = 600; // Время действия анимации краба
     // Тапаем по крабу
     var clicker = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
