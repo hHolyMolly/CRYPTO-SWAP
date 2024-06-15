@@ -23765,7 +23765,9 @@ var Clicker = function () {
         if (is_volume) {
             if (audioRef.current) {
                 audioRef.current.currentTime = 0;
-                audioRef.current.play();
+                audioRef.current.play().catch(function (error) {
+                    console.error('Failed to play audio:', error);
+                });
             }
         }
         var _loop_1 = function (idx) {
