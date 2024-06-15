@@ -23849,13 +23849,14 @@ var Clicker = function () {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
     react_2.default.useEffect(function () {
-        var loadAudio = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var response, arrayBuffer, _a, error_1;
+        var initializeAudio = function () { return __awaiter(void 0, void 0, void 0, function () {
+            var AudioContext_1, response, arrayBuffer, _a, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 4, , 5]);
-                        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+                        AudioContext_1 = window.AudioContext || window.webkitAudioContext;
+                        audioContextRef.current = new AudioContext_1();
                         return [4 /*yield*/, fetch(sound_1.sound)];
                     case 1:
                         response = _b.sent();
@@ -23871,8 +23872,7 @@ var Clicker = function () {
                         _a.current = _b.sent();
                         // Create a GainNode and set the volume
                         gainNodeRef.current = audioContextRef.current.createGain();
-                        gainNodeRef.current.gain.value = 0.3; // Set volume to 50%
-                        gainNodeRef.current.connect(audioContextRef.current.destination);
+                        gainNodeRef.current.gain.value = 0.5; // Set volume to 50%
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _b.sent();
@@ -23882,7 +23882,19 @@ var Clicker = function () {
                 }
             });
         }); };
-        loadAudio();
+        // Initialize the audio context and buffer on user interaction
+        var handleUserInteraction = function () {
+            if (!audioContextRef.current) {
+                initializeAudio();
+            }
+            else if (audioContextRef.current.state === 'suspended') {
+                audioContextRef.current.resume();
+            }
+        };
+        document.addEventListener('click', handleUserInteraction, { once: true });
+        return function () {
+            document.removeEventListener('click', handleUserInteraction);
+        };
     }, []);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
