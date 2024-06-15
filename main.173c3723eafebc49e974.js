@@ -23160,7 +23160,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var classnames_1 = __importDefault(__webpack_require__(6942));
 var _store_1 = __webpack_require__(2482);
 var allImages = [
     // Backgrounds
@@ -23245,7 +23244,16 @@ var Preloader = function () {
             setIsPreloader('loaded');
         }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[20] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
+    return (
+    // <div
+    //   className={classNames(
+    //     'w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[20] bg-white',
+    //     isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
+    //   )}
+    // >
+    //   Загрузка...
+    // </div>
+    (0, jsx_runtime_1.jsx)("div", {}));
 };
 exports["default"] = Preloader;
 
