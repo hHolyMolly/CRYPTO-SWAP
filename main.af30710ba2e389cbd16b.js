@@ -23763,6 +23763,8 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
+    var audioRef = react_2.default.useRef([]);
+    var audioSize = 10; // Задаем размер пула
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
@@ -23780,12 +23782,12 @@ var Clicker = function () {
         }
         if (is_volume) {
             if (!toggleAudio) {
-                var newSound = new Audio(sound_1.sound);
                 setToggleAudio(true);
-                if (newSound) {
-                    newSound.volume = 0.4; // Громкость звука
-                    newSound.currentTime = 0;
-                    newSound.play();
+                var audio = audioRef.current.find(function (a) { return a.paused; });
+                if (audio) {
+                    audio.volume = 0.4; // Громкость звука
+                    audio.currentTime = 0;
+                    audio.play();
                 }
                 setTimeout(function () {
                     setToggleAudio(false);
@@ -23816,6 +23818,12 @@ var Clicker = function () {
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
+    react_2.default.useEffect(function () {
+        for (var i = 0; i < audioSize; i++) {
+            var audio = new Audio(sound_1.sound);
+            audioRef.current.push(audio);
+        }
+    }, []);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)("\n          w-full\n          flex flex-col justify-center items-center\n          relative\n        ", { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
