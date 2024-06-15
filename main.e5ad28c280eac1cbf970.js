@@ -23177,14 +23177,15 @@ var Preloader = function () {
         });
     }, [images]);
     react_1.default.useEffect(function () {
-        if (sound_1.sound) {
-            sound_1.sound.volume = 0; // Громкость звука
-            sound_1.sound.currentTime = 0;
-            sound_1.sound.onerror = function () {
-                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(sound_1.sound));
+        var newSound = new Audio(sound_1.sound);
+        if (newSound) {
+            newSound.volume = 0; // Громкость звука
+            newSound.currentTime = 0;
+            newSound.onerror = function () {
+                console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u0430: ".concat(newSound));
             };
             // Попытка воспроизведения звука
-            sound_1.sound.play().catch(function (error) {
+            newSound.play().catch(function (error) {
                 console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u043F\u043E\u043F\u044B\u0442\u043A\u0435 \u0432\u043E\u0441\u043F\u0440\u043E\u0438\u0437\u0432\u0435\u0434\u0435\u043D\u0438\u044F: ".concat(error));
             });
         }
@@ -23420,7 +23421,7 @@ exports.toolsLevelsIcons = {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sound = void 0;
-exports.sound = new Audio(__webpack_require__(1164));
+exports.sound = __webpack_require__(1164);
 
 
 /***/ }),
@@ -23779,11 +23780,12 @@ var Clicker = function () {
         }
         if (is_volume) {
             if (!toggleAudio) {
+                var newSound = new Audio(sound_1.sound);
                 setToggleAudio(true);
-                if (sound_1.sound) {
-                    sound_1.sound.volume = 0.4; // Громкость звука
-                    sound_1.sound.currentTime = 0;
-                    sound_1.sound.play();
+                if (newSound) {
+                    newSound.volume = 0.4; // Громкость звука
+                    newSound.currentTime = 0;
+                    newSound.play();
                 }
                 setTimeout(function () {
                     setToggleAudio(false);
