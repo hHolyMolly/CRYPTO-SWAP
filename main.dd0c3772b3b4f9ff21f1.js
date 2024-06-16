@@ -49200,7 +49200,7 @@ var Balance = function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('mx-auto flex flex-col justify-center', className), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[16] leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[8px] font-bold text-white text-[54px] leading-[1]", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('mx-auto flex flex-col justify-center', className), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[16] leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[8px] font-bold text-white text-[48px] leading-[1]", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
 };
 exports["default"] = react_1.default.memo(Balance);
 
@@ -50035,7 +50035,7 @@ var BoostersItem = function (_a) {
     else {
         upgradeCost = parseFloat((1000 * Math.pow(1.75, level - 1)).toFixed(0));
     }
-    var durationToast = 2000;
+    var durationToast = 2500;
     var maxLevel = level === 25;
     var onClick = function () { return __awaiter(void 0, void 0, void 0, function () {
         var data, err_1;
@@ -50045,7 +50045,7 @@ var BoostersItem = function (_a) {
                     if (maxLevel)
                         return [2 /*return*/];
                     setStatus('loading');
-                    react_hot_toast_1.toast.loading('Loading...', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.toast.loading('Loading...', { id: toastID });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
