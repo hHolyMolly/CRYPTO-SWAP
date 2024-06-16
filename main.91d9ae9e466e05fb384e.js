@@ -41240,11 +41240,9 @@ var Clicker = function () {
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
-    var audioRefs = react_2.default.useRef(Array.from({ length: 10 }, function () { return new Audio(sound_1.sound); }));
-    var _e = react_2.default.useState(0), audioIndex = _e[0], setAudioIndex = _e[1];
     var audioRef = react_2.default.useRef(null);
     var durationGif = 600; // Время действия анимации краба
-    var durationAudio = 200; // Время действия анимации краба
+    var durationAudio = 250; // Время действия анимации краба
     // Тапаем по крабу
     var clickerHandler = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
@@ -41259,16 +41257,16 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            var currentAudio = audioRefs.current[audioIndex];
-            // Останавливаем и сбрасываем текущее аудио
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            // Проигрываем текущее аудио
-            currentAudio.play().catch(function (error) {
-                console.error('Failed to play audio:', error);
-            });
-            // Обновляем индекс для следующего аудио элемента
-            setAudioIndex(function (prevIndex) { return (prevIndex + 1) % audioRefs.current.length; });
+            if (!toggleAudio) {
+                setToggleAudio(true);
+                var currentAudio = audioRef.current;
+                currentAudio.volume = 0.3;
+                currentAudio.currentTime = 0;
+                currentAudio.play();
+                setTimeout(function () {
+                    setToggleAudio(false);
+                }, durationAudio);
+            }
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
@@ -41326,11 +41324,6 @@ var Clicker = function () {
                 clearTimeout(timerGifRef.current);
             }
         };
-    }, []);
-    react_2.default.useEffect(function () {
-        audioRefs.current.forEach(function (audio) {
-            audio.load();
-        });
     }, []);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("audio", { src: sound_1.sound, ref: audioRef })] }));
 };
