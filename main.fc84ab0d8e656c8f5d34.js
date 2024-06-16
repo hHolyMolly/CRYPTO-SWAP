@@ -40890,7 +40890,6 @@ var BoostersItem = function (_a) {
                 case 0:
                     if (maxLevel)
                         return [2 /*return*/];
-                    window.alert('меньше чем макс левел');
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
@@ -40902,11 +40901,9 @@ var BoostersItem = function (_a) {
                     return [4 /*yield*/, API_1.API.post('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
                 case 3:
                     dataPosition = (_a.sent()).data;
-                    window.alert('купил');
-                    if (dataPosition && data) {
-                        dispatch((0, auth_1.setUpgradeCost)(data));
-                        dispatch((0, auth_1.setUserPosition)(dataPosition.position));
-                    }
+                    window.alert(JSON.stringify(data));
+                    dispatch((0, auth_1.setUpgradeCost)(data));
+                    dispatch((0, auth_1.setUserPosition)(dataPosition.position));
                     return [3 /*break*/, 5];
                 case 4:
                     err_1 = _a.sent();
