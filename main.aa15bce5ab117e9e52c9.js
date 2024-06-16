@@ -40448,7 +40448,7 @@ function MainLayout() {
             (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
         }
     }, [pathname]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(DailyBoosters_1.default, {}), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(DailyBoosters_1.default, {}), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(5558), alt: "Preloader" }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#0A74FF]" })] })) }));
 }
 exports["default"] = MainLayout;
 
@@ -40549,7 +40549,7 @@ var Preloader = function () {
         if (!user)
             return;
         setTimeout(function () {
-            // setIsPreloader('loaded');
+            setIsPreloader('loaded');
         }, 300);
     }, [user, loadImages]);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#241E0C]', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(731), alt: "Preloader" }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.23] blur-[100px] bg-[#FEC714]" })] }));
@@ -42357,6 +42357,14 @@ module.exports = __webpack_require__.p + "img/fcd93c88d48f7d03132b.svg";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/0bdad81a30bb32905980.svg";
+
+/***/ }),
+
+/***/ 5558:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/d0c0c0981ab4d39ef8a6.png";
 
 /***/ }),
 
