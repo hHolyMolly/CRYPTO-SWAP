@@ -28621,6 +28621,16 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ 5816:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+/* harmony default export */ __webpack_exports__["default"] = ({"DailyBoostersItem":"_oekzV9kwqmM8gxGWDjZ","boosters-item-animate":"jxR8d1J8DUqIiawKXzsh","DailyBoostersHotdogEffect":"fUERtAZIJV6lrnJIZ5W1","DailyBoostersEnergeticEffect":"mhmWi5RsRSbM2VA7DW6F","boosters-effect-animate":"ewh9NzafJ5pvskYZzaQs","DailyBoostersHotdogEffectActive":"LiE2E5d_xnfN2_aSdz78","DailyBoostersEnergeticEffectActive":"iNEEOm6SeFg4XKMnxA1J","boosters-effect-animate-position":"tEYurHHTt_9eDXnEAuTY"});
+
+/***/ }),
+
 /***/ 5803:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -39941,6 +39951,103 @@ exports["default"] = App;
 
 /***/ }),
 
+/***/ 2542:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
+var classnames_1 = __importDefault(__webpack_require__(6942));
+var DeilyBoosters_module_scss_1 = __importDefault(__webpack_require__(5816));
+var _store_1 = __webpack_require__(2482);
+var settings_1 = __webpack_require__(863);
+var ButtonLifetime = 5000;
+var ButtonSpawnLimit = 5;
+var getRandomPosition = function () {
+    var x = Math.floor(Math.random() * window.innerWidth);
+    var y = Math.floor(Math.random() * window.innerHeight);
+    return { x: x, y: y };
+};
+var DailyBoosters = function () {
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }), hotdog = _a.hotdog, energetic = _a.energetic;
+    var _b = react_1.default.useState(false), zIndex = _b[0], setZIndex = _b[1];
+    var _c = react_1.default.useState({
+        visible: false,
+        x: null,
+        y: null,
+    }), hotdogState = _c[0], setHotdogState = _c[1];
+    var _d = react_1.default.useState({
+        visible: false,
+        x: null,
+        y: null,
+    }), energeticState = _d[0], setEnergeticState = _d[1];
+    var hotdogDuration = 15;
+    var energeticDuration = 10;
+    var previewEffectDuration = 1;
+    var onClickHotdog = function () {
+        if (!hotdog.active && !energetic.active) {
+            dispatch((0, settings_1.setHotdog)({
+                active: true,
+                count: 5,
+                max: hotdog.max,
+            }));
+            setTimeout(function () {
+                setZIndex(true);
+            }, previewEffectDuration * 1000);
+            setTimeout(function () {
+                dispatch((0, settings_1.setHotdog)({
+                    active: false,
+                    count: 4,
+                    max: hotdog.max,
+                }));
+                setZIndex(false);
+            }, hotdogDuration * 1000);
+        }
+    };
+    var onClickEnergetic = function () {
+        if (!hotdog.active && !energetic.active) {
+            dispatch((0, settings_1.setEnergetic)({
+                active: true,
+                count: 4,
+                max: energetic.max,
+            }));
+            setTimeout(function () {
+                setZIndex(true);
+            }, previewEffectDuration * 1000);
+            setTimeout(function () {
+                dispatch((0, settings_1.setEnergetic)({
+                    active: false,
+                    count: 4,
+                    max: energetic.max,
+                }));
+                setZIndex(false);
+            }, energeticDuration * 1000);
+        }
+    };
+    react_1.default.useEffect(function () {
+        var _a = getRandomPosition(), x = _a.x, y = _a.y;
+        setHotdogState({
+            visible: true,
+            x: x,
+            y: y,
+        });
+    }, []);
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { children: [hotdogState.visible && ((0, jsx_runtime_1.jsx)("button", { className: DeilyBoosters_module_scss_1.default.DailyBoostersItem, style: { top: hotdogState.y, left: hotdogState.x }, onClick: onClickHotdog, type: "button", children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(1056), width: 64, height: 64, alt: "Hotdog" }) })), energeticState.visible && ((0, jsx_runtime_1.jsx)("button", { className: DeilyBoosters_module_scss_1.default.DailyBoostersItem, style: { top: energeticState.y, left: energeticState.x }, onClick: onClickEnergetic, type: "button", children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(1325), width: 64, height: 64, alt: "Energetic" }) }))] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full h-full fixed top-0 left-0", style: { display: hotdog.active || energetic.active ? 'block' : 'none', zIndex: zIndex ? 1 : 20 }, children: [(0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)(DeilyBoosters_module_scss_1.default.DailyBoostersHotdogEffect, zIndex && DeilyBoosters_module_scss_1.default.DailyBoostersHotdogEffectActive, hotdog.active ? 'block' : 'hidden'), children: (0, jsx_runtime_1.jsx)("div", { className: "w-full h-full absolute top-0 left-0 bg-cover bg-no-repeat bg-center bg-[url('@assets/img/energetic-effect.png')]" }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)(DeilyBoosters_module_scss_1.default.DailyBoostersEnergeticEffect, zIndex && DeilyBoosters_module_scss_1.default.DailyBoostersEnergeticEffectActive, energetic.active ? 'block' : 'hidden'), children: "Energetic" })] })] }));
+};
+exports["default"] = DailyBoosters;
+
+
+/***/ }),
+
 /***/ 1142:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -40340,8 +40447,10 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var react_router_dom_1 = __webpack_require__(2648);
 var react_device_detect_1 = __webpack_require__(159);
+var paths_1 = __importDefault(__webpack_require__(3184));
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
+var DailyBoosters_1 = __importDefault(__webpack_require__(2542));
 function MainLayout() {
     var wrapperRef = react_1.default.useRef(null);
     var pathname = (0, react_router_dom_1.useLocation)().pathname;
@@ -40351,7 +40460,7 @@ function MainLayout() {
             (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
         }
     }, [pathname]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(DailyBoosters_1.default, {}), (0, jsx_runtime_1.jsx)(Preloader_1.default, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-center items-center flex-auto", children: "\u041F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0434\u043B\u044F \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432" })) }));
 }
 exports["default"] = MainLayout;
 
@@ -40454,7 +40563,7 @@ var Preloader = function () {
             setIsPreloader('loaded');
         }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[20] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
 };
 exports["default"] = Preloader;
 
@@ -40812,6 +40921,33 @@ exports["default"] = react_1.default.memo(BoostersItem);
 
 /***/ }),
 
+/***/ 3773:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
+var _store_1 = __webpack_require__(2482);
+var UI_1 = __webpack_require__(456);
+var DailyBoostersItem = function (_a) {
+    var title = _a.title, imageURL = _a.imageURL, description = _a.description, count = _a.count, max = _a.max;
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var user = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).user;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: [count, "/", max] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[8px_!important] min-h-[32px_!important] pointer-events-none", children: "FREE" })] })] })] }));
+};
+exports["default"] = react_1.default.memo(DailyBoostersItem);
+
+
+/***/ }),
+
 /***/ 6225:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -40827,12 +40963,17 @@ var _store_1 = __webpack_require__(2482);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UI_1 = __webpack_require__(456);
 var BoostersItem_1 = __importDefault(__webpack_require__(8336));
+var DailyBoostersItem_1 = __importDefault(__webpack_require__(3773));
 function Boost() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1 })] })] }));
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }), hotdog = _a.hotdog, energetic = _a.energetic;
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, {}), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[54px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Daily boosters" }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1056), title: "Hotdog", description: "Donec dapibus imperdiet tortor in.", count: hotdog.count, max: hotdog.max }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1325), title: "Energetic", description: "Donec dapibus imperdiet tortor in.", count: energetic.count, max: energetic.max })] }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.shovelLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1 }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1 })] })] }));
 }
 exports["default"] = Boost;
 
@@ -41272,10 +41413,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 function Quests() {
-    return ((0, jsx_runtime_1.jsx)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/quests.png')]", children: (0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Quests" }) }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/quests.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Quests" }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: { borderColor: '#78653599', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n              w-[44px] [@media(min-height:570px)]:w-[50px]\r\n              h-[44px] [@media(min-height:570px)]:h-[50px]\r\n            ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: " Telegram name " }), (0, jsx_runtime_1.jsx)("span", { className: "text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-[#C6C3B6]", children: "Subscribe to the channel" })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important]", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-[#5B4B23]", children: ["+", (0, balanceFunc_1.default)(10000)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: { borderColor: '#78653599', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n              w-[44px] [@media(min-height:570px)]:w-[50px]\r\n              h-[44px] [@media(min-height:570px)]:h-[50px]\r\n            ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: " Telegram name " }), (0, jsx_runtime_1.jsx)("span", { className: "text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-[#C6C3B6]", children: "Subscribe to the channel" })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important]", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-[#5B4B23]", children: ["+", (0, balanceFunc_1.default)(10000)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: { borderColor: '#E5D75299', background: '#E3B74499' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n              w-[44px] [@media(min-height:570px)]:w-[50px]\r\n              h-[44px] [@media(min-height:570px)]:h-[50px]\r\n            ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: " Telegram name " }), (0, jsx_runtime_1.jsx)("span", { className: "text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-[#E2DFD2]", children: "Subscribe to the channel" })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important]", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-[#5B4B23]", children: ["+", (0, balanceFunc_1.default)(10000)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "p-[4px_6px] [@media(min-height:570px)]:p-[6px] [@media(min-height:730px)]:p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: { borderColor: '#E5D75299', background: '#E3B74499' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "\r\n              w-[44px] [@media(min-height:570px)]:w-[50px]\r\n              h-[44px] [@media(min-height:570px)]:h-[50px]\r\n            ", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1.4] text-white", children: " Telegram name " }), (0, jsx_runtime_1.jsx)("span", { className: "text-[13px] [@media(min-height:570px)]:text-[14px] leading-[22px] text-[#E2DFD2]", children: "Subscribe to the channel" })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important]", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[14px] [@media(min-height:570px)]:text-[16px] leading-[1] text-[#5B4B23]", children: ["+", (0, balanceFunc_1.default)(10000)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[26px] [@media(min-height:570px)]:w-[32px] h-[26px] [@media(min-height:570px)]:h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] })] })] }));
 }
 exports["default"] = Quests;
 
@@ -41676,12 +41818,23 @@ exports["default"] = authSlice.reducer;
 
 "use strict";
 
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setTimeoutClicker = void 0;
+exports.setEnergetic = exports.setHotdog = exports.setTimeoutClicker = void 0;
 var toolkit_1 = __webpack_require__(5679);
 // Получаем с локального хранилища состояние по звуку
 var initialState = {
     clickerTimeout: 0,
+    hotdog: {
+        active: false,
+        count: 5,
+        max: 5,
+    },
+    energetic: {
+        active: false,
+        count: 5,
+        max: 5,
+    },
 };
 var settingsSlice = (0, toolkit_1.createSlice)({
     name: 'auth',
@@ -41692,10 +41845,18 @@ var settingsSlice = (0, toolkit_1.createSlice)({
             var payload = _a.payload;
             state.clickerTimeout = payload;
         },
+        setHotdog: function (state, _a) {
+            var payload = _a.payload;
+            state.hotdog = payload;
+        },
+        setEnergetic: function (state, _a) {
+            var payload = _a.payload;
+            state.energetic = payload;
+        },
     },
     extraReducers: {},
 });
-exports.setTimeoutClicker = settingsSlice.actions.setTimeoutClicker;
+exports.setTimeoutClicker = (_a = settingsSlice.actions, _a.setTimeoutClicker), exports.setHotdog = _a.setHotdog, exports.setEnergetic = _a.setEnergetic;
 exports["default"] = settingsSlice.reducer;
 
 
