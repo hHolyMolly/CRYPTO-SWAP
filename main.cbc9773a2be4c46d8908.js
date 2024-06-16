@@ -40890,6 +40890,7 @@ var BoostersItem = function (_a) {
                 case 0:
                     if (maxLevel)
                         return [2 /*return*/];
+                    window.alert('меньше чем макс левел');
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
@@ -40901,6 +40902,7 @@ var BoostersItem = function (_a) {
                     return [4 /*yield*/, API_1.API.post('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
                 case 3:
                     dataPosition = (_a.sent()).data;
+                    window.alert('купил');
                     if (dataPosition && data) {
                         dispatch((0, auth_1.setUpgradeCost)(data));
                         dispatch((0, auth_1.setUserPosition)(dataPosition.position));
@@ -40914,7 +40916,7 @@ var BoostersItem = function (_a) {
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), children: maxLevel ? '25/25' : (0, balanceFunc_1.default)(upgradeCost) })] })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel || upgradeCost > (user === null || user === void 0 ? void 0 : user.balance), children: maxLevel ? '25/25' : (0, balanceFunc_1.default)(upgradeCost) })] })] })] }));
 };
 exports["default"] = react_1.default.memo(BoostersItem);
 
