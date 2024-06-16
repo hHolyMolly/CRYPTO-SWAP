@@ -50039,7 +50039,6 @@ var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var FriendItem_1 = __importDefault(__webpack_require__(7997));
-var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Friends() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
@@ -50092,7 +50091,7 @@ function Friends() {
                                         var user = friendsItems[index];
                                         return ((0, jsx_runtime_1.jsx)("div", { className: "py-[4px]", style: style, children: (0, jsx_runtime_1.jsx)(FriendItem_1.default, __assign({}, user, { status: status })) }, key));
                                     } }));
-                            } }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+                            } }) })] }))] }));
 }
 exports["default"] = Friends;
 
@@ -50540,6 +50539,7 @@ var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var InfoBlock_1 = __importDefault(__webpack_require__(5366));
+var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Ratings() {
     var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
     var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
@@ -50581,7 +50581,7 @@ function Ratings() {
                                         var user = topUsersItems[index];
                                         return ((0, jsx_runtime_1.jsx)("div", { className: "py-[4px]", style: style, children: (0, jsx_runtime_1.jsx)(UI_1.UserBar, __assign({}, user, { status: status, colorPosition: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : index + 1, position: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : index + 1 })) }, key));
                                     } }));
-                            } }) })] })] }));
+                            } }) })] }), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Ratings;
 
