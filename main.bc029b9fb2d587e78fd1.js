@@ -49493,7 +49493,7 @@ var Preloader = function () {
             return;
         setTimeout(function () {
             dispatch((0, settings_1.setPreloaderStatus)('loaded'));
-        }, 0);
+        }, 500);
     }, [user, loadImages]);
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[30px] w-screen h-screen justify-center items-center absolute top-0 left-0 z-[40] bg-[#241E0C]', preloaderStatus === 'loaded' ? 'hidden' : 'flex'), children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(731), alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.23] blur-[100px] bg-[#FEC714]" })] }));
 };
@@ -50039,6 +50039,7 @@ var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var FriendItem_1 = __importDefault(__webpack_require__(7997));
+var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Friends() {
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
@@ -50067,6 +50068,7 @@ function Friends() {
                         return [4 /*yield*/, (0, customTimeout_1.default)(300)];
                     case 2:
                         _a.sent();
+                        setStatus('loaded');
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
@@ -50091,7 +50093,7 @@ function Friends() {
                                         var user = friendsItems[index];
                                         return ((0, jsx_runtime_1.jsx)("div", { className: "py-[4px]", style: style, children: (0, jsx_runtime_1.jsx)(FriendItem_1.default, __assign({}, user, { status: status })) }, key));
                                     } }));
-                            } }) })] }))] }));
+                            } }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Friends;
 
