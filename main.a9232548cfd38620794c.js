@@ -40436,10 +40436,15 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var react_router_dom_1 = __webpack_require__(2648);
 var react_device_detect_1 = __webpack_require__(159);
 var paths_1 = __importDefault(__webpack_require__(3184));
+var _store_1 = __webpack_require__(2482);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
 var DailyBoosters_1 = __importDefault(__webpack_require__(2542));
 function MainLayout() {
+    var preloaderStatus = (0, _store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }).preloaderStatus;
     var wrapperRef = react_1.default.useRef(null);
     var pathname = (0, react_router_dom_1.useLocation)().pathname;
     react_1.default.useEffect(function () {
@@ -40448,7 +40453,7 @@ function MainLayout() {
             (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
         }
     }, [pathname]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(DailyBoosters_1.default, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#0A74FF]" })] })) }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "\r\n        h-screen\r\n        flex flex-col\r\n        relative\r\n        overflow-hidden\r\n\r\n        text-[14px]\r\n        leading-[16px]\r\n      ", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), preloaderStatus === 'loaded' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(DailyBoosters_1.default, {})] }))] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#0A74FF]" })] })) }));
 }
 exports["default"] = MainLayout;
 
@@ -40468,6 +40473,7 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var _store_1 = __webpack_require__(2482);
+var settings_1 = __webpack_require__(863);
 var allImages = [
     // Backgrounds
     __webpack_require__(5232),
@@ -40507,12 +40513,16 @@ var allImages = [
     __webpack_require__(7863),
 ];
 var Preloader = function () {
+    var dispatch = (0, _store_1.useAppDispatch)();
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
+    var preloaderStatus = (0, _store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }).preloaderStatus;
     var _a = react_1.default.useState(true), loadImages = _a[0], setLoadImages = _a[1];
-    var _b = react_1.default.useState('loading'), isPreloader = _b[0], setIsPreloader = _b[1];
     react_1.default.useEffect(function () {
         allImages.forEach(function (imageURL) {
             var img = new Image();
@@ -40549,10 +40559,10 @@ var Preloader = function () {
         if (!user)
             return;
         setTimeout(function () {
-            setIsPreloader('loaded');
+            dispatch((0, settings_1.setPreloaderStatus)('loaded'));
         }, 500);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#241E0C]', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(731), alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.23] blur-[100px] bg-[#FEC714]" })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[30px] w-screen h-screen justify-center items-center absolute top-0 left-0 z-[40] bg-[#241E0C]', preloaderStatus === 'loaded' ? 'hidden' : 'flex'), children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(731), alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.23] blur-[100px] bg-[#FEC714]" })] }));
 };
 exports["default"] = Preloader;
 
@@ -41896,10 +41906,11 @@ exports["default"] = authSlice.reducer;
 
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setEnergetic = exports.setHotdog = exports.setTimeoutClicker = void 0;
+exports.setEnergetic = exports.setHotdog = exports.setTimeoutClicker = exports.setPreloaderStatus = void 0;
 var toolkit_1 = __webpack_require__(5679);
 // Получаем с локального хранилища состояние по звуку
 var initialState = {
+    preloaderStatus: 'loading',
     clickerTimeout: 0,
     hotdog: {
         active: false,
@@ -41916,6 +41927,10 @@ var settingsSlice = (0, toolkit_1.createSlice)({
     name: 'auth',
     initialState: initialState,
     reducers: {
+        setPreloaderStatus: function (state, _a) {
+            var payload = _a.payload;
+            state.preloaderStatus = payload;
+        },
         // Добавляем таймаут для кликера, когда энергия на нуле
         setTimeoutClicker: function (state, _a) {
             var payload = _a.payload;
@@ -41932,7 +41947,7 @@ var settingsSlice = (0, toolkit_1.createSlice)({
     },
     extraReducers: {},
 });
-exports.setTimeoutClicker = (_a = settingsSlice.actions, _a.setTimeoutClicker), exports.setHotdog = _a.setHotdog, exports.setEnergetic = _a.setEnergetic;
+exports.setPreloaderStatus = (_a = settingsSlice.actions, _a.setPreloaderStatus), exports.setTimeoutClicker = _a.setTimeoutClicker, exports.setHotdog = _a.setHotdog, exports.setEnergetic = _a.setEnergetic;
 exports["default"] = settingsSlice.reducer;
 
 
