@@ -40898,10 +40898,9 @@ var BoostersItem = function (_a) {
                         })];
                 case 2:
                     data = (_a.sent()).data;
-                    return [4 /*yield*/, API_1.API.post('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
+                    return [4 /*yield*/, API_1.API.get('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
                 case 3:
                     dataPosition = (_a.sent()).data;
-                    window.alert(JSON.stringify(data));
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     dispatch((0, auth_1.setUserPosition)(dataPosition.position));
                     return [3 /*break*/, 5];
@@ -41770,8 +41769,10 @@ var authSlice = (0, toolkit_1.createSlice)({
         // Включаем/отключаем звук в приложении
         setVolume: function (state, _a) {
             var payload = _a.payload;
-            state.is_volume = payload;
-            window.localStorage.setItem('volume', String(payload));
+            if (payload) {
+                state.is_volume = payload;
+                window.localStorage.setItem('volume', String(payload));
+            }
         },
         // Автоматическое восстановление энергии
         setIncrementEnergy: function (state) {
@@ -41783,12 +41784,15 @@ var authSlice = (0, toolkit_1.createSlice)({
         },
         setUpgradeCost: function (state, _a) {
             var payload = _a.payload;
-            console.log(payload);
-            state.user = __assign(__assign({}, state.user), payload);
+            if (payload) {
+                state.user = __assign(__assign({}, state.user), payload);
+            }
         },
         setUserPosition: function (state, _a) {
             var payload = _a.payload;
-            state.user.position = payload;
+            if (payload) {
+                state.user.position = payload;
+            }
         },
     },
     extraReducers: (_a = {},
