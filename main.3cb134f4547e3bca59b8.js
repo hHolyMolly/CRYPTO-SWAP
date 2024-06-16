@@ -28621,16 +28621,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 5816:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-/* harmony default export */ __webpack_exports__["default"] = ({"DailyBoostersItem":"_oekzV9kwqmM8gxGWDjZ","boosters-item-animate":"jxR8d1J8DUqIiawKXzsh","DailyBoostersHotdogEffect":"fUERtAZIJV6lrnJIZ5W1","DailyBoostersEnergeticEffect":"mhmWi5RsRSbM2VA7DW6F","boosters-effect-animate":"ewh9NzafJ5pvskYZzaQs","DailyBoostersHotdogEffectActive":"LiE2E5d_xnfN2_aSdz78","DailyBoostersEnergeticEffectActive":"iNEEOm6SeFg4XKMnxA1J","boosters-effect-animate-position":"tEYurHHTt_9eDXnEAuTY"});
-
-/***/ }),
-
 /***/ 5803:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -39962,8 +39952,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var classnames_1 = __importDefault(__webpack_require__(6942));
-var DeilyBoosters_module_scss_1 = __importDefault(__webpack_require__(5816));
 var _store_1 = __webpack_require__(2482);
 var settings_1 = __webpack_require__(863);
 var ButtonLifetime = 5000;
@@ -40041,7 +40029,7 @@ var DailyBoosters = function () {
             y: y,
         });
     }, []);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { children: [hotdogState.visible && ((0, jsx_runtime_1.jsx)("button", { className: DeilyBoosters_module_scss_1.default.DailyBoostersItem, style: { top: hotdogState.y, left: hotdogState.x }, onClick: onClickHotdog, type: "button", children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(1056), width: 64, height: 64, alt: "Hotdog" }) })), energeticState.visible && ((0, jsx_runtime_1.jsx)("button", { className: DeilyBoosters_module_scss_1.default.DailyBoostersItem, style: { top: energeticState.y, left: energeticState.x }, onClick: onClickEnergetic, type: "button", children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(1325), width: 64, height: 64, alt: "Energetic" }) }))] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full h-full fixed top-0 left-0", style: { display: hotdog.active || energetic.active ? 'block' : 'none', zIndex: zIndex ? 1 : 20 }, children: [(0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)(DeilyBoosters_module_scss_1.default.DailyBoostersHotdogEffect, zIndex && DeilyBoosters_module_scss_1.default.DailyBoostersHotdogEffectActive, hotdog.active ? 'block' : 'hidden'), children: (0, jsx_runtime_1.jsx)("div", { className: "w-full h-full absolute top-0 left-0 bg-cover bg-no-repeat bg-center bg-[url('@assets/img/energetic-effect.png')]" }) }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)(DeilyBoosters_module_scss_1.default.DailyBoostersEnergeticEffect, zIndex && DeilyBoosters_module_scss_1.default.DailyBoostersEnergeticEffectActive, energetic.active ? 'block' : 'hidden'), children: "Energetic" })] })] }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}));
 };
 exports["default"] = DailyBoosters;
 
@@ -40111,7 +40099,7 @@ var Button = function (_a) {
         if (onClick)
             onClick();
     }, [onClick]);
-    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, classnames_1.default)("\n          px-[24px]\n          min-h-[44px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-300\n\n          font-bold\n          text-[16px]\n          text-[#5B4B23]\n\t\t    ", className, 
+    return ((0, jsx_runtime_1.jsxs)("button", { className: (0, classnames_1.default)("\n          px-[24px]\n          min-h-[44px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-300\n          active:bg-[#F3C857]\n\n          font-bold\n          text-[16px]\n          text-[#5B4B23]\n\t\t    ", className, 
         // loading
         status === 'loading' && 'pointer-events-none opacity-50', 
         // error
@@ -40162,7 +40150,7 @@ var FaqItem = function (_a) {
     var handlerSpoiler = function () {
         setActive(!active);
     };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[16px] cursor-pointer rounded-[14px] border border-solid border-[#78653599] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, onClick: handlerSpoiler, children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[4px] flex justify-between items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "max-w-[308px] font-semibold text-[16px] leading-[22px] text-white", children: title }), (0, jsx_runtime_1.jsx)("i", { className: "w-[24px] h-[24px] inline-flex justify-center items-center", children: (0, jsx_runtime_1.jsx)("svg", { className: (0, classnames_1.default)('transition-transform ease-linear duration-300 fill-yellow-300', active ? 'rotate-[90deg]' : ''), width: "10", height: "18", viewBox: "0 0 10 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: (0, jsx_runtime_1.jsx)("path", { d: "M1.53061 0.969372L9.03061 8.46937C9.10035 8.53903 9.15567 8.62174 9.19341 8.71279C9.23115 8.80384 9.25058 8.90144 9.25058 9C9.25058 9.09856 9.23115 9.19616 9.19341 9.2872C9.15567 9.37825 9.10035 9.46097 9.03061 9.53062L1.53062 17.0306C1.38988 17.1714 1.19901 17.2504 0.99999 17.2504C0.800967 17.2504 0.610095 17.1714 0.469364 17.0306C0.328634 16.8899 0.249573 16.699 0.249573 16.5C0.249573 16.301 0.328634 16.1101 0.469364 15.9694L7.43968 9L0.469364 2.03062C0.399681 1.96094 0.344406 1.87821 0.306694 1.78717C0.268982 1.69613 0.249572 1.59854 0.249572 1.5C0.249572 1.40145 0.268982 1.30387 0.306694 1.21283C0.344406 1.12178 0.399681 1.03905 0.469364 0.969372C0.539046 0.899691 0.621772 0.844416 0.712817 0.806704C0.803861 0.768991 0.901443 0.74958 0.999989 0.74958C1.09854 0.74958 1.19612 0.768991 1.28716 0.806704C1.37821 0.844416 1.46093 0.899691 1.53061 0.969372Z" }) }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "overflow-hidden transition-[max-height] ease-linear duration-300", style: active ? { maxHeight: 200 } : { maxHeight: 0 }, children: (0, jsx_runtime_1.jsx)("div", { className: "max-w-[308px] text-[14px] leading-[22px] text-[#B3B1AB]", children: text }) })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[16px] cursor-pointer rounded-[14px] border border-solid border-[#78653599] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, onClick: handlerSpoiler, children: [(0, jsx_runtime_1.jsxs)("div", { className: "pr-[28px] mb-[4px] flex justify-between items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "max-w-[308px] font-semibold text-[16px] leading-[22px] text-white", children: title }), (0, jsx_runtime_1.jsx)("i", { className: "w-[24px] h-[24px] inline-flex justify-center items-center absolute top-1/2 right-[16px] -translate-y-1/2", children: (0, jsx_runtime_1.jsx)("svg", { className: (0, classnames_1.default)('transition-transform ease-linear duration-200 fill-yellow-300', active ? 'rotate-[90deg]' : ''), width: "10", height: "18", viewBox: "0 0 10 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: (0, jsx_runtime_1.jsx)("path", { d: "M1.53061 0.969372L9.03061 8.46937C9.10035 8.53903 9.15567 8.62174 9.19341 8.71279C9.23115 8.80384 9.25058 8.90144 9.25058 9C9.25058 9.09856 9.23115 9.19616 9.19341 9.2872C9.15567 9.37825 9.10035 9.46097 9.03061 9.53062L1.53062 17.0306C1.38988 17.1714 1.19901 17.2504 0.99999 17.2504C0.800967 17.2504 0.610095 17.1714 0.469364 17.0306C0.328634 16.8899 0.249573 16.699 0.249573 16.5C0.249573 16.301 0.328634 16.1101 0.469364 15.9694L7.43968 9L0.469364 2.03062C0.399681 1.96094 0.344406 1.87821 0.306694 1.78717C0.268982 1.69613 0.249572 1.59854 0.249572 1.5C0.249572 1.40145 0.268982 1.30387 0.306694 1.21283C0.344406 1.12178 0.399681 1.03905 0.469364 0.969372C0.539046 0.899691 0.621772 0.844416 0.712817 0.806704C0.803861 0.768991 0.901443 0.74958 0.999989 0.74958C1.09854 0.74958 1.19612 0.768991 1.28716 0.806704C1.37821 0.844416 1.46093 0.899691 1.53061 0.969372Z" }) }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "overflow-hidden transition-[max-height] ease-linear duration-300", style: active ? { maxHeight: 200 } : { maxHeight: 0 }, children: (0, jsx_runtime_1.jsx)("div", { className: "pr-[28px] max-w-[308px] text-[14px] leading-[22px] text-[#B3B1AB]", children: text }) })] }));
 };
 exports["default"] = FaqItem;
 
@@ -40788,6 +40776,18 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
+/***/ 2431:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.sound = void 0;
+exports.sound = __webpack_require__(1164);
+
+
+/***/ }),
+
 /***/ 3900:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -41143,7 +41143,7 @@ function Friends() {
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
     var friendsItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.referralsInfo : __spreadArray([], Array(8), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 140, height: 26, viewBox: "0 0 140 26", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: friendsItems.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx), status: status }))); }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[80px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: friendsItems.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx), status: status }))); }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Friends;
 
@@ -41222,6 +41222,7 @@ var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(5679);
 var lodash_1 = __importDefault(__webpack_require__(2543));
 var API_1 = __webpack_require__(9309);
+var sound_1 = __webpack_require__(2431);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -41238,6 +41239,8 @@ var Clicker = function () {
     var timerGifRef = react_2.default.useRef(null);
     var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
+    var audioRefs = react_2.default.useRef(__spreadArray([], Array(10), true).map(function () { return new Audio(sound_1.sound); }));
+    var _d = react_2.default.useState(0), audioIndex = _d[0], setAudioIndex = _d[1];
     var durationGif = 600; // Время действия анимации краба
     // Тапаем по крабу
     var clickerHandler = function (e) {
@@ -41253,6 +41256,12 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
+            var currentAudio = audioRefs.current[audioIndex];
+            currentAudio.volume = 0.3;
+            currentAudio.currentTime = 0;
+            currentAudio.play();
+            // Обновляем индекс для следующего аудио элемента
+            setAudioIndex(function (prevIndex) { return (prevIndex + 1) % audioRefs.current.length; });
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
@@ -41830,10 +41839,8 @@ var authSlice = (0, toolkit_1.createSlice)({
         // Включаем/отключаем звук в приложении
         setVolume: function (state, _a) {
             var payload = _a.payload;
-            if (payload) {
-                state.is_volume = payload;
-                window.localStorage.setItem('volume', String(payload));
-            }
+            state.is_volume = payload;
+            window.localStorage.setItem('volume', String(payload));
         },
         // Автоматическое восстановление энергии
         setIncrementEnergy: function (state) {
@@ -42385,6 +42392,14 @@ module.exports = __webpack_require__.p + "img/7f050fcb65de2300ee55.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/45b651d27b5fb065459f.png";
+
+/***/ }),
+
+/***/ 1164:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
 
 /***/ }),
 
