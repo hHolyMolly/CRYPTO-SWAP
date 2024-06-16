@@ -40549,10 +40549,10 @@ var Preloader = function () {
         if (!user)
             return;
         setTimeout(function () {
-            setIsPreloader('loaded');
+            // setIsPreloader('loaded');
         }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-white', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..." }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[30px] w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#241E0C]', isPreloader === 'loaded' ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'), children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2]", src: __webpack_require__(731), alt: "Preloader" }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.23] blur-[100px] bg-[#FEC714]" })] }));
 };
 exports["default"] = Preloader;
 
@@ -42357,6 +42357,14 @@ module.exports = __webpack_require__.p + "img/fcd93c88d48f7d03132b.svg";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/0bdad81a30bb32905980.svg";
+
+/***/ }),
+
+/***/ 731:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/10f3741e1f56d5e7a697.png";
 
 /***/ }),
 
