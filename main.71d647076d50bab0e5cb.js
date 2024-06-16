@@ -48863,13 +48863,6 @@ function App() {
             setClickerTimeoutCount(10);
         }
     }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
-    // React.useEffect(() => {
-    //   if (window.Telegram.WebApp) {
-    //     const webApp = window.Telegram.WebApp;
-    //     webApp.ready();
-    //     webApp.expand();
-    //   }
-    // }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
@@ -49002,6 +48995,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var _store_1 = __webpack_require__(2482);
@@ -49013,7 +49007,7 @@ var Balance = function (_a) {
     }).user;
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('mx-auto flex flex-col justify-center', className), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[16] leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[8px] font-bold text-white text-[54px] leading-[1]", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
 };
-exports["default"] = Balance;
+exports["default"] = react_1.default.memo(Balance);
 
 
 /***/ }),
@@ -49090,7 +49084,7 @@ var FaqItem = function (_a) {
     };
     return ((0, jsx_runtime_1.jsxs)("div", { className: "p-[16px] cursor-pointer rounded-[14px] border border-solid border-[#78653599] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, onClick: handlerSpoiler, children: [(0, jsx_runtime_1.jsxs)("div", { className: "pr-[28px] mb-[4px] flex justify-between items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "max-w-[308px] font-semibold text-[16px] leading-[22px] text-white", children: title }), (0, jsx_runtime_1.jsx)("i", { className: "w-[24px] h-[24px] inline-flex justify-center items-center absolute top-1/2 right-[16px] -translate-y-1/2", children: (0, jsx_runtime_1.jsx)("svg", { className: (0, classnames_1.default)('transition-transform ease-linear duration-200 fill-yellow-300', active ? 'rotate-[90deg]' : ''), width: "10", height: "18", viewBox: "0 0 10 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: (0, jsx_runtime_1.jsx)("path", { d: "M1.53061 0.969372L9.03061 8.46937C9.10035 8.53903 9.15567 8.62174 9.19341 8.71279C9.23115 8.80384 9.25058 8.90144 9.25058 9C9.25058 9.09856 9.23115 9.19616 9.19341 9.2872C9.15567 9.37825 9.10035 9.46097 9.03061 9.53062L1.53062 17.0306C1.38988 17.1714 1.19901 17.2504 0.99999 17.2504C0.800967 17.2504 0.610095 17.1714 0.469364 17.0306C0.328634 16.8899 0.249573 16.699 0.249573 16.5C0.249573 16.301 0.328634 16.1101 0.469364 15.9694L7.43968 9L0.469364 2.03062C0.399681 1.96094 0.344406 1.87821 0.306694 1.78717C0.268982 1.69613 0.249572 1.59854 0.249572 1.5C0.249572 1.40145 0.268982 1.30387 0.306694 1.21283C0.344406 1.12178 0.399681 1.03905 0.469364 0.969372C0.539046 0.899691 0.621772 0.844416 0.712817 0.806704C0.803861 0.768991 0.901443 0.74958 0.999989 0.74958C1.09854 0.74958 1.19612 0.768991 1.28716 0.806704C1.37821 0.844416 1.46093 0.899691 1.53061 0.969372Z" }) }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "overflow-hidden transition-[max-height] ease-linear duration-300", style: active ? { maxHeight: 200 } : { maxHeight: 0 }, children: (0, jsx_runtime_1.jsx)("div", { className: "pr-[28px] max-w-[308px] text-[14px] leading-[22px] text-[#B3B1AB]", children: text }) })] }));
 };
-exports["default"] = FaqItem;
+exports["default"] = react_1.default.memo(FaqItem);
 
 
 /***/ }),
@@ -49106,11 +49100,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var classnames_1 = __importDefault(__webpack_require__(6942));
+var react_1 = __importDefault(__webpack_require__(6540));
 var Title = function (_a) {
     var children = _a.children, className = _a.className;
     return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)("\n          mb-[24px]\n          p-[8px]\n          inline-flex justify-center items-center\n          rounded-[8px]\n          bg-yellow-600\n          \n          uppercase font-bold text-[16px] leading-[16px] text-yellow-800\n        ", className), children: children }));
 };
-exports["default"] = Title;
+exports["default"] = react_1.default.memo(Title);
 
 
 /***/ }),
@@ -49125,6 +49120,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var stylesCard = {
@@ -49161,7 +49157,7 @@ var UserBar = function (_a) {
     var stylePreloader = stylesPreloader[colorPosition];
     return ((0, jsx_runtime_1.jsx)("div", { className: "p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: styleCard ? styleCard : { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: status === 'loaded' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[16px] leading-[1.4] text-white", children: nickName }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("svg", { className: "mr-[6px] w-[18px] h-[15px] fill-yellow-200", viewBox: "0 0 18 15", xmlns: "http://www.w3.org/2000/svg", children: [(0, jsx_runtime_1.jsx)("path", { d: "M9.3994 8.91645C9.24885 9.03091 9.11447 9.1653 9 9.31585C8.88554 9.1653 8.75115 9.03091 8.6006 8.91645C8.75115 8.80198 8.88554 8.6676 9 8.51705C9.11447 8.6676 9.24885 8.80198 9.3994 8.91645Z" }), (0, jsx_runtime_1.jsx)("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M0.602204 7.36033L2.65151 13.6839C2.78878 14.1075 3.21038 14.3716 3.65218 14.3163C4.86615 14.1642 7.27566 13.8927 9.00003 13.8927C10.7244 13.8927 13.1339 14.1642 14.3479 14.3163C14.7897 14.3716 15.2113 14.1075 15.3486 13.6839L17.3979 7.36033C17.6608 6.54895 16.7703 5.84971 16.0444 6.29765L13.9368 7.59838C13.475 7.88335 12.8681 7.70707 12.6309 7.21907L9.82445 1.44576C9.49007 0.757887 8.51 0.757886 8.17561 1.44576L5.36914 7.21907C5.13192 7.70707 4.52506 7.88335 4.0633 7.59838L1.95564 6.29765C1.22981 5.84971 0.339256 6.54894 0.602204 7.36033ZM8.32709 6.63495C8.55824 6.01028 9.44176 6.01028 9.67291 6.63495L9.99288 7.49966C10.0656 7.69605 10.2204 7.8509 10.4168 7.92357L11.2815 8.24354C11.9062 8.47469 11.9062 9.35821 11.2815 9.58936L10.4168 9.90933C10.2204 9.982 10.0656 10.1368 9.99288 10.3332L9.67291 11.1979C9.44176 11.8226 8.55824 11.8226 8.32709 11.1979L8.00712 10.3332C7.93445 10.1368 7.77961 9.982 7.58321 9.90933L6.7185 9.58936C6.09383 9.35821 6.09384 8.47469 6.71851 8.24354L7.58321 7.92357C7.77961 7.8509 7.93445 7.69605 8.00712 7.49966L8.32709 6.63495Z" })] }), (0, jsx_runtime_1.jsxs)("span", { className: "font-medium text-[14px] leading-[22px] text-yellow-200", children: ["#Top", position] })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[16px] leading-[1] text-white", children: (0, balanceFunc_1.default)(balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[32px] h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-between items-center", children: (0, jsx_runtime_1.jsxs)(react_content_loader_1.default, { speed: 2, width: "100%", height: "100%", viewBox: "0 0 300 50", backgroundColor: (stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.backgroundColor) ? stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.backgroundColor : '#a19c6a', foregroundColor: (stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.foregroundColor) ? stylePreloader === null || stylePreloader === void 0 ? void 0 : stylePreloader.foregroundColor : '#c7c28f', children: [(0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "100", ry: "100", width: "50", height: "50" }), (0, jsx_runtime_1.jsx)("rect", { x: "57", y: "2", rx: "4", ry: "4", width: "140", height: "18" }), (0, jsx_runtime_1.jsx)("rect", { x: "58", y: "26", rx: "4", ry: "4", width: "80", height: "18" })] }) })) }));
 };
-exports["default"] = UserBar;
+exports["default"] = react_1.default.memo(UserBar);
 
 
 /***/ }),
@@ -49873,15 +49869,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var _store_1 = __webpack_require__(2482);
 var UI_1 = __webpack_require__(456);
 var DailyBoostersItem = function (_a) {
     var title = _a.title, imageURL = _a.imageURL, description = _a.description, count = _a.count, max = _a.max;
-    var dispatch = (0, _store_1.useAppDispatch)();
-    var user = (0, _store_1.useAppSelector)(function (_a) {
-        var auth = _a.auth;
-        return auth;
-    }).user;
     return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: [count, "/", max] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[8px_!important] min-h-[32px_!important] pointer-events-none", children: "FREE" })] })] })] }));
 };
 exports["default"] = react_1.default.memo(DailyBoostersItem);
@@ -49951,13 +49941,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var FriendItem = function (_a) {
     var nickName = _a.nickName, bonus = _a.bonus, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
     return ((0, jsx_runtime_1.jsx)("div", { className: "p-[8px] flex items-center flex-auto rounded-[14px] backdrop-blur-[4px]", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)', border: '1px solid #78653599' }, children: status === 'loaded' ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "w-[42px] h-[42px]", src: __webpack_require__(4730), width: 42, height: 42, alt: "Avatar" }) }), (0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[16px] leading-[1.4] text-white", children: nickName }) }), (0, jsx_runtime_1.jsxs)("div", { className: "inline-flex items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[16px] leading-[1] text-yellow-300", children: ["+", (0, balanceFunc_1.default)(bonus)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[32px] h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] })) : ((0, jsx_runtime_1.jsx)("div", { className: "flex justify-between items-center", children: (0, jsx_runtime_1.jsxs)(react_content_loader_1.default, { speed: 2, width: "100%", height: "100%", viewBox: "0 0 300 42", backgroundColor: "#91835d", foregroundColor: "#ad9f7b", children: [(0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "100", ry: "100", width: "42", height: "42" }), (0, jsx_runtime_1.jsx)("rect", { x: "57", y: "12", rx: "4", ry: "4", width: "140", height: "18" })] }) })) }));
 };
-exports["default"] = FriendItem;
+exports["default"] = react_1.default.memo(FriendItem);
 
 
 /***/ }),
@@ -50306,7 +50297,7 @@ var ParticleItem = function (_a) {
     }, [ID]);
     return (0, jsx_runtime_1.jsxs)("li", { style: { top: y, left: x }, children: ["+", value] });
 };
-exports["default"] = ParticleItem;
+exports["default"] = react_1.default.memo(ParticleItem);
 
 
 /***/ }),
@@ -50456,13 +50447,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var InfoBlock = function (_a) {
     var title = _a.title, count = _a.count, titleColor = _a.titleColor, _b = _a.status, status = _b === void 0 ? 'loading' : _b;
     return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tgap-[4px] flex flex-col\r\n\t\t\tborder border-solid border-[rgba(194,164,86,0.60)] rounded-[14px] backdrop-blur-[4px]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1]", style: { color: titleColor ? titleColor : 'var(--white)' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? ((0, balanceFunc_1.default)(count)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 124, height: 28, viewBox: "0 0 124 28", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "124", height: "28" }) })) })] }));
 };
-exports["default"] = InfoBlock;
+exports["default"] = react_1.default.memo(InfoBlock);
 
 
 /***/ }),
@@ -50599,6 +50591,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
+var react_1 = __importDefault(__webpack_require__(6540));
 var classnames_1 = __importDefault(__webpack_require__(6942));
 var react_router_dom_1 = __webpack_require__(2648);
 var paths_1 = __importDefault(__webpack_require__(3184));
@@ -50607,7 +50600,7 @@ function Template(_a) {
     var pathname = (0, react_router_dom_1.useLocation)().pathname;
     return ((0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('page-content', pathname === paths_1.default.Home && 'page-home', className), children: (0, jsx_runtime_1.jsx)("div", { className: "p-0 _container w-full flex flex-col flex-auto items-center relative z-[8]", children: children }) }));
 }
-exports["default"] = Template;
+exports["default"] = react_1.default.memo(Template);
 
 
 /***/ }),
