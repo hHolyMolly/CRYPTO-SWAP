@@ -50028,10 +50028,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var react_1 = __webpack_require__(6540);
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_2 = __importDefault(__webpack_require__(6540));
+var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
+var react_virtualized_1 = __webpack_require__(7661);
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
@@ -50045,8 +50045,8 @@ function Friends() {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_2.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_2.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
+    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
     var onClickRefLink = function () {
         var shareURL = response === null || response === void 0 ? void 0 : response.link;
         var telegramUrl = "https://t.me/share/url?url=".concat(shareURL);
@@ -50068,7 +50068,6 @@ function Friends() {
                         return [4 /*yield*/, (0, customTimeout_1.default)(300)];
                     case 2:
                         _a.sent();
-                        setStatus('loaded');
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
@@ -50080,13 +50079,20 @@ function Friends() {
             });
         });
     }
-    react_2.default.useEffect(function () {
+    react_1.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
             getReffers();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    var friendsItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.referralsInfo : __spreadArray([], Array(8), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "gap-[8px] flex flex-col", children: friendsItems.map(function (user, idx) { return ((0, react_1.createElement)(FriendItem_1.default, __assign({}, user, { key: "friend-".concat(user === null || user === void 0 ? void 0 : user.nickName, "-").concat(idx), status: status }))); }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+    var friendsItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.referralsInfo : __spreadArray([], Array(5), true);
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[30px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n              gap-[8px]\r\n              h-[74px] [@media(min-height:720px)]:h-[148px] [@media(min-height:800px)]:h-[222px] [@media(min-height:868px)]:h-[296px]\r\n              flex flex-col\r\n            ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
+                                var width = _a.width, height = _a.height;
+                                return ((0, jsx_runtime_1.jsx)(react_virtualized_1.List, { width: width, height: height, rowHeight: 74, rowCount: friendsItems.length, rowRenderer: function (_a) {
+                                        var key = _a.key, index = _a.index, style = _a.style;
+                                        var user = friendsItems[index];
+                                        return ((0, jsx_runtime_1.jsx)("div", { className: "py-[4px]", style: style, children: (0, jsx_runtime_1.jsx)(FriendItem_1.default, __assign({}, user, { status: status })) }, key));
+                                    } }));
+                            } }) })] })), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Friends;
 
@@ -50534,7 +50540,6 @@ var API_1 = __webpack_require__(9309);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var InfoBlock_1 = __importDefault(__webpack_require__(5366));
-var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Ratings() {
     var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
     var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
@@ -50568,7 +50573,7 @@ function Ratings() {
     react_1.default.useEffect(function () {
         getTopUsers();
     }, []);
-    var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(10), true);
+    var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(6), true);
     return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: response === null || response === void 0 ? void 0 : response.totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: response === null || response === void 0 ? void 0 : response.registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n            gap-[8px]\r\n            h-[148px] [@media(min-height:590px)]:h-[222px] [@media(min-height:668px)]:h-[296px] [@media(min-height:768px)]:h-[370px] [@media(min-height:868px)]:h-[444px] [@media(min-height:968px)]:h-[518px]\r\n            flex flex-col\r\n          ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
                                 var width = _a.width, height = _a.height;
                                 return ((0, jsx_runtime_1.jsx)(react_virtualized_1.List, { width: width, height: height, rowHeight: 74, rowCount: topUsersItems.length, rowRenderer: function (_a) {
@@ -50576,7 +50581,7 @@ function Ratings() {
                                         var user = topUsersItems[index];
                                         return ((0, jsx_runtime_1.jsx)("div", { className: "py-[4px]", style: style, children: (0, jsx_runtime_1.jsx)(UI_1.UserBar, __assign({}, user, { status: status, colorPosition: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : index + 1, position: (user === null || user === void 0 ? void 0 : user.position) ? user === null || user === void 0 ? void 0 : user.position : index + 1 })) }, key));
                                     } }));
-                            } }) })] }), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
+                            } }) })] })] }));
 }
 exports["default"] = Ratings;
 
