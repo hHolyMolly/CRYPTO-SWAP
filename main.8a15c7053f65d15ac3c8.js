@@ -51312,7 +51312,7 @@ exports.setEnergetic = exports.setHotdog = exports.setTimeoutClicker = exports.s
 var toolkit_1 = __webpack_require__(9976);
 // Получаем с локального хранилища состояние по звуку
 var initialState = {
-    preloaderStatus: 'loaded',
+    preloaderStatus: 'loading',
     clickerTimeout: 0,
     hotdog: {
         active: false,
