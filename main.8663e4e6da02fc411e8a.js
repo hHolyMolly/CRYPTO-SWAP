@@ -28670,6 +28670,118 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 2694:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = __webpack_require__(6925);
+
+function emptyFunction() {}
+function emptyFunctionWithReset() {}
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    var err = new Error(
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+    err.name = 'Invariant Violation';
+    throw err;
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bigint: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+
+/***/ 5556:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (false) { var throwOnDirectAccess, ReactIs; } else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(2694)();
+}
+
+
+/***/ }),
+
+/***/ 6925:
+/***/ (function(module) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
 /***/ 9432:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -30495,6 +30607,237 @@ if (true) {
   module.exports = __webpack_require__(2799);
 } else {}
 
+
+/***/ }),
+
+/***/ 5949:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ es5; },
+  usePageVisibility: function() { return /* reexport */ es5_usePageVisibility; }
+});
+
+// EXTERNAL MODULE: ./node_modules/prop-types/index.js
+var prop_types = __webpack_require__(5556);
+var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(6540);
+;// CONCATENATED MODULE: ./node_modules/react-page-visibility/dist/es5/utils.js
+var hasDocument = typeof document !== 'undefined';
+var vendorEvents = [{
+    hidden: 'hidden',
+    event: 'visibilitychange',
+    state: 'visibilityState'
+}, {
+    hidden: 'webkitHidden',
+    event: 'webkitvisibilitychange',
+    state: 'webkitVisibilityState'
+}, {
+    hidden: 'mozHidden',
+    event: 'mozvisibilitychange',
+    state: 'mozVisibilityState'
+}, {
+    hidden: 'msHidden',
+    event: 'msvisibilitychange',
+    state: 'msVisibilityState'
+}, {
+    hidden: 'oHidden',
+    event: 'ovisibilitychange',
+    state: 'oVisibilityState'
+}];
+
+var isSupported = hasDocument && Boolean(document.addEventListener);
+
+var visibility = function () {
+    if (!isSupported) {
+        return null;
+    }
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = vendorEvents[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var event = _step.value;
+
+            if (event.hidden in document) {
+                return event;
+            }
+        }
+        // otherwise it's not supported
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+
+    return null;
+}();
+
+var getHandlerArgs = function getHandlerArgs() {
+    if (!visibility) {
+        return [true, 'visible'];
+    }
+    var hidden = visibility.hidden,
+        state = visibility.state;
+
+    return [!document[hidden], document[state]];
+};
+;// CONCATENATED MODULE: ./node_modules/react-page-visibility/dist/es5/PageVisibility.js
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var PageVisibility = function (_React$Component) {
+    _inherits(PageVisibility, _React$Component);
+
+    function PageVisibility(props) {
+        _classCallCheck(this, PageVisibility);
+
+        var _this = _possibleConstructorReturn(this, (PageVisibility.__proto__ || Object.getPrototypeOf(PageVisibility)).call(this, props));
+
+        _this.state = {
+            isSupported: isSupported && visibility
+        };
+        return _this;
+    }
+
+    _createClass(PageVisibility, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            if (!this.state.isSupported) {
+                return;
+            }
+
+            this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+            document.addEventListener(visibility.event, this.handleVisibilityChange);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            if (!this.state.isSupported) {
+                return;
+            }
+            document.removeEventListener(visibility.event, this.handleVisibilityChange);
+        }
+    }, {
+        key: 'handleVisibilityChange',
+        value: function handleVisibilityChange() {
+            if (typeof this.props.onChange === 'function') {
+                var _props;
+
+                // propagate change to callback
+                (_props = this.props).onChange.apply(_props, _toConsumableArray(getHandlerArgs()));
+            }
+            if (typeof this.props.children === 'function') {
+                // we pass the props directly to the function as children
+                this.forceUpdate();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (!this.props.children) {
+                return null;
+            }
+            // function as children pattern support
+            if (typeof this.props.children === 'function') {
+                var _props2;
+
+                if (!this.state.isSupported) {
+                    // don't pass any arguments if PageVisibility is not supported
+                    return this.props.children();
+                }
+                return (_props2 = this.props).children.apply(_props2, _toConsumableArray(getHandlerArgs()));
+            }
+
+            return react.Children.only(this.props.children);
+        }
+    }]);
+
+    return PageVisibility;
+}(react.Component);
+
+PageVisibility.displayName = 'PageVisibility';
+
+PageVisibility.propTypes = {
+    onChange: (prop_types_default()).func,
+    children: prop_types_default().oneOfType([(prop_types_default()).node, (prop_types_default()).func])
+};
+
+/* harmony default export */ var es5_PageVisibility = (PageVisibility);
+;// CONCATENATED MODULE: ./node_modules/react-page-visibility/dist/es5/usePageVisibility.js
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+
+
+
+
+var isSupportedLocal = isSupported && visibility;
+
+var usePageVisibility = function usePageVisibility() {
+    var _getHandlerArgs = getHandlerArgs(),
+        _getHandlerArgs2 = _slicedToArray(_getHandlerArgs, 1),
+        initiallyVisible = _getHandlerArgs2[0];
+
+    var _useState = (0,react.useState)(initiallyVisible),
+        _useState2 = _slicedToArray(_useState, 2),
+        isVisible = _useState2[0],
+        setIsVisible = _useState2[1];
+
+    (0,react.useEffect)(function () {
+        if (isSupportedLocal) {
+            var handler = function handler() {
+                var _getHandlerArgs3 = getHandlerArgs(),
+                    _getHandlerArgs4 = _slicedToArray(_getHandlerArgs3, 1),
+                    currentlyVisible = _getHandlerArgs4[0];
+
+                setIsVisible(currentlyVisible);
+            };
+
+            document.addEventListener(visibility.event, handler);
+
+            return function () {
+                document.removeEventListener(visibility.event, handler);
+            };
+        }
+    }, []);
+
+    return isVisible;
+};
+
+/* harmony default export */ var es5_usePageVisibility = (usePageVisibility);
+;// CONCATENATED MODULE: ./node_modules/react-page-visibility/dist/es5/index.js
+
+
+
+/* harmony default export */ var es5 = (es5_PageVisibility);
 
 /***/ }),
 
@@ -48998,6 +49341,42 @@ if (true) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -49006,6 +49385,9 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
+var react_page_visibility_1 = __webpack_require__(5949);
+var paths_1 = __importDefault(__webpack_require__(3184));
+var API_1 = __webpack_require__(9309);
 var store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
 var settings_1 = __webpack_require__(863);
@@ -49016,14 +49398,51 @@ function App() {
         var auth = _a.auth;
         return auth;
     }).user;
+    var clickerTimeout = (0, store_1.useAppSelector)(function (_a) {
+        var settings = _a.settings;
+        return settings;
+    }).clickerTimeout;
+    var isFirstRender = react_1.default.useRef(true);
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
-    var _a = react_1.default.useState(0), clickerTimeoutCount = _a[0], setClickerTimeoutCount = _a[1];
+    var isVisible = (0, react_page_visibility_1.usePageVisibility)();
+    react_1.default.useEffect(function () {
+        if (!isFirstRender.current) {
+            if (isVisible) {
+                dispatch((0, auth_1.fetchGetUser)(telegramUserId));
+            }
+        }
+    }, [isVisible, isFirstRender]);
+    react_1.default.useEffect(function () {
+        function getPosition() {
+            return __awaiter(this, void 0, void 0, function () {
+                var dataPosition;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(user === null || user === void 0 ? void 0 : user.tgId))
+                                return [2 /*return*/];
+                            return [4 /*yield*/, API_1.API.get('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
+                        case 1:
+                            dataPosition = (_a.sent()).data;
+                            dispatch((0, auth_1.setUserPosition)(dataPosition.position));
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        }
+        if (!isFirstRender.current) {
+            if (location.pathname === paths_1.default.Home) {
+                getPosition();
+            }
+        }
+    }, [location.pathname]);
     // Получаем telegramID
     react_1.default.useEffect(function () {
         if (telegramUserId) {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }
+        isFirstRender.current = false;
     }, []);
     // Вшиваем параметр telegramUserId в URL
     react_1.default.useEffect(function () {
@@ -49046,18 +49465,12 @@ function App() {
         }
     }, [user === null || user === void 0 ? void 0 : user.burgerEnergy]);
     react_1.default.useEffect(function () {
-        if (clickerTimeoutCount > 0) {
+        if (clickerTimeout > 0) {
             setTimeout(function () {
-                setClickerTimeoutCount(clickerTimeoutCount - 1);
+                dispatch((0, settings_1.setTimeoutClicker)(clickerTimeout - 1));
             }, 1000);
         }
-        dispatch((0, settings_1.setTimeoutClicker)(clickerTimeoutCount));
-    }, [clickerTimeoutCount]);
-    react_1.default.useEffect(function () {
-        if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy)) {
-            setClickerTimeoutCount(10);
-        }
-    }, [user === null || user === void 0 ? void 0 : user.spatulaLevel, user === null || user === void 0 ? void 0 : user.burgerEnergy]);
+    }, [clickerTimeout]);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
@@ -50629,6 +51042,7 @@ var API_1 = __webpack_require__(9309);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
+var settings_1 = __webpack_require__(863);
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var _a = (0, _store_1.useAppSelector)(function (_a) {
@@ -50646,8 +51060,6 @@ var Clicker = function () {
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var onTouchStartHandler = function (e) {
-        if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
-            return;
         if (!toggleGif) {
             setToggleGif(true);
             if (timerGifRef.current) {
@@ -50683,6 +51095,10 @@ var Clicker = function () {
         };
         for (var idx = 0; idx < e.touches.length; idx++) {
             _loop_1(idx);
+        }
+        if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy)) {
+            dispatch((0, settings_1.setTimeoutClicker)(10));
+            return;
         }
         try {
             dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
@@ -50737,7 +51153,7 @@ var Clicker = function () {
             }
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col flex-auto justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-full flex flex-col flex-auto justify-center items-center relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? '' : '_visible'), children: (0, jsx_runtime_1.jsx)("span", { className: clickerTimeout === 0 ? 'hidden' : 'block', children: clickerTimeout }) })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -50805,82 +51221,22 @@ exports["default"] = Volume;
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
 __webpack_require__(2843);
-var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
-var auth_1 = __webpack_require__(1692);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UI_1 = __webpack_require__(456);
 var Volume_1 = __importDefault(__webpack_require__(7956));
 var Clicker_1 = __importDefault(__webpack_require__(5285));
 function Home() {
-    var dispatch = (0, _store_1.useAppDispatch)();
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    react_1.default.useEffect(function () {
-        function getPosition() {
-            return __awaiter(this, void 0, void 0, function () {
-                var dataPosition;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (!(user === null || user === void 0 ? void 0 : user.tgId))
-                                return [2 /*return*/];
-                            return [4 /*yield*/, API_1.API.get('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
-                        case 1:
-                            dataPosition = (_a.sent()).data;
-                            dispatch((0, auth_1.setUserPosition)(dataPosition.position));
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        }
-        getPosition();
-    }, [user === null || user === void 0 ? void 0 : user.tgId]);
     return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "pb-[210px_!important] before:h-[135px] after:h-[270px] bg-[url('@assets/img/bg/home.png')]", children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full flex", children: [(0, jsx_runtime_1.jsx)(UI_1.UserBar, { className: "w-[calc(100%_-_76px)_!important]", balance: (user === null || user === void 0 ? void 0 : user.balance) || 0, nickName: (user === null || user === void 0 ? void 0 : user.nickName) || 'Username', colorPosition: 1, position: user === null || user === void 0 ? void 0 : user.position, status: "loaded" }), (0, jsx_runtime_1.jsx)(Volume_1.default, {})] }), (0, jsx_runtime_1.jsx)(UI_1.Balance, { className: "mb-[20px] [@media(min-height:_800px)]:mb-[56px]" }), (0, jsx_runtime_1.jsx)(Clicker_1.default, {})] }));
 }
 exports["default"] = Home;
