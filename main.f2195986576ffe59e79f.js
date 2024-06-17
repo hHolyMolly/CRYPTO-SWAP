@@ -49616,7 +49616,7 @@ var settings_1 = __webpack_require__(863);
 var allImages = [
     // Backgrounds
     __webpack_require__(5232),
-    __webpack_require__(596),
+    __webpack_require__(8208),
     __webpack_require__(1135),
     __webpack_require__(7040),
     __webpack_require__(7586),
@@ -49701,7 +49701,7 @@ var Preloader = function () {
             dispatch((0, settings_1.setPreloaderStatus)('loaded'));
         }, 500);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }) }));
 };
 exports["default"] = Preloader;
 
@@ -50367,7 +50367,7 @@ function Boost() {
         }
         return val;
     };
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, { className: "mb-[40px]" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[54px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Daily boosters" }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1056), title: "Hotdog", description: "Donec dapibus imperdiet tortor in.", count: hotdog.count, max: hotdog.max }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1325), title: "Energetic", description: "Donec dapibus imperdiet tortor in.", count: energetic.count, max: energetic.max })] }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(AutoMining_1.default, { durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.shovelLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID })] })] }));
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.jpg')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, { className: "mb-[40px]" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[54px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Daily boosters" }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1056), title: "Hotdog", description: "Donec dapibus imperdiet tortor in.", count: hotdog.count, max: hotdog.max }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1325), title: "Energetic", description: "Donec dapibus imperdiet tortor in.", count: energetic.count, max: energetic.max })] }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(AutoMining_1.default, { durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.shovelLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID })] })] }));
 }
 exports["default"] = Boost;
 
@@ -51508,11 +51508,11 @@ module.exports = __webpack_require__.p + "img/97a67d16d1126a696f6d.png";
 
 /***/ }),
 
-/***/ 596:
+/***/ 8208:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/1bfdb09cd3e4b5cb0db8.png";
+module.exports = __webpack_require__.p + "img/0507ffce253f7b8e8165.jpg";
 
 /***/ }),
 
@@ -51520,7 +51520,7 @@ module.exports = __webpack_require__.p + "img/1bfdb09cd3e4b5cb0db8.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/868d78acc7eed11f3487.png";
+module.exports = __webpack_require__.p + "img/adb369c931891684e068.png";
 
 /***/ }),
 
@@ -51528,7 +51528,7 @@ module.exports = __webpack_require__.p + "img/868d78acc7eed11f3487.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/f3524d0d8eded657dcf8.png";
+module.exports = __webpack_require__.p + "img/72acdb889b7a2c0a3a01.png";
 
 /***/ }),
 
@@ -51536,7 +51536,7 @@ module.exports = __webpack_require__.p + "img/f3524d0d8eded657dcf8.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/323ed2e2994bc4ff2c44.png";
+module.exports = __webpack_require__.p + "img/4cd2b6c94acaeeed9ca6.png";
 
 /***/ }),
 
@@ -51544,7 +51544,7 @@ module.exports = __webpack_require__.p + "img/323ed2e2994bc4ff2c44.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/fe903d86bb0f11e20071.png";
+module.exports = __webpack_require__.p + "img/aa7808963666705b841e.png";
 
 /***/ }),
 
@@ -51552,7 +51552,7 @@ module.exports = __webpack_require__.p + "img/fe903d86bb0f11e20071.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/e16627a32aa04b5c83dc.png";
+module.exports = __webpack_require__.p + "img/2b4563c044969399885e.png";
 
 /***/ }),
 
@@ -51792,7 +51792,7 @@ module.exports = __webpack_require__.p + "img/0bdad81a30bb32905980.svg";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/c805f9d9acebd3bad811.png";
+module.exports = __webpack_require__.p + "img/9014c9e2b19ba131f152.png";
 
 /***/ }),
 
