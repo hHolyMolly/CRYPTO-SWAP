@@ -50348,17 +50348,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var react_1 = __importDefault(__webpack_require__(6540));
 var iconsLevels_1 = __webpack_require__(589);
 var _store_1 = __webpack_require__(2482);
-var auth_1 = __webpack_require__(1692);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UI_1 = __webpack_require__(456);
 var BoostersItem_1 = __importDefault(__webpack_require__(8336));
 var DailyBoostersItem_1 = __importDefault(__webpack_require__(3773));
 var AutoMining_1 = __importDefault(__webpack_require__(7611));
 function Boost() {
-    var dispatch = (0, _store_1.useAppDispatch)();
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
@@ -50382,12 +50379,6 @@ function Boost() {
         }
         return val;
     };
-    // Получаем telegramID
-    react_1.default.useEffect(function () {
-        if (user === null || user === void 0 ? void 0 : user.tgId) {
-            dispatch((0, auth_1.fetchGetUser)(user === null || user === void 0 ? void 0 : user.tgId));
-        }
-    }, [user === null || user === void 0 ? void 0 : user.tgId]);
     return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[270px] bg-[url('@assets/img/bg/boost.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, { className: "mb-[40px]" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[54px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Daily boosters" }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1056), title: "Hotdog", description: "Donec dapibus imperdiet tortor in.", count: hotdog.count, max: hotdog.max }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1325), title: "Energetic", description: "Donec dapibus imperdiet tortor in.", count: energetic.count, max: energetic.max })] }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(AutoMining_1.default, { durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.shovelLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID })] })] }));
 }
 exports["default"] = Boost;
