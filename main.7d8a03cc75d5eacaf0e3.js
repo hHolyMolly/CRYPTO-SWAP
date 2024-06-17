@@ -49701,7 +49701,7 @@ var Preloader = function () {
             dispatch((0, settings_1.setPreloaderStatus)('loaded'));
         }, 500);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
 };
 exports["default"] = Preloader;
 
@@ -51311,7 +51311,7 @@ exports.setEnergetic = exports.setHotdog = exports.setTimeoutClicker = exports.s
 var toolkit_1 = __webpack_require__(9976);
 // Получаем с локального хранилища состояние по звуку
 var initialState = {
-    preloaderStatus: 'loaded',
+    preloaderStatus: 'loading',
     clickerTimeout: 0,
     hotdog: {
         active: false,
@@ -51800,7 +51800,7 @@ module.exports = __webpack_require__.p + "img/c805f9d9acebd3bad811.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/db51aa617616ac325364.png";
+module.exports = __webpack_require__.p + "img/1adf4f104c40212df822.png";
 
 /***/ }),
 
