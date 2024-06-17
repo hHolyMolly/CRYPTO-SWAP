@@ -49200,7 +49200,7 @@ var Balance = function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('mx-auto flex flex-col justify-center', className), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[16] leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[8px] font-bold text-white text-[42px] leading-[1]", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('mx-auto flex flex-col justify-center', className), children: [(0, jsx_runtime_1.jsx)("span", { className: "text-center font-medium text-[16px] leading-[22px] text-[#DBE5EF]", children: "BALANCE" }), (0, jsx_runtime_1.jsxs)("div", { className: "flex items-center", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[8px] font-bold text-white text-[42px] leading-[1]", children: (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(2074), width: 50, height: 50, alt: "Money" })] })] }));
 };
 exports["default"] = react_1.default.memo(Balance);
 
@@ -49925,18 +49925,6 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
-/***/ 2431:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.sound = void 0;
-exports.sound = __webpack_require__(1164);
-
-
-/***/ }),
-
 /***/ 3900:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -50637,7 +50625,6 @@ var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(9976);
 var lodash_1 = __importDefault(__webpack_require__(2543));
 var API_1 = __webpack_require__(9309);
-var sound_1 = __webpack_require__(2431);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -50740,7 +50727,7 @@ var Clicker = function () {
             }
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) }), (0, jsx_runtime_1.jsx)("audio", { src: sound_1.sound, ref: audioRef })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('w-full flex flex-col flex-auto justify-center items-center relative', { 'pointer-events-none': (user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy) }), children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? 'hidden' : 'block'), children: clickerTimeout })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -51854,14 +51841,6 @@ module.exports = __webpack_require__.p + "img/3a1e95812fb4885fbfc4.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/dbd3b018494dfc7d5e43.png";
-
-/***/ }),
-
-/***/ 1164:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "sounds/656c013d6c464f90b9fa.mp3";
 
 /***/ }),
 
