@@ -53914,7 +53914,7 @@ var Clicker = function () {
     var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
     var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
     var durationGif = 600; // Время действия анимации краба
-    var durationAudio = 250; // Время действия звука при тапе
+    var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var onTouchStartHandler = function (e) {
         if ((user === null || user === void 0 ? void 0 : user.spatulaLevel) > (user === null || user === void 0 ? void 0 : user.burgerEnergy))
@@ -53929,16 +53929,17 @@ var Clicker = function () {
             }, durationGif);
         }
         if (is_volume) {
-            var audio = new howler_1.Howl({
-                src: [sound_1.sound],
-            });
-            audio.play();
-            // if (!toggleAudio) {
-            // setToggleAudio(true);
-            // setTimeout(() => {
-            //   setToggleAudio(false);
-            // }, durationAudio);
-            // }
+            if (!toggleAudio) {
+                setToggleAudio(true);
+                var audio = new howler_1.Howl({
+                    src: [sound_1.sound],
+                    volume: 0.3,
+                });
+                audio.play();
+                setTimeout(function () {
+                    setToggleAudio(false);
+                }, durationAudio);
+            }
         }
         var _loop_1 = function (idx) {
             var touch = e.touches[idx];
