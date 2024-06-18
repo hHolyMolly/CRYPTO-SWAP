@@ -52702,7 +52702,7 @@ exports["default"] = react_1.default.memo(Container);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var iconsLevels_1 = __webpack_require__(589);
+var iconsLevels_1 = __webpack_require__(9919);
 var _store_1 = __webpack_require__(2482);
 var Energy = function () {
     var user = (0, _store_1.useAppSelector)(function (_a) {
@@ -52833,7 +52833,7 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsx)("div", { className: "w-full h-full flex justify-center items-center fixed top-0 left-0 z-[50] bg-[#0F1C2D] text-center text-white", children: "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C." })), (0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(Boosters_1.default, {}), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }) })) }));
+    return ((0, jsx_runtime_1.jsx)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsx)("div", { className: "w-full h-full flex justify-center items-center fixed top-0 left-0 z-[50] bg-[#0F1C2D] text-center text-white", children: "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C." })), (0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(Boosters_1.default, {}), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200] h-[200] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] })) }));
 }
 exports["default"] = MainLayout;
 
@@ -52941,7 +52941,7 @@ var Preloader = function () {
             dispatch((0, settings_1.setPreloaderStatus)('loaded'));
         }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }) }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
 };
 exports["default"] = Preloader;
 
@@ -53051,7 +53051,7 @@ exports["default"] = routes;
 
 /***/ }),
 
-/***/ 589:
+/***/ 9919:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -53170,7 +53170,7 @@ exports.toolsLevelsIcons = {
 
 /***/ }),
 
-/***/ 2431:
+/***/ 837:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -53178,6 +53178,22 @@ exports.toolsLevelsIcons = {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sound = void 0;
 exports.sound = __webpack_require__(1164);
+
+
+/***/ }),
+
+/***/ 8289:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.toastText = void 0;
+exports.toastText = {
+    loading: 'Loading...',
+    success: 'Successful!',
+    error: 'Error!',
+};
 
 
 /***/ }),
@@ -53386,7 +53402,8 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var react_hot_toast_1 = __importDefault(__webpack_require__(9377));
 var fetchUpgrade_1 = __webpack_require__(3838);
 var fetchClaimMining_1 = __webpack_require__(7822);
-var iconsLevels_1 = __webpack_require__(589);
+var iconsLevels_1 = __webpack_require__(9919);
+var toast_1 = __webpack_require__(8289);
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
@@ -53405,20 +53422,20 @@ var AutoMining = function (_a) {
             switch (_a.label) {
                 case 0:
                     setStatus('loading');
-                    react_hot_toast_1.default.loading('Loading...', { id: toastID });
+                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchClaimMining_1.fetchClaimMining)(user === null || user === void 0 ? void 0 : user.tgId)];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.default.success('Data loaded successfully!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    react_hot_toast_1.default.error('Error loading data!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
@@ -53435,20 +53452,20 @@ var AutoMining = function (_a) {
                     if (maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel))
                         return [2 /*return*/];
                     setStatus('loading');
-                    react_hot_toast_1.default.loading('Loading...', { id: toastID });
+                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchUpgrade_1.fetchUpgrade)(user === null || user === void 0 ? void 0 : user.tgId, 'claw')];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.default.success('Data loaded successfully!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_2 = _a.sent();
                     console.log(err_2);
-                    react_hot_toast_1.default.error('Error loading data!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
@@ -53512,6 +53529,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var react_hot_toast_1 = __webpack_require__(9377);
+var toast_1 = __webpack_require__(8289);
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
 var fetchUpgrade_1 = __webpack_require__(3838);
 var _store_1 = __webpack_require__(2482);
@@ -53533,20 +53551,20 @@ var BoostersItem = function (_a) {
                     if (maxLevel(level))
                         return [2 /*return*/];
                     setStatus('loading');
-                    react_hot_toast_1.toast.loading('Loading...', { id: toastID });
+                    react_hot_toast_1.toast.loading(toast_1.toastText.loading, { id: toastID });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchUpgrade_1.fetchUpgrade)(user === null || user === void 0 ? void 0 : user.tgId, item)];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.toast.success('Data loaded successfully!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.toast.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    react_hot_toast_1.toast.error('Error loading data!', { id: toastID, duration: durationToast });
+                    react_hot_toast_1.toast.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
@@ -53593,7 +53611,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
-var iconsLevels_1 = __webpack_require__(589);
+var iconsLevels_1 = __webpack_require__(9919);
 var _store_1 = __webpack_require__(2482);
 var Template_1 = __importDefault(__webpack_require__(123));
 var UI_1 = __webpack_require__(456);
@@ -53894,7 +53912,7 @@ var toolkit_1 = __webpack_require__(9976);
 var lodash_1 = __importDefault(__webpack_require__(2543));
 var howler_1 = __webpack_require__(4196);
 var API_1 = __webpack_require__(9309);
-var sound_1 = __webpack_require__(2431);
+var sound_1 = __webpack_require__(837);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
