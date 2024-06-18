@@ -53985,19 +53985,9 @@ var Clicker = function () {
             }
         });
     }); }, 800), [user === null || user === void 0 ? void 0 : user.tgId]);
-    var gifDebounce = react_2.default.useCallback(lodash_1.default.debounce(function () {
-        // setToggleGif(true);
-        // if (timerGifRef.current) {
-        //   clearTimeout(timerGifRef.current);
-        // }
-        // timerGifRef.current = setTimeout(() => {
-        //   setToggleGif(false);
-        // }, 400);
-    }, 200), []);
     var clicker = function (e) {
         onTouchStartHandler(e);
         clickerDebounce();
-        gifDebounce();
     };
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
@@ -54950,7 +54940,7 @@ module.exports = __webpack_require__.p + "img/4e9c59151f9f259280bd.svg";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/357c9c9c4eedd761fb9c.png";
+module.exports = __webpack_require__.p + "img/c6156189e95cd8611f6a.png";
 
 /***/ }),
 
@@ -54958,7 +54948,7 @@ module.exports = __webpack_require__.p + "img/357c9c9c4eedd761fb9c.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/df837e45835c459251a2.png";
+module.exports = __webpack_require__.p + "img/621826a1b8239a32bdc4.png";
 
 /***/ }),
 
