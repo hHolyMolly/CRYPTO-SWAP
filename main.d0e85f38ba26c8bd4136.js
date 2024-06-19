@@ -53422,20 +53422,20 @@ var AutoMining = function (_a) {
             switch (_a.label) {
                 case 0:
                     setStatus('loading');
-                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID });
+                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID, className: 'toast-loading' });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchClaimMining_1.fetchClaimMining)(user === null || user === void 0 ? void 0 : user.tgId)];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast, className: 'toast-success' });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast, className: 'toast-error' });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
@@ -53452,20 +53452,20 @@ var AutoMining = function (_a) {
                     if (maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel))
                         return [2 /*return*/];
                     setStatus('loading');
-                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID });
+                    react_hot_toast_1.default.loading(toast_1.toastText.loading, { id: toastID, className: 'toast-loading' });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchUpgrade_1.fetchUpgrade)(user === null || user === void 0 ? void 0 : user.tgId, 'claw')];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.success(toast_1.toastText.success, { id: toastID, duration: durationToast, className: 'toast-success' });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_2 = _a.sent();
                     console.log(err_2);
-                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.default.error(toast_1.toastText.error, { id: toastID, duration: durationToast, className: 'toast-error' });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
@@ -53551,20 +53551,20 @@ var BoostersItem = function (_a) {
                     if (maxLevel(level))
                         return [2 /*return*/];
                     setStatus('loading');
-                    react_hot_toast_1.toast.loading(toast_1.toastText.loading, { id: toastID });
+                    react_hot_toast_1.toast.loading(toast_1.toastText.loading, { id: toastID, className: 'toast-loading' });
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, 4, 5]);
                     return [4 /*yield*/, (0, fetchUpgrade_1.fetchUpgrade)(user === null || user === void 0 ? void 0 : user.tgId, item)];
                 case 2:
                     data = _a.sent();
-                    react_hot_toast_1.toast.success(toast_1.toastText.success, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.toast.success(toast_1.toastText.success, { id: toastID, duration: durationToast, className: 'toast-success' });
                     dispatch((0, auth_1.setUpgradeCost)(data));
                     return [3 /*break*/, 5];
                 case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    react_hot_toast_1.toast.error(toast_1.toastText.error, { id: toastID, duration: durationToast });
+                    react_hot_toast_1.toast.error(toast_1.toastText.error, { id: toastID, duration: durationToast, className: 'toast-error' });
                     return [3 /*break*/, 5];
                 case 4:
                     setStatus('loaded');
