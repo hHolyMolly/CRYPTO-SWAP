@@ -53941,7 +53941,7 @@ var Clicker = function () {
             }
             timerGifRef.current = setTimeout(function () {
                 setToggleGif(false);
-            }, 300);
+            }, 600);
         }
         if (is_volume) {
             if (!toggleAudio) {
