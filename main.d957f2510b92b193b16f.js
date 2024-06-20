@@ -52344,7 +52344,9 @@ function App() {
     // Получаем telegramID
     react_1.default.useEffect(function () {
         if (telegramUserId) {
-            dispatch((0, auth_1.fetchGetUser)(telegramUserId));
+            setTimeout(function () {
+                dispatch((0, auth_1.fetchGetUser)(telegramUserId));
+            }, 500);
         }
         isFirstRender.current = false;
     }, []);
@@ -52806,10 +52808,15 @@ var react_router_dom_1 = __webpack_require__(2648);
 var react_device_detect_1 = __webpack_require__(159);
 var react_hot_toast_1 = __webpack_require__(9377);
 var paths_1 = __importDefault(__webpack_require__(3184));
+var _store_1 = __webpack_require__(2482);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
 var Boosters_1 = __importDefault(__webpack_require__(8881));
 function MainLayout() {
+    var userStatus = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).userStatus;
     var wrapperRef = react_1.default.useRef(null);
     var _a = react_1.default.useState(window.innerHeight > window.innerWidth), isPortrait = _a[0], setIsPortrait = _a[1];
     var checkOrientation = function () {
@@ -52833,7 +52840,7 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsx)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsx)("div", { className: "w-full h-full flex justify-center items-center fixed top-0 left-0 z-[50] bg-[#0F1C2D] text-center text-white", children: "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C." })), (0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {}), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(Boosters_1.default, {}), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] })) }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsx)("div", { className: "w-full h-full flex justify-center items-center fixed top-0 left-0 z-[50] bg-[#0F1C2D] text-center text-white", children: "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u043D\u044B\u0439 \u0440\u0435\u0436\u0438\u043C." })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(Boosters_1.default, {}), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
 }
 exports["default"] = MainLayout;
 
@@ -52937,9 +52944,7 @@ var Preloader = function () {
             return;
         if (!user)
             return;
-        setTimeout(function () {
-            dispatch((0, settings_1.setPreloaderStatus)('loaded'));
-        }, 300);
+        dispatch((0, settings_1.setPreloaderStatus)('loaded'));
     }, [user, loadImages]);
     return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
 };
@@ -54436,7 +54441,7 @@ exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function 
                 _a.trys.push([0, 3, , 4]);
                 if (!telegramUserId)
                     return [2 /*return*/];
-                return [4 /*yield*/, API_1.API.get('/user/' + telegramUserId)];
+                return [4 /*yield*/, API_1.API.get('/user/' + '435345345')];
             case 1:
                 dataUser = (_a.sent()).data;
                 return [4 /*yield*/, API_1.API.get('/position/' + telegramUserId)];
@@ -54478,6 +54483,7 @@ exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function 
 var volumeLocal = JSON.parse(window.localStorage.getItem('volume'));
 var initialState = {
     user: null,
+    userStatus: 'loading',
     is_volume: volumeLocal !== null ? volumeLocal : true,
 };
 var authSlice = (0, toolkit_1.createSlice)({
@@ -54516,7 +54522,12 @@ var authSlice = (0, toolkit_1.createSlice)({
         _a[exports.fetchGetUser.pending] = function (state) { },
         _a[exports.fetchGetUser.fulfilled] = function (state, _a) {
             var payload = _a.payload;
-            state.user = __assign({}, payload);
+            if (payload) {
+                state.user = __assign({}, payload);
+            }
+            else {
+                state.userStatus = 'error';
+            }
         },
         _a[exports.fetchGetUser.rejected] = function (state) { },
         // Кликер
