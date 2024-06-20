@@ -54441,7 +54441,7 @@ exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function 
                 _a.trys.push([0, 3, , 4]);
                 if (!telegramUserId)
                     return [2 /*return*/];
-                return [4 /*yield*/, API_1.API.get('/user/' + '435345345')];
+                return [4 /*yield*/, API_1.API.get('/user/' + telegramUserId)];
             case 1:
                 dataUser = (_a.sent()).data;
                 return [4 /*yield*/, API_1.API.get('/position/' + telegramUserId)];
