@@ -52319,6 +52319,15 @@ function App() {
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
     react_1.default.useEffect(function () {
+        if (user === null || user === void 0 ? void 0 : user.tgId) {
+            var url = new URL(window.location.href);
+            url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
+            window.history.replaceState({}, '', url.toString());
+        }
+        if (location.pathname !== paths_1.default.Home) {
+            webApp.BackButton.show();
+            webApp.MainButton.setText('asdasd');
+        }
         function getPosition() {
             return __awaiter(this, void 0, void 0, function () {
                 var dataPosition;
@@ -52351,14 +52360,6 @@ function App() {
         }
         isFirstRender.current = false;
     }, []);
-    // Вшиваем параметр telegramUserId в URL
-    react_1.default.useEffect(function () {
-        if (user === null || user === void 0 ? void 0 : user.tgId) {
-            var url = new URL(window.location.href);
-            url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
-            window.history.replaceState({}, '', url.toString());
-        }
-    }, [location.pathname]);
     // Автоматическое восстановление энергии
     react_1.default.useEffect(function () {
         if ((user === null || user === void 0 ? void 0 : user.burgerEnergy) === undefined)
@@ -52378,11 +52379,6 @@ function App() {
             }, 1000);
         }
     }, [clickerTimeout]);
-    react_1.default.useEffect(function () {
-        setTimeout(function () {
-            webApp.BackButton.show();
-        }, 3000);
-    }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
