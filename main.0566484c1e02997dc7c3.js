@@ -52807,6 +52807,7 @@ function MainLayout() {
     react_1.default.useEffect(function () {
         var _a;
         react_hot_toast_1.toast.dismiss();
+        window.scrollTo(0, 0);
         if (wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) {
             (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
         }
