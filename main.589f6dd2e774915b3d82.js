@@ -52868,8 +52868,6 @@ var allImages = [
     __webpack_require__(7040),
     __webpack_require__(7586),
     __webpack_require__(8897),
-    __webpack_require__(1190),
-    __webpack_require__(7883),
     // Energy
     __webpack_require__(5819),
     __webpack_require__(5906),
@@ -52897,6 +52895,26 @@ var allImages = [
     __webpack_require__(1325),
     __webpack_require__(1056),
     __webpack_require__(7863),
+    __webpack_require__(2009),
+    __webpack_require__(9074),
+    __webpack_require__(9579),
+    __webpack_require__(9668),
+    __webpack_require__(797),
+    __webpack_require__(3238),
+    __webpack_require__(4783),
+    __webpack_require__(7595),
+    __webpack_require__(1105),
+    __webpack_require__(7693),
+    __webpack_require__(1012),
+    __webpack_require__(5503),
+    __webpack_require__(6486),
+    __webpack_require__(9529),
+    __webpack_require__(3280),
+    __webpack_require__(3304),
+    __webpack_require__(9794),
+    __webpack_require__(7973),
+    __webpack_require__(1436),
+    __webpack_require__(592),
 ];
 var Preloader = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
@@ -52946,7 +52964,7 @@ var Preloader = function () {
             return;
         dispatch((0, settings_1.setPreloaderStatus)('loaded'));
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' && !loadImages ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
 };
 exports["default"] = Preloader;
 
@@ -53932,21 +53950,28 @@ var Clicker = function () {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
-    var timerGifRef = react_2.default.useRef(null);
-    var _b = react_2.default.useState([]), particles = _b[0], setParticles = _b[1];
-    var _c = react_2.default.useState(false), toggleGif = _c[0], setToggleGif = _c[1];
-    var _d = react_2.default.useState(false), toggleAudio = _d[0], setToggleAudio = _d[1];
+    var pushFrames = 19; // Количество фреймов PUSH в папке
+    var pushTimeoutRef = react_2.default.useRef(null);
+    var clickTimeoutRef = react_2.default.useRef(null);
+    var _b = react_2.default.useState(false), crabAnimate = _b[0], setCrabAnimate = _b[1]; // Анимация краба?
+    var _c = react_2.default.useState(0), pushFrame = _c[0], setPushFrame = _c[1]; // Актуальный кадр PUSH анимации
+    var _d = react_2.default.useState([]), particles = _d[0], setParticles = _d[1];
+    var _e = react_2.default.useState(false), toggleGif = _e[0], setToggleGif = _e[1];
+    var _f = react_2.default.useState(false), toggleAudio = _f[0], setToggleAudio = _f[1];
+    var durationAnimation = 300; // Время действия звука при тапе
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var onTouchStartHandler = function (e) {
         if (!toggleGif) {
             setToggleGif(true);
-            if (timerGifRef.current) {
-                clearTimeout(timerGifRef.current);
+            setCrabAnimate(true);
+            setPushFrame(0);
+            if (clickTimeoutRef.current) {
+                clearTimeout(clickTimeoutRef.current);
             }
-            timerGifRef.current = setTimeout(function () {
+            clickTimeoutRef.current = setTimeout(function () {
                 setToggleGif(false);
-            }, 600);
+            }, durationAnimation);
         }
         if (is_volume) {
             if (!toggleAudio) {
@@ -54016,13 +54041,28 @@ var Clicker = function () {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
     react_2.default.useEffect(function () {
-        return function () {
-            if (timerGifRef.current) {
-                clearTimeout(timerGifRef.current);
+        if (!crabAnimate) {
+            return;
+        }
+        if (crabAnimate) {
+            if (pushFrame === pushFrames) {
+                clearTimeout(pushTimeoutRef.current);
+                setPushFrame(0);
+                setCrabAnimate(false);
+                return;
             }
-        };
-    }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-full flex flex-col flex-auto justify-center items-center relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(6184)("./".concat(toggleGif ? 'crabs-tap' : 'crabs-static', ".gif")), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? '' : '_visible'), children: (0, jsx_runtime_1.jsx)("span", { className: clickerTimeout === 0 ? 'hidden' : 'block', children: clickerTimeout }) })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
+            if (pushFrames > pushFrame) {
+                clearTimeout(pushTimeoutRef.current);
+                pushTimeoutRef.current = setTimeout(function () {
+                    setPushFrame(pushFrame + 1);
+                }, 30);
+            }
+            else {
+                setPushFrame(0);
+            }
+        }
+    }, [crabAnimate, pushFrame]);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-full flex flex-col flex-auto justify-center items-center relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2070)("./".concat(crabAnimate ? "push/".concat(pushFrame, ".png") : 'idle.gif')), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? '' : '_visible'), children: (0, jsx_runtime_1.jsx)("span", { className: clickerTimeout === 0 ? 'hidden' : 'block', children: clickerTimeout }) })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -54694,12 +54734,31 @@ if (true) {
 
 /***/ }),
 
-/***/ 6184:
+/***/ 2070:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var map = {
-	"./crabs-static.gif": 1190,
-	"./crabs-tap.gif": 7883
+	"./idle.gif": 592,
+	"./push/0.png": 5760,
+	"./push/1.png": 2009,
+	"./push/10.png": 7693,
+	"./push/11.png": 1012,
+	"./push/12.png": 5503,
+	"./push/13.png": 6486,
+	"./push/14.png": 9529,
+	"./push/15.png": 3280,
+	"./push/16.png": 3304,
+	"./push/17.png": 9794,
+	"./push/18.png": 7973,
+	"./push/19.png": 1436,
+	"./push/2.png": 9074,
+	"./push/3.png": 9579,
+	"./push/4.png": 9668,
+	"./push/5.png": 797,
+	"./push/6.png": 3238,
+	"./push/7.png": 4783,
+	"./push/8.png": 7595,
+	"./push/9.png": 1105
 };
 
 
@@ -54720,7 +54779,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 6184;
+webpackContext.id = 2070;
 
 /***/ }),
 
@@ -54860,7 +54919,7 @@ module.exports = __webpack_require__.p + "img/7ea278de2535eb2251da.png";
 
 /***/ }),
 
-/***/ 1190:
+/***/ 592:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -54868,11 +54927,163 @@ module.exports = __webpack_require__.p + "img/f174d3dd31747eb7e1c1.gif";
 
 /***/ }),
 
-/***/ 7883:
+/***/ 5760:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/fd0dba6370f16b4b6e19.gif";
+module.exports = __webpack_require__.p + "img/a7adbab24fbc020cc925.png";
+
+/***/ }),
+
+/***/ 2009:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/e50edb697dfb076558b3.png";
+
+/***/ }),
+
+/***/ 7693:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/368216c4699988e208a6.png";
+
+/***/ }),
+
+/***/ 1012:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/ec4e93af492ca96bd20e.png";
+
+/***/ }),
+
+/***/ 5503:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/93aa13ca209a2f629d9d.png";
+
+/***/ }),
+
+/***/ 6486:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/bfc1e0ee6be31a0a5cb3.png";
+
+/***/ }),
+
+/***/ 9529:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/4ce9322cd531b66c76b6.png";
+
+/***/ }),
+
+/***/ 3280:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/304b144e0ce628dca016.png";
+
+/***/ }),
+
+/***/ 3304:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/1015373bd4b83f348918.png";
+
+/***/ }),
+
+/***/ 9794:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/8f92e14197533a6e248d.png";
+
+/***/ }),
+
+/***/ 7973:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/4ea58453b379d7020d41.png";
+
+/***/ }),
+
+/***/ 1436:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/864016f8179b9bd9f17e.png";
+
+/***/ }),
+
+/***/ 9074:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/973efefb480527c566f8.png";
+
+/***/ }),
+
+/***/ 9579:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/3b442829ef0e006c450c.png";
+
+/***/ }),
+
+/***/ 9668:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/68a3c60260f249d52d8f.png";
+
+/***/ }),
+
+/***/ 797:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/0ed9b8ef5459ad6bcad0.png";
+
+/***/ }),
+
+/***/ 3238:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/a4ebf428a085417d9163.png";
+
+/***/ }),
+
+/***/ 4783:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/95cd249deb382e87e286.png";
+
+/***/ }),
+
+/***/ 7595:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/99c07097476be19f4e0d.png";
+
+/***/ }),
+
+/***/ 1105:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/9f5cced7b0c78e5c9aa1.png";
 
 /***/ }),
 
