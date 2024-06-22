@@ -52385,8 +52385,7 @@ function App() {
         webApp.BackButton.onClick(function () {
             navigate(-1);
         });
-        webApp.themeParams.section_header_text_color = '#FBC12D';
-        webApp.themeParams.subtitle_text_color = '#FBC12D';
+        webApp.colorScheme = 'light';
     }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
