@@ -52318,7 +52318,6 @@ function App() {
     var isFirstRender = react_1.default.useRef(true);
     var navigate = (0, react_router_dom_1.useNavigate)();
     var location = (0, react_router_dom_1.useLocation)();
-    // const { telegramUserId }: any = queryString.parse(location.search) || webApp.initDataUnsafe.query_id;
     var telegramUserId = String(query_string_1.default.parse(location.search).telegramUserId) || webApp.initDataUnsafe.query_id;
     react_1.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
@@ -52752,7 +52751,7 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var paths_1 = __importDefault(__webpack_require__(3184));
 var MenuItem_1 = __importDefault(__webpack_require__(3049));
 function Menu() {
-    return ((0, jsx_runtime_1.jsx)("nav", { className: "mb-[14px]", children: (0, jsx_runtime_1.jsxs)("ul", { className: "gap-[16px] flex justify-center items-center", children: [(0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "home", to: paths_1.default.Home, src: __webpack_require__(1010) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "boost", to: paths_1.default.Boost, src: __webpack_require__(916) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "ratings", to: paths_1.default.Ratings, src: __webpack_require__(4523) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "quests", to: paths_1.default.Quests, src: __webpack_require__(4126) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "friends", to: paths_1.default.Friends, src: __webpack_require__(6561) })] }) }));
+    return ((0, jsx_runtime_1.jsx)("nav", { className: "mb-[14px]", children: (0, jsx_runtime_1.jsxs)("ul", { className: "gap-[16px] flex justify-center items-center", children: [(0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "home", to: paths_1.default.Home, src: __webpack_require__(1010) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "boost", to: paths_1.default.Boost, src: __webpack_require__(916) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "ratings", to: paths_1.default.Ratings, src: __webpack_require__(4523) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "tasks", to: paths_1.default.Tasks, src: __webpack_require__(3615) }), (0, jsx_runtime_1.jsx)(MenuItem_1.default, { title: "friends", to: paths_1.default.Friends, src: __webpack_require__(6561) })] }) }));
 }
 exports["default"] = Menu;
 
@@ -52831,7 +52830,7 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
 }
 exports["default"] = MainLayout;
 
@@ -52859,7 +52858,7 @@ var imagesArr = [
     __webpack_require__(5232),
     __webpack_require__(8208),
     __webpack_require__(1135),
-    __webpack_require__(7040),
+    __webpack_require__(3131),
     __webpack_require__(7586),
     __webpack_require__(8897),
     // Crab static
@@ -52889,7 +52888,7 @@ var imagesArr = [
     __webpack_require__(916),
     __webpack_require__(6561),
     __webpack_require__(1010),
-    __webpack_require__(4126),
+    __webpack_require__(3615),
     __webpack_require__(4523),
     __webpack_require__(7774),
     __webpack_require__(7151),
@@ -53014,7 +53013,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var paths = {
     Home: '/',
     Ratings: '/ratings',
-    Quests: '/quests',
+    Tasks: '/tasks',
     Boost: '/boost',
     Friends: '/friends',
     Faq: '/faq',
@@ -53048,9 +53047,9 @@ var routes = [
         title: 'Ratings',
     },
     {
-        path: paths_1.default.Quests,
-        element: (0, jsx_runtime_1.jsx)(_pages_1.Quests, {}),
-        title: 'Quests',
+        path: paths_1.default.Tasks,
+        element: (0, jsx_runtime_1.jsx)(_pages_1.Tasks, {}),
+        title: 'Tasks',
     },
     {
         path: paths_1.default.Home,
@@ -54142,27 +54141,6 @@ exports["default"] = Home;
 
 /***/ }),
 
-/***/ 8157:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var balanceFunc_1 = __importDefault(__webpack_require__(2408));
-var UI_1 = __webpack_require__(456);
-var Template_1 = __importDefault(__webpack_require__(123));
-function Quests() {
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[200px] bg-[url('@assets/img/bg/quests.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Quests" }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] gap-[8px] w-full flex flex-col", children: (0, jsx_runtime_1.jsxs)("div", { className: "p-[8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]", style: { borderColor: '#78653599', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: __webpack_require__(4730), width: 50, height: 50, alt: "Avatar" }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-[16px] leading-[1.4] text-white", children: " Telegram name " }), (0, jsx_runtime_1.jsx)("span", { className: "text-[14px] leading-[22px] text-[#C6C3B6]", children: "Subscribe to the channel" })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important]", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[4px] font-bold text-[16px] leading-[1] text-[#5B4B23]", children: ["+", (0, balanceFunc_1.default)(10000)] }), (0, jsx_runtime_1.jsx)("img", { className: "w-[32px] h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }) })] }));
-}
-exports["default"] = Quests;
-
-
-/***/ }),
-
 /***/ 5366:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -54307,6 +54285,49 @@ exports["default"] = Ratings;
 
 /***/ }),
 
+/***/ 4798:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var classnames_1 = __importDefault(__webpack_require__(6942));
+var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var UI_1 = __webpack_require__(456);
+var QuestItem = function (_a) {
+    var imageURL = _a.imageURL, title = _a.title, description = _a.description, balance = _a.balance, complete = _a.complete;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[7px_8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]', complete && 'pointer-events-none opacity-70'), style: { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px]", children: (0, jsx_runtime_1.jsx)("img", { className: "w-[50px] h-[50px]", src: imageURL, width: 50, height: 50, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] max-w-full flex flex-col flex-auto overflow-hidden", children: [(0, jsx_runtime_1.jsx)("span", { className: "overflow-hidden font-semibold text-[16px] leading-[1.4] text-white whitespace-nowrap", style: { textOverflow: 'ellipsis' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "overflow-hidden text-[14px] leading-[22px] text-[#C6C3B6] whitespace-nowrap", style: { textOverflow: 'ellipsis' }, children: description })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important] flex-shrink-0", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[16px] leading-[1] text-[#5B4B23]", children: complete ? 'COMPLETE!' : "+".concat((0, balanceFunc_1.default)(balance)) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[32px] h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
+};
+exports["default"] = QuestItem;
+
+
+/***/ }),
+
+/***/ 4838:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var Template_1 = __importDefault(__webpack_require__(123));
+var UI_1 = __webpack_require__(456);
+var QuestItem_1 = __importDefault(__webpack_require__(4798));
+function Tasks() {
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[200px] bg-[url('@assets/img/bg/tasks.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Tasks" }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Socials" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[8px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)(QuestItem_1.default, { imageURL: "", title: "Telegram nameasdasdasdsadsadsadsad", description: "Subscribe to the channelasdasdsadsadasdasds", balance: 100000, complete: false }), (0, jsx_runtime_1.jsx)(QuestItem_1.default, { imageURL: "", title: "Telegram nameasdasdasdsadsadsadsad", description: "Subscribe to the channelasdasdsadsadasdasds", balance: 100000, complete: true })] })] }));
+}
+exports["default"] = Tasks;
+
+
+/***/ }),
+
 /***/ 123:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -54340,13 +54361,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Faq = exports.Friends = exports.Boost = exports.Quests = exports.Ratings = exports.Home = void 0;
+exports.Faq = exports.Friends = exports.Boost = exports.Tasks = exports.Ratings = exports.Home = void 0;
 var Home_1 = __importDefault(__webpack_require__(1245));
 exports.Home = Home_1.default;
 var Ratings_1 = __importDefault(__webpack_require__(6306));
 exports.Ratings = Ratings_1.default;
-var Quests_1 = __importDefault(__webpack_require__(8157));
-exports.Quests = Quests_1.default;
+var Tasks_1 = __importDefault(__webpack_require__(4838));
+exports.Tasks = Tasks_1.default;
 var Boost_1 = __importDefault(__webpack_require__(6225));
 exports.Boost = Boost_1.default;
 var Friends_1 = __importDefault(__webpack_require__(9715));
@@ -54810,19 +54831,19 @@ module.exports = __webpack_require__.p + "img/4cd2b6c94acaeeed9ca6.png";
 
 /***/ }),
 
-/***/ 7040:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/aa7808963666705b841e.png";
-
-/***/ }),
-
 /***/ 1135:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "img/2b4563c044969399885e.png";
+
+/***/ }),
+
+/***/ 3131:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/aa7808963666705b841e.png";
 
 /***/ }),
 
@@ -55170,19 +55191,19 @@ module.exports = __webpack_require__.p + "img/621826a1b8239a32bdc4.png";
 
 /***/ }),
 
-/***/ 4126:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/9e8987e6b852a877499d.svg";
-
-/***/ }),
-
 /***/ 4523:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 module.exports = __webpack_require__.p + "img/b70caec7c7d3b3fc9c94.svg";
+
+/***/ }),
+
+/***/ 3615:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/9e8987e6b852a877499d.svg";
 
 /***/ }),
 
