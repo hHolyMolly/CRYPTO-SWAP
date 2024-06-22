@@ -52318,7 +52318,8 @@ function App() {
     var isFirstRender = react_1.default.useRef(true);
     var navigate = (0, react_router_dom_1.useNavigate)();
     var location = (0, react_router_dom_1.useLocation)();
-    var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
+    // const { telegramUserId }: any = queryString.parse(location.search) || webApp.initDataUnsafe.query_id;
+    var telegramUserId = String(query_string_1.default.parse(location.search).telegramUserId) || webApp.initDataUnsafe.query_id;
     react_1.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
             var url = new URL(window.location.href);
@@ -52359,11 +52360,9 @@ function App() {
     }, [location.pathname]);
     // Получаем telegramID
     react_1.default.useEffect(function () {
-        if (telegramUserId) {
-            setTimeout(function () {
-                dispatch((0, auth_1.fetchGetUser)(telegramUserId));
-            }, 500);
-        }
+        setTimeout(function () {
+            dispatch((0, auth_1.fetchGetUser)(telegramUserId));
+        }, 500);
         isFirstRender.current = false;
     }, []);
     // Автоматическое восстановление энергии
