@@ -52316,6 +52316,7 @@ function App() {
     }).clickerTimeout;
     var webApp = window.Telegram.WebApp;
     var isFirstRender = react_1.default.useRef(true);
+    var navigate = (0, react_router_dom_1.useNavigate)();
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
     react_1.default.useEffect(function () {
@@ -52324,9 +52325,14 @@ function App() {
             url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
             window.history.replaceState({}, '', url.toString());
         }
-        if (location.pathname !== paths_1.default.Home) {
+        webApp.BackButton.onClick(function () {
+            navigate(-1);
+        });
+        if (location.pathname === paths_1.default.Faq) {
             webApp.BackButton.show();
-            webApp.MainButton.setText('asdasd');
+        }
+        else {
+            webApp.BackButton.hide();
         }
         function getPosition() {
             return __awaiter(this, void 0, void 0, function () {
