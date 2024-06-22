@@ -52385,7 +52385,6 @@ function App() {
         webApp.BackButton.onClick(function () {
             navigate(-1);
         });
-        webApp.colorScheme = 'light';
     }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
