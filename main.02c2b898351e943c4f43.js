@@ -52384,23 +52384,6 @@ exports["default"] = App;
 
 /***/ }),
 
-/***/ 8881:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-var DailyBoosters = function () {
-    var hotdogDuration = 15;
-    var energeticDuration = 10;
-    return (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {});
-};
-exports["default"] = DailyBoosters;
-
-
-/***/ }),
-
 /***/ 1142:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -52807,11 +52790,9 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var react_router_dom_1 = __webpack_require__(2648);
 var react_device_detect_1 = __webpack_require__(159);
 var react_hot_toast_1 = __webpack_require__(9377);
-var paths_1 = __importDefault(__webpack_require__(3184));
 var _store_1 = __webpack_require__(2482);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
-var Boosters_1 = __importDefault(__webpack_require__(8881));
 function MainLayout() {
     var userStatus = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
@@ -52840,7 +52821,7 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), pathname === paths_1.default.Home && (0, jsx_runtime_1.jsx)(Boosters_1.default, {}), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
 }
 exports["default"] = MainLayout;
 
@@ -52860,7 +52841,10 @@ var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var _store_1 = __webpack_require__(2482);
 var settings_1 = __webpack_require__(863);
-var allImages = [
+var imagesArr = [
+    __webpack_require__(731),
+    __webpack_require__(5558),
+    __webpack_require__(8800),
     // Backgrounds
     __webpack_require__(5232),
     __webpack_require__(8208),
@@ -52868,6 +52852,39 @@ var allImages = [
     __webpack_require__(7040),
     __webpack_require__(7586),
     __webpack_require__(8897),
+    // Crab static
+    __webpack_require__(592),
+    // Crab animation frames
+    __webpack_require__(5760),
+    __webpack_require__(2009),
+    __webpack_require__(9074),
+    __webpack_require__(9579),
+    __webpack_require__(9668),
+    __webpack_require__(797),
+    __webpack_require__(3238),
+    __webpack_require__(4783),
+    __webpack_require__(7595),
+    __webpack_require__(1105),
+    __webpack_require__(7693),
+    __webpack_require__(1012),
+    __webpack_require__(5503),
+    __webpack_require__(6486),
+    __webpack_require__(9529),
+    __webpack_require__(3280),
+    __webpack_require__(3304),
+    __webpack_require__(9794),
+    __webpack_require__(7973),
+    __webpack_require__(1436),
+    // icons
+    __webpack_require__(916),
+    __webpack_require__(6561),
+    __webpack_require__(1010),
+    __webpack_require__(4126),
+    __webpack_require__(4523),
+    __webpack_require__(7774),
+    __webpack_require__(7151),
+    __webpack_require__(2074),
+    __webpack_require__(9684),
     // Energy
     __webpack_require__(5819),
     __webpack_require__(5906),
@@ -52892,29 +52909,9 @@ var allImages = [
     __webpack_require__(1871),
     __webpack_require__(8302),
     __webpack_require__(5985),
+    // Boosts
     __webpack_require__(1325),
     __webpack_require__(1056),
-    __webpack_require__(7863),
-    __webpack_require__(2009),
-    __webpack_require__(9074),
-    __webpack_require__(9579),
-    __webpack_require__(9668),
-    __webpack_require__(797),
-    __webpack_require__(3238),
-    __webpack_require__(4783),
-    __webpack_require__(7595),
-    __webpack_require__(1105),
-    __webpack_require__(7693),
-    __webpack_require__(1012),
-    __webpack_require__(5503),
-    __webpack_require__(6486),
-    __webpack_require__(9529),
-    __webpack_require__(3280),
-    __webpack_require__(3304),
-    __webpack_require__(9794),
-    __webpack_require__(7973),
-    __webpack_require__(1436),
-    __webpack_require__(592),
 ];
 var Preloader = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
@@ -52928,11 +52925,11 @@ var Preloader = function () {
     }).preloaderStatus;
     var _a = react_1.default.useState(true), loadImages = _a[0], setLoadImages = _a[1];
     react_1.default.useEffect(function () {
-        allImages.forEach(function (imageURL) {
+        imagesArr.forEach(function (imageURL) {
             var img = new Image();
             img.src = imageURL;
         });
-    }, [allImages]);
+    }, [imagesArr]);
     react_1.default.useEffect(function () {
         var images = document.querySelectorAll('img');
         var totalImages = images.length;
@@ -52962,9 +52959,11 @@ var Preloader = function () {
             return;
         if (!user)
             return;
-        dispatch((0, settings_1.setPreloaderStatus)('loaded'));
+        setTimeout(function () {
+            dispatch((0, settings_1.setPreloaderStatus)('loaded'));
+        }, 300);
     }, [user, loadImages]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' && !loadImages ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: "page-preloader", style: preloaderStatus === 'loaded' && !loadImages ? { display: 'none' } : {}, children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(731), width: 2248, height: 3200, alt: "Get ready for taps.." }), (0, jsx_runtime_1.jsx)("div", { className: "page-preloader-effect" })] }), (0, jsx_runtime_1.jsx)("div", { className: "hidden", children: imagesArr && imagesArr.map(function (imageURL, idx) { return (0, jsx_runtime_1.jsx)("img", { src: imageURL, alt: "" }, "image".concat(idx)); }) })] }));
 };
 exports["default"] = Preloader;
 
@@ -53062,11 +53061,6 @@ var routes = [
         path: paths_1.default.Faq,
         element: (0, jsx_runtime_1.jsx)(_pages_1.Faq, {}),
         title: 'Faq',
-    },
-    {
-        path: '*',
-        element: (0, jsx_runtime_1.jsx)(_pages_1.Error, {}),
-        title: 'Error',
     },
 ];
 exports["default"] = routes;
@@ -53664,21 +53658,6 @@ function Boost() {
     return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[200px] bg-[url('@assets/img/bg/boost.jpg')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Boost" }), (0, jsx_runtime_1.jsx)(UI_1.Balance, { className: "mb-[40px]" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[54px] gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Daily boosters" }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1056), title: "Hotdog", description: "Donec dapibus imperdiet tortor in.", count: 5, max: 5 }), (0, jsx_runtime_1.jsx)(DailyBoostersItem_1.default, { imageURL: __webpack_require__(1325), title: "Energetic", description: "Donec dapibus imperdiet tortor in.", count: 5, max: 5 })] }), (0, jsx_runtime_1.jsxs)("div", { className: "gap-[8px] w-full flex flex-col", children: [(0, jsx_runtime_1.jsx)("div", { className: "text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Boosters" }), (0, jsx_runtime_1.jsx)(AutoMining_1.default, { durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "shovel", imageURL: iconsLevels_1.energyLevelsIcons[(user === null || user === void 0 ? void 0 : user.shovelLevel) || 1], title: "Energy recovery", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.shovelLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "spatula", imageURL: iconsLevels_1.toolsLevelsIcons[(user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1], title: "Weapon", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.spatulaLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID }), (0, jsx_runtime_1.jsx)(BoostersItem_1.default, { item: "burger", imageURL: iconsLevels_1.burgerLevelsIcons[(user === null || user === void 0 ? void 0 : user.burgerLevel) || 1], title: "Energy", description: "Donec dapibus imperdiet tortor in.", level: (user === null || user === void 0 ? void 0 : user.burgerLevel) || 1, durationToast: durationToast, maxLevel: maxLevel, upgradeCost: upgradeCost, toastID: toastID })] })] }));
 }
 exports["default"] = Boost;
-
-
-/***/ }),
-
-/***/ 6782:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var jsx_runtime_1 = __webpack_require__(2467);
-function Error() {
-    return (0, jsx_runtime_1.jsx)("div", { children: "Error" });
-}
-exports["default"] = Error;
 
 
 /***/ }),
@@ -54351,7 +54330,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Error = exports.Faq = exports.Friends = exports.Boost = exports.Quests = exports.Ratings = exports.Home = void 0;
+exports.Faq = exports.Friends = exports.Boost = exports.Quests = exports.Ratings = exports.Home = void 0;
 var Home_1 = __importDefault(__webpack_require__(1245));
 exports.Home = Home_1.default;
 var Ratings_1 = __importDefault(__webpack_require__(6306));
@@ -54364,8 +54343,6 @@ var Friends_1 = __importDefault(__webpack_require__(9715));
 exports.Friends = Friends_1.default;
 var Faq_1 = __importDefault(__webpack_require__(5992));
 exports.Faq = Faq_1.default;
-var Error_1 = __importDefault(__webpack_require__(6782));
-exports.Error = Error_1.default;
 
 
 /***/ }),
@@ -55084,14 +55061,6 @@ module.exports = __webpack_require__.p + "img/99c07097476be19f4e0d.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/9f5cced7b0c78e5c9aa1.png";
-
-/***/ }),
-
-/***/ 7863:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-module.exports = __webpack_require__.p + "img/ef9701bc2a1ef142c9e0.png";
 
 /***/ }),
 
