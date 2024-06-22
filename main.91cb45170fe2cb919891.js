@@ -52326,9 +52326,6 @@ function App() {
             url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
             window.history.replaceState({}, '', url.toString());
         }
-        webApp.BackButton.onClick(function () {
-            navigate(-1);
-        });
         if (location.pathname === paths_1.default.Faq) {
             webApp.BackButton.show();
         }
@@ -52384,6 +52381,12 @@ function App() {
             }, 1000);
         }
     }, [clickerTimeout]);
+    react_1.default.useEffect(function () {
+        webApp.BackButton.onClick(function () {
+            navigate(-1);
+        });
+        webApp.setHeaderColor('red');
+    }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
