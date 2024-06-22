@@ -52314,6 +52314,7 @@ function App() {
         var settings = _a.settings;
         return settings;
     }).clickerTimeout;
+    var webApp = window.Telegram.WebApp;
     var isFirstRender = react_1.default.useRef(true);
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = query_string_1.default.parse(location.search).telegramUserId;
@@ -52377,6 +52378,11 @@ function App() {
             }, 1000);
         }
     }, [clickerTimeout]);
+    react_1.default.useEffect(function () {
+        setTimeout(function () {
+            webApp.BackButton.show();
+        }, 3000);
+    }, []);
     return (0, jsx_runtime_1.jsx)(Router_1.default, {});
 }
 exports["default"] = App;
