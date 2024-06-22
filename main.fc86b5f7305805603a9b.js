@@ -53958,7 +53958,7 @@ var Clicker = function () {
     var _d = react_2.default.useState([]), particles = _d[0], setParticles = _d[1];
     var _e = react_2.default.useState(false), toggleGif = _e[0], setToggleGif = _e[1];
     var _f = react_2.default.useState(false), toggleAudio = _f[0], setToggleAudio = _f[1];
-    var durationAnimation = 300; // Время действия звука при тапе
+    var durationAnimation = 200; // Время действия звука при тапе
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
     var onTouchStartHandler = function (e) {
