@@ -53861,12 +53861,15 @@ function Friends() {
     var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
     var onClickRefLink = function () {
         try {
-            var shareURL = response === null || response === void 0 ? void 0 : response.link;
-            var text = '$CRABS CLICKER!!!';
-            var imageURL = "".concat(window.location.origin, "/img/share.png");
-            var telegramUrl = "https://t.me/share/url?url=".concat(shareURL, "&text=").concat(encodeURIComponent(text), "&image_url=").concat(encodeURIComponent(imageURL));
-            window.open(telegramUrl, '_blank');
-            navigator.clipboard.writeText(shareURL);
+            if (window.Telegram.WebApp) {
+                var message = {
+                    url: response === null || response === void 0 ? void 0 : response.link,
+                    text: 'Ссылка на краба!!!',
+                    photo: 'https://example.com/image.jpg',
+                };
+                window.Telegram.WebApp.openLink("tg://msg_url?url=".concat(encodeURIComponent(message.url), "&text=").concat(encodeURIComponent(message.text), "&photo=").concat(encodeURIComponent(message.photo)));
+                navigator.clipboard.writeText(message.url);
+            }
         }
         catch (err) {
             console.log(err);
