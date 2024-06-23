@@ -52844,7 +52844,7 @@ function MainLayout() {
         var auth = _a.auth;
         return auth;
     }).userStatus;
-    var wrapperRef = react_1.default.useRef(null);
+    var pageRef = react_1.default.useRef(null);
     var _a = react_1.default.useState(window.innerHeight > window.innerWidth), isPortrait = _a[0], setIsPortrait = _a[1];
     var checkOrientation = function () {
         setIsPortrait(window.innerHeight > window.innerWidth);
@@ -52854,8 +52854,8 @@ function MainLayout() {
         var _a;
         react_hot_toast_1.toast.dismiss();
         window.scrollTo(0, 0);
-        if (wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) {
-            (_a = wrapperRef === null || wrapperRef === void 0 ? void 0 : wrapperRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
+        if (pageRef === null || pageRef === void 0 ? void 0 : pageRef.current) {
+            (_a = pageRef === null || pageRef === void 0 ? void 0 : pageRef.current) === null || _a === void 0 ? void 0 : _a.scrollTo(0, 0);
         }
     }, [pathname]);
     react_1.default.useEffect(function () {
@@ -52868,7 +52868,7 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)(Error_1.default, {}), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && (0, jsx_runtime_1.jsx)(Portrait_1.default, {}), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsx)(Desktop_1.default, {}))] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)(Error_1.default, {}), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && (0, jsx_runtime_1.jsx)(Portrait_1.default, {}), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", ref: pageRef, children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsx)(Desktop_1.default, {}))] }));
 }
 exports["default"] = MainLayout;
 
