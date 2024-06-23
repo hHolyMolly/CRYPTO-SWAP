@@ -52688,6 +52688,41 @@ exports["default"] = react_1.default.memo(Container);
 
 /***/ }),
 
+/***/ 887:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var Desktop = function () {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[58] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }));
+};
+exports["default"] = Desktop;
+
+
+/***/ }),
+
+/***/ 4409:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var _store_1 = __webpack_require__(2482);
+var Error = function () {
+    var userStatus = (0, _store_1.useAppSelector)(function (_a) {
+        var auth = _a.auth;
+        return auth;
+    }).userStatus;
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#282828]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(6271), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[150px] h-[150px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#FFCF22]" })] }));
+};
+exports["default"] = Error;
+
+
+/***/ }),
+
 /***/ 8777:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -52801,6 +52836,9 @@ var react_hot_toast_1 = __webpack_require__(9377);
 var _store_1 = __webpack_require__(2482);
 var Header_1 = __importDefault(__webpack_require__(3117));
 var Preloader_1 = __importDefault(__webpack_require__(2177));
+var Error_1 = __importDefault(__webpack_require__(4409));
+var Portrait_1 = __importDefault(__webpack_require__(6442));
+var Desktop_1 = __importDefault(__webpack_require__(887));
 function MainLayout() {
     var userStatus = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
@@ -52830,9 +52868,24 @@ function MainLayout() {
             window.removeEventListener('orientationchange', checkOrientation);
         };
     }, []);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)("div", { className: "w-screen h-screen justify-center items-center absolute top-0 left-0 z-[55] bg-[#0F1C2D]", style: { display: userStatus === 'error' ? 'flex' : 'none' }, children: (0, jsx_runtime_1.jsx)("div", { className: "relative z-[2] pointer-events-none text-white", children: "\u041E\u0448\u0438\u0431\u043A\u0430." }) }), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] })), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full relative z-[2] pointer-events-none", src: __webpack_require__(5558), alt: "Desktop is unable. Play on your mobile." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[200px] h-[200px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[50px] bg-[#0A74FF]" })] }))] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "h-screen flex flex-col relative overflow-hidden text-[14px] leading-[1.1]", children: [(0, jsx_runtime_1.jsx)(Error_1.default, {}), react_device_detect_1.isMobile || react_device_detect_1.isTablet ? ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [!isPortrait && (0, jsx_runtime_1.jsx)(Portrait_1.default, {}), userStatus !== 'error' && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(Preloader_1.default, {}), (0, jsx_runtime_1.jsx)(Header_1.default, {})] })), (0, jsx_runtime_1.jsx)("div", { className: "wrapper", ref: wrapperRef, children: (0, jsx_runtime_1.jsx)("main", { className: "flex flex-col flex-auto overflow-x-hidden", children: (0, jsx_runtime_1.jsx)(react_router_dom_1.Outlet, {}) }) }), (0, jsx_runtime_1.jsx)(react_hot_toast_1.Toaster, {})] })) : ((0, jsx_runtime_1.jsx)(Desktop_1.default, {}))] }));
 }
 exports["default"] = MainLayout;
+
+
+/***/ }),
+
+/***/ 6442:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var jsx_runtime_1 = __webpack_require__(2467);
+var Portrait = function () {
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-screen h-screen flex justify-center items-center absolute top-0 left-0 z-[40] bg-[#0F1C2D]", children: [(0, jsx_runtime_1.jsx)("img", { className: "max-w-full max-h-full relative z-[2] pointer-events-none", src: __webpack_require__(8800), alt: "Flip the screen to start tapping..." }), (0, jsx_runtime_1.jsx)("div", { className: "w-[290px] h-[290px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px] bg-[#691D37]" })] }));
+};
+exports["default"] = Portrait;
 
 
 /***/ }),
@@ -55140,6 +55193,14 @@ module.exports = __webpack_require__.p + "img/74c6450d97ef3258ed03.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "img/197c10493e53edd7b2e3.png";
+
+/***/ }),
+
+/***/ 6271:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+module.exports = __webpack_require__.p + "img/9bb47a2bbbf016ee19bb.png";
 
 /***/ }),
 
