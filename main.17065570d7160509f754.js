@@ -53860,10 +53860,17 @@ function Friends() {
     var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
     var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
     var onClickRefLink = function () {
-        var shareURL = response === null || response === void 0 ? void 0 : response.link;
-        var telegramUrl = "https://t.me/share/url?url=".concat(shareURL);
-        window.open(telegramUrl, '_blank');
-        navigator.clipboard.writeText(shareURL);
+        try {
+            var shareURL = response === null || response === void 0 ? void 0 : response.link;
+            var text = '$CRABS CLICKER!!!';
+            var imageURL = "".concat(window.location.origin, "/img/share.png");
+            var telegramUrl = "https://t.me/share/url?url=".concat(shareURL, "&text=").concat(encodeURIComponent(text), "&image_url=").concat(encodeURIComponent(imageURL));
+            window.open(telegramUrl, '_blank');
+            navigator.clipboard.writeText(shareURL);
+        }
+        catch (err) {
+            console.log(err);
+        }
     };
     function getReffers() {
         return __awaiter(this, void 0, void 0, function () {
