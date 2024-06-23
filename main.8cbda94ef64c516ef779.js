@@ -52325,7 +52325,7 @@ function App() {
             url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
             window.history.replaceState({}, '', url.toString());
         }
-        if (location.pathname === (paths_1.default.Faq || paths_1.default.PartnersTasks)) {
+        if (location.pathname === paths_1.default.Faq || location.pathname === paths_1.default.PartnersTasks) {
             webApp.BackButton.show();
         }
         else {
@@ -54409,7 +54409,7 @@ var SocialItem = function (_a) {
     var webApp = window.Telegram.WebApp;
     var onOpenTelegramLink = function () {
         if (webApp) {
-            webApp.openTelegramLink(href);
+            webApp.openLink(href);
         }
     };
     return ((0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('p-[7px_8px] flex items-center flex-auto border border-solid rounded-[14px] backdrop-blur-[4px]', complete && 'pointer-events-none opacity-70'), style: { borderColor: 'rgba(120, 101, 53, 0.60)', background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.60) 0%, rgba(116, 100, 60, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsxs)("div", { className: "flex-auto flex items-center overflow-hidden", onClick: onOpenTelegramLink, children: [(0, jsx_runtime_1.jsx)("div", { className: "mr-[8px] w-[50px] h-[50px] flex-[0_0_50px] rounded-full overflow-hidden", children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 50, height: 50, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "mr-[8px] max-w-full flex flex-col flex-auto overflow-hidden", children: [(0, jsx_runtime_1.jsx)("span", { className: "overflow-hidden font-semibold text-[16px] leading-[1.4] text-white whitespace-nowrap", style: { textOverflow: 'ellipsis' }, children: title }), (0, jsx_runtime_1.jsx)("span", { className: "overflow-hidden text-[14px] leading-[22px] text-[#C6C3B6] whitespace-nowrap", style: { textOverflow: 'ellipsis' }, children: description })] })] }), (0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[6px_8px_!important] flex-shrink-0", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[4px] font-bold text-[16px] leading-[1] text-[#5B4B23]", children: complete ? 'COMPLETE!' : "+".concat((0, balanceFunc_1.default)(balance)) }), (0, jsx_runtime_1.jsx)("img", { className: "w-[32px] h-[32px]", src: __webpack_require__(2074), width: 32, height: 32, alt: "Money" })] })] }));
