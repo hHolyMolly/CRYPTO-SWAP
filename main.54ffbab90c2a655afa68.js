@@ -53562,7 +53562,7 @@ var AutoMining = function (_a) {
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex flex-col items-center\r\n\t\t\trounded-[14px]\r\n\t\t\tbackdrop-blur-[4px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[2px] w-full text-center font-bold uppercase text-[18px] leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[6px]", children: "Automining" }), (0, jsx_runtime_1.jsxs)("span", { children: ["LVL ", maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) ? 'MAX' : user === null || user === void 0 ? void 0 : user.clawLevel] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] w-full text-center text-[14px] leading-[1.5] text-[#C6C3B6]", children: "Donec dapibus imperdiet tortor in." }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n          mb-[8px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: iconsLevels_1.clawLevelsIcons[(user === null || user === void 0 ? void 0 : user.clawLevel) || 1], width: 64, height: 64, alt: 'AUTOMINING' }) }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full gap-[8px] flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important] uppercase", onClick: onClickClaim, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(9684), width: 24, height: 24, alt: "Money" }), disabled: (user === null || user === void 0 ? void 0 : user.notClaimedBalance) === 0 || status !== 'loaded', children: ["Claim ", (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.notClaimedBalance)] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClickBuy, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) || upgradeCost(user === null || user === void 0 ? void 0 : user.clawLevel) > (user === null || user === void 0 ? void 0 : user.balance) || status !== 'loaded', children: maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) ? '25/25' : (0, balanceFunc_1.default)(upgradeCost(user === null || user === void 0 ? void 0 : user.clawLevel)) })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n\t\t\tp-[12px]\r\n\t\t\tw-full\r\n\t\t\tflex flex-col items-center\r\n\t\t\trounded-[14px]\r\n\t\t\tbackdrop-blur-[4px]\r\n\t\t\tborder border-solid border-[#786535]\r\n\t\t", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsxs)("div", { className: "mb-[2px] w-full text-center font-bold uppercase text-[18px] leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mr-[6px]", children: "Automining" }), (0, jsx_runtime_1.jsxs)("span", { children: ["LVL ", maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) ? 'MAX' : user === null || user === void 0 ? void 0 : user.clawLevel] })] }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] w-full text-center text-[14px] leading-[1.5] text-[#C6C3B6]", children: "Donec dapibus imperdiet tortor in." }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n          mb-[8px]\r\n          p-[13px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", src: iconsLevels_1.clawLevelsIcons[(user === null || user === void 0 ? void 0 : user.clawLevel) || 1], alt: 'AUTOMINING' }) }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full gap-[8px] flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important] uppercase", onClick: onClickClaim, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(9684), width: 24, height: 24, alt: "Money" }), disabled: (user === null || user === void 0 ? void 0 : user.notClaimedBalance) === 0 || status !== 'loaded', children: ["Claim ", (0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.notClaimedBalance)] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClickBuy, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) || upgradeCost(user === null || user === void 0 ? void 0 : user.clawLevel) > (user === null || user === void 0 ? void 0 : user.balance) || status !== 'loaded', children: maxLevel(user === null || user === void 0 ? void 0 : user.clawLevel) ? '25/25' : (0, balanceFunc_1.default)(upgradeCost(user === null || user === void 0 ? void 0 : user.clawLevel)) })] })] }));
 };
 exports["default"] = react_1.default.memo(AutoMining);
 
@@ -53661,7 +53661,7 @@ var BoostersItem = function (_a) {
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { src: imageURL, width: 64, height: 64, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel(level) ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel(level) || upgradeCost(level) > (user === null || user === void 0 ? void 0 : user.balance) || status !== 'loaded', children: maxLevel(level) ? '25/25' : (0, balanceFunc_1.default)(upgradeCost(level)) })] })] })] }));
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "\r\n        p-[12px]\r\n        w-full\r\n        flex items-start\r\n        rounded-[14px]\r\n        backdrop-blur-[4px]\r\n        border border-solid border-[#786535]\r\n      ", style: { background: 'linear-gradient(90deg, rgba(53, 50, 43, 0.6) 0%, rgba(116, 100, 60, 0.6) 100%)' }, children: [(0, jsx_runtime_1.jsx)("div", { className: "\r\n          mr-[12px]\r\n          p-[13px]\r\n          w-[90px]\r\n          h-[90px]\r\n          flex justify-center items-center\r\n          flex-[0_0_90px]\r\n          rounded-full\r\n          border border-solid border-[#EED38D]\r\n        ", style: { background: 'linear-gradient(180deg, #FBC12D 0%, #E3C169 100%)' }, children: (0, jsx_runtime_1.jsx)("img", { className: "max-w-full", src: imageURL, alt: title }) }), (0, jsx_runtime_1.jsxs)("div", { className: "pt-[2px] flex flex-col flex-auto", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[4px] font-semibold text-[18px] leading-[1.22] text-white", children: title }), (0, jsx_runtime_1.jsx)("div", { className: "mb-[8px] flex-auto text-[14px] leading-[1.22] text-[#C6C3B6]", children: description }), (0, jsx_runtime_1.jsxs)("div", { className: "flex justify-between items-center", children: [(0, jsx_runtime_1.jsxs)("span", { className: "mr-[8px] font-bold text-[16px] leading-[1] text-white", children: ["LVL ", maxLevel(level) ? 'MAX' : level] }), (0, jsx_runtime_1.jsx)(UI_1.Button, { className: "p-[4px_8px_!important] min-h-[32px_!important]", onClick: onClick, after: (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2074), width: 24, height: 24, alt: "Money" }), disabled: maxLevel(level) || upgradeCost(level) > (user === null || user === void 0 ? void 0 : user.balance) || status !== 'loaded', children: maxLevel(level) ? '25/25' : (0, balanceFunc_1.default)(upgradeCost(level)) })] })] })] }));
 };
 exports["default"] = react_1.default.memo(BoostersItem);
 
@@ -54973,7 +54973,7 @@ module.exports = __webpack_require__.p + "img/aa7808963666705b841e.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/a67a293bce78d93d44a3.png";
+module.exports = __webpack_require__.p + "img/4083e3dac02e86f52d41.png";
 
 /***/ }),
 
@@ -54981,7 +54981,7 @@ module.exports = __webpack_require__.p + "img/a67a293bce78d93d44a3.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/a6182ea1beab64763f5c.png";
+module.exports = __webpack_require__.p + "img/1c8ce0dda3959748bb0a.png";
 
 /***/ }),
 
@@ -54989,7 +54989,7 @@ module.exports = __webpack_require__.p + "img/a6182ea1beab64763f5c.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/38a16a699346a6e36f5a.png";
+module.exports = __webpack_require__.p + "img/feda305eebeabbc7e699.png";
 
 /***/ }),
 
@@ -54997,7 +54997,7 @@ module.exports = __webpack_require__.p + "img/38a16a699346a6e36f5a.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/ac38f4fa2709e604823d.png";
+module.exports = __webpack_require__.p + "img/d83bff1159a095c732e4.png";
 
 /***/ }),
 
@@ -55005,7 +55005,7 @@ module.exports = __webpack_require__.p + "img/ac38f4fa2709e604823d.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/d910d09f04336338de96.png";
+module.exports = __webpack_require__.p + "img/6b8ffbcc56a4d216ac0a.png";
 
 /***/ }),
 
@@ -55013,7 +55013,7 @@ module.exports = __webpack_require__.p + "img/d910d09f04336338de96.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/0f9371540fb93e63d7c4.png";
+module.exports = __webpack_require__.p + "img/debac5064d7beed3174e.png";
 
 /***/ }),
 
@@ -55021,7 +55021,7 @@ module.exports = __webpack_require__.p + "img/0f9371540fb93e63d7c4.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/92fd83e9739c013cbd57.png";
+module.exports = __webpack_require__.p + "img/83cc8722211954e168c0.png";
 
 /***/ }),
 
@@ -55029,7 +55029,7 @@ module.exports = __webpack_require__.p + "img/92fd83e9739c013cbd57.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/3f6d8a5bde6890e88d3b.png";
+module.exports = __webpack_require__.p + "img/aa88574071e0d3da31e9.png";
 
 /***/ }),
 
@@ -55037,7 +55037,7 @@ module.exports = __webpack_require__.p + "img/3f6d8a5bde6890e88d3b.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/95260361ee7e5a67874b.png";
+module.exports = __webpack_require__.p + "img/e618241395186b8bb000.png";
 
 /***/ }),
 
@@ -55045,7 +55045,7 @@ module.exports = __webpack_require__.p + "img/95260361ee7e5a67874b.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/b8a53479108130bef3f4.png";
+module.exports = __webpack_require__.p + "img/17f7ecd5a096d8b0f64c.png";
 
 /***/ }),
 
@@ -55221,7 +55221,7 @@ module.exports = __webpack_require__.p + "img/9f5cced7b0c78e5c9aa1.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/f0adc9e6d9de6dc6b92f.png";
+module.exports = __webpack_require__.p + "img/58e3c37043278701bd9c.png";
 
 /***/ }),
 
@@ -55229,7 +55229,7 @@ module.exports = __webpack_require__.p + "img/f0adc9e6d9de6dc6b92f.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/63485dc9e21a24710ef1.png";
+module.exports = __webpack_require__.p + "img/ba1c61a75511b757a7fc.png";
 
 /***/ }),
 
@@ -55237,7 +55237,7 @@ module.exports = __webpack_require__.p + "img/63485dc9e21a24710ef1.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/626481a8d9bee25b7d44.png";
+module.exports = __webpack_require__.p + "img/59bde9817617fadded81.png";
 
 /***/ }),
 
@@ -55245,7 +55245,7 @@ module.exports = __webpack_require__.p + "img/626481a8d9bee25b7d44.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/a9b69e85a643a5ce5497.png";
+module.exports = __webpack_require__.p + "img/8c3777b9395572cc3572.png";
 
 /***/ }),
 
@@ -55253,7 +55253,7 @@ module.exports = __webpack_require__.p + "img/a9b69e85a643a5ce5497.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/ee4c8437153c77924d5f.png";
+module.exports = __webpack_require__.p + "img/ea836dfabd1c0373cabd.png";
 
 /***/ }),
 
@@ -55261,7 +55261,7 @@ module.exports = __webpack_require__.p + "img/ee4c8437153c77924d5f.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/f5f2f29583e9bec515fb.png";
+module.exports = __webpack_require__.p + "img/fa2d3045c9ae4af4241d.png";
 
 /***/ }),
 
@@ -55277,7 +55277,7 @@ module.exports = __webpack_require__.p + "img/9bb47a2bbbf016ee19bb.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/2d8e05137a57f7dbd13e.png";
+module.exports = __webpack_require__.p + "img/cd139df254ed67506720.png";
 
 /***/ }),
 
@@ -55389,7 +55389,7 @@ module.exports = __webpack_require__.p + "img/1adf4f104c40212df822.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/1332b45dbff37d038b10.png";
+module.exports = __webpack_require__.p + "img/25af56b09442fe20b703.png";
 
 /***/ }),
 
@@ -55397,7 +55397,7 @@ module.exports = __webpack_require__.p + "img/1332b45dbff37d038b10.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/335d185759aa5fd91236.png";
+module.exports = __webpack_require__.p + "img/123ecf40dca2fc5aa1a2.png";
 
 /***/ }),
 
@@ -55405,7 +55405,7 @@ module.exports = __webpack_require__.p + "img/335d185759aa5fd91236.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/c5918fefda2f22b0bbe9.png";
+module.exports = __webpack_require__.p + "img/f97862f785bc17eef545.png";
 
 /***/ }),
 
@@ -55413,7 +55413,7 @@ module.exports = __webpack_require__.p + "img/c5918fefda2f22b0bbe9.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/3376945a8d49a870efbf.png";
+module.exports = __webpack_require__.p + "img/4a0e974586159e565928.png";
 
 /***/ }),
 
@@ -55421,7 +55421,7 @@ module.exports = __webpack_require__.p + "img/3376945a8d49a870efbf.png";
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-module.exports = __webpack_require__.p + "img/1c289051c95822e68828.png";
+module.exports = __webpack_require__.p + "img/8f53df3e91aa76f58eac.png";
 
 /***/ }),
 
