@@ -52260,7 +52260,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
-var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
 var paths_1 = __importDefault(__webpack_require__(3184));
 var store_1 = __webpack_require__(2482);
@@ -52278,10 +52277,10 @@ function App() {
         return settings;
     }).clickerTimeout;
     var webApp = window.Telegram.WebApp;
-    var isFirstRender = react_1.default.useRef(true);
     var navigate = (0, react_router_dom_1.useNavigate)();
     var location = (0, react_router_dom_1.useLocation)();
-    var telegramUserId = String(query_string_1.default.parse(location.search).telegramUserId) || webApp.initDataUnsafe.query_id;
+    // const telegramUserId: string = String(queryString.parse(location.search).telegramUserId);
+    var telegramUserId = '5047222806';
     react_1.default.useEffect(function () {
         if (location.pathname === paths_1.default.Faq || location.pathname === paths_1.default.PartnersTasks) {
             webApp.BackButton.show();
@@ -52289,18 +52288,10 @@ function App() {
         else {
             webApp.BackButton.hide();
         }
-        if (!isFirstRender.current) {
-            if (location.pathname === paths_1.default.Home) {
-                dispatch((0, auth_1.fetchGetUserPosition)(user === null || user === void 0 ? void 0 : user.tgId));
-            }
-        }
     }, [location.pathname]);
-    // Получаем telegramID
+    // Получаем пользователя
     react_1.default.useEffect(function () {
-        setTimeout(function () {
-            dispatch((0, auth_1.fetchGetUser)(telegramUserId));
-        }, 500);
-        isFirstRender.current = false;
+        dispatch((0, auth_1.fetchGetUser)(telegramUserId));
     }, []);
     // Автоматическое восстановление энергии
     react_1.default.useEffect(function () {
@@ -53786,6 +53777,7 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var react_virtualized_1 = __webpack_require__(7661);
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
+var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
 var store_1 = __webpack_require__(1427);
 var UI_1 = __webpack_require__(456);
@@ -53802,7 +53794,7 @@ function Friends() {
         var friends = _a.friends;
         return friends;
     }), referrals = _a.referrals, status = _a.status;
-    var numberOfReferrals = referrals.numberOfReferrals, referralsInfo = referrals.referralsInfo, myBalance = referrals.myBalance, link = referrals.link;
+    var numberOfReferrals = referrals.numberOfReferrals, referralsInfo = referrals.referralsInfo, link = referrals.link;
     var onClickRefLink = function () {
         try {
             var shareText = 'Come on and earn tokens with CrabsTab🦀 Take first-time gift 10k tokens💵';
@@ -53817,27 +53809,33 @@ function Friends() {
     };
     function getReferrals() {
         return __awaiter(this, void 0, void 0, function () {
+            var data, err_1;
             return __generator(this, function (_a) {
-                try {
-                    dispatch((0, store_1.setFriendsStatus)('loading'));
-                    dispatch((0, store_1.fetchGetReferrals)(user === null || user === void 0 ? void 0 : user.tgId));
-                    dispatch((0, store_1.setFriendsStatus)('loaded'));
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, API_1.API.get('/reffers/' + (user === null || user === void 0 ? void 0 : user.tgId))];
+                    case 1:
+                        data = (_a.sent()).data;
+                        dispatch((0, store_1.setReferralsData)(data));
+                        dispatch((0, store_1.setReferralsStatus)('loaded'));
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_1 = _a.sent();
+                        dispatch((0, store_1.setReferralsStatus)('error'));
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
-                catch (err) {
-                    console.log(err);
-                    dispatch((0, store_1.setFriendsStatus)('error'));
-                }
-                return [2 /*return*/];
             });
         });
     }
     react_1.default.useEffect(function () {
-        if (user === null || user === void 0 ? void 0 : user.tgId) {
-            getReferrals();
-        }
+        if (!(user === null || user === void 0 ? void 0 : user.tgId))
+            return;
+        getReferrals();
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
     var friendsItems = status === 'loaded' ? referralsInfo : __spreadArray([], Array(5), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[30px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (friendsItems === null || friendsItems === void 0 ? void 0 : friendsItems.length) > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n              gap-[8px]\r\n              h-[74px] [@media(min-height:720px)]:h-[148px] [@media(min-height:800px)]:h-[222px] [@media(min-height:868px)]:h-[296px]\r\n              flex flex-col\r\n            ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[30px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(user === null || user === void 0 ? void 0 : user.balance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (friendsItems === null || friendsItems === void 0 ? void 0 : friendsItems.length) > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n              gap-[8px]\r\n              h-[74px] [@media(min-height:720px)]:h-[148px] [@media(min-height:800px)]:h-[222px] [@media(min-height:868px)]:h-[296px] [@media(min-height:952px)]:h-[370px]\r\n              flex flex-col\r\n            ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
                                 var width = _a.width, height = _a.height;
                                 return ((0, jsx_runtime_1.jsx)(react_virtualized_1.List, { width: width, height: height, rowHeight: 74, rowCount: friendsItems.length, rowRenderer: function (_a) {
                                         var key = _a.key, index = _a.index, style = _a.style;
@@ -53856,68 +53854,10 @@ exports["default"] = Friends;
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setFriendsStatus = exports.fetchGetReferrals = void 0;
+exports.setReferralsStatus = exports.setReferralsData = void 0;
 var toolkit_1 = __webpack_require__(9976);
-var API_1 = __webpack_require__(9309);
-// Получаем данные о рефераллах
-exports.fetchGetReferrals = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                if (!telegramUserId)
-                    return [2 /*return*/];
-                return [4 /*yield*/, API_1.API.get('/reffers/' + telegramUserId)];
-            case 1:
-                data = (_a.sent()).data;
-                return [2 /*return*/, data];
-            case 2:
-                err_1 = _a.sent();
-                console.log(err_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
 var initialState = {
     referrals: {
         numberOfReferrals: 0,
@@ -53931,23 +53871,20 @@ var friendsSlice = (0, toolkit_1.createSlice)({
     name: 'friends',
     initialState: initialState,
     reducers: {
-        setFriendsStatus: function (state, _a) {
+        setReferralsData: function (state, _a) {
+            var payload = _a.payload;
+            if (payload) {
+                state.referrals = payload;
+                state.status = 'loaded';
+            }
+        },
+        setReferralsStatus: function (state, _a) {
             var payload = _a.payload;
             state.status = payload;
         },
     },
-    extraReducers: (_a = {},
-        _a[exports.fetchGetReferrals.pending] = function (state) { },
-        _a[exports.fetchGetReferrals.fulfilled] = function (state, _a) {
-            var payload = _a.payload;
-            if (payload) {
-                state.referrals = payload;
-            }
-        },
-        _a[exports.fetchGetReferrals.rejected] = function (state) { },
-        _a),
 });
-exports.setFriendsStatus = friendsSlice.actions.setFriendsStatus;
+exports.setReferralsData = (_a = friendsSlice.actions, _a.setReferralsData), exports.setReferralsStatus = _a.setReferralsStatus;
 exports["default"] = friendsSlice.reducer;
 
 
@@ -54333,38 +54270,38 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var react_1 = __importDefault(__webpack_require__(6540));
 var react_virtualized_1 = __webpack_require__(7661);
-var customTimeout_1 = __importDefault(__webpack_require__(9952));
 var API_1 = __webpack_require__(9309);
+var _store_1 = __webpack_require__(2482);
+var store_1 = __webpack_require__(8124);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var InfoBlock_1 = __importDefault(__webpack_require__(5366));
 var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Ratings() {
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var dispatch = (0, _store_1.useAppDispatch)();
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
+        var ratings = _a.ratings;
+        return ratings;
+    }), top = _a.top, status = _a.status;
+    var registeredUsersCount = top.registeredUsersCount, topUsers = top.topUsers, totalUsers = top.totalUsers;
     function getTopUsers() {
         return __awaiter(this, void 0, void 0, function () {
             var data, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        setStatus('loading');
-                        return [4 /*yield*/, API_1.API.get('/users/top')];
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, API_1.API.get('/users/top/')];
                     case 1:
                         data = (_a.sent()).data;
-                        setResponse(data);
-                        return [4 /*yield*/, (0, customTimeout_1.default)(300)];
+                        dispatch((0, store_1.setRatingsData)(data));
+                        dispatch((0, store_1.setRatingsStatus)('loaded'));
+                        return [3 /*break*/, 3];
                     case 2:
-                        _a.sent();
-                        setStatus('loaded');
-                        return [3 /*break*/, 4];
-                    case 3:
                         err_1 = _a.sent();
-                        console.log(err_1);
-                        setStatus('error');
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        dispatch((0, store_1.setRatingsStatus)('error'));
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
@@ -54372,8 +54309,8 @@ function Ratings() {
     react_1.default.useEffect(function () {
         getTopUsers();
     }, []);
-    var topUsersItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.topUsers : __spreadArray([], Array(6), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[200px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: response === null || response === void 0 ? void 0 : response.totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: response === null || response === void 0 ? void 0 : response.registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n            gap-[8px]\r\n            h-[148px] [@media(min-height:590px)]:h-[222px] [@media(min-height:668px)]:h-[296px] [@media(min-height:768px)]:h-[370px] [@media(min-height:868px)]:h-[444px] [@media(min-height:968px)]:h-[518px]\r\n            flex flex-col\r\n          ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
+    var topUsersItems = status === 'loaded' ? topUsers : __spreadArray([], Array(6), true);
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[200px] bg-[url('@assets/img/bg/ratings.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Ratings" }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[24px] gap-[10px] w-full grid grid-cols-2", children: [(0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Users", count: totalUsers, status: status }), (0, jsx_runtime_1.jsx)(InfoBlock_1.default, { title: "Last 24 h.", count: registeredUsersCount, titleColor: "var(--yellow-300)", status: status })] }), (0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "top 50 users" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n            gap-[8px]\r\n            h-[148px] [@media(min-height:580px)]:h-[222px] [@media(min-height:660px)]:h-[296px] [@media(min-height:730px)]:h-[370px] [@media(min-height:805px)]:h-[444px] [@media(min-height:878px)]:h-[518px] [@media(min-height:968px)]:h-[592px]\r\n            flex flex-col\r\n          ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
                                 var width = _a.width, height = _a.height;
                                 return ((0, jsx_runtime_1.jsx)(react_virtualized_1.List, { width: width, height: height, rowHeight: 74, rowCount: topUsersItems.length, rowRenderer: function (_a) {
                                         var key = _a.key, index = _a.index, style = _a.style;
@@ -54383,6 +54320,47 @@ function Ratings() {
                             } }) })] }), (0, jsx_runtime_1.jsx)(LoadingWrapper_1.default, { status: status })] }));
 }
 exports["default"] = Ratings;
+
+
+/***/ }),
+
+/***/ 8124:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.setRatingsStatus = exports.setRatingsData = void 0;
+var toolkit_1 = __webpack_require__(9976);
+var initialState = {
+    top: {
+        registeredUsersCount: 0,
+        topUsers: [],
+        totalBalance: 0,
+        totalUsers: 0,
+    },
+    status: 'loading',
+};
+var ratingsSlice = (0, toolkit_1.createSlice)({
+    name: 'ratings',
+    initialState: initialState,
+    reducers: {
+        setRatingsData: function (state, _a) {
+            var payload = _a.payload;
+            if (payload) {
+                state.top = payload;
+                state.status = 'loaded';
+            }
+        },
+        setRatingsStatus: function (state, _a) {
+            var payload = _a.payload;
+            state.status = payload;
+        },
+    },
+});
+exports.setRatingsData = (_a = ratingsSlice.actions, _a.setRatingsData), exports.setRatingsStatus = _a.setRatingsStatus;
+exports["default"] = ratingsSlice.reducer;
 
 
 /***/ }),
@@ -54524,12 +54502,14 @@ var react_redux_1 = __webpack_require__(9733);
 var toolkit_1 = __webpack_require__(9976);
 var auth_1 = __importDefault(__webpack_require__(1692));
 var settings_1 = __importDefault(__webpack_require__(863));
-var store_1 = __importDefault(__webpack_require__(1427));
+var store_1 = __importDefault(__webpack_require__(8124));
+var store_2 = __importDefault(__webpack_require__(1427));
 exports.store = (0, toolkit_1.configureStore)({
     reducer: {
         auth: auth_1.default,
         settings: settings_1.default,
-        friends: store_1.default,
+        ratings: store_1.default,
+        friends: store_2.default,
     },
 });
 exports.useAppDispatch = react_redux_1.useDispatch;
@@ -54631,7 +54611,7 @@ exports.fetchGetUserPosition = (0, toolkit_1.createAsyncThunk)('fetchGetUserPosi
                 return [4 /*yield*/, API_1.API.get('/position/' + telegramUserId)];
             case 1:
                 data = (_a.sent()).data;
-                return [2 /*return*/, data];
+                return [2 /*return*/, data.position];
             case 2:
                 err_2 = _a.sent();
                 console.log(err_2);
@@ -54698,7 +54678,6 @@ var authSlice = (0, toolkit_1.createSlice)({
     },
     extraReducers: (_a = {},
         // Получаем пользователя
-        _a[exports.fetchGetUser.pending] = function (state) { },
         _a[exports.fetchGetUser.fulfilled] = function (state, _a) {
             var payload = _a.payload;
             if (payload) {
@@ -54708,26 +54687,21 @@ var authSlice = (0, toolkit_1.createSlice)({
                 state.userStatus = 'error';
             }
         },
-        _a[exports.fetchGetUser.rejected] = function (state) { },
         // Получаем позицию пользователя
-        _a[exports.fetchGetUserPosition.pending] = function (state) { },
         _a[exports.fetchGetUserPosition.fulfilled] = function (state, _a) {
             var payload = _a.payload;
-            if (payload.position) {
-                state.user.position = payload.position;
+            if (payload) {
+                state.user.position = payload;
             }
             else {
                 state.userStatus = 'error';
             }
         },
-        _a[exports.fetchGetUserPosition.rejected] = function (state) { },
         // Кликер
-        _a[exports.fetchPostTap.pending] = function (state) { },
         _a[exports.fetchPostTap.fulfilled] = function (state, _a) {
             var payload = _a.payload;
             state.user = __assign(__assign({}, state.user), payload);
         },
-        _a[exports.fetchPostTap.rejected] = function (state) { },
         _a),
 });
 exports.setIncrementEnergy = (_b = authSlice.actions, _b.setIncrementEnergy), exports.setUpgradeCost = _b.setUpgradeCost, exports.setUpgradeBalance = _b.setUpgradeBalance, exports.setUpgradeEnergy = _b.setUpgradeEnergy;
@@ -54802,20 +54776,6 @@ function balanceFunc(balance) {
     return value;
 }
 exports["default"] = balanceFunc;
-
-
-/***/ }),
-
-/***/ 9952:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-function customTimeout(ms) {
-    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
-}
-exports["default"] = customTimeout;
 
 
 /***/ }),
@@ -59315,713 +59275,6 @@ function _typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
 }
-
-
-/***/ }),
-
-/***/ 8798:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": function() { return /* binding */ query_string; }
-});
-
-// NAMESPACE OBJECT: ./node_modules/query-string/base.js
-var base_namespaceObject = {};
-__webpack_require__.r(base_namespaceObject);
-__webpack_require__.d(base_namespaceObject, {
-  exclude: function() { return exclude; },
-  extract: function() { return extract; },
-  parse: function() { return parse; },
-  parseUrl: function() { return parseUrl; },
-  pick: function() { return pick; },
-  stringify: function() { return stringify; },
-  stringifyUrl: function() { return stringifyUrl; }
-});
-
-;// CONCATENATED MODULE: ./node_modules/decode-uri-component/index.js
-const token = '%[a-f0-9]{2}';
-const singleMatcher = new RegExp('(' + token + ')|([^%]+?)', 'gi');
-const multiMatcher = new RegExp('(' + token + ')+', 'gi');
-
-function decodeComponents(components, split) {
-	try {
-		// Try to decode the entire string first
-		return [decodeURIComponent(components.join(''))];
-	} catch {
-		// Do nothing
-	}
-
-	if (components.length === 1) {
-		return components;
-	}
-
-	split = split || 1;
-
-	// Split the array in 2 parts
-	const left = components.slice(0, split);
-	const right = components.slice(split);
-
-	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
-}
-
-function decode(input) {
-	try {
-		return decodeURIComponent(input);
-	} catch {
-		let tokens = input.match(singleMatcher) || [];
-
-		for (let i = 1; i < tokens.length; i++) {
-			input = decodeComponents(tokens, i).join('');
-
-			tokens = input.match(singleMatcher) || [];
-		}
-
-		return input;
-	}
-}
-
-function customDecodeURIComponent(input) {
-	// Keep track of all the replacements and prefill the map with the `BOM`
-	const replaceMap = {
-		'%FE%FF': '\uFFFD\uFFFD',
-		'%FF%FE': '\uFFFD\uFFFD',
-	};
-
-	let match = multiMatcher.exec(input);
-	while (match) {
-		try {
-			// Decode as big chunks as possible
-			replaceMap[match[0]] = decodeURIComponent(match[0]);
-		} catch {
-			const result = decode(match[0]);
-
-			if (result !== match[0]) {
-				replaceMap[match[0]] = result;
-			}
-		}
-
-		match = multiMatcher.exec(input);
-	}
-
-	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
-	replaceMap['%C2'] = '\uFFFD';
-
-	const entries = Object.keys(replaceMap);
-
-	for (const key of entries) {
-		// Replace all decoded components
-		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
-	}
-
-	return input;
-}
-
-function decodeUriComponent(encodedURI) {
-	if (typeof encodedURI !== 'string') {
-		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
-	}
-
-	try {
-		// Try the built in decoder first
-		return decodeURIComponent(encodedURI);
-	} catch {
-		// Fallback to a more advanced decoder
-		return customDecodeURIComponent(encodedURI);
-	}
-}
-
-;// CONCATENATED MODULE: ./node_modules/split-on-first/index.js
-function splitOnFirst(string, separator) {
-	if (!(typeof string === 'string' && typeof separator === 'string')) {
-		throw new TypeError('Expected the arguments to be of type `string`');
-	}
-
-	if (string === '' || separator === '') {
-		return [];
-	}
-
-	const separatorIndex = string.indexOf(separator);
-
-	if (separatorIndex === -1) {
-		return [];
-	}
-
-	return [
-		string.slice(0, separatorIndex),
-		string.slice(separatorIndex + separator.length)
-	];
-}
-
-;// CONCATENATED MODULE: ./node_modules/filter-obj/index.js
-function includeKeys(object, predicate) {
-	const result = {};
-
-	if (Array.isArray(predicate)) {
-		for (const key of predicate) {
-			const descriptor = Object.getOwnPropertyDescriptor(object, key);
-			if (descriptor?.enumerable) {
-				Object.defineProperty(result, key, descriptor);
-			}
-		}
-	} else {
-		// `Reflect.ownKeys()` is required to retrieve symbol properties
-		for (const key of Reflect.ownKeys(object)) {
-			const descriptor = Object.getOwnPropertyDescriptor(object, key);
-			if (descriptor.enumerable) {
-				const value = object[key];
-				if (predicate(key, value, object)) {
-					Object.defineProperty(result, key, descriptor);
-				}
-			}
-		}
-	}
-
-	return result;
-}
-
-function excludeKeys(object, predicate) {
-	if (Array.isArray(predicate)) {
-		const set = new Set(predicate);
-		return includeKeys(object, key => !set.has(key));
-	}
-
-	return includeKeys(object, (key, value, object) => !predicate(key, value, object));
-}
-
-;// CONCATENATED MODULE: ./node_modules/query-string/base.js
-
-
-
-
-const isNullOrUndefined = value => value === null || value === undefined;
-
-// eslint-disable-next-line unicorn/prefer-code-point
-const strictUriEncode = string => encodeURIComponent(string).replaceAll(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
-
-const encodeFragmentIdentifier = Symbol('encodeFragmentIdentifier');
-
-function encoderForArrayFormat(options) {
-	switch (options.arrayFormat) {
-		case 'index': {
-			return key => (result, value) => {
-				const index = result.length;
-
-				if (
-					value === undefined
-					|| (options.skipNull && value === null)
-					|| (options.skipEmptyString && value === '')
-				) {
-					return result;
-				}
-
-				if (value === null) {
-					return [
-						...result, [encode(key, options), '[', index, ']'].join(''),
-					];
-				}
-
-				return [
-					...result,
-					[encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join(''),
-				];
-			};
-		}
-
-		case 'bracket': {
-			return key => (result, value) => {
-				if (
-					value === undefined
-					|| (options.skipNull && value === null)
-					|| (options.skipEmptyString && value === '')
-				) {
-					return result;
-				}
-
-				if (value === null) {
-					return [
-						...result,
-						[encode(key, options), '[]'].join(''),
-					];
-				}
-
-				return [
-					...result,
-					[encode(key, options), '[]=', encode(value, options)].join(''),
-				];
-			};
-		}
-
-		case 'colon-list-separator': {
-			return key => (result, value) => {
-				if (
-					value === undefined
-					|| (options.skipNull && value === null)
-					|| (options.skipEmptyString && value === '')
-				) {
-					return result;
-				}
-
-				if (value === null) {
-					return [
-						...result,
-						[encode(key, options), ':list='].join(''),
-					];
-				}
-
-				return [
-					...result,
-					[encode(key, options), ':list=', encode(value, options)].join(''),
-				];
-			};
-		}
-
-		case 'comma':
-		case 'separator':
-		case 'bracket-separator': {
-			const keyValueSeparator = options.arrayFormat === 'bracket-separator'
-				? '[]='
-				: '=';
-
-			return key => (result, value) => {
-				if (
-					value === undefined
-					|| (options.skipNull && value === null)
-					|| (options.skipEmptyString && value === '')
-				) {
-					return result;
-				}
-
-				// Translate null to an empty string so that it doesn't serialize as 'null'
-				value = value === null ? '' : value;
-
-				if (result.length === 0) {
-					return [[encode(key, options), keyValueSeparator, encode(value, options)].join('')];
-				}
-
-				return [[result, encode(value, options)].join(options.arrayFormatSeparator)];
-			};
-		}
-
-		default: {
-			return key => (result, value) => {
-				if (
-					value === undefined
-					|| (options.skipNull && value === null)
-					|| (options.skipEmptyString && value === '')
-				) {
-					return result;
-				}
-
-				if (value === null) {
-					return [
-						...result,
-						encode(key, options),
-					];
-				}
-
-				return [
-					...result,
-					[encode(key, options), '=', encode(value, options)].join(''),
-				];
-			};
-		}
-	}
-}
-
-function parserForArrayFormat(options) {
-	let result;
-
-	switch (options.arrayFormat) {
-		case 'index': {
-			return (key, value, accumulator) => {
-				result = /\[(\d*)]$/.exec(key);
-
-				key = key.replace(/\[\d*]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = {};
-				}
-
-				accumulator[key][result[1]] = value;
-			};
-		}
-
-		case 'bracket': {
-			return (key, value, accumulator) => {
-				result = /(\[])$/.exec(key);
-				key = key.replace(/\[]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = [value];
-					return;
-				}
-
-				accumulator[key] = [...accumulator[key], value];
-			};
-		}
-
-		case 'colon-list-separator': {
-			return (key, value, accumulator) => {
-				result = /(:list)$/.exec(key);
-				key = key.replace(/:list$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = [value];
-					return;
-				}
-
-				accumulator[key] = [...accumulator[key], value];
-			};
-		}
-
-		case 'comma':
-		case 'separator': {
-			return (key, value, accumulator) => {
-				const isArray = typeof value === 'string' && value.includes(options.arrayFormatSeparator);
-				const isEncodedArray = (typeof value === 'string' && !isArray && base_decode(value, options).includes(options.arrayFormatSeparator));
-				value = isEncodedArray ? base_decode(value, options) : value;
-				const newValue = isArray || isEncodedArray ? value.split(options.arrayFormatSeparator).map(item => base_decode(item, options)) : (value === null ? value : base_decode(value, options));
-				accumulator[key] = newValue;
-			};
-		}
-
-		case 'bracket-separator': {
-			return (key, value, accumulator) => {
-				const isArray = /(\[])$/.test(key);
-				key = key.replace(/\[]$/, '');
-
-				if (!isArray) {
-					accumulator[key] = value ? base_decode(value, options) : value;
-					return;
-				}
-
-				const arrayValue = value === null
-					? []
-					: value.split(options.arrayFormatSeparator).map(item => base_decode(item, options));
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = arrayValue;
-					return;
-				}
-
-				accumulator[key] = [...accumulator[key], ...arrayValue];
-			};
-		}
-
-		default: {
-			return (key, value, accumulator) => {
-				if (accumulator[key] === undefined) {
-					accumulator[key] = value;
-					return;
-				}
-
-				accumulator[key] = [...[accumulator[key]].flat(), value];
-			};
-		}
-	}
-}
-
-function validateArrayFormatSeparator(value) {
-	if (typeof value !== 'string' || value.length !== 1) {
-		throw new TypeError('arrayFormatSeparator must be single character string');
-	}
-}
-
-function encode(value, options) {
-	if (options.encode) {
-		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
-	}
-
-	return value;
-}
-
-function base_decode(value, options) {
-	if (options.decode) {
-		return decodeUriComponent(value);
-	}
-
-	return value;
-}
-
-function keysSorter(input) {
-	if (Array.isArray(input)) {
-		return input.sort();
-	}
-
-	if (typeof input === 'object') {
-		return keysSorter(Object.keys(input))
-			.sort((a, b) => Number(a) - Number(b))
-			.map(key => input[key]);
-	}
-
-	return input;
-}
-
-function removeHash(input) {
-	const hashStart = input.indexOf('#');
-	if (hashStart !== -1) {
-		input = input.slice(0, hashStart);
-	}
-
-	return input;
-}
-
-function getHash(url) {
-	let hash = '';
-	const hashStart = url.indexOf('#');
-	if (hashStart !== -1) {
-		hash = url.slice(hashStart);
-	}
-
-	return hash;
-}
-
-function parseValue(value, options) {
-	if (options.parseNumbers && !Number.isNaN(Number(value)) && (typeof value === 'string' && value.trim() !== '')) {
-		value = Number(value);
-	} else if (options.parseBooleans && value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
-		value = value.toLowerCase() === 'true';
-	}
-
-	return value;
-}
-
-function extract(input) {
-	input = removeHash(input);
-	const queryStart = input.indexOf('?');
-	if (queryStart === -1) {
-		return '';
-	}
-
-	return input.slice(queryStart + 1);
-}
-
-function parse(query, options) {
-	options = {
-		decode: true,
-		sort: true,
-		arrayFormat: 'none',
-		arrayFormatSeparator: ',',
-		parseNumbers: false,
-		parseBooleans: false,
-		...options,
-	};
-
-	validateArrayFormatSeparator(options.arrayFormatSeparator);
-
-	const formatter = parserForArrayFormat(options);
-
-	// Create an object with no prototype
-	const returnValue = Object.create(null);
-
-	if (typeof query !== 'string') {
-		return returnValue;
-	}
-
-	query = query.trim().replace(/^[?#&]/, '');
-
-	if (!query) {
-		return returnValue;
-	}
-
-	for (const parameter of query.split('&')) {
-		if (parameter === '') {
-			continue;
-		}
-
-		const parameter_ = options.decode ? parameter.replaceAll('+', ' ') : parameter;
-
-		let [key, value] = splitOnFirst(parameter_, '=');
-
-		if (key === undefined) {
-			key = parameter_;
-		}
-
-		// Missing `=` should be `null`:
-		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-		value = value === undefined ? null : (['comma', 'separator', 'bracket-separator'].includes(options.arrayFormat) ? value : base_decode(value, options));
-		formatter(base_decode(key, options), value, returnValue);
-	}
-
-	for (const [key, value] of Object.entries(returnValue)) {
-		if (typeof value === 'object' && value !== null) {
-			for (const [key2, value2] of Object.entries(value)) {
-				value[key2] = parseValue(value2, options);
-			}
-		} else {
-			returnValue[key] = parseValue(value, options);
-		}
-	}
-
-	if (options.sort === false) {
-		return returnValue;
-	}
-
-	// TODO: Remove the use of `reduce`.
-	// eslint-disable-next-line unicorn/no-array-reduce
-	return (options.sort === true ? Object.keys(returnValue).sort() : Object.keys(returnValue).sort(options.sort)).reduce((result, key) => {
-		const value = returnValue[key];
-		result[key] = Boolean(value) && typeof value === 'object' && !Array.isArray(value) ? keysSorter(value) : value;
-		return result;
-	}, Object.create(null));
-}
-
-function stringify(object, options) {
-	if (!object) {
-		return '';
-	}
-
-	options = {
-		encode: true,
-		strict: true,
-		arrayFormat: 'none',
-		arrayFormatSeparator: ',',
-		...options,
-	};
-
-	validateArrayFormatSeparator(options.arrayFormatSeparator);
-
-	const shouldFilter = key => (
-		(options.skipNull && isNullOrUndefined(object[key]))
-		|| (options.skipEmptyString && object[key] === '')
-	);
-
-	const formatter = encoderForArrayFormat(options);
-
-	const objectCopy = {};
-
-	for (const [key, value] of Object.entries(object)) {
-		if (!shouldFilter(key)) {
-			objectCopy[key] = value;
-		}
-	}
-
-	const keys = Object.keys(objectCopy);
-
-	if (options.sort !== false) {
-		keys.sort(options.sort);
-	}
-
-	return keys.map(key => {
-		const value = object[key];
-
-		if (value === undefined) {
-			return '';
-		}
-
-		if (value === null) {
-			return encode(key, options);
-		}
-
-		if (Array.isArray(value)) {
-			if (value.length === 0 && options.arrayFormat === 'bracket-separator') {
-				return encode(key, options) + '[]';
-			}
-
-			return value
-				.reduce(formatter(key), [])
-				.join('&');
-		}
-
-		return encode(key, options) + '=' + encode(value, options);
-	}).filter(x => x.length > 0).join('&');
-}
-
-function parseUrl(url, options) {
-	options = {
-		decode: true,
-		...options,
-	};
-
-	let [url_, hash] = splitOnFirst(url, '#');
-
-	if (url_ === undefined) {
-		url_ = url;
-	}
-
-	return {
-		url: url_?.split('?')?.[0] ?? '',
-		query: parse(extract(url), options),
-		...(options && options.parseFragmentIdentifier && hash ? {fragmentIdentifier: base_decode(hash, options)} : {}),
-	};
-}
-
-function stringifyUrl(object, options) {
-	options = {
-		encode: true,
-		strict: true,
-		[encodeFragmentIdentifier]: true,
-		...options,
-	};
-
-	const url = removeHash(object.url).split('?')[0] || '';
-	const queryFromUrl = extract(object.url);
-
-	const query = {
-		...parse(queryFromUrl, {sort: false}),
-		...object.query,
-	};
-
-	let queryString = stringify(query, options);
-	queryString &&= `?${queryString}`;
-
-	let hash = getHash(object.url);
-	if (typeof object.fragmentIdentifier === 'string') {
-		const urlObjectForFragmentEncode = new URL(url);
-		urlObjectForFragmentEncode.hash = object.fragmentIdentifier;
-		hash = options[encodeFragmentIdentifier] ? urlObjectForFragmentEncode.hash : `#${object.fragmentIdentifier}`;
-	}
-
-	return `${url}${queryString}${hash}`;
-}
-
-function pick(input, filter, options) {
-	options = {
-		parseFragmentIdentifier: true,
-		[encodeFragmentIdentifier]: false,
-		...options,
-	};
-
-	const {url, query, fragmentIdentifier} = parseUrl(input, options);
-
-	return stringifyUrl({
-		url,
-		query: includeKeys(query, filter),
-		fragmentIdentifier,
-	}, options);
-}
-
-function exclude(input, filter, options) {
-	const exclusionFilter = Array.isArray(filter) ? key => !filter.includes(key) : (key, value) => !filter(key, value);
-
-	return pick(input, exclusionFilter, options);
-}
-
-;// CONCATENATED MODULE: ./node_modules/query-string/index.js
-
-
-/* harmony default export */ var query_string = (base_namespaceObject);
 
 
 /***/ })
