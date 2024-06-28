@@ -52297,7 +52297,6 @@ function App() {
     }, [location.pathname]);
     // Получаем telegramID
     react_1.default.useEffect(function () {
-        window.alert(String(webApp.initDataUnsafe.query_id));
         setTimeout(function () {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }, 500);
