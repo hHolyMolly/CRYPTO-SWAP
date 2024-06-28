@@ -52254,42 +52254,6 @@ if (true) {
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -52299,7 +52263,6 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var query_string_1 = __importDefault(__webpack_require__(8798));
 var react_router_dom_1 = __webpack_require__(2648);
 var paths_1 = __importDefault(__webpack_require__(3184));
-var API_1 = __webpack_require__(9309);
 var store_1 = __webpack_require__(2482);
 var auth_1 = __webpack_require__(1692);
 var settings_1 = __webpack_require__(863);
@@ -52320,42 +52283,21 @@ function App() {
     var location = (0, react_router_dom_1.useLocation)();
     var telegramUserId = String(query_string_1.default.parse(location.search).telegramUserId) || webApp.initDataUnsafe.query_id;
     react_1.default.useEffect(function () {
-        if (user === null || user === void 0 ? void 0 : user.tgId) {
-            var url = new URL(window.location.href);
-            url.searchParams.set('telegramUserId', user === null || user === void 0 ? void 0 : user.tgId);
-            window.history.replaceState({}, '', url.toString());
-        }
         if (location.pathname === paths_1.default.Faq || location.pathname === paths_1.default.PartnersTasks) {
             webApp.BackButton.show();
         }
         else {
             webApp.BackButton.hide();
         }
-        function getPosition() {
-            return __awaiter(this, void 0, void 0, function () {
-                var dataPosition;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (!(user === null || user === void 0 ? void 0 : user.tgId))
-                                return [2 /*return*/];
-                            return [4 /*yield*/, API_1.API.get('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
-                        case 1:
-                            dataPosition = (_a.sent()).data;
-                            dispatch((0, auth_1.setUserPosition)(dataPosition.position));
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        }
         if (!isFirstRender.current) {
             if (location.pathname === paths_1.default.Home) {
-                getPosition();
+                dispatch((0, auth_1.fetchGetUserPosition)(user === null || user === void 0 ? void 0 : user.tgId));
             }
         }
     }, [location.pathname]);
     // Получаем telegramID
     react_1.default.useEffect(function () {
+        window.alert(String(webApp.initDataUnsafe.query_id));
         setTimeout(function () {
             dispatch((0, auth_1.fetchGetUser)(telegramUserId));
         }, 500);
@@ -53845,24 +53787,28 @@ var react_1 = __importDefault(__webpack_require__(6540));
 var react_content_loader_1 = __importDefault(__webpack_require__(9432));
 var react_virtualized_1 = __webpack_require__(7661);
 var balanceFunc_1 = __importDefault(__webpack_require__(2408));
-var customTimeout_1 = __importDefault(__webpack_require__(9952));
-var API_1 = __webpack_require__(9309);
 var _store_1 = __webpack_require__(2482);
+var store_1 = __webpack_require__(1427);
 var UI_1 = __webpack_require__(456);
 var Template_1 = __importDefault(__webpack_require__(123));
 var FriendItem_1 = __importDefault(__webpack_require__(7997));
 var LoadingWrapper_1 = __importDefault(__webpack_require__(1142));
 function Friends() {
+    var dispatch = (0, _store_1.useAppDispatch)();
     var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
     }).user;
-    var _a = react_1.default.useState(null), response = _a[0], setResponse = _a[1];
-    var _b = react_1.default.useState('loading'), status = _b[0], setStatus = _b[1];
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
+        var friends = _a.friends;
+        return friends;
+    }), referrals = _a.referrals, status = _a.status;
+    var numberOfReferrals = referrals.numberOfReferrals, referralsInfo = referrals.referralsInfo, myBalance = referrals.myBalance, link = referrals.link;
     var onClickRefLink = function () {
         try {
-            var shareURL = "".concat(response === null || response === void 0 ? void 0 : response.link, "&startapp=asd");
-            var telegramUrl = "https://t.me/share/url?url=".concat(shareURL);
+            var shareText = 'Come on and earn tokens with CrabsTab🦀 Take first-time gift 10k tokens💵';
+            var shareURL = link;
+            var telegramUrl = "https://t.me/share/url?url=".concat(shareURL, "&text=").concat(shareText);
             window.open(telegramUrl, '_blank');
             navigator.clipboard.writeText(shareURL);
         }
@@ -53870,40 +53816,29 @@ function Friends() {
             console.log(err);
         }
     };
-    function getReffers() {
+    function getReferrals() {
         return __awaiter(this, void 0, void 0, function () {
-            var data, err_1;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        setStatus('loading');
-                        return [4 /*yield*/, API_1.API.get('/reffers/' + (user === null || user === void 0 ? void 0 : user.tgId))];
-                    case 1:
-                        data = (_a.sent()).data;
-                        setResponse(data);
-                        return [4 /*yield*/, (0, customTimeout_1.default)(300)];
-                    case 2:
-                        _a.sent();
-                        setStatus('loaded');
-                        return [3 /*break*/, 4];
-                    case 3:
-                        err_1 = _a.sent();
-                        console.log(err_1);
-                        setStatus('error');
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                try {
+                    dispatch((0, store_1.setFriendsStatus)('loading'));
+                    dispatch((0, store_1.fetchGetReferrals)(user === null || user === void 0 ? void 0 : user.tgId));
+                    dispatch((0, store_1.setFriendsStatus)('loaded'));
                 }
+                catch (err) {
+                    console.log(err);
+                    dispatch((0, store_1.setFriendsStatus)('error'));
+                }
+                return [2 /*return*/];
             });
         });
     }
     react_1.default.useEffect(function () {
         if (user === null || user === void 0 ? void 0 : user.tgId) {
-            getReffers();
+            getReferrals();
         }
     }, [user === null || user === void 0 ? void 0 : user.tgId]);
-    var friendsItems = status === 'loaded' ? response === null || response === void 0 ? void 0 : response.referralsInfo : __spreadArray([], Array(5), true);
-    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (response === null || response === void 0 ? void 0 : response.numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[30px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(response === null || response === void 0 ? void 0 : response.myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), friendsItems.length > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n              gap-[8px]\r\n              h-[74px] [@media(min-height:720px)]:h-[148px] [@media(min-height:800px)]:h-[222px] [@media(min-height:868px)]:h-[296px]\r\n              flex flex-col\r\n            ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
+    var friendsItems = status === 'loaded' ? referralsInfo : __spreadArray([], Array(5), true);
+    return ((0, jsx_runtime_1.jsxs)(Template_1.default, { className: "before:h-[290px] after:h-[367px] bg-[url('@assets/img/bg/friends.png')]", children: [(0, jsx_runtime_1.jsx)(UI_1.Title, { children: "Friends" }), (0, jsx_runtime_1.jsxs)("div", { className: "\r\n          mb-[24px]\r\n          p-[12px] w-full\r\n          gap-[4px] flex flex-col\r\n          border border-solid border-[#C2A45699] rounded-[14px] backdrop-blur-[4px]\r\n          text-center\r\n        ", style: { background: 'linear-gradient(90deg, rgba(88, 76, 43, 0.60) 0%, rgba(150, 121, 47, 0.60) 100%)' }, children: [(0, jsx_runtime_1.jsx)("span", { className: "inline-block text-[14px] leading-[1] text-white", children: "Invited" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-flex justify-center font-semibold text-[28px] leading-[1] text-white", children: status === 'loaded' ? (numberOfReferrals) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { className: "mt-[2px]", speed: 2, width: 130, height: 26, viewBox: "0 0 130 26", backgroundColor: "#a89154", foregroundColor: "#dec37c", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "130", height: "26" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[30px] flex flex-col text-center leading-[1] text-white", children: [(0, jsx_runtime_1.jsx)("span", { className: "mb-[8px] inline-block text-[16px]", children: "Earned coins" }), (0, jsx_runtime_1.jsx)("span", { className: "inline-block font-semibold text-[24px]", children: status === 'loaded' ? ((0, balanceFunc_1.default)(myBalance)) : ((0, jsx_runtime_1.jsx)(react_content_loader_1.default, { speed: 2, width: 140, height: 24, viewBox: "0 0 140 24", backgroundColor: "#c4f5ff", foregroundColor: "#fcfeff", children: (0, jsx_runtime_1.jsx)("rect", { x: "0", y: "0", rx: "8", ry: "8", width: "140", height: "24" }) })) })] }), (0, jsx_runtime_1.jsxs)("div", { className: "mb-[40px] px-[50px] w-full flex flex-col items-center", children: [(0, jsx_runtime_1.jsx)(UI_1.Button, { className: "mb-[12px]", onClick: onClickRefLink, children: "SEND INVITE" }), (0, jsx_runtime_1.jsxs)("div", { className: "text-center text-[16px] leading-[1.1] text-white", children: ["Invite your friends to play and get ", (0, jsx_runtime_1.jsx)("span", { className: "font-semibold text-yellow-300", children: "+10,000 coins" }), " for earch active user"] })] }), (friendsItems === null || friendsItems === void 0 ? void 0 : friendsItems.length) > 0 && ((0, jsx_runtime_1.jsxs)("div", { className: "w-full", children: [(0, jsx_runtime_1.jsx)("div", { className: "mb-[14px] text-center font-bold uppercase text-[20px] leading-[1] text-white", children: "Friends list" }), (0, jsx_runtime_1.jsx)("div", { className: "\r\n              gap-[8px]\r\n              h-[74px] [@media(min-height:720px)]:h-[148px] [@media(min-height:800px)]:h-[222px] [@media(min-height:868px)]:h-[296px]\r\n              flex flex-col\r\n            ", children: (0, jsx_runtime_1.jsx)(react_virtualized_1.AutoSizer, { style: { width: '100%', height: '100%' }, children: function (_a) {
                                 var width = _a.width, height = _a.height;
                                 return ((0, jsx_runtime_1.jsx)(react_virtualized_1.List, { width: width, height: height, rowHeight: 74, rowCount: friendsItems.length, rowRenderer: function (_a) {
                                         var key = _a.key, index = _a.index, style = _a.style;
@@ -53917,22 +53852,11 @@ exports["default"] = Friends;
 
 /***/ }),
 
-/***/ 5285:
+/***/ 1427:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -53969,6 +53893,83 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.setFriendsStatus = exports.fetchGetReferrals = void 0;
+var toolkit_1 = __webpack_require__(9976);
+var API_1 = __webpack_require__(9309);
+// Получаем данные о рефераллах
+exports.fetchGetReferrals = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
+    var data, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                if (!telegramUserId)
+                    return [2 /*return*/];
+                return [4 /*yield*/, API_1.API.get('/reffers/' + telegramUserId)];
+            case 1:
+                data = (_a.sent()).data;
+                return [2 /*return*/, data];
+            case 2:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+var initialState = {
+    referrals: {
+        numberOfReferrals: 0,
+        referralsInfo: [],
+        myBalance: 0,
+        link: null,
+    },
+    status: 'loading',
+};
+var friendsSlice = (0, toolkit_1.createSlice)({
+    name: 'friends',
+    initialState: initialState,
+    reducers: {
+        setFriendsStatus: function (state, _a) {
+            var payload = _a.payload;
+            state.status = payload;
+        },
+    },
+    extraReducers: (_a = {},
+        _a[exports.fetchGetReferrals.pending] = function (state) { },
+        _a[exports.fetchGetReferrals.fulfilled] = function (state, _a) {
+            var payload = _a.payload;
+            if (payload) {
+                state.referrals = payload;
+            }
+        },
+        _a[exports.fetchGetReferrals.rejected] = function (state) { },
+        _a),
+});
+exports.setFriendsStatus = friendsSlice.actions.setFriendsStatus;
+exports["default"] = friendsSlice.reducer;
+
+
+/***/ }),
+
+/***/ 5285:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
         if (ar || !(i in from)) {
@@ -53989,7 +53990,6 @@ var classnames_1 = __importDefault(__webpack_require__(6942));
 var toolkit_1 = __webpack_require__(9976);
 var lodash_1 = __importDefault(__webpack_require__(2543));
 var howler_1 = __webpack_require__(4196);
-var API_1 = __webpack_require__(9309);
 var sound_1 = __webpack_require__(837);
 var ParticleItem_1 = __importDefault(__webpack_require__(8461));
 var _store_1 = __webpack_require__(2482);
@@ -53997,35 +53997,43 @@ var auth_1 = __webpack_require__(1692);
 var settings_1 = __webpack_require__(863);
 var Clicker = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
-    var _a = (0, _store_1.useAppSelector)(function (_a) {
+    var user = (0, _store_1.useAppSelector)(function (_a) {
         var auth = _a.auth;
         return auth;
-    }), user = _a.user, is_volume = _a.is_volume;
-    var clickerTimeout = (0, _store_1.useAppSelector)(function (_a) {
+    }).user;
+    var _a = (0, _store_1.useAppSelector)(function (_a) {
         var settings = _a.settings;
         return settings;
-    }).clickerTimeout;
+    }), clickerTimeout = _a.clickerTimeout, is_volume = _a.is_volume;
     var pushFrames = 19; // Количество фреймов PUSH в папке
-    var pushTimeoutRef = react_2.default.useRef(null);
-    var clickTimeoutRef = react_2.default.useRef(null);
-    var _b = react_2.default.useState(false), crabAnimate = _b[0], setCrabAnimate = _b[1]; // Анимация краба?
-    var _c = react_2.default.useState(0), pushFrame = _c[0], setPushFrame = _c[1]; // Актуальный кадр PUSH анимации
-    var _d = react_2.default.useState([]), particles = _d[0], setParticles = _d[1];
-    var _e = react_2.default.useState(false), toggleGif = _e[0], setToggleGif = _e[1];
-    var _f = react_2.default.useState(false), toggleAudio = _f[0], setToggleAudio = _f[1];
+    var animateTimeoutRef = react_2.default.useRef(null);
+    var tapTimeoutRef = react_2.default.useRef(null);
+    var _b = react_2.default.useState({
+        active: false, // Включена анимация?
+        pushFrame: 0, // Активный кадр анимации
+        timeout: false, // Таймаут на удаление анимации
+    }), animateState = _b[0], setAnimateState = _b[1];
+    var _c = react_2.default.useState(1), tapsAmount = _c[0], setTapsAmount = _c[1]; // Сохраняем тапы
+    var _d = react_2.default.useState([]), particles = _d[0], setParticles = _d[1]; // Массив вылетающих цифр
+    var _e = react_2.default.useState(false), toggleAudio = _e[0], setToggleAudio = _e[1]; // Таймер на удаление аудио
     var durationAnimation = 200; // Время действия звука при тапе
     var durationAudio = 100; // Время действия звука при тапе
     // Тапаем по крабу
-    var onTouchStartHandler = function (e) {
-        if (!toggleGif) {
-            setToggleGif(true);
-            setCrabAnimate(true);
-            setPushFrame(0);
-            if (clickTimeoutRef.current) {
-                clearTimeout(clickTimeoutRef.current);
+    var touchCrab = function (e) {
+        setTapsAmount(function (prev) { return prev + 1; });
+        dispatch((0, auth_1.setUpgradeBalance)(user === null || user === void 0 ? void 0 : user.spatulaLevel));
+        dispatch((0, auth_1.setUpgradeEnergy)(user === null || user === void 0 ? void 0 : user.spatulaLevel));
+        if (!animateState.timeout) {
+            setAnimateState({
+                active: true,
+                pushFrame: 0,
+                timeout: true,
+            });
+            if (tapTimeoutRef.current) {
+                clearTimeout(tapTimeoutRef.current);
             }
-            clickTimeoutRef.current = setTimeout(function () {
-                setToggleGif(false);
+            tapTimeoutRef.current = setTimeout(function () {
+                setAnimateState(function (prev) { return (__assign(__assign({}, prev), { timeout: false })); });
             }, durationAnimation);
         }
         if (is_volume) {
@@ -54059,65 +54067,49 @@ var Clicker = function () {
             dispatch((0, settings_1.setTimeoutClicker)(10));
             return;
         }
-        try {
-            dispatch((0, auth_1.fetchPostTap)(user === null || user === void 0 ? void 0 : user.tgId));
-        }
-        catch (err) {
-            console.log(err);
-        }
     };
-    // Обновляем позицию после тапа
-    var clickerDebounce = react_2.default.useCallback(lodash_1.default.debounce(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var data, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, API_1.API.get('/position/' + (user === null || user === void 0 ? void 0 : user.tgId))];
-                case 1:
-                    data = (_a.sent()).data;
-                    if (data) {
-                        dispatch((0, auth_1.setUserPosition)(data.position));
-                    }
-                    return [3 /*break*/, 3];
-                case 2:
-                    err_1 = _a.sent();
-                    console.log(err_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    }); }, 800), [user === null || user === void 0 ? void 0 : user.tgId]);
-    var clicker = function (e) {
-        onTouchStartHandler(e);
-        clickerDebounce();
+    // Отправляем клики + обновляем позицию после тапа
+    var sendRequest = react_2.default.useCallback(function (taps, tgId) {
+        dispatch((0, auth_1.fetchPostTap)({
+            count: taps,
+            telegramUserId: tgId,
+        }));
+        dispatch((0, auth_1.fetchGetUserPosition)(tgId));
+        setTapsAmount(1); // Обнуляем тапы в хранилищи
+    }, []);
+    var debouncedSendTaps = react_2.default.useCallback(lodash_1.default.debounce(function (taps, tgId) {
+        sendRequest(taps, tgId);
+    }, 1000), [sendRequest]);
+    var onTouchHandler = function (e) {
+        touchCrab(e);
+        debouncedSendTaps(tapsAmount, user === null || user === void 0 ? void 0 : user.tgId);
     };
     var removeParticle = function (ID) {
         setParticles(function (prev) { return prev.filter(function (particle) { return particle.ID !== ID; }); });
     };
     react_2.default.useEffect(function () {
-        if (!crabAnimate) {
+        if (!animateState.active) {
             return;
         }
-        if (crabAnimate) {
-            if (pushFrame === pushFrames) {
-                clearTimeout(pushTimeoutRef.current);
-                setPushFrame(0);
-                setCrabAnimate(false);
+        if (animateState.active) {
+            if (animateState.pushFrame === pushFrames) {
+                clearTimeout(animateTimeoutRef.current);
+                setAnimateState(function (prev) { return (__assign(__assign({}, prev), { pushFrame: 0 })); });
+                setAnimateState(function (prev) { return (__assign(__assign({}, prev), { active: false })); });
                 return;
             }
-            if (pushFrames > pushFrame) {
-                clearTimeout(pushTimeoutRef.current);
-                pushTimeoutRef.current = setTimeout(function () {
-                    setPushFrame(pushFrame + 1);
+            if (pushFrames > animateState.pushFrame) {
+                clearTimeout(animateTimeoutRef.current);
+                animateTimeoutRef.current = setTimeout(function () {
+                    setAnimateState(function (prev) { return (__assign(__assign({}, prev), { pushFrame: prev.pushFrame + 1 })); });
                 }, 30);
             }
             else {
-                setPushFrame(0);
+                setAnimateState(function (prev) { return (__assign(__assign({}, prev), { pushFrame: 0 })); });
             }
         }
-    }, [crabAnimate, pushFrame]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-full flex flex-col flex-auto justify-center items-center relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2070)("./".concat(crabAnimate ? "push/".concat(pushFrame, ".png") : 'idle.gif')), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: clicker }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? '' : '_visible'), children: (0, jsx_runtime_1.jsx)("span", { className: clickerTimeout === 0 ? 'hidden' : 'block', children: clickerTimeout }) })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
+    }, [animateState.active, animateState.pushFrame]);
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "w-full flex flex-col flex-auto justify-center items-center relative", children: [(0, jsx_runtime_1.jsxs)("div", { className: (0, classnames_1.default)('crab-tap-clicker', { 'pointer-events-none': clickerTimeout !== 0 }), children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(2070)("./".concat(animateState.active ? "push/".concat(animateState.pushFrame, ".png") : 'idle.gif')), alt: "Crabs" }), (0, jsx_runtime_1.jsx)("div", { className: "crab-tap-area", onTouchStart: onTouchHandler }), (0, jsx_runtime_1.jsx)("div", { className: (0, classnames_1.default)('tap-timer-delay', clickerTimeout === 0 ? '' : '_visible'), children: (0, jsx_runtime_1.jsx)("span", { className: clickerTimeout === 0 ? 'hidden' : 'block', children: clickerTimeout }) })] }), (0, jsx_runtime_1.jsx)("ul", { className: "clicker-particles", children: particles === null || particles === void 0 ? void 0 : particles.map(function (particle) { return ((0, react_1.createElement)(ParticleItem_1.default, __assign({}, particle, { key: "particle".concat(particle.ID), removeParticle: removeParticle }))); }) })] }));
 };
 exports["default"] = Clicker;
 
@@ -54162,16 +54154,16 @@ exports["default"] = react_1.default.memo(ParticleItem);
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var jsx_runtime_1 = __webpack_require__(2467);
 var _store_1 = __webpack_require__(2482);
-var auth_1 = __webpack_require__(1692);
+var settings_1 = __webpack_require__(863);
 var Volume = function () {
     var dispatch = (0, _store_1.useAppDispatch)();
     var is_volume = (0, _store_1.useAppSelector)(function (_a) {
-        var auth = _a.auth;
-        return auth;
+        var settings = _a.settings;
+        return settings;
     }).is_volume;
     // Включаем/отключаем звук
     var onClickVolume = function () {
-        dispatch((0, auth_1.setVolume)(!is_volume));
+        dispatch((0, settings_1.setVolume)(!is_volume));
     };
     return ((0, jsx_runtime_1.jsxs)("button", { className: "volume-button", onClick: onClickVolume, type: "button", children: [(0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7774), style: { display: is_volume ? 'block' : 'none' }, width: 26, height: 24, alt: "Volume" }), (0, jsx_runtime_1.jsx)("img", { src: __webpack_require__(7151), style: { display: is_volume ? 'none' : 'block' }, width: 21, height: 24, alt: "Volume" })] }));
 };
@@ -54533,10 +54525,12 @@ var react_redux_1 = __webpack_require__(9733);
 var toolkit_1 = __webpack_require__(9976);
 var auth_1 = __importDefault(__webpack_require__(1692));
 var settings_1 = __importDefault(__webpack_require__(863));
+var store_1 = __importDefault(__webpack_require__(1427));
 exports.store = (0, toolkit_1.configureStore)({
     reducer: {
         auth: auth_1.default,
         settings: settings_1.default,
+        friends: store_1.default,
     },
 });
 exports.useAppDispatch = react_redux_1.useDispatch;
@@ -54599,7 +54593,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setUserPosition = exports.setUpgradeCost = exports.setIncrementEnergy = exports.setVolume = exports.fetchPostTap = exports.fetchGetUser = void 0;
+exports.setUpgradeEnergy = exports.setUpgradeBalance = exports.setUpgradeCost = exports.setIncrementEnergy = exports.initialState = exports.fetchPostTap = exports.fetchGetUserPosition = exports.fetchGetUser = void 0;
 var toolkit_1 = __webpack_require__(9976);
 var API_1 = __webpack_require__(9309);
 // Отправляем запрос на бек с получением пользователя
@@ -54626,8 +54620,8 @@ exports.fetchGetUser = (0, toolkit_1.createAsyncThunk)('fetchGetUser', function 
         }
     });
 }); });
-// Отправляем запрос на бек с тапом
-exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
+// Отправляем запрос на получение позиции пользователя
+exports.fetchGetUserPosition = (0, toolkit_1.createAsyncThunk)('fetchGetUserPosition', function (telegramUserId) { return __awaiter(void 0, void 0, void 0, function () {
     var data, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -54635,9 +54629,7 @@ exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function 
                 _a.trys.push([0, 2, , 3]);
                 if (!telegramUserId)
                     return [2 /*return*/];
-                return [4 /*yield*/, API_1.API.post('/tap', {
-                        tgId: telegramUserId,
-                    })];
+                return [4 /*yield*/, API_1.API.get('/position/' + telegramUserId)];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];
@@ -54649,23 +54641,39 @@ exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function 
         }
     });
 }); });
-// Получаем с локального хранилища состояние по звуку
-var volumeLocal = JSON.parse(window.localStorage.getItem('volume'));
-var initialState = {
+// Отправляем запрос на бек с тапом
+exports.fetchPostTap = (0, toolkit_1.createAsyncThunk)('fetchPostTap', function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
+    var data, err_3;
+    var count = _b.count, telegramUserId = _b.telegramUserId;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _c.trys.push([0, 2, , 3]);
+                if (!telegramUserId)
+                    return [2 /*return*/];
+                return [4 /*yield*/, API_1.API.post('/tap', {
+                        tgId: telegramUserId,
+                        tapsAmount: count,
+                    })];
+            case 1:
+                data = (_c.sent()).data;
+                return [2 /*return*/, data];
+            case 2:
+                err_3 = _c.sent();
+                console.log(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+exports.initialState = {
     user: null,
     userStatus: 'loading',
-    is_volume: volumeLocal !== null ? volumeLocal : true,
 };
 var authSlice = (0, toolkit_1.createSlice)({
     name: 'auth',
-    initialState: initialState,
+    initialState: exports.initialState,
     reducers: {
-        // Включаем/отключаем звук в приложении
-        setVolume: function (state, _a) {
-            var payload = _a.payload;
-            state.is_volume = payload;
-            window.localStorage.setItem('volume', String(payload));
-        },
         // Автоматическое восстановление энергии
         setIncrementEnergy: function (state) {
             var _a;
@@ -54680,11 +54688,13 @@ var authSlice = (0, toolkit_1.createSlice)({
                 state.user = __assign(__assign({}, state.user), payload);
             }
         },
-        setUserPosition: function (state, _a) {
+        setUpgradeBalance: function (state, _a) {
             var payload = _a.payload;
-            if (payload) {
-                state.user.position = payload;
-            }
+            state.user.balance = state.user.balance + payload;
+        },
+        setUpgradeEnergy: function (state, _a) {
+            var payload = _a.payload;
+            state.user.burgerEnergy = state.user.burgerEnergy - payload;
         },
     },
     extraReducers: (_a = {},
@@ -54700,14 +54710,28 @@ var authSlice = (0, toolkit_1.createSlice)({
             }
         },
         _a[exports.fetchGetUser.rejected] = function (state) { },
+        // Получаем позицию пользователя
+        _a[exports.fetchGetUserPosition.pending] = function (state) { },
+        _a[exports.fetchGetUserPosition.fulfilled] = function (state, _a) {
+            var payload = _a.payload;
+            if (payload.position) {
+                state.user.position = payload.position;
+            }
+            else {
+                state.userStatus = 'error';
+            }
+        },
+        _a[exports.fetchGetUserPosition.rejected] = function (state) { },
         // Кликер
+        _a[exports.fetchPostTap.pending] = function (state) { },
         _a[exports.fetchPostTap.fulfilled] = function (state, _a) {
             var payload = _a.payload;
             state.user = __assign(__assign({}, state.user), payload);
         },
+        _a[exports.fetchPostTap.rejected] = function (state) { },
         _a),
 });
-exports.setVolume = (_b = authSlice.actions, _b.setVolume), exports.setIncrementEnergy = _b.setIncrementEnergy, exports.setUpgradeCost = _b.setUpgradeCost, exports.setUserPosition = _b.setUserPosition;
+exports.setIncrementEnergy = (_b = authSlice.actions, _b.setIncrementEnergy), exports.setUpgradeCost = _b.setUpgradeCost, exports.setUpgradeBalance = _b.setUpgradeBalance, exports.setUpgradeEnergy = _b.setUpgradeEnergy;
 exports["default"] = authSlice.reducer;
 
 
@@ -54720,12 +54744,15 @@ exports["default"] = authSlice.reducer;
 
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setTimeoutClicker = exports.setPreloaderStatus = void 0;
+exports.setTimeoutClicker = exports.setVolume = exports.setPreloaderStatus = void 0;
 var toolkit_1 = __webpack_require__(9976);
+// Получаем с локального хранилища состояние по звуку
+var volumeLocal = JSON.parse(window.localStorage.getItem('volume'));
 // Получаем с локального хранилища состояние по звуку
 var initialState = {
     preloaderStatus: 'loading',
     clickerTimeout: 0,
+    is_volume: volumeLocal !== null ? volumeLocal : true,
 };
 var settingsSlice = (0, toolkit_1.createSlice)({
     name: 'auth',
@@ -54735,6 +54762,12 @@ var settingsSlice = (0, toolkit_1.createSlice)({
             var payload = _a.payload;
             state.preloaderStatus = payload;
         },
+        // Включаем/отключаем звук в приложении
+        setVolume: function (state, _a) {
+            var payload = _a.payload;
+            state.is_volume = payload;
+            window.localStorage.setItem('volume', String(payload));
+        },
         // Добавляем таймаут для кликера, когда энергия на нуле
         setTimeoutClicker: function (state, _a) {
             var payload = _a.payload;
@@ -54743,7 +54776,7 @@ var settingsSlice = (0, toolkit_1.createSlice)({
     },
     extraReducers: {},
 });
-exports.setPreloaderStatus = (_a = settingsSlice.actions, _a.setPreloaderStatus), exports.setTimeoutClicker = _a.setTimeoutClicker;
+exports.setPreloaderStatus = (_a = settingsSlice.actions, _a.setPreloaderStatus), exports.setVolume = _a.setVolume, exports.setTimeoutClicker = _a.setTimeoutClicker;
 exports["default"] = settingsSlice.reducer;
 
 
